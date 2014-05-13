@@ -1,0 +1,8 @@
+[DefCore]
+id=Icon_Dummy
+Version=5,4,1
+Category=C4D_StaticBack
+Picture=0,0,32,32
+Width=1
+Height=1
+Offset=0,0

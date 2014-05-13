@@ -1,0 +1,2 @@
+MsgBuy=Kaufen
+MsgSell=Verkaufen

@@ -1,0 +1,2 @@
+Name=Zoom limit
+Description=Limits the zoom factor to a limit specified by the scenario.

@@ -1,0 +1,15 @@
+[DefCore]
+id=Conkit
+Version=5,4,1
+Category=C4D_Object
+Width=12
+Height=6
+Offset=-6,-3
+Vertices=4
+VertexX=-5,-5,5,5
+VertexY=-3,-3,2,2
+VertexFriction=80,80,80,80
+Value=15
+Mass=15
+Components=Wood=2;Metal=1;
+Picture=0,32,80,80

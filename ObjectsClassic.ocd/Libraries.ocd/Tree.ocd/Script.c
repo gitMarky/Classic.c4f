@@ -1,0 +1,235 @@
+/*
+ * Baumsteuerung
+ *
+ * Author: Clonk Rage
+ */
+
+#include Library_Plant
+#include Library_Tree
+
+local MotionThreshold;
+local MotionOffset;
+
+private func ForegroundFrequency() { return 10;}
+private func RootDepth(){ return 3; }
+private func SeedArea() { return 400; }
+private func TreeStrength() { return 150; }
+private func MaxDamage()
+{
+	if(!this)
+		return TreeStrength();
+	else
+		return TreeStrength() * Max(GetCon(), 30)/100;
+}
+
+/* Initialisierung */
+
+protected func Construction()
+{
+	MotionThreshold = Random(10);
+
+	if (SetAction("Initialize"))
+	{
+		SetDir(Random(2));
+	}
+
+	ScheduleCall(this, "StartAnimation", Random(50));
+
+	if (!Random(ForegroundFrequency()))
+		ScheduleCall(this, "PlaceVegetationForeground", 5, 0, this);
+
+
+	_inherited(...);
+}
+
+protected func RootSurface()
+{
+	_inherited(...);
+
+	if (HasCNAT(CNAT_Bottom))
+	{
+		var limit_up = 20;
+		while ((GetContact(-1) & CNAT_Bottom) && limit_up-- > 0)
+				SetPosition(GetX(), GetY()-1);
+
+		if (!(GetContact(-1) & CNAT_Bottom)) SetPosition(GetX(),GetY()+RootDepth()); // try make the plant stuck
+	}
+}
+  
+protected func StartAnimation()
+{
+		SetAction("Still");
+}
+
+/* Movement from wind (Wind) */
+  
+private func Still()
+{
+  if (Abs(GetWind()) > 49 + MotionThreshold) SetAction("Breeze");
+}
+
+private func Breeze()
+{
+  if (Abs(GetWind()) < 50 + MotionThreshold) SetAction("Still");
+}
+
+   
+/* Kontext */
+
+public func ContextChop(pClonk)
+{
+  //[$TxtChop$|Image=CXCP|Condition=IsStanding]
+  pClonk -> AddCommand("Chop", this);
+  return true;
+}
+
+protected func Damage()
+{
+    // Damaged dead trees should rot...
+    if (IsDeadTree()
+    && !GetEffect("IntTreeDecay", this)
+    && GetCon() < 90
+    && this.Touchable != 0)
+        AddEffect("IntTreeDecay", this, 1, 51, this);
+
+    if(!Random(3)) CastLeafParticles();
+
+  	_inherited(...);
+}
+
+protected func Hit3(int x, int y)
+{
+	CastLeafParticles();
+
+	_inherited(...);
+}
+
+
+public func CastLeafParticles()
+{
+	if (OnFire()) return;
+
+	var particles = GetLeafParticles();
+	if(!IsDeadTree() && particles != nil)
+	{
+		var id = GetID();
+		var amount = Random(GetCon()/20) + 1;
+
+		for(var i=0; i<amount; i++)
+		{
+			var x = GetDefOffset(0) + Random(GetDefWidth()-20) +10;
+			var y = GetDefOffset(1) + Random(GetDefHeight()-GetDefFireTop()-20) +10;
+
+			CreateParticle("Leaves", x, y, 0, 1, RandomX(150, 200), particles, 1);
+		}
+	}
+}
+
+protected func ChopDown()
+{
+	SetAction("Chopped");
+	ScheduleCall(this, "CastLeafParticles", 5, 2);
+
+	_inherited();
+}
+
+protected func Incineration()
+{
+	SetGraphics("Burned");
+	SetAction("Chopped");
+	_inherited();
+}
+
+func FxTreeFallTimer(object target, proplist effect, int time)
+{
+	// this makes sure that the tree falls properly,
+	// does not get stuck in an upright position
+	if(!effect.stopForcedFall)
+	{
+		var contact = GetContact(-1);
+
+		// if you hit the landscape somewhere else, then stop forced falling
+		// or if you have a 'believable' rotation already, or if it just took to long
+		 if ((contact & CNAT_Top || contact & CNAT_Center) || !Inside(GetR(), -70, 70) || time > 50)
+			 effect.stopForcedFall = true;
+
+		if ((contact & CNAT_Bottom))
+		{
+			if (!Random(10))
+				SetPosition(GetX(),GetY()-2);
+			else
+				SetPosition(GetX(),GetY()-1);
+
+			SetXDir(RandomX(-3,3));
+		}
+	}
+
+	return _inherited(target, effect, time);
+}
+
+private func GetLeafParticles()
+{
+	return Particles_Colored(Particles_Leaves(), RGB(64,150,64), RGB(0,110,0) );
+}
+
+
+protected func FxIntTreeDecayTimer(object target, proplist effect, int time)
+{
+	if (!target->~IsDeadTree() || target->GetCon() >= 90)
+		return FX_Execute_Kill;
+
+	target->DoCon(-1);
+	return FX_OK;
+}
+
+public func IsDeadTree() { return false; } // Überladen von toten Bäumen
+
+local ActMap = {
+Initialize = {
+		Prototype = Action,
+		Name = "Initialize",
+		Directions = 2,
+		FlipDir = 1,
+		Length = 1,
+		Delay = 60,
+		FacetBase = 1,
+		NextAction = "Still",
+},
+
+Still = {
+		Prototype = Action,
+		Name = "Still",
+		Directions=2,
+		FlipDir=1,
+		FacetBase=0,
+		NextAction="Still",
+		StartCall="Still",
+},
+
+Breeze = {
+		Prototype = Action,
+		Name="Breeze",
+		Directions=2,
+		FlipDir=1,
+		FacetBase=0,
+		NextAction="Breeze",
+		StartCall="Breeze",
+},
+
+Chopped = {
+		Prototype = Action,
+		Name = "Chopped",
+		Directions = 2,
+		FlipDir = 1,
+		Length = 1,
+		Delay = 0,
+		FacetBase = 1,
+		NextAction = "Hold",
+},
+};
+
+local Name = "$Name$";
+local Description = "$Description";
+local ContactIncinerate=2;
+local BlastIncinerate=10;
+

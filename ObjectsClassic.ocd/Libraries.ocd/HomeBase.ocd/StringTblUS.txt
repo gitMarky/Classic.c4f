@@ -1,0 +1,2 @@
+MsgBuy=Buy
+MsgSell=Sell
