@@ -11,8 +11,8 @@
 #include Library_DoorControl
 
 
-local BlastIncinerate = 100;
-local HitPoints = 70;
+local BlastIncinerate = 45;
+local HitPoints = 45;
 
 
 local ActMap = {
