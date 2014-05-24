@@ -1,0 +1,7 @@
+This is an attempt to recreate the Clonk Rage game by Redwolf Design (http://www.clonk.de) in the OpenClonk engine. 'Clonk' is a registered trademark of Matthes Bender.
+
+According to the Matthes Bender, Clonk game content is available under the following license. This applies to graphics, audio data, scripting, and text found in the game release packages (usually packed inside c4f, c4g, and c4d group files).
+
+Creative Commons Attribution-NonCommercial (CC BY-NC)
+http://creativecommons.org/licenses/by-nc/4.0/
+
