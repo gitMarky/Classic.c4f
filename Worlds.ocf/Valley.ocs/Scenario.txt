@@ -6,7 +6,7 @@ Difficulty=5
 MaxPlayer=2
 
 [Definitions]
-Definition2=Classic.ocf/ObjectsClassic.ocd
+Definition2=Classic.ocf/Classic.ocd
 
 [Game]
 Rules=Rule_TeamAccount=1;Rule_ZoomLimit=1;Rule_NoPowerNeed=1;Rule_StartingEquipment=1
