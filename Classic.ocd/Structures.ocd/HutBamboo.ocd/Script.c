@@ -1,5 +1,8 @@
 /*-- Bambushütte --*/
 
+#include Library_Structure
+#include Library_Ownable
+#include Library_HomeBase
 #include Library_DoorControl
 
 protected func SoundOpenDoor() { return(1); }
@@ -52,6 +55,22 @@ DoorOpen = {
 	NextAction = "CloseDoor",
 	StartCall = "OpenEntrance",
 	EndCall = "CloseEntrance",
+},
+
+CloseDoor = {
+	Prototype = Action,
+	Name = "CloseDoor",
+	Length = 10,
+	Reverse = 1,
+	Delay = 1,
+	X = 0,
+	Y = 43,
+	Wdt = 11,
+	Hgt = 17,
+	OffX = 20,
+	OffY = 26,
+	FacetBase = 1,
+	NextAction = "Idle",
 },
 
 };

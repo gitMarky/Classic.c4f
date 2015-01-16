@@ -1,0 +1,3 @@
+Name=Verbrannte Burg
+Description=Kann auf ebenem Untergrund wieder aufgebaut werden.
+

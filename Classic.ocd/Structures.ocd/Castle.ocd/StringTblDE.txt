@@ -1,0 +1,3 @@
+Name=Burg
+Description=Eine groﬂe und sichere Heimatbasis mit Aufstiegsturm, um Fahrzeuge auf die Plattform zu schaffen.
+

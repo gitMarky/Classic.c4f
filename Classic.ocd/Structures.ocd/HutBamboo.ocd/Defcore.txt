@@ -11,7 +11,7 @@ Components=Wood=3
 Picture=0,0,48,43
 Vertices=4
 VertexX=-10,14,-16,16
-VertexY=-19,-14,21,21
+VertexY=-18,-14,21,21
 VertexFriction=50,50,50,50
 Entrance=-9,3,19,19
 Exclusive=1
