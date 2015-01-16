@@ -51,7 +51,7 @@ public func FxIntBasementHandlerStart(object target, proplist effect, int tempor
 
 	if(!effect.basement)
 	{
-		effect.basement = target->CreateObject(basementID, 0, -1, target->GetOwner());
+		effect.basement = target->CreateObjectAbove(basementID, 0, -1, target->GetOwner());
 		effect.basement -> SetPosition(effect.basement->GetX(), target->GetDefBottom()-effect.basement->GetDefOffset(1));
 		effect.basement -> MoveOutClonks();
 		effect.basement -> SetCategory(C4D_StaticBack);
