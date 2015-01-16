@@ -11,9 +11,9 @@ global func GetScnearioZoomPrecision(){ return 1;}
 
 protected func InitializePlayer(int player)
 {
-	SetPlayerZoomByZoomFactor(player, GetScenarioZoomMax(), PLRZOOM_LimitMax, GetScnearioZoomPrecision());
-	SetPlayerZoomByZoomFactor(player, GetScenarioZoomMin(), PLRZOOM_LimitMin, GetScnearioZoomPrecision());
-	SetPlayerZoomByZoomFactor(player, GetScenarioZoomMin(), PLRZOOM_Direct, GetScnearioZoomPrecision());
+	SetPlayerZoom(player, GetScenarioZoomMax(), GetScnearioZoomPrecision(), PLRZOOM_LimitMax);
+	SetPlayerZoom(player, GetScenarioZoomMin(), GetScnearioZoomPrecision(), PLRZOOM_LimitMin);
+	SetPlayerZoom(player, GetScenarioZoomMin(), GetScnearioZoomPrecision(), PLRZOOM_Direct);
 }
 
 global func SetPlayerZoomByZoomFactor(int player, int zoom, int flags, int precision)

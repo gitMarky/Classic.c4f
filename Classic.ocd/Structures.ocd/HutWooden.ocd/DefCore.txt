@@ -15,6 +15,5 @@ Components=Wood=4;Rock=1;
 Entrance=-18,7,16,17
 Exclusive=1
 Construction=1
-ContainBlast=1
 IncompleteActivity=1
 Float=1

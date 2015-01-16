@@ -22,7 +22,7 @@ func Initialize()
 
 	SetTime(Time(17));
 
-	var bird = CreateObject(Bird, LandscapeWidth()/2, 100, -1);
+	//var bird = CreateObject(Bird, LandscapeWidth()/2, 100, -1);
 
 	return true;
 }

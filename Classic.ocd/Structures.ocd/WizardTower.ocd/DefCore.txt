@@ -15,4 +15,3 @@ Components=Rock=4;Wood=2;Metal=2;
 Entrance=-9,21,16,20
 Exclusive=1
 Construction=1
-ContainBlast=1

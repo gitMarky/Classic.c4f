@@ -156,7 +156,7 @@ private func FxIntAnimalActivityShelter( object target, proplist effect)
  	    	nest_x = BoundBy( nest_x, Abs(BirdNest->GetDefOffset()) + 5, LandscapeWidth() - BirdNest->GetDefWidth() - BirdNest->GetDefOffset());
 
 			SetCommand( "Call", this, pTree, 0, 0, "BirdStartBuildNest");
-			AddCommand( "MoveTo", 0, nest_x, nest_y);
+			AddCommand( "MoveTo", nil, nest_x, nest_y);
  	    }
 
 	    return;
@@ -522,13 +522,13 @@ private func BirdFlyToNest(proplist effect)
 	if(effect.shelter->GetCon() < 100)
 	{
 		// continue building the nest
-		SetCommand("Call", this, 0, 0, 0, "BirdPrepareBuildNest");
+		SetCommand("Call", this, 0, 0, nil, "BirdPrepareBuildNest");
 		AddCommand("MoveTo", effect.shelter);
 	}
 	else
 	{
 		// Fly to the nest and enter it
-		SetCommand("Call", this, 0, 0, 0, "BirdEnterNest");
+		SetCommand("Call", this, 0, 0, nil, "BirdEnterNest");
 		AddCommand("MoveTo", effect.shelter);
 	}
 }
@@ -555,7 +555,7 @@ public func AvoidHittingLandscape()
 	var d_down_dir = 0;
 
 	var tolerance_y = 20;
-	var ydir_max = 10;
+	//var ydir_max = 10;
 	var ydir_change = 1;
 
 	var dx = GetXDir()*15;

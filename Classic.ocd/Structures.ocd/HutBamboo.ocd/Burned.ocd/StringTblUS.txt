@@ -1,0 +1,3 @@
+Name=Burned hut
+Description=Can be rebuilt on level ground.
+

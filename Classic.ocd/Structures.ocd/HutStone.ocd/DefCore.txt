@@ -1,5 +1,5 @@
 [DefCore]
-Version=5,4,1
+Version=6,0
 id=ClassicHutStone
 Category=C4D_Structure
 Width=60
@@ -16,4 +16,3 @@ Picture=0,0,60,50
 Entrance=2,4,17,21
 Exclusive=1
 Construction=1
-ContainBlast=1

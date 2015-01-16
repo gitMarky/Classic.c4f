@@ -7,4 +7,5 @@
 #include ClassicHutWooden
 
 local BlastIncinerate = 75;
+local ContainBlast = true;
 local HitPoints = 75;

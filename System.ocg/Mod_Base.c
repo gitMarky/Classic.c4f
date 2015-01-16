@@ -93,7 +93,7 @@ func DoSell(object pObj, int iPlr, bool bRight, object pClonk, bool stopAfterCas
 	DoWealth(iPlr, GetSellValue(pObj));
 	Sound("Cash"); //, 0, 100, iPlr+1); // TODO: get sound
 	if(pObj.Rebuy)
-		DoBaseMaterial(pObj->GetID(), 1);
+		DoBaseMaterial(iPlr, pObj->GetID(), 1);
 	// And remove the object
 	pObj->RemoveObject();
 	if (stopAfterCash) return; // no infinite loops with contents in contents and so on

@@ -19,6 +19,7 @@ func Definition(def)
 
 
 local BlastIncinerate = 100;
+local ContainBlast = true;
 local HitPoints = 70;
 
 

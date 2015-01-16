@@ -14,7 +14,7 @@ public func OnMouseOverItem(object menu, object item, object dragged)
 	if (!item) return;
 
 	var layer_selection = 4;
-	var layer_redraw = 5;
+	//var layer_redraw = 5;
 
 	// red tint for the selected object
 	//item->SetGraphics(nil,item->GetSymbol()->GetID(),layer_selection,GFXOV_MODE_IngamePicture,nil,GFX_BLIT_Mod2);

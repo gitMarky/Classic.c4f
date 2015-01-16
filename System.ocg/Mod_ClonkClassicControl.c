@@ -791,7 +791,7 @@ func PlayerObjectCommand(int plr, string cmd, object target, int tx, int ty, obj
   // Apply to all selected crew members (in cursor range) except pTarget.
 	// Set, Add, Append mode flags may be combined and have a priority order.
 
-	var i,crew,cursor=GetCursor(plr),cursor_processed;
+	var i, crew, cursor=GetCursor(plr), cursor_processed;
 // FIXME: whole crew movement is bad
 //	while (crew = GetCrew(plr, i++))
 //	{

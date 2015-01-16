@@ -16,29 +16,21 @@ Rules=Rule_TeamAccount=1;Rule_ZoomLimit=1;Rule_StartingEquipment=1;
 Crew=ClassicClonk=1;
 Buildings=ClassicHutWooden=1;
 Knowledge=ClassicHutWooden=1;ClassicWindmill=1;ClassicElevator=1;Sawmill=1;WallKit=1;Loam=1;Metal=1;Axe=1;Barrel=1;Dynamite=1;Conkit=1;Pipe=1;Shovel=1;Lorry=1;
-HomeBaseMaterial=Conkit=5;Loam=6;Wood=4;Metal=5;Flint=5;Sulphur=3;Barrel=5;Flag=3;ClassicClonk=3;ClassicLorry=2;Bread=5;
-HomeBaseProduction=Conkit=5;Loam=6;Wood=5;Metal=3;Flint=5;Sulphur=2;Barrel=5;Flag=3;ClassicClonk=2;ClassicLorry=1;Bread=5;
 
 [Player2]
 Crew=ClassicClonk=1;
 Buildings=ClassicHutWooden=1;
 Knowledge=ClassicHutWooden=1;ClassicWindmill=1;ClassicElevator=1;Sawmill=1;WallKit=1;Loam=1;Metal=1;Axe=1;Barrel=1;Dynamite=1;Conkit=1;Pipe=1;Shovel=1;Lorry=1;
-HomeBaseMaterial=Conkit=5;Loam=6;Wood=4;Metal=5;Flint=5;Sulphur=3;Barrel=5;Flag=3;ClassicClonk=3;ClassicLorry=2;Bread=5;
-HomeBaseProduction=Conkit=5;Loam=6;Wood=5;Metal=3;Flint=5;Sulphur=2;Barrel=5;Flag=3;ClassicClonk=2;ClassicLorry=1;Bread=5;
 
 [Player3]
 Crew=ClassicClonk=1;
 Buildings=ClassicHutWooden=1;
 Knowledge=ClassicHutWooden=1;ClassicWindmill=1;ClassicElevator=1;Sawmill=1;WallKit=1;Loam=1;Metal=1;Axe=1;Barrel=1;Dynamite=1;Conkit=1;Pipe=1;Shovel=1;Lorry=1;
-HomeBaseMaterial=Conkit=5;Loam=6;Wood=4;Metal=5;Flint=5;Sulphur=3;Barrel=5;Flag=3;ClassicClonk=3;ClassicLorry=2;Bread=5;
-HomeBaseProduction=Conkit=5;Loam=6;Wood=5;Metal=3;Flint=5;Sulphur=2;Barrel=5;Flag=3;ClassicClonk=2;ClassicLorry=1;Bread=5;
 
 [Player4]
 Crew=ClassicClonk=1;
 Buildings=ClassicHutWooden=1;
 Knowledge=ClassicHutWooden=1;ClassicWindmill=1;ClassicElevator=1;Sawmill=1;WallKit=1;Loam=1;Metal=1;Axe=1;Barrel=1;Dynamite=1;Conkit=1;Pipe=1;Shovel=1;Lorry=1;
-HomeBaseMaterial=Conkit=5;Loam=6;Wood=4;Metal=5;Flint=5;Sulphur=3;Barrel=5;Flag=3;ClassicClonk=3;ClassicLorry=2;Bread=5;
-HomeBaseProduction=Conkit=5;Loam=6;Wood=5;Metal=3;Flint=5;Sulphur=2;Barrel=5;Flag=3;ClassicClonk=2;ClassicLorry=1;Bread=5;
 
 [Landscape]
 Vegetation=Tree1=1;Tree2=2;Tree3=1;Tree4=1;

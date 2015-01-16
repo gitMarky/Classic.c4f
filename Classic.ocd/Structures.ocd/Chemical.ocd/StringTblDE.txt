@@ -1,3 +1,6 @@
+Name=Chemiefabrik
+Description=Zur Herstellung von Sprengstoffen.
+
 TxtNoconstructionplans=Keine Baupläne verfügbar
 TxtProductions=Herstellung: %s
 Production=Produktion

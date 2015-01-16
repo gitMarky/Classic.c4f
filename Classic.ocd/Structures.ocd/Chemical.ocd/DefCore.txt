@@ -17,4 +17,3 @@ Entrance=-8,12,16,16
 Collection=7,-5,16,11
 Exclusive=1
 Construction=1
-ContainBlast=1

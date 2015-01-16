@@ -112,7 +112,6 @@ public func CastLeafParticles()
 	var particles = GetLeafParticles();
 	if(!IsDeadTree() && particles != nil)
 	{
-		var id = GetID();
 		var amount = Random(GetCon()/20) + 1;
 
 		for(var i=0; i<amount; i++)

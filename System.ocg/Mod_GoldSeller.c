@@ -32,13 +32,10 @@ func FxAutoSellValuablesTimer(_, effect, time)
 		return 1;
 	}
 	
-	var comp = objs[0];
 	var to_remove = [];
 	
 	for(var obj in objs)
 	{
-		var d = ObjectDistance(obj, comp);
-//		if(d > 50) continue; // this was already checked in the max distance stuff above
 		to_remove[GetLength(to_remove)] = obj;
 	}
 	

@@ -37,7 +37,7 @@ private func CreateBasement()
 
 private func RemoveBasement()
 {
-	RemoveEffect(0, this, GetEffect(FX_BasementHandler, this) );
+	RemoveEffect(nil, this, GetEffect(FX_BasementHandler, this));
 }
 
 

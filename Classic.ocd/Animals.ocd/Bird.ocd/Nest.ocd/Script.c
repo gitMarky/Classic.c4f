@@ -80,7 +80,7 @@ public func UpdateGraphics(object pObj)
 		if (savedInfo.object->Contained() != this) continue;
 
 		layer = GetUnusedOverlayID(1);
-		SetGraphics(nil, 0, layer, GFXOV_MODE_Object, 0, 0, savedInfo.object);
+		SetGraphics(nil, nil, layer, GFXOV_MODE_Object, nil, 0, savedInfo.object);
 
 		SetObjDrawTransform(1000, 0, 1000*savedInfo.posX, 0, 1000, 1000 * savedInfo.posY, layer);
 	}

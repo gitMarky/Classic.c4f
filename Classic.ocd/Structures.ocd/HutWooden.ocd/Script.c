@@ -51,3 +51,4 @@ CloseDoor = {
 
 local Name = "$Name$";
 local Description = "$Description$";
+local ContainBlast = true;
