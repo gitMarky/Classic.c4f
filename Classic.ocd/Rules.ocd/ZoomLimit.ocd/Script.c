@@ -4,8 +4,8 @@
  * Author: Marky
  */
 
-global func GetScenarioZoomMin(){ return 2;}
-global func GetScenarioZoomMax(){ return 1;}
+global func GetScenarioZoomMin(){ return 1;}
+global func GetScenarioZoomMax(){ return 2;}
 global func GetScnearioZoomPrecision(){ return 1;}
 
 
