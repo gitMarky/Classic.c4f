@@ -5,8 +5,7 @@
 	High resolution version of the original flag :)
 */
 
-public func IsBaseFlag(){ return true; } // Can mark a home base
-
+public func IsBaseFlag(){ return true;} // Can mark a home base
 
 private func Flying()
 {

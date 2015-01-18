@@ -4,14 +4,10 @@
 
 local content_menu;
 
-public func IsLorry() { return true; }
-public func IsVehicle() { return true; }
-public func IsContainer() { return true; }
-public func IsToolProduct() { return true; }
-
-local drive_anim;
-local tremble_anim;
-local wheel_sound;
+public func IsLorry() { return true;}
+public func IsVehicle() { return true;}
+public func IsContainer() { return true;}
+public func IsToolProduct() { return true;}
 
 
 /*-- Movement --*/

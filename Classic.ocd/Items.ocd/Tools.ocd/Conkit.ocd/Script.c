@@ -10,11 +10,11 @@
 private func Hit(x, y)
 {
 	StonyObjectHit(x, y);
-	return 1;
+	return true;
 }
 
-public func IsTool() { return true; }
-public func IsToolProduct() { return true; }
+public func IsTool() { return true;}
+public func IsToolProduct() { return true;}
 
 
 local Collectible = 1;
