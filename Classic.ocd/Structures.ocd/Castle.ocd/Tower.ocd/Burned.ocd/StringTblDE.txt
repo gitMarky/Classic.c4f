@@ -1,0 +1,3 @@
+Name=Verbrannter Turm
+Description=Kann auf ebenem Untergrund wieder aufgebaut werden.
+

@@ -6,8 +6,9 @@
 
 #include Library_Structure
 #include Library_Ownable
-#include Basement60
 #include Library_DoorControl
+
+#include Basement48
 
 
 func Definition(def)

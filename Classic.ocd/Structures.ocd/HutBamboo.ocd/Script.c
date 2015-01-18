@@ -1,15 +1,12 @@
-/*-- Bambushütte --*/
+/*-- Bamboo hut --*/
 
 #include Library_Structure
 #include Library_Ownable
 #include Library_HomeBase
 #include Library_DoorControl
 
-protected func SoundOpenDoor() { return(1); }
-protected func SoundCloseDoor() { return(1); }
-
-// Kann im Dschungel erforscht werden
-public func IsJungleResearch() { return(1); }
+protected func SoundOpenDoor() { return nil;}
+protected func SoundCloseDoor() { return nil;}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

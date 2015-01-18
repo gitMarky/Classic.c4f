@@ -1,4 +1,4 @@
-/*-- Burg --*/
+/*-- Castle --*/
 
 
 #include Library_Structure
@@ -6,14 +6,12 @@
 #include Library_HomeBase
 #include Library_DoorControl
 
-
-//#include BAS8
-
-/* Initialisierung */
+#include Basement80
 
 protected func Initialize()
 {
-	//SetObjectOrder(this(), CreateObject(TWR1,-23,+44,GetOwner()));
+	var tower = CreateObjectAbove(ClassicCastleTower, -23, +44, GetOwner());
+	tower.Plane = this.Plane + 1;
 }
   
 /* Türsteuerung */
@@ -27,15 +25,6 @@ private func SoundCloseDoor()
 {
 	Sound("GateClose");
 }
-  
-/* Forschung */
-
-public func GetResearchBase() { return(CST1); }
-
-
-/* Status */
-
-public func IsCastle() { return true; }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

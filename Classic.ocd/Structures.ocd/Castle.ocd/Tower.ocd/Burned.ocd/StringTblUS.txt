@@ -1,0 +1,3 @@
+Name=Tower ruin
+Description=Can be rebuilt on level ground.
+

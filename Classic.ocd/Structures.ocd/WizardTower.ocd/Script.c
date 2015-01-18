@@ -4,7 +4,12 @@
  *	Author: Marky, Mesh: constantin, Texture: constantin
  */
 
-#include ClassicHutWooden
+#include Library_Structure
+#include Library_Ownable
+
+#include Library_DoorControl
+
+#include Basement42
 
 local BlastIncinerate = 100;
 local HitPoints = 100;

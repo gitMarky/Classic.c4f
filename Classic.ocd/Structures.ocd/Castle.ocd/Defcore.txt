@@ -1,7 +1,7 @@
 [DefCore]
 id=ClassicCastle
 Version=6,0
-Category=C4D_Structure|C4D_SelectBuilding|C4D_SelectKnowledge
+Category=C4D_Structure
 Width=84
 Height=87
 Offset=-42,-43
@@ -17,5 +17,4 @@ VertexY=-43,43,43,4,4
 VertexFriction=50,50,50,50,50
 Entrance=-3,24,20,20
 Exclusive=1
-LineConnect=C4D_LiquidInput
 Construction=1
