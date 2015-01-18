@@ -1,6 +1,6 @@
 [DefCore]
 id=ClassicFlag
-Version=5,4,1
+Version=6,0
 Category=C4D_Object
 Width=24
 Height=12
