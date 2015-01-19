@@ -28,10 +28,9 @@ protected func Construction()
 {
 	MotionThreshold = Random(10);
 
-	if (SetAction("Initialize"))
-	{
-		SetDir(Random(2));
-	}
+	SetAction("Initialize");
+	
+	SetObjDrawTransform( (-1 + 2 * Random(2)) * 1000, 0, 0, 0, 1000);
 
 	ScheduleCall(this, "StartAnimation", Random(50));
 
@@ -187,8 +186,6 @@ local ActMap = {
 Initialize = {
 		Prototype = Action,
 		Name = "Initialize",
-		Directions = 2,
-		FlipDir = 1,
 		Length = 1,
 		Delay = 60,
 		FacetBase = 1,
@@ -198,8 +195,6 @@ Initialize = {
 Still = {
 		Prototype = Action,
 		Name = "Still",
-		Directions=2,
-		FlipDir=1,
 		FacetBase=0,
 		NextAction="Still",
 		StartCall="Still",
@@ -208,8 +203,6 @@ Still = {
 Breeze = {
 		Prototype = Action,
 		Name="Breeze",
-		Directions=2,
-		FlipDir=1,
 		FacetBase=0,
 		NextAction="Breeze",
 		StartCall="Breeze",
@@ -218,8 +211,6 @@ Breeze = {
 Chopped = {
 		Prototype = Action,
 		Name = "Chopped",
-		Directions = 2,
-		FlipDir = 1,
 		Length = 1,
 		Delay = 0,
 		FacetBase = 1,
