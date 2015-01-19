@@ -1,7 +1,8 @@
-/*
- * Baumsteuerung
- *
- * Author: Clonk Rage
+/**
+ Tree control
+ 
+ @author Redwolf Design, Clonk Rage
+ @version 0.2
  */
 
 #include Library_Plant
@@ -21,6 +22,29 @@ private func MaxDamage()
 	else
 		return TreeStrength() * Max(GetCon(), 30)/100;
 }
+
+// Placement information
+
+/**
+ Trees are placed in earth.
+ @version 0.3
+ */
+public func GetVegetationSoil(){ 	return Material("Earth");}
+/**
+ Trees are placed 5 pixels deep in the ground.
+ @version 0.3
+ */
+public func GetVegetationRootDepth() { return 5;}
+/**
+ Trees adjust to the landscape with rotation between -30 and +30.
+ @version 0.3
+ */
+public func GetVegetationRotation() { return [-30, 30]; }
+/**
+ Trees grow from 25% to 100% with a bias towards 100%.
+ @version 0.3
+ */
+public func GetVegetationConRange() { return [25, 150]; }
 
 /* Initialisierung */
 

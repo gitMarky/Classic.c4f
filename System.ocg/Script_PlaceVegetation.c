@@ -96,7 +96,7 @@ global func PlaceVegetationEx(id definition, int amount, array rectangle, int ma
 	if (material_liquid != nil) freemat = material_liquid;
 
 	// Create a dozen random places and try there
-	var rndx, rndy, realy, valid, plant, con;
+	var rndx, rndy, valid, plant, con;
 	
 	// to make the loop a bit more efficient we do this calculation outside the loop - these are adjustments for root depth etc.
 	var rndy_diff, realy_diff;
@@ -162,12 +162,10 @@ global func PlaceVegetationEx(id definition, int amount, array rectangle, int ma
 					
 					rndy += rndy_diff; // Adjust for root depth etc.
 					
-					// Actual position retrieved by GetY() is rndy - realy_diff because CreateObject() creates centered to bottom middle and GetX()/GetY() gets object center
-					realy = rndy - realy_diff;
 					
-					if (!FindObject(Find_ID(definition), Find_Distance(10, rndx, realy)))
+					if (!FindObject(Find_ID(definition), Find_Distance(Max(10, definition->GetDefWidth()/2), rndx, rndy)))
 					{
-						plant = CreateObject(definition, rndx, rndy);
+						plant = CreateObjectAbove(definition, rndx, rndy);
 
 						plant->SetCon(con);
 						
@@ -209,4 +207,43 @@ global func isMaterialSoil(x, y, materialsoil)
 	{
 		return GetMaterialVal("Soil", "Material", GetMaterial(x, y));
 	}
+}
+
+global func AutoPlaceVegetation(id definition, int percent, array rectangle)
+{
+	var width, height;
+	
+	if (rectangle == nil)
+	{
+
+		width = LandscapeWidth();
+		height = LandscapeHeight();
+	}
+	else
+	{
+		width = rectangle[2] - rectangle[0];
+		height = rectangle[3] - rectangle[1];
+	}
+
+
+	// at 100% vegetation density, about 10% of the landscape area should be covered in plants
+	var trees_per_width = width/Max(10, definition->GetDefWidth());
+	var trees_per_height = height/Max(10, definition->GetDefHeight());
+	
+	var amount = trees_per_width * trees_per_height / 10;
+	
+	Log("Calculated a maximum amount of %d trees", amount);
+	
+	amount = Max(1, amount * percent / 100);
+	
+	Log("Actual amount is %d", amount);
+	
+	var material_soil = definition->~GetVegetationSoil();
+	var material_liquid = definition->~GetVegetationLiquid();
+	var underground = definition->~GetVegetationUnderground();
+	var hanging = definition->~GetVegetationHanging();
+	var con_range = definition->~GetVegetationConRange();
+	var rot_range = definition->~GetVegetationRotation();
+	
+	return PlaceVegetationEx(definition, amount, rectangle, material_soil, material_liquid, underground, hanging, con_range, rot_range);
 }
