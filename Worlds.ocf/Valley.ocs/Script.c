@@ -23,6 +23,11 @@ func Initialize()
 	SetTime(Time(17));
 
 	//var bird = CreateObject(Bird, LandscapeWidth()/2, 100, -1);
+	
+	//Vegetation=Tree1=3;Tree2=5;Tree3=5;
+	PlaceVegetationEx(Tree1, 3 * 3, nil, nil, nil, false, false, [0, 100], [-30, 30]);
+	PlaceVegetationEx(Tree2, 3 * 5, nil, nil, nil, false, false, [0, 100], [-30, 30]);
+	PlaceVegetationEx(Tree3, 3 * 5, nil, nil, nil, false, false, [0, 100], [-30, 30]);
 
 	return true;
 }

@@ -1,7 +1,7 @@
 [Head]
 Icon=15
 Title=Valley
-Version=5,4,1
+Version=6,0
 Difficulty=5
 MaxPlayer=2
 
@@ -32,7 +32,6 @@ Buildings=ClassicHutWooden=1
 Knowledge=ClassicHutWooden=1;Sawmill=1;ChemicalLab=1;Elevator=1;ToolsWorkshop=1;WallKit=1;Loam=1;Metal=1;Axe=1;Barrel=1;Dynamite=1;Conkit=1;Pipe=1;Shovel=1;Lorry=1
 
 [Landscape]
-Vegetation=Tree1=3;Tree2=5;Tree3=5;
 VegetationLevel=100,0,0,100
 InEarth=Rock=1;Gold=1;Flint=1;Loam=1
 InEarthLevel=65,0,0,100
