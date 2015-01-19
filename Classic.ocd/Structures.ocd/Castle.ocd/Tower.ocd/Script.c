@@ -65,7 +65,7 @@ private func HandleTransferDescend(object pObj, int tx, int ty)
 {
 	if(pObj->Contained() == this)
 		return true;
-	Enter(this, pObj);
+	pObj->Enter(this);
 
 	return pObj->AddCommand("Exit");
 }

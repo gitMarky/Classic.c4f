@@ -211,6 +211,11 @@ global func isMaterialSoil(x, y, materialsoil)
 
 global func AutoPlaceVegetation(id definition, int percent, array rectangle)
 {
+	if (definition == nil)
+	{
+		FatalError("This function needs a definition");
+	}
+
 	var width, height;
 	
 	if (rectangle == nil)
