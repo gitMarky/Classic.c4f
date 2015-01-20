@@ -22,12 +22,23 @@ func Initialize()
 
 	//var bird = CreateObject(Bird, LandscapeWidth()/2, 100, -1);
 	
-	AutoPlaceVegetation(Tree1, 15);
-	AutoPlaceVegetation(Tree2, 25);
-	AutoPlaceVegetation(Tree3, 25);
+	var area_skylands = [0, 0, LandscapeWidth(), 869];
+	var area_lake = [150, 870, LandscapeWidth()-300, LandscapeHeight()-870];
 	
-	PlaceAnimals(Fish, 15, PLACEMENT_Liquid, Material("Water"));
+	//AutoPlaceVegetation(Tree1, 15);
+	//AutoPlaceVegetation(Tree2, 25);
+	//AutoPlaceVegetation(Tree3, 25);
 
+	AutoPlaceVegetation(Tree1, 10, PLACEMENT_Amount_Relative, area_skylands);
+	AutoPlaceVegetation(Tree2, 20, PLACEMENT_Amount_Relative, area_skylands);
+	AutoPlaceVegetation(Tree3, 15, PLACEMENT_Amount_Relative, area_skylands);
+	
+	AutoPlaceVegetation(Tree1, 30, PLACEMENT_Amount_Relative, area_lake);
+	AutoPlaceVegetation(Tree2, 45, PLACEMENT_Amount_Relative, area_lake);
+	AutoPlaceVegetation(Tree3, 45, PLACEMENT_Amount_Relative, area_lake);
+
+	PlaceAnimals(Fish, 15, PLACEMENT_Liquid, Material("Water"), area_lake);
+	PlaceAnimals(Bird, 5, PLACEMENT_Air, nil, area_skylands);
 
 	return true;
 }

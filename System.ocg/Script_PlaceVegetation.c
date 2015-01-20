@@ -209,7 +209,21 @@ global func isMaterialSoil(x, y, materialsoil)
 	}
 }
 
-global func AutoPlaceVegetation(id definition, int percent, array rectangle)
+/**
+ Automatically places vegetation in the landscape.
+ @par definition This type of vegetation will be placed.
+ @par quantity This many objects will be placed, depends on {@c quantity_relative}.
+ @par quantity_relative [optional]  See {@link TODO}. This is {@c PLACEMENT_Amount_Relative} by default.
+                        {@c PLACEMENT_Amount_Relative} generates at least one object. At
+                        {@c quantity == 100} the area covered by the tree shape should cover
+                        10% of the area of the specified rectangle.
+ @par rectangle [optional] Objects will be placed in this rectangle in the landscape, coordinates are always global.
+                By default the rectangle covers the whole landscape. 
+ @return array An array containing the created objects.                        
+ @author Marky
+ @version 0.3
+ */
+global func AutoPlaceVegetation(id definition, int quantity, bool quantity_relative, array rectangle)
 {
 	if (definition == nil)
 	{
@@ -226,22 +240,35 @@ global func AutoPlaceVegetation(id definition, int percent, array rectangle)
 	}
 	else
 	{
-		width = rectangle[2] - rectangle[0];
-		height = rectangle[3] - rectangle[1];
+		width = rectangle[2]; // - rectangle[0];
+		height = rectangle[3]; // - rectangle[1];
+	}
+	
+	if (quantity_relative == nil)
+	{
+		quantity_relative = PLACEMENT_Amount_Relative;
 	}
 
+	var number;
 
-	// at 100% vegetation density, about 10% of the landscape area should be covered in plants
-	var trees_per_width = width/Max(10, definition->GetDefWidth());
-	var trees_per_height = height/Max(10, definition->GetDefHeight());
-	
-	var amount = trees_per_width * trees_per_height / 10;
-	
-	Log("Calculated a maximum amount of %d trees", amount);
-	
-	amount = Max(1, amount * percent / 100);
-	
-	Log("Actual amount is %d", amount);
+	if (quantity_relative == PLACEMENT_Amount_Relative)
+	{
+		// at 100% vegetation density, about 10% of the landscape area should be covered in plants
+		var trees_per_width = width/Max(10, definition->GetDefWidth());
+		var trees_per_height = height/Max(10, definition->GetDefHeight());
+		
+		number = trees_per_width * trees_per_height / 10;
+		
+		Log("Calculated a maximum amount of %d trees", number);
+		
+		number = Max(1, number * quantity / 100);
+		
+		Log("Actual amount is %d", number);
+	}
+	else
+	{
+		number = quantity;
+	}
 	
 	var material_soil = definition->~GetVegetationSoil();
 	var material_liquid = definition->~GetVegetationLiquid();
@@ -250,5 +277,5 @@ global func AutoPlaceVegetation(id definition, int percent, array rectangle)
 	var con_range = definition->~GetVegetationConRange();
 	var rot_range = definition->~GetVegetationRotation();
 	
-	return PlaceVegetationEx(definition, amount, rectangle, material_soil, material_liquid, underground, hanging, con_range, rot_range);
+	return PlaceVegetationEx(definition, number, rectangle, material_soil, material_liquid, underground, hanging, con_range, rot_range);
 }
