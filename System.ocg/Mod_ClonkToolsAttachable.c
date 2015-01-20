@@ -46,7 +46,7 @@ private func InventoryMaxTools(){ return 2;}
 private func ContextMenuAddEntriesInventory()
 {
 	var entries = 0;
-	var toolsInInventory = FindObjects(Find_Container(this), Find_Func("IsTool"));
+	var toolsInInventory = FindObjects(Find_Container(this), Find_Func("IsAttachableTool"));
 	
 	var attachedToolIDs = CreateArray();
 	

@@ -7,6 +7,14 @@
 #appendto Shovel
 #appendto Axe
 
+/**
+ Marks the object as an attachable tool that can be used by the clonk.
+ */
+public func IsAttachableTool()
+{
+	return true;
+}
+
 public func Contained()
 {
 	var container = _inherited(...);
@@ -27,3 +35,7 @@ public func Contained()
 //	if (container) return container->GetY();
 //	return _inherited(...);
 //}
+
+local Name="$Name$";
+local Description="$Description$";
+
