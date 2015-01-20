@@ -2,6 +2,8 @@
 
 static g_highest_plr_count; // max number of players that were ever in the round
 
+static const SCENARIO_LandscapeWidth_OnePlayer = 640;
+
 func Initialize()
 {
 	// Environment.
@@ -11,16 +13,24 @@ func Initialize()
 	var goal = CreateObject(Goal_ResourceExtraction);
 	goal->SetResource("Gold");
 
-	// Ambient clouds
-	//Cloud->Place(1);
 
 	var time = CreateObject(Environment_Time);
 	time->SetCycleSpeed(20);
 
 	SetTime(Time(10));
-
-	for (var i = 0; i < 6; i++)
-		CreateObject(Bird, RandomX(10, LandscapeWidth()-10), 10, -1);
+	
+	var amount_tree1 = RandomX(50, 75); // 75 is original
+	var amount_tree2 = RandomX(40, 50); // 50 is original
+	var amount_tree3 = 30 + (75 - amount_tree1)/2; // 30 is original 
+	var amount_tree4 = 25 + 50 - amount_tree2; // 25 is original
+	
+	AutoPlaceVegetation(Tree1, amount_tree1); // 100 == 4 trees with 1 player
+	AutoPlaceVegetation(Tree2, amount_tree2); // 100 == 12 trees with 1 player
+	AutoPlaceVegetation(Tree3, amount_tree3); // 100 == 7 trees with 1 player
+	AutoPlaceVegetation(Tree4, amount_tree4); // 100 == 12 trees with 1 player
+	
+	// players are not initialized yet, but the map can expand. Cheat a little here :)
+	PlaceAnimals(Bird, Max(1, LandscapeWidth()/SCENARIO_LandscapeWidth_OnePlayer), PLACEMENT_Air);
 
 	return true;
 }
