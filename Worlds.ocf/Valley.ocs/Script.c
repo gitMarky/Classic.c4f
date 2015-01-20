@@ -26,7 +26,7 @@ func Initialize()
 	AutoPlaceVegetation(Tree2, 25);
 	AutoPlaceVegetation(Tree3, 25);
 	
-	PlaceAnimals(Fish, 15);
+	PlaceAnimals(Fish, 15, PLACEMENT_Liquid, Material("Water"));
 
 
 	return true;

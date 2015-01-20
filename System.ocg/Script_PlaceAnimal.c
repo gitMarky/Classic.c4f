@@ -144,6 +144,7 @@ global func PlaceAnimals(id definition, int amount, int placement, int material,
 
 					animal->SetCon(BoundBy(RandomX(con_range[0], con_range[1]), 1, 100));
 					animals[i] = animal;
+					i++;
 				}
 			}
 		}
