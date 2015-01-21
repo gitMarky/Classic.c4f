@@ -1,5 +1,7 @@
 /* Loam */
 
+#include Library_Useable
+
 local loamused;       // amount of loam already used
 
 protected func Construction()
@@ -156,6 +158,14 @@ private func LoamDone(object clonk)
 	if (loamused > BridgeLength - 10)
 		RemoveObject();
 	return;
+}
+
+
+
+
+public func GetUseIcon()
+{
+	return Icon_Bridge;
 }
 
 public func IsFoundryProduct() { return true; }

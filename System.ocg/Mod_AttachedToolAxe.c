@@ -49,3 +49,8 @@ public func GetCarryTransform()
 	return Trans_Rotate(90, 0, 1, 0);
 }
 
+public func GetUseIcon()
+{
+	return Icon_Chop;
+}
+

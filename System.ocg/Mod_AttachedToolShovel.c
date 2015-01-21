@@ -41,5 +41,9 @@ public func AttachedToolCancelUse(object user)
 		user->ObjectControlDig();
 
 	return true;
+}
 
+public func GetUseIcon()
+{
+	return Icon_Dig;
 }

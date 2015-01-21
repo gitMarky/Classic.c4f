@@ -5,6 +5,7 @@
 	Not much to say, it's just the hammer with different graphics.
 */
 
+#include Library_Useable
 #include Library_Constructor
 
 private func Hit(x, y)
@@ -15,6 +16,11 @@ private func Hit(x, y)
 
 public func IsTool() { return true;}
 public func IsToolProduct() { return true;}
+
+public func GetUseIcon()
+{
+	return Icon_Construction;
+}
 
 
 local Collectible = 1;
