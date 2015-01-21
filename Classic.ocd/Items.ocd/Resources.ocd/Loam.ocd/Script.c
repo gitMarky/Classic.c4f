@@ -17,12 +17,47 @@ func Hit()
 	Sound("GeneralHit?");
 }
 
+
+
+public func AttachedToolStartUse(object user)
+{
+	if (!AttachedToolReady(user)) return;
+
+	return ControlUseStart(user, user->GetX() -10 + 20*(user->GetDir()), user->GetY());
+}
+
+private func AttachedToolReady(object user)
+{
+	if (!user) return;
+	var proc = user->GetProcedure();
+	
+	return proc == DFA_WALK;
+}
+
+public func AttachedToolIsInUse(object user)
+{
+	if (!user) return false;
+	return GetEffect("IntAxe", this)
+	    || GetEffect("IntAxe", user)
+		|| GetEffect("IntSplit", user)
+		|| GetEffect("AxeStrikeStop", user);
+}
+
+public func AttachedToolCancelUse(object user)
+{
+	if (!user) return false;
+	Reset(user);
+	return true;
+}
+
+
+
+
+
 // Item activation
 func ControlUseStart(object clonk, int x, int y)
 {
-	// Clonk must stand on ground. Allow during SCALE; but Clonk won't keep animation if he's not actually near the ground
-	var clnk_proc = clonk->GetProcedure();
-	if (clnk_proc != "WALK" && clnk_proc != "SCALE")
+	if (!AttachedToolReady(clonk))
 	{
 		clonk->CancelUse();
 		return true;
