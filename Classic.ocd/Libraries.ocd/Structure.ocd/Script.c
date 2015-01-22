@@ -72,7 +72,18 @@ protected func StructureEnable()
 
 protected func OnStructureDestroyed()
 {
-	SetGraphics("Destroyed");
+	if (GetMeshMaterial() == nil)
+	{
+		SetGraphics("Destroyed");
+	}
+	else
+	{
+		var mat;
+		for (var i = 0; (mat = GetMeshMaterial(i)) != nil; i++)
+		{
+			SetMeshMaterial(Format("%s_Destroyed", mat), i);
+		}
+	}
 	
 	if (!GetEffect("IntDestructionDecay", this))
 	{

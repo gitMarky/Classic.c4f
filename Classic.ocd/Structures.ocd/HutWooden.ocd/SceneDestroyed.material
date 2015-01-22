@@ -1,5 +1,5 @@
 
-material Classic_Wooden_Hut_Burned
+material Classic_Wooden_Hut_Destroyed
 {
 
     receive_shadows on
