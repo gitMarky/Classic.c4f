@@ -10,6 +10,8 @@
 local IsDeytroyed = false;
 local IsDisabled = false;
 
+static const STRUCTURE_Destruction_Con = 30;
+
 func Initialize()
 {
 	if (FindObject(Find_ID(Rule_StructureHPBars)))
@@ -68,9 +70,24 @@ protected func StructureEnable()
 	SetObjectLayer(nil);
 }
 
-protected func Incineration(int by_player)
+protected func OnStructureDestroyed()
 {
 	SetGraphics("Destroyed");
+	
+	if (!GetEffect("IntDestructionDecay", this))
+	{
+		AddEffect("IntDestructionDecay", this, 1, 1, this);
+	}
+
+	if (!GetEffect("IntCheckReconstruct", this))
+	{
+		AddEffect("IntCheckReconstruct", this, 1, 1, this);
+	}
+}
+
+protected func Incineration(int by_player)
+{
+	StructureDestroyed();
 	
 	if (!GetEffect("IntStopBurnDecay", this))
 	{
@@ -82,11 +99,55 @@ protected func Incineration(int by_player)
 
 protected func FxIntStopBurnDecayTimer(object target, proplist effect, int timer)
 {
-	if (target->GetCon() <= 30)
+	if (!(target->OnFire()))
+	{
+		return FX_Execute_Kill;
+	}
+	
+	if (timer < 76)
+	{
+		var rgba = target->GetClrModulation();
+		rgba = ColorSetLightness(rgba, BoundBy(ColorGetLightness(rgba) - 1, 0, 255));
+		target->SetClrModulation(rgba);
+	}
+
+	if (target->GetCon() <= STRUCTURE_Destruction_Con)
 	{
 		target->Extinguish();
+		return FX_Execute_Kill;
+	}
+	
+	return FX_OK;
+}
+
+protected func FxIntCheckReconstructTimer(object target, proplist effect, int timer)
+{
+	if (target->OnFire() || GetEffect("IntDestructionDecay", target) != nil)
+	{
+		return FX_OK;
+	}
+	else
+	{
 		target->StructureReconstruct();
 		return FX_Execute_Kill;
+	}
+}
+
+protected func FxIntDestructionDecayTimer(object target, proplist effect, int timer)
+{
+	if (target->OnFire())
+	{
+		return FX_Execute_Kill;
+	}
+
+	for (var i = 0; i < 5; i++)
+	{
+		if (target->GetCon() <= STRUCTURE_Destruction_Con)
+		{
+			return FX_Execute_Kill;
+		}
+		
+		target->DoCon(-1);
 	}
 	
 	return FX_OK;
@@ -94,6 +155,8 @@ protected func FxIntStopBurnDecayTimer(object target, proplist effect, int timer
 
 protected func StructureReconstruct()
 {
+	if (Contained() != nil) return;
+	
 	var site;
 	site = CreateObjectAbove(ConstructionSite, 0, GetDefBottom()-GetY(), GetOwner());
 	

@@ -95,16 +95,6 @@ private func StartConstructing()
 		site->SetCon(Max(site->GetCon(), existing_site->GetCon()));
 		existing_site->RemoveObject();
 	}
-	/*
-	// set contents
-	while (Contents() != nil)
-	{
-		var def = Contents()->GetID();
-		var amount = site->GetComponent(def) + 1;
-		site->SetComponent(def, amount);
-		Contents()->RemoveObject(); 
-	}
-	*/
 	
 	if(direction)
 		site->SetDir(direction);

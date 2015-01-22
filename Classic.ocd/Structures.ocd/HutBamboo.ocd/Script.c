@@ -15,7 +15,6 @@ protected func SoundCloseDoor() { return nil;}
 local Name = "$Name$";
 local Description = "$Description$";
 local BlastIncinerate = 10;
-//local BurnTo = ClassicHutBambooBurned;
 local ContactIncinerate = 3;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
