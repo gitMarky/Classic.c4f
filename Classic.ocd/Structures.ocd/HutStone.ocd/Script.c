@@ -4,7 +4,7 @@
  *	Author: Marky, Mesh: Nachtfalter, UV-Map: Marky, Texture: Nachtfalter
  */
 
-#include ClassicHutWooden
+//#include ClassicHutWooden
 
 local BlastIncinerate = 75;
 local ContainBlast = true;
