@@ -1,6 +1,6 @@
 /*-- Bamboo hut --*/
 
-#include Library_Structure
+#include Library_ClassicStructure
 #include Library_Ownable
 #include Library_HomeBase
 #include Library_DoorControl
@@ -15,7 +15,7 @@ protected func SoundCloseDoor() { return nil;}
 local Name = "$Name$";
 local Description = "$Description$";
 local BlastIncinerate = 10;
-local BurnTo = ClassicHutBambooBurned;
+//local BurnTo = ClassicHutBambooBurned;
 local ContactIncinerate = 3;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
