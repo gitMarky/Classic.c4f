@@ -6,9 +6,9 @@
 
 #appendto Axe
 
-public func AttachedToolStartUse(object user)
+public func AttachedToolStartUse(object user, bool release)
 {
-	if (!AttachedToolReady(user)) return;
+	if (!AttachedToolReady(user) || release) return false;
 
 	return ControlUseStart(user, user->GetX() -10 + 20*(user->GetDir()), user->GetY());
 }
@@ -31,9 +31,9 @@ public func AttachedToolIsInUse(object user)
 		|| GetEffect("AxeStrikeStop", user);
 }
 
-public func AttachedToolCancelUse(object user)
+public func AttachedToolCancelUse(object user, bool release)
 {
-	if (!user) return false;
+	if (!user || release) return false;
 	Reset(user);
 	return true;
 }

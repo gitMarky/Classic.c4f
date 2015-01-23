@@ -37,7 +37,9 @@ ClearPrevious=true
 	Identifier=Throw
 	GUIName=Throw
 	GUIDesc=Toss away inventory object
-	Action=Script
+	#Action=Script
+	Hold=1
+	SendCursorPos=1
 	
 	[ControlDef] #Mapped: Left, Middle, Num
 	Identifier=Dig

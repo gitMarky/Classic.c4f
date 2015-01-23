@@ -6,9 +6,9 @@
 
 #appendto Shovel
 
-public func AttachedToolStartUse(object user)
+public func AttachedToolStartUse(object user, bool release)
 {
-	if (!AttachedToolReady(user)) return;
+	if (!AttachedToolReady(user) || release) return;
 
 	return user->ObjectControlDig(); //SetAction("Dig");
 }
@@ -28,9 +28,9 @@ public func AttachedToolIsInUse(object user)
 	return user->GetProcedure() == "DIG";
 }
 
-public func AttachedToolCancelUse(object user)
+public func AttachedToolCancelUse(object user, bool release)
 {
-	if (!user) return false;
+	if (!user || release) return false;
 	
 	var effect = GetEffect("IntDig", user);
 	

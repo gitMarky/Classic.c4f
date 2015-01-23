@@ -115,13 +115,13 @@ static const //CON_Aim=-1,
              CON_MenuDown=-1,
              CON_ObjectMenuOK=-1,
              CON_ObjectMenuOKAll=-1,
-             CON_ObjectMenuSelect=-1,
+             CON_ObjectMenuSelect=-1;
 //             CON_ObjectMenuCancel=-1,
 //             CON_ObjectMenuLeft=-1,
 //             CON_ObjectMenuRight=-1,
 //             CON_ObjectMenuUp=-1,
 //             CON_ObjectMenuDown=-1,
-             CON_CursorPos=-1;
+//             CON_CursorPos=-1;
 //             CON_PlayerMenu=-1;
 //             CON_ZoomIn=-1,
 //             CON_ZoomOut=-1,
@@ -195,9 +195,6 @@ public func ObjectControl(int plr, int ctrl, int cursorX, int cursorY, int stren
 		  // If regular com, update cursor & selection status
 			//if (!(byCom & COM_Single) && !(byCom & COM_Double) && (byCom < COM_ReleaseFirst || byCom > COM_ReleaseLast))
 		  //  UpdateSelectionToggleStatus();
-
-		  // ignore release for now
-		  if (release) return true;
 
 		  if (last_com != CON_None)
 		  {
@@ -311,18 +308,18 @@ func ObjectControlClassic(int ctrl, data, int plr, cursorX, cursorY, strength, r
 	if (ctrl == CON_Special)
 	{
 		//ObjectControl(plr, CON_Contents, cursorX, cursorY, strength, repeat, release, true);
-		ObjectControlShiftInventory(CON_InventoryNext);
+		if (!release) ObjectControlShiftInventory(CON_InventoryNext);
 		return true;
 	}
 	else if (ctrl == CON_Special2)
 	{
-		OpenContextMenu(this);
+		if (!release) OpenContextMenu(this);
 	}
 	else if (ctrl == CON_SpecialDouble)
 	{
-		ObjectControl(plr, CON_Contents, cursorX, cursorY, strength, repeat, release, true);
+		ObjectControl(plr, CON_Contents, cursorX, cursorY, strength, repeat, release, true); 
 	}
-	else if (ctrl == CON_Left)
+	else if (ctrl == CON_Left && !release)
 	{
 		if (proc == DFA_WALK
 		 || proc == DFA_FLIGHT
@@ -345,7 +342,7 @@ func ObjectControlClassic(int ctrl, data, int plr, cursorX, cursorY, strength, r
 		// digging also
 		else if (proc == DFA_DIG) { if (Inside(comdir,COMD_UpRight,COMD_Left)) SetDigDir(comdir + 1); }
 	}
-	else if (ctrl == CON_Right)
+	else if (ctrl == CON_Right && !release)
 	{
 		if (proc == DFA_WALK
 		 || proc == DFA_FLIGHT
@@ -368,7 +365,7 @@ func ObjectControlClassic(int ctrl, data, int plr, cursorX, cursorY, strength, r
 		// digging also
 		else if (proc == DFA_DIG) { if (Inside(comdir,COMD_Right,COMD_UpLeft)) SetDigDir(comdir - 1); }
 	}
-	else if (ctrl == CON_Up)
+	else if (ctrl == CON_Up && !release)
 	{
 		if (proc == DFA_WALK) PlayerObjectCommand(plr, "Jump");
 		else if (proc == DFA_SCALE) ObjectComMovement(COMD_Up);
@@ -384,7 +381,7 @@ func ObjectControlClassic(int ctrl, data, int plr, cursorX, cursorY, strength, r
 			PlayerObjectCommand(plr, "Jump");
 		}
 	}
-	else if (ctrl == CON_Down)
+	else if (ctrl == CON_Down && !release)
 	{
 		if (Contained())
 		{
@@ -408,7 +405,7 @@ func ObjectControlClassic(int ctrl, data, int plr, cursorX, cursorY, strength, r
 		// cancel hangling
 		else if (proc == DFA_HANGLE) ObjectComLetGo(0);
 	}
-	else if (ctrl == CON_DownDouble)
+	else if (ctrl == CON_DownDouble && !release)
 	{
 		if (proc == DFA_WALK)
 		{
@@ -421,24 +418,27 @@ func ObjectControlClassic(int ctrl, data, int plr, cursorX, cursorY, strength, r
 	}
 	else if (ctrl == CON_DigSingle)
 	{
-		InventoryUseTool(false, true);
+		InventoryUseTool(false, true, release);
 	}
 	else if (ctrl == CON_DigDouble)
 	{
-		InventoryUseTool(true, true);
+		InventoryUseTool(true, true, release);
 	}
 	else if (ctrl == CON_Throw || ctrl == CON_ForcedThrow)
 	{
 		var doThrow = (ctrl == CON_ForcedThrow);
 
-		// open inventory menu for container
-		if (proc == DFA_PUSH && GetActionTarget()->~IsContainer() && !GetMenu())
+		if (!release)
 		{
-			return ObjectControlPutGet(GetActionTarget(), plr, ctrl, cursorX, cursorY, strength, repeat, release);
-		}
-		else if (Contained() && Contained()->~IsContainer(this) && !GetMenu())
-		{
-			return ObjectControlPutGet(Contained(), plr, ctrl, cursorX, cursorY, strength, repeat, release);
+			// open inventory menu for container
+			if (proc == DFA_PUSH && GetActionTarget()->~IsContainer() && !GetMenu())
+			{
+				return ObjectControlPutGet(GetActionTarget(), plr, ctrl, cursorX, cursorY, strength, repeat, release);
+			}
+			else if (Contained() && Contained()->~IsContainer(this) && !GetMenu())
+			{
+				return ObjectControlPutGet(Contained(), plr, ctrl, cursorX, cursorY, strength, repeat, release);
+			}
 		}
 
 		if (!doThrow)
@@ -446,10 +446,24 @@ func ObjectControlClassic(int ctrl, data, int plr, cursorX, cursorY, strength, r
 			if (last_com_down_double)
 				doThrow = true; // converts to drop in the PlayerObjectCommand method
 			else
-				doThrow = !InventoryUseTool(false, false);
+			{
+				var contents = Contents();
+				
+				if (contents)
+				{
+					if (Contents()->~IsAttachableTool())
+					{
+						doThrow = !InventoryUseTool(false, false, release);
+					}
+					else
+					{
+						doThrow = !ControlUse2Script(CON_Use, cursorX, cursorY, strength, repeat, release, contents);
+					}
+				}
+			}
 		}
 
-		if (doThrow)
+		if (doThrow && !release)
 		{
 			if (proc == DFA_WALK
 			 || proc == DFA_FLIGHT
@@ -460,18 +474,18 @@ func ObjectControlClassic(int ctrl, data, int plr, cursorX, cursorY, strength, r
 				  || proc == DFA_SWIM) PlayerObjectCommand(GetOwner(),"Drop");
 		}
 	}
-	else if (ctrl == CON_Enter)
+	else if (ctrl == CON_Enter && !release)
 	{
 		if (proc == DFA_WALK
 	     || proc == DFA_SWIM) ObjectControlEntrance(plr, ctrl);
 		else if (proc == DFA_PUSH) ObjectControlPush(plr, CON_PushEnter);
 	}
-	else if (ctrl == CON_Exit)
+	else if (ctrl == CON_Exit && !release)
 	{
 		if (proc == DFA_WALK
 		 || proc == DFA_SWIM) ObjectControlEntrance(plr, ctrl);
 	}
-	else if (ctrl == CON_InventoryNext || ctrl == CON_InventoryPrevious)
+	else if ((ctrl == CON_InventoryNext || ctrl == CON_InventoryPrevious) && !release)
 	{
 		ObjectControlShiftInventory(ctrl);
 	}
@@ -494,6 +508,8 @@ func ObjectControlClassic(int ctrl, data, int plr, cursorX, cursorY, strength, r
 
 func ObjectControlSelection( int plr, int ctrl, int cursorX, int cursorY, int strength, bool repeat, bool release)
 {
+	if (release) return false;
+
 	var proc = GetProcedure();
 
 	if (ctrl != CON_SelectNext
@@ -542,6 +558,8 @@ func ObjectControlSelection( int plr, int ctrl, int cursorX, int cursorY, int st
 func ObjectControlObjectMenu( int plr, int ctrl, int cursorX, int cursorY, int strength, bool repeat, bool release)
 {
 	if (!GetMenu()) return false;
+	if (release) return false;
+	
 
 	if(GetMenu()->~IsContentMenu())
 	{

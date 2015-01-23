@@ -300,7 +300,7 @@ func DoUpdateAttachTool(index)
 	}
 }
 
-protected func InventoryUseTool(bool secondary, bool attached)
+protected func InventoryUseTool(bool secondary, bool attached, bool release)
 {
 	inventory_saver->SetPosition(this->GetX(),this->GetY());
 
@@ -321,7 +321,7 @@ protected func InventoryUseTool(bool secondary, bool attached)
 	if (!tool) return false;
 	
 	if (tool->~AttachedToolIsInUse(this))
-		return tool->~AttachedToolCancelUse(this);
+		return tool->~AttachedToolCancelUse(this, release);
 	else
-		return tool->~AttachedToolStartUse(this);
+		return tool->~AttachedToolStartUse(this, release);
 }

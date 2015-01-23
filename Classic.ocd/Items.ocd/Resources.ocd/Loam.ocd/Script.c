@@ -18,11 +18,12 @@ func Hit()
 }
 
 
-
-public func AttachedToolStartUse(object user)
+/*
+public func AttachedToolStartUse(object user, bool release)
 {
-	if (!AttachedToolReady(user)) return;
-
+	if (!AttachedToolReady(user)) return false;
+	if (!release) return true;
+    //return true;
 	return ControlUseStart(user, user->GetX() -10 + 20*(user->GetDir()), user->GetY());
 }
 
@@ -38,40 +39,28 @@ private func AttachedToolReady(object user)
 public func AttachedToolIsInUse(object user)
 {
 	if (!user) return false;
-	return GetEffect("IntAxe", this)
-	    || GetEffect("IntAxe", user)
-		|| GetEffect("IntSplit", user)
-		|| GetEffect("AxeStrikeStop", user);
+	return GetEffect("IntBridge", user);
 }
 
 public func AttachedToolCancelUse(object user)
 {
 	if (!user) return false;
-	Reset(user);
+	LoamDone(user);
 	return true;
 }
-
-
-
-
-
+*/
 // Item activation
 func ControlUseStart(object clonk, int x, int y)
 {
-	if (!AttachedToolReady(clonk))
+	Log("Using loam %d %d", x, y);
+	if (!(clonk->~Bridge()))
 	{
 		clonk->CancelUse();
 		return true;
 	}
-
-	// Gfx
-	clonk->SetAction("Bridge");
-	clonk->SetComDir(COMD_Stop);
-	clonk->SetXDir(0);
-	clonk->SetYDir(0);
 	// Add bridge effect and pass target coordinates.
 	AddEffect("IntBridge", clonk, 1, 1, this, nil, x, y);
-	
+
 	return true;
 }
 
@@ -96,7 +85,7 @@ func FxIntBridgeStart(object clonk, proplist effect, int temp, int x, int y)
 func FxIntBridgeTimer(object clonk, proplist effect, int time)
 {
 	// something happened - don't try to dig anymore
-	if (clonk->GetAction() != "Bridge")
+	if (!(clonk->~IsBridging()))
 	{
 		clonk->CancelUse();
 		return true;
@@ -144,7 +133,7 @@ func FxIntBridgeTimer(object clonk, proplist effect, int time)
 	var ox = dy * line_wdt / d, oy = -dx * line_wdt / d;
 	dx = dx * line_len / (d*10);
 	dy = dy * line_len / (d*10);
-	DrawMaterialQuad("Loam-loam", last_x-ox,last_y-oy, last_x+dx-ox,last_y+dy-oy, last_x+dx+ox,last_y+dy+oy, last_x+ox,last_y+oy, DMQ_Bridge);
+	DrawMaterialQuad("Earth-earth", last_x-ox,last_y-oy, last_x+dx-ox,last_y+dy-oy, last_x+dx+ox,last_y+dy+oy, last_x+ox,last_y+oy, DMQ_Bridge);
 	effect.LastX += dx;
 	effect.LastY += dy;
 
@@ -183,7 +172,7 @@ public func ControlUseCancel(object clonk, int x, int y)
 private func LoamDone(object clonk)
 {
 	// Get out of animation
-	if (clonk->GetAction() == "Bridge")
+	if (clonk->IsBridging())
 	{
 		clonk->SetAction("Walk");
 		clonk->SetComDir(COMD_Stop);
