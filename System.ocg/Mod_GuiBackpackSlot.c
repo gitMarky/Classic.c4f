@@ -38,6 +38,8 @@ public func SetSymbol(obj)
 		if (GetType(obj) == C4V_C4Object && obj->~IsUseable())
 		{
 			definition = obj->GetID();
+			
+			//if (!obj->GetUseReady()) definition = nil;
 		}
 		else if (GetType(obj) == C4V_Def && obj->~IsUseable())
 		{
@@ -64,6 +66,11 @@ public func SetSymbol(obj)
 	
 			SetGraphics(nil, icon, GUI_BPS_UseIcon_Fg, GFXOV_MODE_IngamePicture);
 			SetObjDrawTransform( scale, 0, x, 0, scale, y, GUI_BPS_UseIcon_Fg);	
+		}
+		else
+		{
+			SetGraphics(nil, nil, GUI_BPS_UseIcon_Bg, GFXOV_MODE_None);
+			SetGraphics(nil, nil, GUI_BPS_UseIcon_Fg, GFXOV_MODE_None);
 		}
 		
 		// if object has extra slot, show it

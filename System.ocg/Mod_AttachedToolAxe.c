@@ -16,6 +16,7 @@ public func AttachedToolStartUse(object user)
 private func AttachedToolReady(object user)
 {
 	if (!user) return;
+	if (user->Contained()) return;
 	var proc = user->GetProcedure();
 	
 	return proc == DFA_WALK || user->GetAction() == "Jump";
