@@ -1,2 +1,3 @@
 MsgBuy=Kaufen
 MsgSell=Verkaufen
+MsgRemoveFlag=Flagge abnehmen

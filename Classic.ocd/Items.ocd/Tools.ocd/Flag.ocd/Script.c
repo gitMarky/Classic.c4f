@@ -33,7 +33,8 @@ public func SetBase(object homebase)
 	if(Contained()) Exit();
 	homebase->SetOwner(GetOwner());
 	SetAction("FlyBase",homebase);
-	AddEffect("IntBaseCheck", homebase, 50, 1, this);
+	AddEffect("IntBaseCheck", homebase, 1, 1, this);
+	Sound("Trumpet");
 
 	this.Collectible = 0;
 }
@@ -41,6 +42,7 @@ public func SetBase(object homebase)
 public func LostBase()
 {
 	this.Collectible = 1;
+	SetAction("Idle");
 }
 
 private func FxIntBaseCheckTimer(object target)

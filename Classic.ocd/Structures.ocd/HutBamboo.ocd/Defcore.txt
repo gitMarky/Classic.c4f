@@ -8,7 +8,7 @@ Offset=-24,-21
 Value=25
 Mass=350
 Components=Wood=3
-Picture=0,0,48,43
+Picture=0,0,96,86
 Vertices=4
 VertexX=-10,14,-16,16
 VertexY=-18,-14,21,21

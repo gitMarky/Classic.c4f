@@ -55,6 +55,7 @@ protected func StructureDestroyed()
 	{
 		this.IsDestroyed = true;
 		this->~OnStructureDestroyed();
+		this->~OnStructureDestroyedFx();
 	}
 }
 
