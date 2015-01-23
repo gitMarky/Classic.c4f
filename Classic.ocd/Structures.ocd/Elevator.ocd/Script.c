@@ -1,6 +1,6 @@
 /*-- Elevator --*/
 
-#include Library_Structure
+#include Library_ClassicStructure
 #include Library_Ownable
 #include BasementElevator
 

@@ -1,5 +1,6 @@
 /*-- Wind generator --*/
 
+#include Library_ClassicStructure
 #include WindGenerator
 #include Basement26
 

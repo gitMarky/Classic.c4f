@@ -1,16 +1,18 @@
 /*-- Castle --*/
 
 
-#include Library_Structure
+#include Library_ClassicStructure
 #include Library_Ownable
 #include Library_HomeBase
 #include Library_DoorControl
 
 #include Basement80
 
+local tower;
+
 protected func Initialize()
 {
-	var tower = CreateObjectAbove(ClassicCastleTower, -23, +44, GetOwner());
+	tower = CreateObjectAbove(ClassicCastleTower, -23, +44, GetOwner());
 	tower.Plane = this.Plane + 1;
 }
   

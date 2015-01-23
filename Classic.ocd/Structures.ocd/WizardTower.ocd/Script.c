@@ -4,7 +4,7 @@
  *	Author: Marky, Mesh: constantin, Texture: constantin
  */
 
-#include Library_Structure
+#include Library_ClassicStructure
 #include Library_Ownable
 
 #include Library_DoorControl
