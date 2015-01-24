@@ -1,4 +1,4 @@
-material stonehut: NormalMap
+material stonehut
 {
 	technique 0
 	{
@@ -13,12 +13,6 @@ material stonehut: NormalMap
 			texture_unit base
 			{
 				texture stonehut.jpg
-				tex_address_mode wrap
-			}
-
-			texture_unit normal
-			{
-				texture normal_stonehut.png
 				tex_address_mode wrap
 			}
 		}
