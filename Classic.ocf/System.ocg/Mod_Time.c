@@ -6,7 +6,7 @@
  *	Author: Marky
  */
 
-#appendto Environment_Time
+#appendto Time
 
 /* Local functions */
 
