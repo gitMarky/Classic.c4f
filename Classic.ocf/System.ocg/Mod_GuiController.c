@@ -6,6 +6,7 @@
 
 #appendto GUI_Controller
 
+/*
 // takes care of displaying the interactions
 public func FxIntSearchInteractionObjectsTimer(object target, effect, int time)
 {
@@ -36,7 +37,7 @@ public func FxIntSearchInteractionObjectsTimer(object target, effect, int time)
 				ActionButton(target, i++, interaction.Object, ACTIONTYPE_EXTRA, hotkey++, nil, interaction);
 	
 		// add interactables (script interface)
-		var interactables = FindObjects(Find_AtPoint(target->GetX()-GetX(),target->GetY()-GetY()),Find_Func("IsInteractable",target) /*,Find_NoContainer()*/, Find_Layer(target->GetObjectLayer()));
+		var interactables = FindObjects(Find_AtPoint(target->GetX()-GetX(),target->GetY()-GetY()),Find_Func("IsInteractable",target) /*,Find_NoContainer()*//*, Find_Layer(target->GetObjectLayer()));
 		var j, icnt;
 		for(var interactable in interactables)
 		{
@@ -90,3 +91,4 @@ public func FxIntSearchInteractionObjectsTimer(object target, effect, int time)
 	
 	return;
 }
+*/
