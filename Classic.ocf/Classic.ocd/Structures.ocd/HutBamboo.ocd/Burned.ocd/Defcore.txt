@@ -14,6 +14,5 @@ VertexX=-9,14,-16,16
 VertexY=-17,-14,21,21
 VertexFriction=50,50,50,50
 Construction=1
-ConstructTo=ClassicHutBamboo
 Rotate=1
 Float=1

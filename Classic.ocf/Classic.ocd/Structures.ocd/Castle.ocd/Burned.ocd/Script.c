@@ -10,3 +10,4 @@
 local Name = "$Name$";
 local Description = "$Description$";
 local BlastIncinerate = 160;
+local ConstructTo = ClassicCastle;

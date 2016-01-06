@@ -15,5 +15,4 @@ VertexY=43,43,4,4,-43
 VertexFriction=50,50,50,50,50
 Exclusive=1
 Construction=1
-ConstructTo=ClassicCastle
 Rotate=1
