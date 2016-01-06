@@ -3,7 +3,7 @@
  * 
  * Author: Marky, original by Newton, Maikel
  */
-
+/*
 global func CreateContentsMenus()
 {
 	// Safety checks.
@@ -30,7 +30,7 @@ global func CreateContentsMenus()
 		
 	// Add content menus for all containers at the position of the caller.
 	// Marky: structures are only containers if you are inside of them, so added parameter 'this' to IsContainer
-	var containers = FindObjects(Find_AtPoint()/*, Find_NoContainer()*/, Find_OCF(OCF_Fullcon), Find_Func("IsContainer", this), Sort_Func("SortInventoryObjs"));
+	var containers = FindObjects(Find_AtPoint()/*, Find_NoContainer()*//*, Find_OCF(OCF_Fullcon), Find_Func("IsContainer", this), Sort_Func("SortInventoryObjs"));
 	for(var c in containers)
 	if (Contained() == c->Contained() || Contained() == c) // Marky: the same goes for containers inside buildings.
 		controller->AddContentMenu(c, index++, false);
@@ -66,3 +66,4 @@ global func GetStackedContents()
 
 	return stacked;
 }
+*/
