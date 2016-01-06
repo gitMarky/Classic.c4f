@@ -480,7 +480,7 @@ public func BirdStartBuildNest(pThis, pTree)
 	  else
 		  SetDir(DIR_Right);
 
-	  effect.shelter = CreateConstruction(BirdNest, (-GetDefWidth()+2*GetDefWidth()*GetDir())/2, +5, -1, 30);
+	  effect.shelter = CreateConstruction(BirdNest, (-GetID()->GetDefWidth()+2*GetID()->GetDefWidth()*GetDir())/2, +5, -1, 30);
 
 	  effect.shelter.pTree = pTree;
 	  effect.shelter->SetAction("Be", pTree);
@@ -500,7 +500,7 @@ protected func BirdPrepareBuildNest()
 protected func BirdDoBuildNest()
 {
 	  var effect = AnimalGetActivityEffect();
-	  if(!effect || !effect.shelter || effect.shelter->OnFire() || ObjectDistance(effect.shelter) > GetDefWidth())
+	  if(!effect || !effect.shelter || effect.shelter->OnFire() || ObjectDistance(effect.shelter) > GetID()->GetDefWidth())
 	  { SetAction("Fly");  return; }
 
 	  if(GetPhase()%2) return;
@@ -547,7 +547,7 @@ public func AvoidHittingLandscape()
 {
 	if(Contained()) return;
 
-	var dist = GetDefHeight()*2;
+	var dist = GetID()->GetDefHeight()*2;
 
 	var d_top = 0;
 	var d_down = 0;
@@ -568,7 +568,7 @@ public func AvoidHittingLandscape()
 		if(GBackSemiSolid(0,-d_top)) break;
 	}
 
-	for(d_down = GetDefOffset(1) + GetDefHeight(); d_down < dist; d_down++)
+	for(d_down = GetDefOffset(1) + GetID()->GetDefHeight(); d_down < dist; d_down++)
 	{
 		if(GBackSemiSolid(0,d_down)) break;
 	}
@@ -579,7 +579,7 @@ public func AvoidHittingLandscape()
 		if(GBackSemiSolid(dx,-d_top_dir)) break;
 	}
 
-	for(d_down_dir = GetDefOffset(1) + GetDefHeight(); d_down_dir < dist2; d_down_dir++)
+	for(d_down_dir = GetDefOffset(1) + GetID()->GetDefHeight(); d_down_dir < dist2; d_down_dir++)
 	{
 		if(GBackSemiSolid(dx,d_down_dir)) break;
 	}
@@ -618,7 +618,7 @@ private func GetFeasableHeight(int x)
 {
 	var height = GetY();
 
-	var safe_distance = GetDefHeight() * 2;
+	var safe_distance = GetID()->GetDefHeight() * 2;
 
 	var found_starting_point = false;
 
