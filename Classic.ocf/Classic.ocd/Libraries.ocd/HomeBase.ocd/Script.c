@@ -5,7 +5,6 @@
  */
 
 #include Library_Base
-#include Library_GoldSeller
 
 static const g_Homebase_Interact_Buy = 0;
 static const g_Homebase_Interact_Sell = 1;
