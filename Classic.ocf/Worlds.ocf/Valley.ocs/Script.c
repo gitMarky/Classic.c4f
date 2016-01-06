@@ -15,10 +15,10 @@ func Initialize()
 	// Ambient clouds
 
 
-	var time = CreateObject(Environment_Time);
+	var time = CreateObject(Time);
 	time->SetCycleSpeed(20);
 
-	SetTime(Time(17));
+	SetTime(ToSeconds(17));
 
 	//var bird = CreateObject(Bird, LandscapeWidth()/2, 100, -1);
 	

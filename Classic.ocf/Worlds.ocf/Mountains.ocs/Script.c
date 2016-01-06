@@ -8,10 +8,10 @@ func Initialize()
 	var goal = CreateObject(Goal_ResourceExtraction);
 	goal->SetResource("Ore");
 
-	var time = CreateObject(Environment_Time);
+	var time = CreateObject(Time);
 	time->SetCycleSpeed(20);
 
-	SetTime(Time(10));
+	SetTime(ToSeconds(10));
 	
 	AutoPlaceVegetation(Tree1, 5);
 	AutoPlaceVegetation(Tree2, 25);

@@ -14,10 +14,10 @@ func Initialize()
 	var goal3 = CreateObject(Goal_Wealth);
 	goal->SetWealthGoal(150);
 
-	var time = CreateObject(Environment_Time);
+	var time = CreateObject(Time);
 	time->SetCycleSpeed(20);
 
-	SetTime(Time(10));
+	SetTime(ToSeconds(10));
 	
 	
 	var burned_trees_1 = AutoPlaceVegetation(Tree1, 32);
