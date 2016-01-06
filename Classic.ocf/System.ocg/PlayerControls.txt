@@ -1,5 +1,5 @@
 [ControlDefs]
-ClearPrevious=true
+#ClearPrevious=true
 
 	###################################################
 	#
