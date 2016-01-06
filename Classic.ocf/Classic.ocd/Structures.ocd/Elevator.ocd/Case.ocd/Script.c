@@ -10,8 +10,8 @@ func Initialize()
 	AddEffect("ElevatorUpperLimitCheck", this, 1, 1, this);
 	AddEffect("FetchVehicles", this, 1, 1, this);
 	
-	case_speed = ElevatorCase_move_speed / 2;
-	case_speed_automatic = ElevatorCase_move_speed;
+	//case_speed = ElevatorCase_move_speed / 2;
+	//case_speed_automatic = ElevatorCase_move_speed;
 	
 	partner_was_synced = false;
 
@@ -38,7 +38,7 @@ public func GetInteractionMetaInfo(object clonk, int num)
 public func Interact(object clonk, int num)
 {
 	// drill!
-	SetMoveDirection(ElevatorCase_down, true, true);
+	SetMoveDirection(COMD_Down, true, true);
 	return true;
 }
 
@@ -49,8 +49,8 @@ func Drilling()
 
 	var bounds_l = GetDefOffset();
 	var bounds_u = GetDefOffset(1) - additional_y;
-	var bounds_r = GetDefWidth() + GetDefOffset();
-	var bounds_d = GetDefHeight() + GetDefOffset(1) + additional_y;
+	var bounds_r = GetID()->GetDefWidth() + GetDefOffset();
+	var bounds_d = GetID()->GetDefHeight() + GetDefOffset(1) + additional_y;
 
 	var rect = Rectangle(GetX() + bounds_l, GetY() + bounds_u, GetX() + bounds_r, GetY() + bounds_d);
 	if(IsMaster())
@@ -113,7 +113,7 @@ func ControlDownSingle(object clonk)
 {
 	if (IsSlave()) return Control2Master("ControlDownSingle", clonk);
 
-	SetMoveDirection(ElevatorCase_down, true, false);
+	SetMoveDirection(COMD_Down, true, false);
 	return true;
 }
 
