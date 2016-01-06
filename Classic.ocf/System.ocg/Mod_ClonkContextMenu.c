@@ -21,7 +21,7 @@ private func ContextMenuAddEntriesInteraction()
 {
 	var entries = 0;
 	// Add all interaction buttons
-	var hotkeys = FindObjects(Find_ID(GUI_ObjectSelector), Find_Owner(GetOwner()), Find_Func("ShowsItem"));
+	var hotkeys = []; //FindObjects(Find_ID(GUI_ObjectSelector), Find_Owner(GetOwner()), Find_Func("ShowsItem"));
 	//for (var icon in hotkeys)
 	for (var i = GetLength(hotkeys)-1; i >= 0; i--) // Sort_Reverse() made no difference
 	{
