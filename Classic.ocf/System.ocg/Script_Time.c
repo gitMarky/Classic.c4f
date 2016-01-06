@@ -12,7 +12,7 @@ global func Time(int hours, int minutes, int seconds, fFrames)
 
 	if (fFrames)
 	{
-		var time = FindObject(Find_ID(Environment_Time));
+		var time = FindObject(Find_ID(Time));
 
 		if (time)
 		{
@@ -25,7 +25,7 @@ global func Time(int hours, int minutes, int seconds, fFrames)
 
 global func GetTime()
 {
-	var time = FindObject(Find_ID(Environment_Time));
+	var time = FindObject(Find_ID(Time));
 
 	if(time)
 	{
@@ -37,7 +37,7 @@ global func GetTime()
 
 global func SetTime(int to_time)
 {
-	var time = FindObject(Find_ID(Environment_Time));
+	var time = FindObject(Find_ID(Time));
 
 	if (time)
 	{
@@ -47,40 +47,40 @@ global func SetTime(int to_time)
 
 global func PauseTime()
 {
-	var time = FindObject(Find_ID(Environment_Time));
+	var time = FindObject(Find_ID(Time));
 	if (time) time->PauseTime();
 }
 
 global func ResumeTime()
 {
-	var time = FindObject(Find_ID(Environment_Time));
+	var time = FindObject(Find_ID(Time));
 	if (time) time->ResumeTime();
 }
 
 global func IsDay()
 {
-	var time = FindObject(Find_ID(Environment_Time));
+	var time = FindObject(Find_ID(Time));
 	if (time) return time->IsDayLocal();
 	else return true;
 }
 
 global func IsNight()
 {
-	var time = FindObject(Find_ID(Environment_Time));
+	var time = FindObject(Find_ID(Time));
 	if (time) return time->IsNightLocal();
 	else return false;
 }
 
 global func IsDusk()
 {
-	var time = FindObject(Find_ID(Environment_Time));
+	var time = FindObject(Find_ID(Time));
 	if (time) return time->IsDuskLocal();
 	else return false;
 }
 
 global func IsDawn()
 {
-	var time = FindObject(Find_ID(Environment_Time));
+	var time = FindObject(Find_ID(Time));
 	if (time) return time->IsDawnLocal();
 	else return false;
 }
