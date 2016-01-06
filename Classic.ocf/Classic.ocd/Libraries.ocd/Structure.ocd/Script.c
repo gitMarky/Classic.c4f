@@ -12,15 +12,6 @@ local IsDisabled = false;
 
 static const STRUCTURE_Destruction_Con = 30;
 
-func Initialize()
-{
-	if (FindObject(Find_ID(Rule_StructureHPBars)))
-	{
-		if (this.HitPoints != nil)
-			AddEnergyBar();
-	}
-	return _inherited(...);
-}
 
 public func Damage(int change, int cause, int cause_plr)
 {
