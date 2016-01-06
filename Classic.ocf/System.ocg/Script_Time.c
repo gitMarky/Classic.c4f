@@ -4,7 +4,7 @@
  *  Author: Marky
  */
 
-global func Time(int hours, int minutes, int seconds, fFrames)
+global func ToSeconds(int hours, int minutes, int seconds, fFrames)
 {
 	hours	= hours%24;
 	minutes	= minutes%60;
@@ -32,7 +32,7 @@ global func GetTime()
 		return time->GetTime();
 	}
 
-	return Time(12, 0, 0); // it's always noon :D
+	return ToSeconds(12, 0, 0); // it's always noon :D
 }
 
 global func SetTime(int to_time)

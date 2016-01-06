@@ -66,7 +66,7 @@ public func IsNightLocal()
 	var night_start = (time_set["SunsetStart"] + time_set["SunsetEnd"]) / 2;
 	var night_end = (time_set["SunriseStart"] + time_set["SunriseEnd"]) / 2;
 
-	return Inside((time + Time(12)) % (Time(12)*2), Min(night_start, night_end), Max(night_start, night_end));
+	return Inside((time + ToSeconds(12)) % (ToSeconds(12)*2), Min(night_start, night_end), Max(night_start, night_end));
 }
 
 

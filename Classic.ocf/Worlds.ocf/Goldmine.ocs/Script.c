@@ -17,7 +17,7 @@ func Initialize()
 	var time = CreateObject(Time);
 	time->SetCycleSpeed(20);
 
-	SetTime(Time(10));
+	SetTime(ToSeconds(10));
 	
 	var amount_tree1 = RandomX(50, 75); // 75 is original
 	var amount_tree2 = RandomX(40, 50); // 50 is original
