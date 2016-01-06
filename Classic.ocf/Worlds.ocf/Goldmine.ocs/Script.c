@@ -14,7 +14,7 @@ func Initialize()
 	goal->SetResource("Gold");
 
 
-	var time = CreateObject(Environment_Time);
+	var time = CreateObject(Time);
 	time->SetCycleSpeed(20);
 
 	SetTime(Time(10));
