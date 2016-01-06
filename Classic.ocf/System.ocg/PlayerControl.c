@@ -10,27 +10,22 @@ static const CON_Gamepad_Deadzone = 60;
 static CON_VC_Players;
 static g_player_cursor_pos; // array of [x,y] pos arrays; indexed by player. last cursor pos as sent by CON_CursorPos
 
-
-static g_player_menu_enabled; // array that saves if the player menu is open -> as long as that happens we bypass the controls to clonks
-
-
 // PlayerControlRelease
 // Called by engine whenever a control is issued
 // Forwards control to special handler or cursor
 // Return whether handled
 global func PlayerControl(int plr, int ctrl, id spec_id, int x, int y, int strength, bool repeat, bool release)
 {
-	//Log("PlayerControl %d, %s, %i, %d, %d, %d, %v, %v", plr, GetPlayerControlName(ctrl), spec_id, x,y,strength, repeat, release);
+	//Log("%d, %s, %i, %d, %d, %d, %v, %v", plr, GetPlayerControlName(ctrl), spec_id, x,y,strength, repeat, release);
 	// Control handled by definition? Forward
-	if (spec_id) return spec_id->PlayerControl(plr, ctrl, nil, x, y, strength, repeat, release);
+	if (spec_id) return spec_id->PlayerControl(plr, ctrl, x, y, strength, repeat, release);
 
 	// Forward control to player
 	if (Control2Player(plr,ctrl, x, y, strength, repeat, release)) return true;
 
 	// Forward control to cursor
 	var cursor = GetCursor(plr);
-	if (cursor)
-	if (cursor->GetCrewEnabled())
+	if (cursor && cursor->GetCrewEnabled())
 	{
 		// Object controlled by plr
 		cursor->SetController(plr);
@@ -52,14 +47,14 @@ global func PlayerControl(int plr, int ctrl, id spec_id, int x, int y, int stren
 			// cancel menu
 			if (ctrl == CON_CancelMenu)
 			{
-				cursor->GetMenu()->Close();
+				cursor->TryCancelMenu();
 				return true;
 			}
 
 			if (ctrl == CON_GUIClick1 || ctrl == CON_GUIClick2 || ctrl == CON_GUICursor)
 			{
-				var menux = cursor->GetMenu()->GetX();
-				var menuy = cursor->GetMenu()->GetY();
+				var menux = cursor->GetMenu()->~GetX();
+				var menuy = cursor->GetMenu()->~GetY();
 				
 				var dx = x-menux;
 				var dy = y-menuy;
@@ -92,7 +87,6 @@ global func PlayerControl(int plr, int ctrl, id spec_id, int x, int y, int stren
 		{
 			if (cursor && !release && !repeat)
 			{
-				cursor->DoNoCollectDelay(-1);
 				// non-mouse controls reset view
 				if (!x && !y) ResetCursorView(plr);
 			}
@@ -101,7 +95,8 @@ global func PlayerControl(int plr, int ctrl, id spec_id, int x, int y, int stren
 		//else Log("-- not handled");
 
 	}
-	// No cursor? Nothing to handle control then
+	
+	// Nothing to handle control then
 	return false;
 }
 
@@ -163,6 +158,9 @@ global func Control2Player(int plr, int ctrl, int x, int y, int strength, bool r
 		return SetCursor(plr, crew);
 	}
 	
+	// Modifier keys - do not handle the key. The GetPlayerControlState will still return the correct value when the key is held down.
+	if (ctrl == CON_ModifierMenu1) return false;
+		
 	// cursor pos info - store in player values
 	if (ctrl == CON_CursorPos)
 	{
@@ -177,16 +175,6 @@ global func Control2Player(int plr, int ctrl, int x, int y, int strength, bool r
 		return true;
 	}
 	*/
-
-	if (ctrl == CON_PlayerMenu)
-	{
-		g_player_menu_enabled[plr] = true;
-	}
-	else if (ctrl == CON_PlayerMenuCancel)
-	{
-		g_player_menu_enabled[plr] = false;
-	}
-
 	return false;
 }
 
@@ -341,6 +329,15 @@ global func ObjectControlMovement(int plr, int ctrl, int strength, bool release,
 			else if (ctrl == CON_Right) SetDir(DIR_Right);
 		}
 	}
+	else // release
+	{
+		// If rolling, allow to instantly switch to walking again.
+		if (GetAction() == "Roll")
+		{
+			if (ctrl == CON_Left && GetDir() == DIR_Left || ctrl == CON_Right && GetDir() == DIR_Right)
+				SetAction("Walk");
+		}
+	}
 	return ObjectControlUpdateComdir(plr);
 }
 
@@ -426,11 +423,18 @@ global func ShiftCursor(int plr, bool back)
 			if (index >= GetCrewCount(plr)) index = 0;
 		}
 		++cycle;
-	} while (!(GetCrew(plr,index)->GetCrewEnabled()) && cycle < maxcycle);
+	} while (cycle < maxcycle && !(GetCrew(plr,index)->GetCrewEnabled()));
 
 	StopSelected();
-
-	return SetCursor(plr, GetCrew(plr,index));
+	
+	// Changing the cursor closes all menus that are associated with the old cursor.
+	// However, if a menu is not closable, then it requires the attention of the player and switching the cursor is disabled..
+	var current_cursor = GetCursor(plr);
+	var new_cursor = GetCrew(plr, index);
+	if (current_cursor == new_cursor) return false;
+	if (current_cursor && current_cursor->~GetMenu() && !current_cursor->~TryCancelMenu()) return false;
+	
+	return SetCursor(plr, new_cursor);
 }
 
 // Temporarily used for Debugging!
@@ -501,6 +505,7 @@ global func MouseHover(int player, object leaving, object entering, object dragg
 global func MouseDragDrop(int plr, object source, object target)
 {
 	//Log("MouseDragDrop(%d, %s, %s)", plr, source->GetName(), target->GetName());
+	if (!source) return false; // can happen if source got deleted after control was queued
 	var src_drag = source->~OnMouseDrag(plr);
 	if (!src_drag) 
 		return false;
@@ -526,3 +531,15 @@ global func MouseDragDrop(int plr, object source, object target)
 	Log("%s%d, %s, %i, %d, %d, %d, %v, %v", rs, plr, GetPlayerControlName(ctrl), spec_id, x,y,strength, repeat, release);
 	return r;
 }*/
+
+/*
+This is used by Library_ClonkInventoryControl and needs to be a global function (in a non-appendto).
+This function returns the priority of an object when selecting an object to pick up.
+*/
+global func Library_ClonkInventoryControl_Sort_Priority(int x_position)
+{
+	// Objects are sorted by position, preferring the direction of the key press.
+	var priority_x = GetX() - x_position;
+	if (priority_x < 0) priority_x += 1000;
+	return priority_x; 
+}
