@@ -871,3 +871,134 @@ private func Control2Script(int ctrl, int x, int y, int strength, bool repeat, b
 			if (obj->Call(Format("~%s%s",control, CON2NameNoCon(ctrl)),this))  return true;
 		}
 }
+
+// Handles push controls
+private func ObjectControlPush(int plr, int ctrl)
+{
+	if (!this) return false;
+	
+	var proc = GetProcedure();
+	
+	// grabbing
+	if (ctrl == CON_Grab)
+	{
+		// grab only if he walks
+		if (proc != "WALK") return false;
+		
+		// only if there is someting to grab
+		var obj = FindObject(Find_OCF(OCF_Grab), Find_AtPoint(0,0), Find_Exclude(this), Find_Layer(GetObjectLayer()));
+		if (!obj) return false;
+		
+		// grab
+		ObjectCommand("Grab", obj);
+		return true;
+	}
+	
+	// grab next/previous
+	if (ctrl == CON_GrabNext)
+		return ShiftVehicle(plr, false);
+	if (ctrl == CON_GrabPrevious)
+		return ShiftVehicle(plr, true);
+	
+	// ungrabbing
+	if (ctrl == CON_Ungrab)
+	{
+		// ungrab only if he pushes
+		if (proc != "PUSH") return false;
+		
+		// vehicles might have set their own view and it's not reset on release controls
+		// So reset cursor view immediately when ungrabbing
+		ResetCursorView(GetController());
+
+		ObjectCommand("UnGrab");
+		return true;
+	}
+	
+	// push into building
+	if (ctrl == CON_PushEnter)
+	{
+		if (proc != "PUSH") return false;
+		
+		// respect no push enter
+		if (GetActionTarget()->GetDefCoreVal("NoPushEnter","DefCore")) return false;
+		
+		// a building with an entrance at right position is there?
+		var obj = GetActionTarget()->GetEntranceObject();
+		if (!obj) return false;
+
+		ObjectCommand("PushTo", GetActionTarget(), 0, 0, obj);
+		return true;
+	}
+	
+}
+
+// grabs the next/previous vehicle (if there is any)
+private func ShiftVehicle(int plr, bool back)
+{
+	if (!this) return false;
+	
+	if (GetProcedure() != "PUSH") return false;
+
+	var lorry = GetActionTarget();
+	// get all grabbable objects
+	var objs = FindObjects(Find_OCF(OCF_Grab), Find_AtPoint(0,0), Find_Exclude(this), Find_Layer(GetObjectLayer()));
+		
+	// nothing to switch to (there is no other grabbable object)
+	if (GetLength(objs) <= 1) return false;
+		
+	// find out at what index of the array objs the vehicle is located
+	var index = 0;
+	for(var obj in objs)
+	{
+		if (obj == lorry) break;
+		index++;
+	}
+		
+	// get the next/previous vehicle
+	if (back)
+	{
+		--index;
+		if (index < 0) index = GetLength(objs)-1;
+	}
+	else
+	{
+		++index;
+		if (index >= GetLength(objs)) index = 0;
+	}
+	
+	ObjectCommand("Grab", objs[index]);
+	
+	return true;
+}
+
+// Handles enter and exit
+private func ObjectControlEntrance(int plr, int ctrl)
+{
+	// enter
+	if (ctrl == CON_Enter)
+	{
+		// contained
+		if (Contained()) return false;
+		// enter only if... one can
+		if (!CanEnter()) return false;
+
+		// a building with an entrance at right position is there?
+		var obj = GetEntranceObject();
+		if (!obj) return false;
+		
+		ObjectCommand("Enter", obj);
+		return true;
+	}
+	
+	// exit
+	if (ctrl == CON_Exit)
+	{
+		if (!Contained()) return false;
+		
+		ObjectCommand("Exit");
+		return true;
+	}
+	
+	return false;
+}
+
