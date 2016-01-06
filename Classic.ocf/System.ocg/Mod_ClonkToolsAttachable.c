@@ -182,7 +182,7 @@ func UpdateAttach()
 		DoUpdateAttachTool(toolIndex); // maybe this helps??
 	}
 
-	if (GetSelector()) GetSelector()->UpdateTitleGraphic();
+	//if (GetSelector()) GetSelector()->UpdateTitleGraphic();
 }
 
 func DoUpdateAttachTool(index)
