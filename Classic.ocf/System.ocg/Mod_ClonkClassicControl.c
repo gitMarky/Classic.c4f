@@ -228,49 +228,6 @@ public func ObjectControl(int plr, int ctrl, int cursorX, int cursorY, int stren
 
 func ObjectControlClassic(int ctrl, data, int plr, cursorX, cursorY, strength, repeat, release)
 {
-	// Decrease NoCollectDelay 
-	//if (!(byCom & COM_Single) && !(byCom & COM_Double) && !IsRelease)
-	//	if (NoCollectDelay>0) 
-	//		NoCollectDelay--;
-
-	// COM_Contents contents shift (data is target number (not ID!))
-	// contents shift must always be done to container object, which is not necessarily this
-	//if (byCom==COM_Contents)
-	//	{
-	//	C4Object *pTarget = Game.Objects.SafeObjectPointer(iData);
-	//	if (pTarget && pTarget->Contained)
-	//		pTarget->Contained->DirectComContents(pTarget, true);
-	//	return;
-	//	}
-
-	// Contained control (except specials - hey, doesn't catch singles or doubles)
-	//if (Contained)
-	//	if (byCom!=COM_Special && byCom!=COM_Special2 && byCom!=COM_WheelUp && byCom!=COM_WheelDown)
-	//		{	Contained->Controller=Controller; ContainedControl(byCom); return; }
-
-	// Regular ObjectControlClassic clears commands
-	//if (!(ctrl & CON_SingleOrDouble)) && !IsRelease)
-	//	ClearCommands();
-
-	// Object script override
-	//C4Player *pController;
-	//if (pController = Game.Players.Get(Controller))
-	//	if (CallControl(pController, byCom))
-	//		return;
-
-	// direct wheel control
-	//if (byCom==COM_WheelUp || byCom==COM_WheelDown)
-		// scroll contents
-	//	{ ShiftContents(byCom==COM_WheelUp, TRUE); return; }
-	
-	// The Player updates Controller before calling this, so trust Players.Get will return it
-	//if (pController && pController->ControlStyle)
-	//	{
-	//	AutoStopDirectCom(byCom, iData);
-	//	return;
-	//	}
-	
-
 	if (ObjectControlObjectMenu(plr, ctrl, cursorX, cursorY, strength, repeat, release))
 	{
 		return true;
@@ -489,17 +446,6 @@ func ObjectControlClassic(int ctrl, data, int plr, cursorX, cursorY, strength, r
 	{
 		ObjectControlShiftInventory(ctrl);
 	}
-
-
-
-
-//	else if (proc == "FIGHT")
-//	{
-//		if (ctrl == CON_Left) ObjectComMovement(COMD_Left);
-//		else if (ctrl == CON_Right) ObjectComMovement(COMD_Right);
-//		else if (ctrl == CON_Down) ObjectComStop();
-//	}
-
 
 	// everything handled.
 	return true;
