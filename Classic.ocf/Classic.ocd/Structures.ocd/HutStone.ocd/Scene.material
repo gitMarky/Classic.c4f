@@ -1,10 +1,9 @@
 material stonehut
 {
-	technique 0
+	technique
 	{
-
-        	pass 0
-        	{
+		pass
+		{
 			ambient 1.000000 1.000000 1.000000 1.000000
 			diffuse 1.000000 1.000000 1.000000 1.000000
 			specular 0.000000 0.000000 0.000000 1.000000 3.000000
@@ -16,6 +15,5 @@ material stonehut
 				tex_address_mode wrap
 			}
 		}
-
 	}
 }

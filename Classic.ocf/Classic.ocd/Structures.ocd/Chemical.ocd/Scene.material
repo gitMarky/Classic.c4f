@@ -1,6 +1,7 @@
 material ChemicalPlantClassic
 {
     receive_shadows on
+
     technique
     {
         pass
