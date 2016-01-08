@@ -92,29 +92,13 @@ func FxIntHangleTimer(pTarget, effect, iTime)
 // Removes diggable materials
 func FxIntDigTimer(pTarget, effect, iTime)
 {
-	if (iTime % 36 == 0)
-	{
-		Sound("Dig?");
-	}
-	if ((iTime-18) % 36 == 0 ||  iTime > 35)
-	{
-//		var noDig = 1;
-//		for (var pShovel in FindObjects(Find_ID(Shovel), Find_Container(this)))
-//			if(pShovel->IsDigging()) noDig = 0;
-//
-//		if (noDig)
-//		if (!FindObject(Find_ID(Shovel), Find_Container(this)))
-//		{
-//			SetAction("Walk");
-//			SetComDir(COMD_Stop);
-//			return -1;
-//		}
-	}
 	if (!effect.digMaterialRequest)
 	{
 		var chunks = FindObjects(Find_Func("IsRemoveableMaterialChunk"), Find_Distance(12));
 
 		for(var obj in chunks) obj->RemoveObject();
 	}
+	
+	return _inherited(pTarget, effect, iTime);
 }
 

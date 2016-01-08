@@ -18,11 +18,11 @@ func RemoveBackpack()
 }
 
 
-private func DiggingProcess()
-{
-	SetXDir(this.dig_xdir,100); SetYDir(this.dig_ydir,100);
-	return true;
-}
+//private func DiggingProcess()
+//{
+//	SetXDir(this.dig_xdir,100); SetYDir(this.dig_ydir,100);
+//	return true;
+//}
 
 func SetSkin(int new_skin)
 {
