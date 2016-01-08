@@ -46,7 +46,7 @@ func Initialize()
 
 func CreateCase()
 {
-	case = CreateObject(ClassicElevatorCase, 0, 23, GetOwner());
+	case = CreateObject(ClassicElevatorCase, 0, 10, GetOwner());
 	case->Connect(this);
 	case.Plane = 450;
 }
