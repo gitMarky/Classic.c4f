@@ -16,7 +16,6 @@ Mass=5
 Components=Bird=1
 Picture=560,0,64,64
 Float=1
-BorderBound=7
 StretchGrowth=1
 IncompleteActivity=1
 VehicleControl=2

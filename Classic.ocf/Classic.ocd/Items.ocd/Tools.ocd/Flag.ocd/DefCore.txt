@@ -14,5 +14,4 @@ Mass=2
 Components=ClassicFlag=1
 Picture=576,0,256,256
 Float=1
-BorderBound=1
 ColorByOwner=1

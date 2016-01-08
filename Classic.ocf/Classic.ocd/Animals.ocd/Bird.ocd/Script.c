@@ -425,6 +425,7 @@ local MaxBreath = 720; // Bird can breathe for 20 seconds under water.
 local NoBurnDecay = 1;
 local ContactIncinerate = 1;
 local Collectible = 1;
+local BorderBound = 7;
 
 
 

@@ -264,3 +264,5 @@ local Description="$Description$";
 local Collectible=1;
 local NoBurnDecay=1;
 local BreatheWater=1;
+local BorderBound=5;
+

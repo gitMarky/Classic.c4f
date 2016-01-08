@@ -100,3 +100,4 @@ local Name = "$Name$";
 local Description = "$Description$";
 local Touchable = 1;
 local Rebuy = true;
+local BorderBound = 1;
