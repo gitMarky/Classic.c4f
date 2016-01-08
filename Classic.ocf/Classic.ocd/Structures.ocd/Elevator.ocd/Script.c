@@ -5,7 +5,7 @@
 #include BasementElevator
 
 // used in the elevator case
-static const Elevator_needed_power = 50;
+//static const Elevator_needed_power = 50;
 
 local case, rope, dummy;
 
