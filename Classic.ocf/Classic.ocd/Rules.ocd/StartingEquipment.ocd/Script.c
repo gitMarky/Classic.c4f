@@ -5,13 +5,6 @@
  */
 
 
-protected func InitializePlayer(int player)
-{
-	SetPlayerZoomByZoomFactor(player, GetScenarioZoomMax(), PLRZOOM_LimitMax, GetScnearioZoomPrecision());
-	SetPlayerZoomByZoomFactor(player, GetScenarioZoomMin(), PLRZOOM_LimitMin, GetScnearioZoomPrecision());
-	SetPlayerZoomByZoomFactor(player, GetScenarioZoomMin(), PLRZOOM_Direct, GetScnearioZoomPrecision());
-}
-
 protected func OnClonkRecruitment(object crew, int plr)
 {
 	crew->CreateContents(Shovel);
