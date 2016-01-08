@@ -1,4 +1,4 @@
-material FarmerClonkClassic
+material ClonkFarmerClassic
 
 {
 	receive_shadows on

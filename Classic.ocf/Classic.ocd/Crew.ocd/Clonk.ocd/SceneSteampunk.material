@@ -1,4 +1,4 @@
-material clonkSteampunkClassic
+material ClonkSteampunkClassic
 
 {
 	receive_shadows on

@@ -49,7 +49,7 @@ func SetSkin(int new_skin)
 	{	skin_name = "Farmer";
 		gender = 1;	}
 		
-	var material_name = Format("Clonk%sClassic", skin_name);
+	var material_name = Format("Clonk%sClassic", skin_name ?? "");
 
 	SetGraphics(skin_name, Clonk);
 	SetMeshMaterial(material_name);
