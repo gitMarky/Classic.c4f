@@ -1,0 +1,4 @@
+Name=Dead Piranha
+Description=Stinks.
+
+TxtEmbowel=Embowel

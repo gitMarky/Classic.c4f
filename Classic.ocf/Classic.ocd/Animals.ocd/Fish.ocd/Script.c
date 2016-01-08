@@ -8,6 +8,9 @@
 #include Library_AnimalReproduction
 #include Library_AnimalFighting
 
+local brain; // Workaround: Remove some warnings/errors in original objects
+local wall_vision_range ; // Workaround: Remove some warnings/errors in original objects
+
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Turning
