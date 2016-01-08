@@ -15,6 +15,5 @@ Mass=15
 Components=Fish=1
 Picture=16,0,64,64
 Float=1
-ColorByOwner=1
 StretchGrowth=1
 IncompleteActivity=1

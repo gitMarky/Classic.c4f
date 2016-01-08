@@ -8,9 +8,6 @@
 #include Library_AnimalReproduction
 #include Library_AnimalFighting
 
-local brain; // Workaround: Remove some warnings/errors in original objects
-local wall_vision_range ; // Workaround: Remove some warnings/errors in original objects
-
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Turning
@@ -155,6 +152,22 @@ private func FxIntAnimalActivityFight( object target, proplist effect)
 				SetCommand("MoveTo", 0, fleex, fleey, 0, true);
 		}
 	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// Workaround
+
+local brain; // Workaround: Remove some warnings/errors in original objects
+local wall_vision_range; // Workaround: Remove some warnings/errors in original objects
+local hunger; // Workaround: Remove some warnings/errors in original objects
+
+func UpdateVisionFor(string set, string range_set, array objects, bool is_food)
+{
+}
+
+func UpdateWallVision()
+{
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
