@@ -174,8 +174,8 @@ global func PlaceVegetationEx(id definition, int amount, array rectangle, int ma
 							
 							var bot_dy = (plant->GetCon() * definition->GetDefHeight()) / 200;
 							
-							var lefty = plant->GetYBorder(plant->GetX()-2, plant->GetY() + bot_dy, -2 * y_direction, 30);
-							var righty = plant->GetYBorder(plant->GetX()+2, plant->GetY() + bot_dy, -2 * y_direction, 30);
+							var lefty = plant->GetYBorder(Max(0, plant->GetX()-2), plant->GetY() + bot_dy, -2 * y_direction, 30);
+							var righty = plant->GetYBorder(Min(LandscapeWidth(), plant->GetX()+2), plant->GetY() + bot_dy, -2 * y_direction, 30);
 							if (lefty != -1 && righty != -1)
 							{
 								plant->RelSetR
