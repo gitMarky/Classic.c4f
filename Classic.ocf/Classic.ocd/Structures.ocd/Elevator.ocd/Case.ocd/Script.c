@@ -6,15 +6,19 @@
 
 func Initialize()
 {
+	_inherited(...);
+
 	AddEffect("CheckAutoMoveTo", this, 1, 30, this);
-	AddEffect("ElevatorUpperLimitCheck", this, 1, 1, this);
-	AddEffect("FetchVehicles", this, 1, 1, this);
+	//AddEffect("ElevatorUpperLimitCheck", this, 1, 1, this);
+	//AddEffect("FetchVehicles", this, 1, 1, this);
 	
 	//case_speed = ElevatorCase_move_speed / 2;
 	//case_speed_automatic = ElevatorCase_move_speed;
 	
 	partner_was_synced = false;
 
+	if (front) front->RemoveObject();
+	if (back) back->RemoveObject();
 }
 
 
