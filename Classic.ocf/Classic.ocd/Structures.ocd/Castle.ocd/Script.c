@@ -8,7 +8,7 @@
 
 #include Basement80
 
-local tower;
+local topface;
 
 protected func Construction()
 {
@@ -18,21 +18,42 @@ protected func Construction()
 
 protected func Initialize()
 {
-	tower = CreateObjectAbove(ClassicCastleTower, -23, +44, GetOwner());
-	tower.Plane = this.Plane + 1;
+	topface = CreateObject(Dummy, 0, 0, NO_OWNER);
+	topface->SetPosition(GetX(), GetY());
+	topface->SetGraphics("TopFace", GetID());
+	topface.Visibility = VIS_All;
+	topface.Plane = 500;
 }
+
+func Destruction()
+{
+	if (topface) topface->RemoveObject();
+	_inherited(...);
+}
+
   
 /* Türsteuerung */
 
 private func SoundOpenDoor()
 {
-	Sound("GateOpen");
+	Sound("DoorOpen");
 }
   
 private func SoundCloseDoor()
 {
+	Sound("DoorClose");
+}
+
+private func SoundOpenGate()
+{
+	Sound("GateOpen");
+}
+  
+private func SoundCloseGate()
+{
 	Sound("GateClose");
 }
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -56,7 +77,7 @@ OpenDoor = {
 	Length = 10,
 	Delay = 1,
 	NextAction = "DoorOpen",
-	StartCall = "SoundOpenDoor",
+	StartCall = "SoundOpenGate",
 	Animation = "MainOpenDoor",
 },
 
@@ -79,7 +100,7 @@ CloseDoor = {
 	Length = 10,
 	Delay = 1,
 	NextAction = "Idle",
-	StartCall = "SoundCloseDoor",
+	StartCall = "SoundCloseGate",
 	Animation = "MainCloseDoor",
 },
 
