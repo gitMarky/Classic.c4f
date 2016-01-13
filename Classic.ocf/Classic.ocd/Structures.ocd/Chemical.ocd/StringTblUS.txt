@@ -1,6 +1,6 @@
 Name=Chemical plant
 Description=Explosives production facility.
 
-TxtNoconstructionplans=No construction plans
-TxtProductions=Production: %s
+NoPlrKnowledge=No construction plans
+Construction=Construction
 Production=Production
