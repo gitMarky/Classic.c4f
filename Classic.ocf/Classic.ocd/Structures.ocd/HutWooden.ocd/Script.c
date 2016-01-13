@@ -35,7 +35,7 @@ DoorOpen = {
 	NextAction = "CloseDoor",
 	StartCall = "OpenEntrance",
 	EndCall = "CloseEntrance",
-	Animation = "DoorOpenCustom",
+	Animation = "DoorOpen",
 },
 CloseDoor = {
 	Prototype = Action,
