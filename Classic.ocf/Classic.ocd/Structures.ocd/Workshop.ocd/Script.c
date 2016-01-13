@@ -65,7 +65,7 @@ public func DoBuildAnimation(bool build)
 	}
 	else
 	{
-		Sound("Gear", nil, nil, nil, 0);
+		Sound("Gear", nil, nil, nil, -1);
 		SetAnimAction("Idle", WORKSHOP_AnimSlot_Working);
 	}
 }
