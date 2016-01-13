@@ -15,11 +15,20 @@ global func SetAnimAction(string name, int anim_slot)
 {
 	if (!this) FatalError("This function has to be called from object context");
 	if (!name) FatalError("Expected an animation name, got nil");
-
-	var action = GetActionFromActMap(name);
-
-	var effect = AddEffect(ANIMACTION_Effect_Name, this, 1, Min(action.Delay, 1), nil, nil, action, anim_slot);
-	return effect;
+	
+	var previous = GetAnimAction(anim_slot);
+	
+	if (name == "Idle")
+	{
+		RemoveEffect(nil, nil, previous);
+	}
+	else
+	{
+		var action = GetActionFromActMap(name);
+		RemoveEffect(nil, nil, previous);
+		var effect = AddEffect(ANIMACTION_Effect_Name, this, 1, Min(action.Delay, 1), nil, nil, action, anim_slot);
+		return effect;
+	}
 }
 
 
@@ -99,15 +108,18 @@ global func FxIntAnimActionStop(object target, proplist effect, int reason, temp
 {
 	if (temp) return;
 	
-	target->StopAnimation(effect.anim_number);
-	
-	if (effect.action.EndCall)
+	if (target)
 	{
-		target->Call(effect.action.EndCall);
-	}
-	if (effect.action.NextAction && effect.action.NextAction != "Idle")
-	{
-		target->SetAnimAction(effect.action.NextAction, effect.anim_slot);
+		target->StopAnimation(effect.anim_number);
+		
+		if (effect.action.EndCall)
+		{
+			target->Call(effect.action.EndCall);
+		}
+		if (effect.action.NextAction && effect.action.NextAction != "Idle")
+		{
+			target->SetAnimAction(effect.action.NextAction, effect.anim_slot);
+		}
 	}
 }
 
