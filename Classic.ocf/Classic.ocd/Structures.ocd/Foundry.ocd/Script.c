@@ -17,7 +17,7 @@
 func Definition(id def)
 {
 	def.MeshTransformation = Trans_Mul(Trans_Rotate(40, 0, 1, 0),
-	                                   Trans_Translate(-14000));
+	                                   Trans_Translate(-16500));
 	def.PictureTransformation = Trans_Mul(Trans_Rotate( 40, 0, 1, 0), 
 	                                      Trans_Rotate( -5, 0, 0, 1),
 	                                      Trans_Rotate(-10, 1, 0, 0),
@@ -75,14 +75,14 @@ protected func Collection()
 public func FxSmeltingTimer(object target, proplist effect, int time)
 {
 	// Fire in the furnace.
-	CreateParticle("Fire", -16 * GetCalcDir() + RandomX(-2, 2), 14 + RandomX(-2, 2), PV_Random(-1, 1), PV_Random(-1, 1), PV_Random(10, 18), Particles_Fire(), 2);
+	CreateParticle("Fire", -17 * GetCalcDir() + RandomX(-2, 2), 14 + RandomX(-2, 2), PV_Random(-1, 1), PV_Random(-1, 1), PV_Random(10, 18), Particles_Fire(), 2);
 
 	// Smoke from the pipes.
 	Smoke(-23 * GetCalcDir(), -26, RandomX(10, 16));
-	
+
 	// Furnace sound after some time.
 	if (time == 30)
-		Sound("Structures::Furnace::Loop", false, 100, nil, +1);
+		Sound("Fire::Fire", false, 100, nil, +1);
 
 	//Molten metal hits cast... Sizzling sound
 	if (time == 256)
@@ -90,11 +90,11 @@ public func FxSmeltingTimer(object target, proplist effect, int time)
 
 	// Fire from the pouring exit.
 	if (Inside(time, 244, 290))
-		CreateParticle("SphereSpark", -15 * GetCalcDir(), 20, PV_Random(2 * GetCalcDir(), 0), PV_Random(-2, 3), PV_Random(18, 36), Particles_Material(RGB(255, 200, 0)), 2);
+		CreateParticle("SphereSpark", +23 * GetCalcDir(), +13 + RandomX(-1, 1), PV_Random(5 * GetCalcDir(), 10 * GetCalcDir()), PV_Random(-2, 3), PV_Random(18, 36), Particles_Glimmer(), 2);
 
 	if (time == 290)
 	{
-		Sound("Structures::Furnace::Loop", false ,100, nil, -1);
+		Sound("Fire::Fire", false ,100, nil, -1);
 		Sound("Structures::Furnace::Stop");
 		return FX_Execute_Kill;
 	}
@@ -107,7 +107,6 @@ public func OnProductEjection(object product)
 	product->SetPosition(GetX() + 27 * GetCalcDir(), GetY() + 13);
 	product->SetSpeed(-10, 0);
 	product->SetR(30 - Random(59));
-	Sound("Pop");
 	return;
 }
 
