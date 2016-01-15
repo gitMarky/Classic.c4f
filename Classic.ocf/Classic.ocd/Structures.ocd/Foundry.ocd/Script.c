@@ -11,13 +11,13 @@
 #include Library_DoorControl
 #include Library_Producer
 
-#include Basement72 // TODO needs the actual 68px wide basement
+#include Basement72
 
 
 func Definition(id def)
 {
-	def.MeshTransformation = Trans_Mul(Trans_Rotate(40, 0, 1, 0)); //,
-	                                   //Trans_Translate(-3000));
+	def.MeshTransformation = Trans_Mul(Trans_Rotate(40, 0, 1, 0),
+	                                   Trans_Translate(-14000));
 	def.PictureTransformation = Trans_Mul(Trans_Rotate( 40, 0, 1, 0), 
 	                                      Trans_Rotate( -5, 0, 0, 1),
 	                                      Trans_Rotate(-10, 1, 0, 0),
@@ -75,11 +75,10 @@ protected func Collection()
 public func FxSmeltingTimer(object target, proplist effect, int time)
 {
 	// Fire in the furnace.
-	CreateParticle("Fire", -10 * GetCalcDir() + RandomX(-1, 1), 20 + RandomX(-1, 1), PV_Random(-1, 1), PV_Random(-1, 1), PV_Random(3, 10), Particles_Fire(), 2);
+	CreateParticle("Fire", -16 * GetCalcDir() + RandomX(-2, 2), 14 + RandomX(-2, 2), PV_Random(-1, 1), PV_Random(-1, 1), PV_Random(10, 18), Particles_Fire(), 2);
 
 	// Smoke from the pipes.
-	Smoke( -10*GetCalcDir(), -26, 6);
-	Smoke(-16*GetCalcDir(), -22, 3);
+	Smoke(-23 * GetCalcDir(), -26, RandomX(10, 16));
 	
 	// Furnace sound after some time.
 	if (time == 30)
@@ -91,7 +90,7 @@ public func FxSmeltingTimer(object target, proplist effect, int time)
 
 	// Fire from the pouring exit.
 	if (Inside(time, 244, 290))
-		CreateParticle("SphereSpark", 16 * GetCalcDir(), 20, PV_Random(2 * GetCalcDir(), 0), PV_Random(-2, 3), PV_Random(18, 36), Particles_Material(RGB(255, 200, 0)), 2);
+		CreateParticle("SphereSpark", -15 * GetCalcDir(), 20, PV_Random(2 * GetCalcDir(), 0), PV_Random(-2, 3), PV_Random(18, 36), Particles_Material(RGB(255, 200, 0)), 2);
 
 	if (time == 290)
 	{
@@ -105,8 +104,8 @@ public func FxSmeltingTimer(object target, proplist effect, int time)
 
 public func OnProductEjection(object product)
 {
-	product->SetPosition(GetX() + 18 * GetCalcDir(), GetY() + 16);
-	product->SetSpeed(0, -17);
+	product->SetPosition(GetX() + 27 * GetCalcDir(), GetY() + 13);
+	product->SetSpeed(-10, 0);
 	product->SetR(30 - Random(59));
 	Sound("Pop");
 	return;
