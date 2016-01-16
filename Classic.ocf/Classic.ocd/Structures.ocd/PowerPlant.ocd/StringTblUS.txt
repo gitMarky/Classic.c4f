@@ -1,0 +1,3 @@
+Name=Power plant
+Description=Turns coal, oil, or wood into energy.
+
