@@ -17,11 +17,11 @@
 func Definition(id def)
 {
 	def.MeshTransformation = Trans_Mul(Trans_Rotate(40, 0, 1, 0),
-	                                   Trans_Translate(-16500));
+	                                   Trans_Translate(-14500, 0, -5000));
 	def.PictureTransformation = Trans_Mul(Trans_Rotate( 40, 0, 1, 0), 
 	                                      Trans_Rotate( -5, 0, 0, 1),
 	                                      Trans_Rotate(-10, 1, 0, 0),
-	                                      Trans_Translate(1000, -5000, -2000));
+	                                      Trans_Translate(-8000, -5000, -4000));
 }
 
 
