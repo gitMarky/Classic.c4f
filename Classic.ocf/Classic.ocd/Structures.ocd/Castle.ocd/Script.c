@@ -66,7 +66,6 @@ local Name = "$Name$";
 local Description = "$Description$";
 local BlastIncinerate = 160;
 local ContainBlast = 1;
-local BurnTo = ClassicCastleBurned;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
