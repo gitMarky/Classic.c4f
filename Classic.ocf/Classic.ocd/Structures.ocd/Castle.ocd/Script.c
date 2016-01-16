@@ -1,7 +1,7 @@
 /*-- Castle --*/
 
 
-#include Library_ClassicStructure
+#include Library_Structure
 #include Library_Ownable
 #include Library_HomeBase
 #include Library_DoorControl

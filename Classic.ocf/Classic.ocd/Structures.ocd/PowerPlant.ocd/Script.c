@@ -9,7 +9,7 @@
  * Author: Marky (mesh, texture), Open Clonk Team (script, by Maikel)
  */
 
-#include Library_ClassicStructure
+#include Library_Structure
 #include Library_Ownable
 #include Library_DoorControl
 #include Library_PowerProducer

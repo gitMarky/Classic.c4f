@@ -6,7 +6,7 @@
 --*/
 
 
-#include Library_ClassicStructure
+#include Library_Structure
 #include Library_Ownable
 #include Library_DoorControl
 #include Library_Producer

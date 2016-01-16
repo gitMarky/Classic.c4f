@@ -5,7 +5,7 @@
  */
 
 
-#include Library_ClassicStructure
+#include Library_Structure
 #include Library_Ownable
 #include Basement72
 #include Library_DoorControl
