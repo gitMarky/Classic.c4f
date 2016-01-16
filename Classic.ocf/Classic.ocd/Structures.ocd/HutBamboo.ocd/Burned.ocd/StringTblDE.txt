@@ -1,3 +1,0 @@
-Name=Verbrannte Bambushütte
-Description=Kann auf ebenem Untergrund wieder aufgebaut werden.
-

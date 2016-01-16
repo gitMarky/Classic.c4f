@@ -5,6 +5,18 @@
 #include Library_HomeBase
 #include Library_DoorControl
 
+
+func Definition(id def)
+{
+	def.MeshTransformation = Trans_Mul(Trans_Rotate(5, 0, 1, 0)); //,
+	                                   Trans_Translate(-14500, 0, -5000));
+	def.PictureTransformation = Trans_Mul(Trans_Rotate(-10, 0, 1, 0), 
+	                                      Trans_Rotate( -5, 0, 0, 1),
+	                                      Trans_Rotate(-10, 1, 0, 0));//,
+	                                      //Trans_Translate(-8000, -5000, -4000));
+}
+
+
 protected func SoundOpenDoor() { return nil;}
 protected func SoundCloseDoor() { return nil;}
 
@@ -27,46 +39,27 @@ OpenDoor = {
 	Name = "OpenDoor",
 	Length = 10,
 	Delay = 1,
-	X = 0,
-	Y = 43,
-	Wdt = 11,
-	Hgt = 17,
-	OffX = 20,
-	OffY = 26,
-	FacetBase = 1,
 	NextAction = "DoorOpen",
+	Animation = "OpenDoor",
 },
 
 DoorOpen = {
 	Prototype = Action,
 	Name = "DoorOpen",
 	Delay = 20,
-	X = 99,
-	Y = 43,
-	Wdt = 11,
-	Hgt = 17,
-	OffX = 20,
-	OffY = 26,
-	FacetBase = 1,
 	NextAction = "CloseDoor",
 	StartCall = "OpenEntrance",
 	EndCall = "CloseEntrance",
+	Animation = "DoorOpen",
 },
 
 CloseDoor = {
 	Prototype = Action,
 	Name = "CloseDoor",
 	Length = 10,
-	Reverse = 1,
 	Delay = 1,
-	X = 0,
-	Y = 43,
-	Wdt = 11,
-	Hgt = 17,
-	OffX = 20,
-	OffY = 26,
-	FacetBase = 1,
 	NextAction = "Idle",
+	Animation = "CloseDoor",
 },
 
 };
