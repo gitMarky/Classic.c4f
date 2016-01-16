@@ -1,3 +1,0 @@
-Name=Small tower
-Description=Serves as stairway for buildings with platform.
-

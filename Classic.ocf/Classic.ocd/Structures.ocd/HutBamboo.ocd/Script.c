@@ -1,4 +1,8 @@
-/*-- Bamboo hut --*/
+/*
+ * Bamboo hut
+ *
+ * Author: Marky
+ */
 
 #include Library_ClassicStructure
 #include Library_Ownable
@@ -8,14 +12,13 @@
 
 func Definition(id def)
 {
-	def.MeshTransformation = Trans_Mul(Trans_Rotate(5, 0, 1, 0)); //,
-	                                   Trans_Translate(-14500, 0, -5000));
+	def.MeshTransformation = Trans_Mul(Trans_Rotate(5, 0, 1, 0));
 	def.PictureTransformation = Trans_Mul(Trans_Rotate(-10, 0, 1, 0), 
 	                                      Trans_Rotate( -5, 0, 0, 1),
-	                                      Trans_Rotate(-10, 1, 0, 0));//,
-	                                      //Trans_Translate(-8000, -5000, -4000));
+	                                      Trans_Rotate(-10, 1, 0, 0));
 }
 
+func IsContainer(){ return true; }
 
 protected func SoundOpenDoor() { return nil;}
 protected func SoundCloseDoor() { return nil;}

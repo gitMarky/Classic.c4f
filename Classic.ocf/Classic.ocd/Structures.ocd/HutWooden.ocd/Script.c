@@ -14,6 +14,7 @@
 local BlastIncinerate = 45;
 local HitPoints = 45;
 
+func IsContainer(){ return true; }
 
 local ActMap = {
 OpenDoor = {

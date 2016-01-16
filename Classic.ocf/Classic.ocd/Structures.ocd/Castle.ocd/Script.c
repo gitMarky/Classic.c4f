@@ -31,8 +31,11 @@ func Destruction()
 	_inherited(...);
 }
 
+
+func IsContainer(){ return true; }
+
   
-/* Türsteuerung */
+/* Door control */
 
 private func SoundOpenDoor()
 {

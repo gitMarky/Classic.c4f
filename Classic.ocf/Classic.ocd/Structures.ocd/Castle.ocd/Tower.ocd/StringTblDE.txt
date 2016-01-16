@@ -1,3 +1,0 @@
-Name=Kleiner Turm
-Description=Dient als Aufstieg für niedrige Gebäude mit Plattform.
-
