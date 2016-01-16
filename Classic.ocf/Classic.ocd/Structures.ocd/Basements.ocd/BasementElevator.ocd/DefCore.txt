@@ -1,6 +1,6 @@
 [DefCore]
 id=BasementElevator
-Version=6,0
+Version=7,0
 Category=C4D_Structure
 Width=28
 Height=8

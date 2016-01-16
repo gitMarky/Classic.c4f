@@ -1,5 +1,5 @@
 [DefCore]
-Version=6,0
+Version=7,0
 id=ClassicHutStone
 Category=C4D_Structure
 Width=60

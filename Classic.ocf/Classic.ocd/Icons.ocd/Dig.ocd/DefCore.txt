@@ -1,6 +1,6 @@
 [DefCore]
 id=Icon_Dig
-Version=6,0
+Version=7,0
 Category=C4D_StaticBack
 Width=1
 Height=1

@@ -1,6 +1,6 @@
 [DefCore]
 id=Basement80
-Version=6,0
+Version=7,0
 Category=C4D_Structure
 Width=80
 Height=8

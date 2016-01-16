@@ -1,6 +1,6 @@
 [DefCore]
 id=Flint
-Version=6,0
+Version=7,0
 Category=C4D_Object
 Width=6
 Height=6

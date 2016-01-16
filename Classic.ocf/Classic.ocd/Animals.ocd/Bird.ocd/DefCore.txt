@@ -1,6 +1,6 @@
 [DefCore]
 id=Bird
-Version=6,0
+Version=7,0
 Category=C4D_Living
 ContactCalls=1
 Width=14

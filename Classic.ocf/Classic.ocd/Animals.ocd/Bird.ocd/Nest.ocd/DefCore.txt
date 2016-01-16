@@ -1,6 +1,6 @@
 [DefCore]
 id=BirdNest
-Version=6,0
+Version=7,0
 Category=C4D_StaticBack
 Width=15
 Height=9

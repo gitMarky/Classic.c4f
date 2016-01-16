@@ -1,5 +1,5 @@
 [DefCore]
-Version=6,0
+Version=7,0
 id=Crystal
 Category=C4D_Object
 Width=10

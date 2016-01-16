@@ -1,5 +1,5 @@
 [DefCore]
 id=Rule_StartingEquipment
-Version=6,0
+Version=7,0
 Category=C4D_StaticBack|C4D_Rule
 Picture=0,0,64,64
