@@ -60,6 +60,17 @@ protected func RejectCollect(id item, object obj)
 	return true;
 }
 
+
+private func SoundOpenDoor()
+{
+	Sound("GateOpen");
+}
+
+private func SoundCloseDoor()
+{
+	Sound("GateClose");
+}
+
 protected func Collection(object obj, bool put)
 {
 	Sound("Objects::Clonk");
@@ -154,6 +165,8 @@ protected func FxWorkingTimer(object target, proplist effect, int timer)
 	// Smoke from the exhaust shaft.
 	Smoke( 16 * GetCalcDir(), -27, 14);
 	Smoke(  3 * GetCalcDir(), -26, 12);
+	// Fire in the furnace.
+	CreateParticle("Fire", 21 * GetCalcDir() + RandomX(-2, 2), 14 + RandomX(-2, 2), PV_Random(-1, 1), PV_Random(-1, 1), PV_Random(10, 18), Particles_Fire(), 2);
 	return;
 }
 
