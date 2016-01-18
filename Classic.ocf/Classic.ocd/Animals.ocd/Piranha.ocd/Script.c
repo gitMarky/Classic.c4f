@@ -36,7 +36,7 @@ private func FxIntAnimalActivityFight( object target, proplist effect)
 		var precision = 10;
 		var distance = ObjectDistance(prey);
 		var velocity = Distance(GetXDir(), GetYDir());
-		var factor = precision * distance / velocity;
+		var factor = distance / Max(1, velocity);
 		found_prey = prey;
 		SetCommand("MoveTo", 0, found_prey->GetX() + factor * found_prey->GetXDir() / precision,
 		                        found_prey->GetY() + factor * found_prey->GetYDir() / precision, 0, true);
