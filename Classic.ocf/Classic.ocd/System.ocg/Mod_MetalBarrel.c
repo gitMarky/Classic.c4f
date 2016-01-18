@@ -2,7 +2,10 @@
 
 func IsFuel()
 {
-	return WildcardMatch("*Lava*", GetBarrelMaterial());
+	return WildcardMatch("*Lava*", GetBarrelMaterial())
+	    || WildcardMatch("Lava*", GetBarrelMaterial())
+	    || WildcardMatch("*Lava", GetBarrelMaterial())
+	    || WildcardMatch("Lava", GetBarrelMaterial());
 }
 
 func GetFuelAmount(bool partial)
