@@ -197,6 +197,43 @@ protected func Entrance(object container)
 			container->GrabContents(this);
 }
 
+func Collection2(object item)
+{
+	if (item->GetID() == Wipf) DisplayWipfs();
+	return _inherited(...);
+}
+
+func Ejection(object item)
+{
+	if (item->GetID() == Wipf) DisplayWipfs();
+	return _inherited(...);
+}
+
+func DisplayWipfs()
+{
+	var layers = GetUnusedOverlayID(1);
+	for (var i = 0; i < layers; ++i)
+	{
+		SetGraphics(nil, GetID(), i);
+	}
+	
+	var contents = FindObjects(Find_ID(Wipf), Find_Container(this), Find_OCF(OCF_Alive));
+	var points = [[-7, -11], [0, -11], [7, -11], [-3, -14], [+2, -14]];
+	var max_wipfs = Min(5, GetLength(contents));
+	var wipfs = 0;
+	for (; wipfs < max_wipfs; wipfs++)
+	{
+		var wipf = contents[wipfs];
+		var layer = max_wipfs - wipfs;
+		if (wipf->GetAction() != "Stand") wipf->SetAction("Stand");
+		SetGraphics(nil, nil, layer, GFXOV_MODE_Object, nil, nil, wipf);
+		SetObjDrawTransform(1000, 0, 1000 * points[wipfs][0], 0, 1000, 1000 * points[wipfs][1], layer);
+	}
+
+	SetGraphics(nil, GetID(), wipfs + 1, GFXOV_MODE_ExtraGraphics);
+	SetObjDrawTransform(1000, 0, 0, 0, 1000, 0, wipfs + 1);
+}
+
 local ActMap = {
 		Drive = {
 			Prototype = Action,
