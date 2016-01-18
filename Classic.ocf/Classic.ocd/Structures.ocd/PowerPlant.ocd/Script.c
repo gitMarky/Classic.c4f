@@ -78,20 +78,12 @@ protected func Collection(object obj, bool put)
 
 public func ContentsCheck()
 {
-	// Ejects non fuel items immediately
-	var fuel;
-	if(fuel = FindObject(Find_Container(this), Find_Not(Find_Func("IsFuel")))) 
-	{
-		fuel->Exit(-53, 21, -20, -1, -1, -30);
-		Sound("Chuff");
-	}
-	
 	// If active don't do anything.
-	if (GetAction() == "Work") 
+	if (GetEffect("Working", this))
 		return;
 
 	// If there is fuel available let the network know.
-	if (fuel_amount > 0 || FindObject(Find_Container(this), Find_Func("IsFuel")))
+	if (fuel_amount > 0 || GetFuelContents())
 		RegisterPowerProduction(PowerPlant_produced_power);
 	return;
 }
@@ -112,18 +104,8 @@ public func GetProducerPriority() { return 0; }
 
 // Callback from the power library for production of power request.
 public func OnPowerProductionStart(int amount) 
-{ 
-	// Check if there is fuel.
-	if (fuel_amount <= 0)
-	{
-		// Search for new fuel among the contents.
-		var fuel = FindObject(Find_Container(this), Find_Func("IsFuel"));
-		if (!fuel)
-			return false;
-		// Extract the fuel amount from the new piece of fuel.	
-		fuel_amount += fuel->~GetFuelAmount(true) * 18;
-		fuel->RemoveObject();
-	}
+{
+	RefillFuel(false);
 	AddEffect("Working", this, 100, 1, this);
 	return true;
 }
@@ -145,28 +127,9 @@ protected func WorkStart()
 // Phase call from working action, every two frames.
 protected func FxWorkingTimer(object target, proplist effect, int timer)
 {
-	// Reduce the fuel amount by 1 per frame.
-	fuel_amount -= 1;
-	// Check if there is still enough fuel available.
-	if (fuel_amount <= 0)
-	{
-		// Search for new fuel among the contents.
-		var fuel = FindObject(Find_Container(this), Find_Func("IsFuel"));
-		if (!fuel)
-		{
-			// Set action to idle and unregister this producer as available from the network.
-			UnregisterPowerProduction();
-			return;
-		}
-		// Extract the fuel amount from the new piece of fuel.	
-		fuel_amount += fuel->~GetFuelAmount(true) * 18;
-		fuel->RemoveObject();
-	}
-	// Smoke from the exhaust shaft.
-	Smoke( 16 * GetCalcDir(), -27, 14);
-	Smoke(  3 * GetCalcDir(), -26, 12);
-	// Fire in the furnace.
-	CreateParticle("Fire", 21 * GetCalcDir() + RandomX(-2, 2), 14 + RandomX(-2, 2), PV_Random(-1, 1), PV_Random(-1, 1), PV_Random(10, 18), Particles_Fire(), 2);
+	BurnFuel(1);	// Reduce the fuel amount by 1 per frame.
+	RefillFuel(true); //
+	Smoking();
 	return;
 }
 
@@ -186,18 +149,46 @@ protected func WorkAbort()
 }
 
 
-/*-- Properties --*/
+func GetFuelContents()
+{
+	return FindObject(Find_Container(this), Find_Func("IsFuel"));
+}
 
-//private func Burning()
-//{
-//  // Rauch
-//  // Energieerzeugung
-//  DoEnergy(+25);
-//  // Weiter
-//  if(GetActTime() < GetBurnTime()) return(1);
-//  // Fertig
-//  SetAction("Idle");
-//}
+func BurnFuel(int amount)
+{
+	fuel_amount -= amount;
+}
+
+func RefillFuel(bool cancel)
+{
+	// Check if there is still enough fuel available.
+	if (fuel_amount <= 0)
+	{
+		// Search for new fuel among the contents.
+		var fuel = GetFuelContents();
+
+		if (!fuel)
+		{
+			// Set action to idle and unregister this producer as available from the network.
+			if (cancel) UnregisterPowerProduction();
+			return false;
+		}
+		// Extract the fuel amount from the new piece of fuel.
+		var extracted = fuel->~GetFuelAmount(true);
+		fuel_amount += extracted * 18;
+		if (!fuel->~OnFuelRemoved(extracted)) fuel->RemoveObject();
+	}
+}
+
+func Smoking()
+{
+	// Smoke from the exhaust shaft.
+	Smoke( 16 * GetCalcDir(), -27, 14);
+	Smoke(  3 * GetCalcDir(), -26, 12);
+	// Fire in the furnace.
+	CreateParticle("Fire", 21 * GetCalcDir() + RandomX(-2, 2), 14 + RandomX(-2, 2), PV_Random(-1, 1), PV_Random(-1, 1), PV_Random(10, 18), Particles_Fire(), 2);
+}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
