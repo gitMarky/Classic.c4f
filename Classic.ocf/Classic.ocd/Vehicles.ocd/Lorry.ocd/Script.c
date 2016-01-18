@@ -197,17 +197,21 @@ protected func Entrance(object container)
 			container->GrabContents(this);
 }
 
+
+/*
 func Collection2(object item)
 {
 	if (item->GetID() == Wipf) DisplayWipfs();
 	return _inherited(...);
 }
 
+
 func Ejection(object item)
 {
 	if (item->GetID() == Wipf) DisplayWipfs();
 	return _inherited(...);
 }
+
 
 func DisplayWipfs()
 {
@@ -233,6 +237,8 @@ func DisplayWipfs()
 	SetGraphics(nil, GetID(), wipfs + 1, GFXOV_MODE_ExtraGraphics);
 	SetObjDrawTransform(1000, 0, 0, 0, 1000, 0, wipfs + 1);
 }
+*/
+
 
 local ActMap = {
 		Drive = {
