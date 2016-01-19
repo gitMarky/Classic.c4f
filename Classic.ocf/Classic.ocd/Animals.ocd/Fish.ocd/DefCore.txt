@@ -1,5 +1,5 @@
 [DefCore]
-id=Fish
+id=ClassicFish
 Version=7,0
 Category=C4D_Living
 ContactCalls=1
@@ -13,7 +13,7 @@ VertexCNAT=1,4,2,8
 VertexFriction=100,100,100,100
 Value=10
 Mass=15
-Components=Fish=1
+Components=ClassicFish=1
 Picture=320,0,64,64
 Collection=-4,-3,8,6
 Float=1

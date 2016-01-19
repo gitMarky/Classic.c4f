@@ -1,4 +1,0 @@
-Name=Toter Fisch
-Description=Stinkt.
-
-TxtEmbowel=Zerlegen

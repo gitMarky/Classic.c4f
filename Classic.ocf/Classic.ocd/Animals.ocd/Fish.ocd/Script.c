@@ -4,178 +4,14 @@
  * Author: Marky, original from Clonk Rage
  */
 
-#include Library_AnimalControl
-#include Library_AnimalReproduction
-#include Library_AnimalFighting
+#include Fish
 
-////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Turning
-
-private func FxIntAnimalTurnTimer(object target, proplist effect)
+func Definition(def)
 {
-	if (target != this) return;
-
-	// Swimming backwards? Turn around!
-	if (GetXDir()>0 && GetDir() == DIR_Left)  return AnimalTurnRight();
-	if (GetXDir()<0 && GetDir() == DIR_Right) return AnimalTurnLeft();
-
+	def.PictureTransformation = Trans_Mul(Trans_Rotate(-10, 0, 0, 1), Trans_Rotate(20, 1, 0, 0), Trans_Rotate(20, 0, 1, 0));
 }
 
-private func AnimalCanTurn(){ return !Stuck() && GetAction() == "Swim"; }
-private func AnimalOnTurnLeft()
-{
-	SetAction("Turn");
-}
-private func AnimalOnTurnRight()
-{
-	SetAction("Turn");
-}
-
-/* Contact with the landscape */
-
-protected func ContactLeft()
-{
-	AnimalTurnRight();
-}
-
-protected func ContactRight()
-{
-	AnimalTurnLeft();
-}
-
-protected func ContactTop()
-{
-	SetComDir(COMD_Down);
-}
-
-protected func ContactBottom()
-{
-	if (GetAction() != "Walk") SetComDir(COMD_Up);
-	if (Random(10)) SetComDir(COMD_Right);
-	if (Random(10)) SetComDir(COMD_Left);
-}
-
-protected func Death()
-{
-	ChangeDef(DeadFish);
-	_inherited();
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Behaviour
-
-private func AnimalReproductionRate(){	return 2000;}
-
-private func AnimalReproductionCondition()
-{
-	var effect = AnimalGetActivityEffect();
-	if (Contained()) return false;
-	if (GetAction() != "Swim") return false;
-	return !Random(AnimalReproductionRate());
-}
-
-private func FxIntAnimalActivityStatus( object target, proplist effect)
-{
-	if (target != this) return;
-
-	effect.ignoreCalls = false;
-
-	// Dead fish don't do much...
-	if(!GetAlive())
-	{
-		effect.ignoreCalls = true;
-		return;
-	}
-}
-
-private func FxIntAnimalActivityMovement( object target, proplist effect)
-{
-	if (target != this) return;
-
-	if (GetAction() == "Walk")
-	{
-		if (Random(2))
-			SetComDir(COMD_Right);
-		else
-			SetComDir(COMD_Left);
-
-		return;
-	}
-
-	// Swim!
-	if (!GBackLiquid(0, -4) && GetAction() != "Walk") return SetComDir(COMD_Down);
-	if (Random(2)) return;
-	if (GetAction() != "Swim") return;
-	if (!Random(10)) return SetComDir(COMD_Up);
-	if (!Random(10)) return SetComDir(COMD_Down);
-
-	if (Random(2))
-		AnimalTurnRight();
-	else
-		AnimalTurnLeft();
-}
-
-
-private func FxIntAnimalActivityFight( object target, proplist effect)
-{
-	if (target != this) return;
-
-	// Escape threats
-	var found_threat;
-	if (!Contained() && InLiquid())
-	{
-		for (var threat in FindObjects(Find_Distance(100),
-		  Find_Category(C4D_Living),
-		  Find_NoContainer(),
-		  Find_OCF(OCF_InLiquid),
-		  Find_Not(Find_Func("IsClonk")),
-		  Find_Not(Find_ID(GetID())),
-		  Find_OCF(OCF_Alive),
-		  Sort_Distance()))
-		{
-			  // Threat is not moving
-			  if (Inside(threat->GetXDir(), -2, +2) && Inside(threat->GetYDir(), -3, +3)) continue;
-			  // No contact?
-			  if (threat->GetContact(-1, 8)) continue;
-
-				found_threat = true;
-				var xdist = threat->GetX() - GetX();
-				var ydist = threat->GetY() - GetY();
-				var axdist = Max(1, Abs(xdist));
-				var aydist = Max(1, Abs(ydist));
-				var xsign = xdist / axdist;
-				var ysign = ydist / aydist;
-				var fleex = GetX() - xsign * (1500 / BoundBy(axdist, 20, 80)); // 20..80 -> 70..15
-				var fleey = GetY() - ysign * (1000 / BoundBy(aydist, 20, 80)); // 20..80 -> 50..10
-				SetCommand("MoveTo", 0, fleex, fleey, 0, true);
-		}
-	}
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Workaround
-
-local brain; // Workaround: Remove some warnings/errors in original objects
-local wall_vision_range; // Workaround: Remove some warnings/errors in original objects
-local hunger; // Workaround: Remove some warnings/errors in original objects
-
-func UpdateVisionFor(string set, string range_set, array objects, bool is_food)
-{
-}
-
-func UpdateWallVision()
-{
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// Animation
-
-public func AnimalInitialAction(){	return "Swim";}
-
+// this is not used at the moment, but keep it just in case
 protected func AnimalInit()
 {
 	// Random size
@@ -211,74 +47,86 @@ protected func AnimalInit()
 	_inherited();
 }
 
+func DoEat(object obj)
+{
+	// a little effect
+	var animation = "Bite";
+	var duration = 30;
+	var slot = 1;
+	PlayAnimation(animation, slot, Anim_Linear(0, 0, GetAnimationLength(animation), duration, ANIM_Remove), Anim_Const(1000));
+	
+	// the usual
+	_inherited(obj);
+}
 
 local ActMap = {
-Walk={
-		Prototype = Action,
-		Name = "Walk",
-		Procedure = DFA_WALK,
-		Directions=2,
-		FlipDir=1,
-		Speed=30,
-		Accel = 16,
-		Decel = 16,
-		Length=10,
-		Delay=1,
-		X=0,Y=0,Wdt=8,Hgt=6,
-		NextAction="Walk",
-		InLiquidAction="Swim",
-},
 
-Swim={
-		Prototype = Action,
-		Name="Swim",
-		Procedure = DFA_SWIM,
-		Directions=2,
-		FlipDir=1,
-		Speed=100,
-		Accel = 16,
-		Decel = 16,
-		Length=20,
-		Delay=1,
-		X=0,Y=6,Wdt=8,Hgt=6,
-		NextAction="Swim",
+Swim = {
+	Prototype = Action,
+	Name = "Swim",
+	Procedure = DFA_SWIM,
+	Speed = 100,
+	Accel = 16,
+	Decel = 16,
+	Length = 1,
+	Delay = 0,
+	FacetBase=1,
+	NextAction = "Swim",
+	StartCall = "StartSwim"
 },
-
-Turn={
-		Prototype = Action,
-		Name="Turn",
-		Procedure = DFA_SWIM,
-		Directions=2,
-		FlipDir=1,
-		Speed=100,
-		Accel = 16,
-		Decel = 16,
-		Length=15,
-		Delay=3,
-		X=0,Y=18,Wdt=8,Hgt=6,
-		NextAction="Swim",
+Walk = {
+	Prototype = Action,
+	Name = "Walk",
+	Procedure = DFA_WALK,
+	Speed = 30,
+	Accel = 16,
+	Decel = 16,
+	Length = 1,
+	Delay = 0,
+	FacetBase=1,
+	Directions = 2,
+	FlipDir = 1,
+	NextAction = "Walk",
+	StartCall = "StartWalk",
+	InLiquidAction = "Swim",
 },
-
-Jump={
-		Prototype = Action,
-		Name="Jump",
-		Procedure = DFA_FLIGHT,
-		Directions=2,
-		FlipDir=1,
-		Length=15,
-		Delay=1,
-		X=0,Y=12,Wdt=8,Hgt=6,
-		NextAction="Hold",
-		InLiquidAction="Swim",
+Jump = {
+	Prototype = Action,
+	Name = "Jump",
+	Procedure = DFA_FLIGHT,
+	Speed = 15, //was: 30, this fish is not so fast 
+	Accel = 16,
+	Decel = 16,
+	Length = 1,
+	Delay = 0,
+	FacetBase=1,
+	Directions = 2,
+	FlipDir = 1,
+	NextAction = "Jump",
+	StartCall = "StartJump",
+	InLiquidAction = "Swim",
 },
+Dead = {
+	Prototype = Action,
+	Name = "Dead",
+	Procedure = DFA_NONE,
+	Speed = 10,
+	Length = 1,
+	Delay = 0,
+	FacetBase=1,
+	Directions = 2,
+	FlipDir = 1,
+	NextAction = "Hold",
+	NoOtherAction = 1,
+	ObjectDisabled = 1,
+}
 };
 
 local Name="$Name$";
 local MaxEnergy=30000;
-local MaxBreath = 1440; // Bird can breathe for 40 seconds on land.
+local MaxBreath = 180;
 local Description="$Description$";
 local Collectible=1;
 local NoBurnDecay=1;
 local BreatheWater=1;
-local BorderBound=5;
-
+local BorderBound = C4D_Border_Sides | C4D_Border_Top | C4D_Border_Bottom;
