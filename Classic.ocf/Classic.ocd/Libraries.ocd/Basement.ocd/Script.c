@@ -11,14 +11,14 @@
 
 protected func Construction()
 {
+	_inherited(...);
 	CreateBasement();
-	return(_inherited(...) );
 }
   
 protected func Destruction()
 {
 	RemoveBasement();
-	return(_inherited(...) );
+	_inherited(...);
 }
 
 /* Fundament */
@@ -55,7 +55,7 @@ public func FxIntBasementHandlerStart(object target, proplist effect, int tempor
 		effect.basement -> SetPosition(effect.basement->GetX(), target->GetDefBottom()-effect.basement->GetDefOffset(1));
 		effect.basement -> MoveOutClonks();
 		effect.basement -> SetCategory(C4D_StaticBack);
-		target->SetBasement(effect.basement);
+		target->~SetBasement(effect.basement);
 	}
 }
 
