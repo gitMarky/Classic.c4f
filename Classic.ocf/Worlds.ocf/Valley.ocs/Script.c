@@ -32,10 +32,13 @@ func Initialize()
 	AutoPlaceVegetation(Tree2, 45, PLACEMENT_Amount_Relative, area_lake);
 	AutoPlaceVegetation(Tree3, 45, PLACEMENT_Amount_Relative, area_lake);
 
-	//ClassicFish->Place(15, area_lake);
 	PlaceAnimals(ClassicFish, 15, PLACEMENT_Liquid, Material("Water"), area_lake);
 	PlaceAnimals(Bird, 5, PLACEMENT_Air, nil, area_skylands);
 
+	Seaweed->Place(25, area_lake);
+	Coral->Place(5, area_lake);
+	Branch->Place(20, area_skylands);
+	Flower->Place(20);
 	return true;
 }
 
