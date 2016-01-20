@@ -1,90 +1,96 @@
 /*
  * Piranha
  *
- * Author: Marky, original from Clonk Rage
+ * Author: Marky, script by Zapper
  */
 
-#include Fish
+#include Piranha
+
+local SwimMaxAngle = 10;
+local SwimMaxSpeed = 25;
+local VisionMaxAngle = 140;
+local VisionMaxRange = 100;
 
 
 // Damage per bite.
 local BiteStrength = 4;
+local BaseScale = 300;
 
-protected func Death()
+
+public func Construction()
 {
-	_inherited();
-	ChangeDef(DeadPiranha);
+	inherited(...);
+	SetGraphics(nil, ClassicFish);
+	SetMeshMaterial("classic_piranha");
 }
 
 
-private func FxIntAnimalActivityFight( object target, proplist effect)
+func Definition(def)
 {
-	if (target != this) return;
-	if (!Contained() && !InLiquid()) return;
+	def.PictureTransformation = Trans_Mul(Trans_Rotate(-10, 0, 0, 1), Trans_Rotate(20, 1, 0, 0), Trans_Rotate(20, 0, 1, 0));
+}
 
-	// Eat prey
-	var found_prey;
-	for (var prey in FindObjects(Find_Distance(150),
-	  Find_Category(C4D_Living),
-	  Find_NoContainer(),
-	  Find_OCF(OCF_InLiquid),
-	  Find_Func("IsClonk"),
-	  Find_Not(Find_ID(GetID())),
-	  Find_OCF(OCF_Alive),
-	  Sort_Distance()))
+
+private func InitFuzzyRules()
+{
+	brain = FuzzyLogic->Init();
+	
+	// ACTION SETS
+	brain->AddSet("swim", "sharp_left", [[-2 * SwimMaxAngle, 1], [-SwimMaxAngle, 0], [SwimMaxAngle, 0]]);
+	brain->AddSet("swim", "left", [[-SwimMaxAngle, 1], [-SwimMaxAngle/2, 0], [SwimMaxAngle, 0]]);
+	brain->AddSet("swim", "straight", [[-5, 0], [0, 1], [5, 0]]);
+	brain->AddSet("swim", "right", [[-SwimMaxAngle, 0], [SwimMaxAngle/2, 0], [SwimMaxAngle, 1]]);
+	brain->AddSet("swim", "sharp_right", [[-SwimMaxAngle, 0], [SwimMaxAngle, 0], [2 * SwimMaxAngle, 1]]);
+	
+	brain->AddSet("speed", "slow", [[0, 1], [2 * SwimMaxSpeed / 3, 0], [SwimMaxSpeed, 0]]);
+	brain->AddSet("speed", "fast", [[0, 0],  [SwimMaxSpeed/2, 0], [SwimMaxSpeed, 1]]);
+	
+	// RULE SETS
+	var directional_sets = ["friend", "food"];
+	
+	for (var set in directional_sets)
 	{
-		var precision = 10;
-		var distance = ObjectDistance(prey);
-		var velocity = Distance(GetXDir(), GetYDir());
-		var factor = distance / Max(1, velocity);
-		found_prey = prey;
-		SetCommand("MoveTo", 0, found_prey->GetX() + factor * found_prey->GetXDir() / precision,
-		                        found_prey->GetY() + factor * found_prey->GetYDir() / precision, 0, true);
-		break;
+		brain->AddSet(set, "left", [[-VisionMaxAngle, 1], [0, 0], [VisionMaxAngle, 0]]);
+		brain->AddSet(set, "straight", [[-5, 0], [0, 1], [5, 0]]);
+		brain->AddSet(set, "right", [[-VisionMaxAngle, 0], [0, 0], [VisionMaxAngle, 1]]);
 	}
 	
-	if (found_prey && ObjectDistance(found_prey) < 5) DoEat(prey);
-
-	// Escape threats
-	var found_threat = FindObject(Find_Distance(100), Find_Category(C4D_Object), Find_OCF(OCF_HitSpeed1), Find_NoContainer());
-	if(found_threat != nil)
-	{
-		var xdir = BoundBy(GetX() - found_threat->GetX(), -1, 1);
-		var ydir = BoundBy(GetY() - found_threat->GetY(), -1, 1);
-		if(xdir == 0) xdir = Random(2) * 2 - 1;
-		if(ydir == 0) ydir = Random(2) * 2 - 1;
-		xdir = RandomX(5 * xdir, 10 * xdir);
-		ydir = RandomX(5 * ydir, 10 * ydir);
-
-		SetSpeed(xdir, ydir);
-	}
-}
-
-
-func Attack(object target)
-{
-}
-
-func DoEat(object obj)
-{
-	if (GetAction() != "Swim") return;
-	BiteEffect();
-
-	if (obj->GetAlive())
-		obj->DoEnergy(-BiteStrength);
-
-	hunger -= 20;
-	if (hunger < 0) hunger = 0;
+	// For the food, we allow further vision.
+	var far = VisionMaxRange;
+	var middle = VisionMaxRange / 2;
+	brain->AddSet("food_range", "far", [[middle, 0], [far, 1], [far, 1]]);
+	brain->AddSet("food_range", "medium", [[0, 0], [middle, 1], [far, 0]]);
+	brain->AddSet("food_range", "close", [[0, 1], [0, 1], [middle, 0]]);
 	
-	DoEnergy(BiteStrength);
+	brain->AddSet("left_wall", "close", [[0, 1], [0, 1], [wall_vision_range/2, 0]]);
+	brain->AddSet("right_wall", "close", [[0, 1], [0, 1], [wall_vision_range/2, 0]]);
+	brain->AddSet("wall_range", "close", [[0, 1], [0, 1], [wall_vision_range, 0]]);
+	
+	brain->AddSet("hunger", "low", [[0, 1], [0, 1], [75, 0]]);
+	brain->AddSet("hunger", "high", [[25, 0], [100, 1], [100, 1]]);
+	
+	// RULES
+	brain->AddRule(brain->Or(brain->And("hunger=high", "food=right"), brain->And("food_range=far", "friend=right")), "swim=right");
+	brain->AddRule(brain->Or(brain->And("hunger=high", "food=left"), brain->And("food_range=far", "friend=left")), "swim=left");
+	brain->AddRule(brain->Not("food_range=far"), "speed=fast");
+	brain->AddRule(brain->Or("wall_range=close", "hunger=low"), "speed=slow");
+	brain->AddRule(brain->And("left_wall=close", brain->Not("right_wall=close")), "swim=sharp_right");
+	brain->AddRule("right_wall=close", "swim=sharp_left");
+}
+
+
+private func UpdateVision()
+{
+	brain->Fuzzify("hunger", hunger);
+	UpdateVisionFor("food", "food_range", FindObjects(Find_Distance(VisionMaxRange), Find_OCF(OCF_Alive), Find_Func("IsPrey"), Find_NoContainer(), Sort_Distance()), true);
+	UpdateVisionFor("friend", nil, FindObjects(Find_Distance(VisionMaxRange), Find_ID(GetID()), Find_Exclude(this), Find_NoContainer(), Sort_Distance()));
+	UpdateWallVision();
 }
 
 private func BiteEffect()
 {
-	Sound("Animals::Fish::Munch*");
-	SetAction("Bite");
+	Sound("Animals::Fish::Munch*", nil, nil, nil, nil, nil, 100);
 }
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -99,21 +105,4 @@ local Collectible=1;
 local NoBurnDecay=1;
 local BreatheWater=1;
 local BorderBound=5;
-
-local ActMap = {
-
-Bite={
-		Prototype = Action,
-		Name="Bite",
-		Procedure = DFA_SWIM,
-		Directions=2,
-		FlipDir=1,
-		Speed=100,
-		Accel = 16,
-		Decel = 16,
-		Length=20,
-		Delay=1,
-		X=0,Y=24,Wdt=8,Hgt=6,
-		NextAction="Swim",
-},
-};
+local BorderBound = C4D_Border_Sides | C4D_Border_Top | C4D_Border_Bottom;

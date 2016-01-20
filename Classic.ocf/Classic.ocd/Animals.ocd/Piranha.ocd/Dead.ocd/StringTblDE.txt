@@ -1,4 +1,0 @@
-Name=Toter Piranha
-Description=Stinkt.
-
-TxtEmbowel=Zerlegen
