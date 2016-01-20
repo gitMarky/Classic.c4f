@@ -21,7 +21,7 @@ Parameters:
 @version 0.3
 @credits Tyron, GZE (http://www.clonkforge.net/pr.pid?=1525)
  */
-global func PlaceVegetationEx(id definition, int amount, array rectangle, int material_soil, int material_liquid, bool underground, bool hanging, array con_range, array rot_range)
+global func PlaceVegetationEx(id definition, int amount, proplist rectangle, int material_soil, int material_liquid, bool underground, bool hanging, array con_range, array rot_range)
 {
 	if (definition == nil)
 	{
@@ -58,10 +58,10 @@ global func PlaceVegetationEx(id definition, int amount, array rectangle, int ma
 	}
 	else
 	{
-	 	x = rectangle[0];
-	 	y = rectangle[1];
-	 	width = rectangle[2];
-	 	height = rectangle[3];
+	 	x = rectangle.x;
+	 	y = rectangle.y;
+	 	width = rectangle.w;
+	 	height = rectangle.h;
 	}
 	
 	// adjust offsets
@@ -223,7 +223,7 @@ global func isMaterialSoil(x, y, materialsoil)
  @author Marky
  @version 0.3
  */
-global func AutoPlaceVegetation(id definition, int quantity, bool quantity_relative, array rectangle)
+global func AutoPlaceVegetation(id definition, int quantity, bool quantity_relative, proplist rectangle)
 {
 	if (definition == nil)
 	{
@@ -240,10 +240,10 @@ global func AutoPlaceVegetation(id definition, int quantity, bool quantity_relat
 	}
 	else
 	{
-		width = rectangle[2]; // - rectangle[0];
-		height = rectangle[3]; // - rectangle[1];
+		width = rectangle.w;
+		height = rectangle.h;
 	}
-	
+
 	if (quantity_relative == nil)
 	{
 		quantity_relative = PLACEMENT_Amount_Relative;

@@ -29,7 +29,7 @@ static const PLACEMENT_Material_Any = -1;
  @author Tyron, GZE Project
  @version 0.3
  */
-global func PlaceAnimals(id definition, int amount, int placement, int material, array rectangle, array con_range)
+global func PlaceAnimals(id definition, int amount, int placement, int material, proplist rectangle, array con_range)
 {
 	if (definition == nil)
 	{
@@ -56,10 +56,10 @@ global func PlaceAnimals(id definition, int amount, int placement, int material,
 	}
 	else
 	{
-	 	x = rectangle[0];
-	 	y = rectangle[1];
-	 	width = rectangle[2];
-	 	height = rectangle[3];
+	 	x = rectangle.x;
+	 	y = rectangle.y;
+	 	width = rectangle.w;
+	 	height = rectangle.h;
 	}
 	
 	if (this) // make coordinates local in object context

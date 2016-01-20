@@ -33,9 +33,8 @@ func Initialize()
 	
 	AutoPlaceVegetation(Tree2, 6);
 	
-	PlaceAnimals(Fish, 7, PLACEMENT_Liquid, Material("Water"));
+	PlaceAnimals(ClassicFish, 7, PLACEMENT_Liquid, Material("Water"));
 	PlaceAnimals(Bird, 5, PLACEMENT_Air);
-
 	
 	return true;
 }
