@@ -11,41 +11,45 @@ func Definition(def)
 	def.PictureTransformation = Trans_Mul(Trans_Rotate(-10, 0, 0, 1), Trans_Rotate(20, 1, 0, 0), Trans_Rotate(20, 0, 1, 0));
 }
 
-// this is not used at the moment, but keep it just in case
-protected func AnimalInit()
+public func Construction()
 {
-	// Random size
-	var scale = RandomX(100, 150) * 10;
-	SetObjDrawTransform(scale, 0, 0, 0, scale);
+	inherited(...);
+	
+	ColorGreyish();
+}
 
-	// Color
+func ColorGreyish()
+{
 	var r1 = 255, g1 = 255, b1 = 255;
 	var r2 =  75, g2 =  85, b2 = 108;
 	var r3 = 139, g3 = 142, b3 = 149;
 
-	//var col = Random(2);
-	var scale2 = Random(100);
+	var amount = Random(100);
 	var r, g, b;
 
 	if (!Random(2))
 	{
-		r = (r1 * (100-scale2) + r2 * scale2)/100;
-		g = (g1 * (100-scale2) + g2 * scale2)/100;
-		b = (b1 * (100-scale2) + b2 * scale2)/100;
+		r = (r1 * (100-amount) + r2 * amount)/100;
+		g = (g1 * (100-amount) + g2 * amount)/100;
+		b = (b1 * (100-amount) + b2 * amount)/100;
 	}
 	else
 	{
-		r = (r1 * (100-scale2) + r3 * scale2)/100;
-		g = (g1 * (100-scale2) + g3 * scale2)/100;
-		b = (b1 * (100-scale2) + b3 * scale2)/100;
+		r = (r1 * (100-amount) + r3 * amount)/100;
+		g = (g1 * (100-amount) + g3 * amount)/100;
+		b = (b1 * (100-amount) + b3 * amount)/100;
 	}
 
-	var color = RGB( r, g, b);
+	var color = RGB(r, g, b);
 
 	SetColor(color);
-
-	_inherited();
 }
+
+func ColorRainbow()
+{
+	SetColor(HSL(Random(256), 255, RandomX(100, 160)));
+}
+
 
 func DoEat(object obj)
 {
