@@ -14,8 +14,6 @@ VertexFriction=100,100,100,100
 Value=10
 Mass=15
 Components=ClassicPiranha=1
-Picture=320,0,64,64
-Collection=-4,-3,8,6
 Float=1
 StretchGrowth=1
 IncompleteActivity=1
