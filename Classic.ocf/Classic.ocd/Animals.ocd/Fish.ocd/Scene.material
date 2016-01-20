@@ -16,13 +16,25 @@ material classic_fish
             depth_check on
             depth_write on
             scene_blend one zero
-
-            texture_unit 
-            {
-                texture fish.png
-                tex_address_mode wrap
-                colour_op modulate
-            }
+	
+			texture_unit overlay
+			{
+				texture overlay.png
+				tex_address_mode wrap
+				filtering trilinear
+				colour_op_ex modulate src_texture src_player_colour
+				// take alpha from texture only, ignore player alpha
+				alpha_op_ex source1 src_texture src_player_colour
+			}
+			texture_unit fish
+			{
+				texture fish.png
+				tex_address_mode wrap
+				filtering trilinear
+				colour_op_ex blend_current_alpha src_current src_texture
+				// Don't blend alpha, to make sure we have full intensity at the base/overlay border region
+				alpha_op_ex add src_current src_texture
+			}
         }
     }
 }
