@@ -4,4 +4,4 @@ Description=A large and safe home base featuring a stairway to move vehicles to 
 
 CastleDefense=Defenders
 DefenseInfo=Up to three defenders can support the castle. Clonks with a bow serve as defenders, they take arrows from the castle armoury. Defenders do not use arrows from their inventory while in the castle.
-DefenderInfo=%d/%d arrows
+DefenderInfo=%s is defending the castle. He has:|%d/%d arrows|%d% energy

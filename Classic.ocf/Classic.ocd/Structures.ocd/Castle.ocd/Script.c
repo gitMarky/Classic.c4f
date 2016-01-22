@@ -8,7 +8,7 @@
 
 #include Basement80
 
-static const CASTLE_Arrow_Speed = 60; // very slow, should do less damage
+static const CASTLE_Arrow_Speed = 80; // very slow, should do less damage
 static const CASTLE_Arrow_Count = 5;  // one archer has 5 arrows at most
 static const CASTLE_Windows = [[-26, -6], [-16, -6], [-32, 20], [-20, 20]];
 
@@ -98,7 +98,9 @@ func AddCastleDefenseAI(object crew)
 	effect.ammo_max = CASTLE_Arrow_Count;
 	effect.ammo_gain_rate = 8; // gain ammo every 5 seconds
 	
-	AI->SetGuardRange(crew, GetX()-AI_DefGuardRangeX, GetY()-AI_DefGuardRangeY, AI_DefGuardRangeX*2, AI_DefGuardRangeY*2);
+	var guard_range_x = 300;
+	var guard_range_y = 200;
+	AI->SetGuardRange(crew, GetX()-guard_range_x, GetY()-guard_range_y, guard_range_x*2, guard_range_y*2);
 	AI->SetMaxAggroDistance(crew, AI_DefMaxAggroDistance);
 	
 }
@@ -226,7 +228,6 @@ private func FindTarget(ai)
 	                               hostile_criteria,
 	                               Find_NoContainer(),
 	                               Sort_Random()))	                             
-		if (PathFree(GetX(), GetY(), target->GetX(), target->GetY()))
 			return target;
 
 	// Nothing found.
@@ -240,6 +241,12 @@ private func ExecuteRanged(proplist ai)
 {
 	// Target still in guard range?
 	if (!AI->CheckTargetInGuardRange(ai)) return false;
+	// Target gone?
+	if (ai.target->Contained())
+	{
+		ai.target = nil;
+		return false;
+	}
 
 	// Calculate offset to target. Take movement into account
 	// Also aim for the head (y-4) so it's harder to evade by jumping
@@ -257,27 +264,42 @@ private func ExecuteRanged(proplist ai)
 
 	if (!ai.target->GetContact(-1)) if (!ai.target->GetCategory() & C4D_StaticBack) ty += GetGravity()*dt*dt/200;
 
-	// Path to target free?
-	if (PathFree(x, y, tx, ty))
+	// Get shooting angle
+	var shooting_angle;
+	if (ai.ranged_direct)
+		shooting_angle = Angle(x, y, tx, ty, 10);
+	else
 	{
-		// Get shooting angle
-		var shooting_angle;
-		if (ai.ranged_direct)
-			shooting_angle = Angle(x, y, tx, ty, 10);
-		else
-			shooting_angle = AI->GetBallisticAngle(tx-x, ty-y, ai.projectile_speed, 160);
+		shooting_angle = AI->GetBallisticAngle(tx-x, ty-y, ai.projectile_speed, 160);
+	}
 
-		if (GetType(shooting_angle) != C4V_Nil)
+	if (GetType(shooting_angle) != C4V_Nil)
+	{
+		shooting_angle /= 10;
+
+		// sort of ballistic line
+		var half_dist = Distance(x, y, tx, ty) / 2;
+		var hx = GetX() + Sin(shooting_angle, half_dist);
+		var hy = GetY() - Cos(shooting_angle, half_dist);
+	
+		var ally = FindObject(Find_OnLine(0, 0, tx-x, ty-y), Find_Exclude(this), Find_OCF(OCF_Alive), Find_Owner(GetOwner()), Find_NoContainer());
+		if (ally)
 		{
-			ai.ammo_count -= 1;
-			if (ai.ammo_count)
-				ai.reload = RandomX(6, 10); // take 3 to 6 seconds for reloading, so that multiple defenders are more attractive
-			else
-				ai.reload = 0; // no reloading, because ammo replenishes after some time only
-
-			// Aim/Shoot there
-			FireArrow(x, y, shooting_angle / 10);
-			return true;
+			return false;
+		}
+		
+		// Path to (near) target free? this may waste arrows, but attacks airships for example :)
+		if (PathFree(x, y, hx, hy))
+		{
+				ai.ammo_count -= 1;
+				if (ai.ammo_count)
+					ai.reload = RandomX(2, 4); // take 3 to 6 seconds for reloading, so that multiple defenders are more attractive
+				else
+					ai.reload = 0; // no reloading, because ammo replenishes after some time only
+	
+				// Aim/Shoot there
+				FireArrow(x, y, shooting_angle);
+				return true;
 		}
 	}
 
@@ -285,7 +307,7 @@ private func ExecuteRanged(proplist ai)
 	var new_target;
 	if (!Random(3)) if (new_target = FindTarget(ai)) ai.target = new_target;
 	// go to another window
-	if (!Random(3)) ai.castle_window = CASTLE_Windows[Random(GetLength(CASTLE_Windows))];
+	ai.castle_window = CASTLE_Windows[Random(GetLength(CASTLE_Windows))];
 	return true;
 }
 
@@ -354,8 +376,6 @@ public func GetCastleDefenseMenuEntries(object crew)
 	};
 	
 	// Add info message about how the defense mechanism works.
-	var lightbulb_graphics = "Yellow"; // better graphics?
-
 	PushBack(menu_entries, {symbol = this, extra_data = "description",
 			custom =
 			{
@@ -364,7 +384,7 @@ public func GetCastleDefenseMenuEntries(object crew)
 				Priority = -1,
 				BackgroundColor = RGB(25, 100, 100),
 				text = {Prototype = custom_entry.text, Text = ""},
-				image = {Prototype = custom_entry.image, Symbol = Shield} //Icon_Lightbulb, GraphicsName = lightbulb_graphics}
+				image = {Prototype = custom_entry.image, Symbol = Shield}
 			}});
 	
 	// Add info message for every defender
@@ -375,14 +395,14 @@ public func GetCastleDefenseMenuEntries(object crew)
 		var defender_info = defender->GetName();
 		PushBack(menu_entries,
 		{
-		    symbol = defender->GetID(), // TODO: Display the actual clonk
+		    symbol = defender,
 		    extra_data = Format("Object(%d)", defender->ObjectNumber()),
 			custom = 
 			{
 				Prototype = custom_entry,
 				Priority = 1,
 				text = {Prototype = custom_entry.text, Text = defender_info},
-				image = {Prototype = custom_entry.image, Symbol = Shield},
+				image = {Prototype = custom_entry.image, Symbol = defender},
 			}
 		});
 	}
@@ -399,11 +419,12 @@ public func OnCastleDefenseHover(id symbol, string action, desc_menu_target, men
 	}
 	else
 	{
-		var defender = eval(action); //Call(action);
+		var defender = eval(action);
+		var health_percent = 100000 * defender->GetEnergy() / defender.MaxEnergy;
 		var ammo = defender.ai.ammo_count;
 		var max = defender.ai.ammo_max;
 		
-		text = Format("$DefenderInfo$", ammo, max);
+		text = Format("$DefenderInfo$", defender->GetName(), ammo, max, health_percent);
 		
 	}
 	GuiUpdateText(text, menu_id, 1, desc_menu_target);

@@ -79,7 +79,10 @@ func InitializePlayer(int plr)
 		DoBaseProduction(plr, material[0], material[1]);
 	}
 
-	var homeBase = FindObject(Find_ID(ClassicHutWooden), Find_Distance(50, GetHiRank(plr)->GetX(), GetHiRank(plr)->GetY()));
+	//var homeBase = FindObject(Find_ID(ClassicHutWooden), Find_Distance(50, GetHiRank(plr)->GetX(), GetHiRank(plr)->GetY()));
+	var homeBase = FindObject(Find_ID(ClassicCastle));
+
+	GetHiRank(plr)->CreateContents(Bow);
 
 	if (homeBase)
 	{
