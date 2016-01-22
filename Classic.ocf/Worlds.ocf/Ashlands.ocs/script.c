@@ -35,12 +35,11 @@ func InitGoals()
 
 func InitEnvironment()
 {
-	SetSkyAdjust(RGB(255, 128, 0));
+	var time = CreateObject(Time);
+	time.daycolour_global = [158, 65, 47];
+	time->SetCycleSpeed(20);
 
-	//var time = CreateObject(Time);
-	//time->SetCycleSpeed(20);
-
-	//SetTime(ToSeconds(10));
+	SetTime(ToSeconds(10));
 }
 
 func InitVegetation()
