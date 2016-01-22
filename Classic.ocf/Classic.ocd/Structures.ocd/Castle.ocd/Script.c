@@ -8,12 +8,18 @@
 
 #include Basement80
 
+static const CASTLE_Arrow_Speed = 60; // very slow, should do less damage
+static const CASTLE_Arrow_Count = 5;  // one archer has 5 arrows at most
+static const CASTLE_Windows = [[-26, -6], [-16, -6], [-32, 20], [-20, 20]];
+
 local topface;
+local defenders;
 
 protected func Construction()
 {
 	_inherited(...);
     this.PictureTransformation = Trans_Mul(Trans_Rotate(-20, 0, 1, 0), Trans_Rotate(-15, 1, 0, 0), Trans_Rotate(7, 0, 0, 1), Trans_Translate(10000, -5000, 30000), Trans_Scale(900, 900, 450));
+    defenders = [];
 }
 
 protected func Initialize()
@@ -57,6 +63,255 @@ private func SoundCloseGate()
 	Sound("GateClose");
 }
 
+
+/*-- Defense script --*/
+
+func Collection2(object crew)
+{
+	if (crew->~IsClonk())
+	{
+		AddCastleDefenseAI(crew);		
+	}
+}
+
+func AddCastleDefenseAI(object crew)
+{
+	var effect = AddEffect("IntCastleDefense", crew, 1, 20, this);
+	if (!effect) return;
+
+	effect.castle = this;
+
+	// save old ai
+	if (crew.ai)
+	{
+		crew.ai_temp = crew.ai;
+	}
+	crew.ai = effect;
+	
+	// configure AI
+	crew.ExecuteAI = this.DoNothing;
+	effect.ai = ClassicCastle;
+	effect.castle_window = CASTLE_Windows[Random(GetLength(CASTLE_Windows))];
+	effect.ammo_count = CASTLE_Arrow_Count;
+	effect.ammo_max = CASTLE_Arrow_Count;
+	effect.ammo_gain_rate = 8; // gain ammo every 5 seconds
+	
+	AI->SetGuardRange(crew, GetX()-AI_DefGuardRangeX, GetY()-AI_DefGuardRangeY, AI_DefGuardRangeX*2, AI_DefGuardRangeY*2);
+	AI->SetMaxAggroDistance(crew, AI_DefMaxAggroDistance);
+	
+}
+
+func RemoveCastleDefenseAI(object crew)
+{
+	if (crew.ai_temp)
+	{
+		crew.ai = crew.ai_temp;
+		crew.ai_temp = nil;
+	}
+	else
+	{
+		crew.ai = nil;
+	}
+}
+
+func GetDefenderCount()
+{
+	var count = 0;
+	for (var defender in defenders)
+	{
+		if (defender) ++count;
+	}
+	return count;
+}
+
+
+func AddDefender(object defender)
+{
+	// too many defenders make the castle overpowered
+	if (GetDefenderCount() > 2) return;
+
+	if (!IsValueInArray(defenders, defender))
+	{
+		PushBack(defenders, defender);
+	}
+}
+
+
+func RemoveDefender(object defender)
+{
+	if (IsValueInArray(defenders, defender))
+	{
+		RemoveArrayValue(defenders, defender);
+	}
+}
+
+
+func FxIntCastleDefenseTimer(object target, proplist ai, int time)
+{
+	if (!ai.castle || target->Contained() != ai.castle) return FX_Execute_Kill;
+
+	ai.weapon = target->FindContents(Bow);
+
+	if (ai.weapon)
+	{
+		ai.projectile_speed = CASTLE_Arrow_Speed;
+		
+		ai.castle->AddDefender(target);
+		ExecuteDefend(target, ai, time);
+	}
+	else
+	{
+		ai.castle->RemoveDefender(target);
+	}
+	
+	return FX_OK;
+}
+
+
+func FxIntCastleDefenseStop(object target, proplist ai, int reason)
+{
+	if (ai.castle) ai.castle->RemoveDefender(target);
+}
+
+
+func ExecuteDefend(object target, proplist ai, int time)
+{
+	ai.time = time;
+	// Forget an enemy
+	if (ai.target) if (!ai.target->GetAlive() || ObjectDistance(ai.target) >= ai.max_aggro_distance) ai.target = nil;
+	
+	ai.ammo_gain += 1;
+	if (ai.ammo_gain > ai.ammo_gain_rate)
+	{
+		ai.ammo_count = BoundBy(ai.ammo_count + 1, 0, ai.ammo_max);
+	}
+
+	// do not do anything if you ran out of arrows
+	if (ai.ammo_count <= 0) return;
+	
+	// Find an enemy
+	if (!ai.target)
+	{
+		if (!(ai.target = FindTarget(ai))) return;
+	}
+
+	// delay, to avoid constant shooting
+	if (ai.reload > 0)
+	{
+		ai.reload--;
+		return;
+	}
+
+	// Attack it!
+	return ExecuteRanged(ai);
+}
+
+
+private func FindTarget(ai)
+{
+	// Consider hostile clonks/animals, or all clonks if the AI does not have an owner.
+	var hostile_criteria = Find_Hostile(GetOwner());
+	var living = Find_Or(Find_OCF(OCF_CrewMember), Find_Func("IsPredator"));
+	
+	if (GetOwner() == NO_OWNER)
+	{
+		hostile_criteria = Find_Not(Find_Owner(GetOwner()));
+		living = Find_OCF(OCF_CrewMember);
+	}
+
+	for (var target in FindObjects(Find_InRect(ai.guard_range.x-GetX(), ai.guard_range.y-GetY(), ai.guard_range.wdt, ai.guard_range.hgt), 
+	                               living, // also finds hostile animals!
+	                               hostile_criteria,
+	                               Find_NoContainer(),
+	                               Sort_Random()))	                             
+		if (PathFree(GetX(), GetY(), target->GetX(), target->GetY()))
+			return target;
+
+	// Nothing found.
+	return;
+}
+
+func DoNothing(){}
+
+
+private func ExecuteRanged(proplist ai)
+{
+	// Target still in guard range?
+	if (!AI->CheckTargetInGuardRange(ai)) return false;
+
+	// Calculate offset to target. Take movement into account
+	// Also aim for the head (y-4) so it's harder to evade by jumping
+	var x = GetX() + ai.castle_window[0];
+	var y = GetY() + ai.castle_window[1];
+	var tx = ai.target->GetX();
+	var ty = ai.target->GetY()-4;
+
+	var d = Distance(x, y, tx, ty);
+
+	var dt = d * 10 / ai.projectile_speed; // projected travel time of the arrow
+
+	tx += AI->GetTargetXDir(ai.target, dt);
+	ty += AI->GetTargetYDir(ai.target, dt);
+
+	if (!ai.target->GetContact(-1)) if (!ai.target->GetCategory() & C4D_StaticBack) ty += GetGravity()*dt*dt/200;
+
+	// Path to target free?
+	if (PathFree(x, y, tx, ty))
+	{
+		// Get shooting angle
+		var shooting_angle;
+		if (ai.ranged_direct)
+			shooting_angle = Angle(x, y, tx, ty, 10);
+		else
+			shooting_angle = AI->GetBallisticAngle(tx-x, ty-y, ai.projectile_speed, 160);
+
+		if (GetType(shooting_angle) != C4V_Nil)
+		{
+			ai.ammo_count -= 1;
+			if (ai.ammo_count)
+				ai.reload = RandomX(6, 10); // take 3 to 6 seconds for reloading, so that multiple defenders are more attractive
+			else
+				ai.reload = 0; // no reloading, because ammo replenishes after some time only
+
+			// Aim/Shoot there
+			FireArrow(x, y, shooting_angle / 10);
+			return true;
+		}
+	}
+
+	// Path not free or out of range. Just wait for enemy to come...
+	var new_target;
+	if (!Random(3)) if (new_target = FindTarget(ai)) ai.target = new_target;
+	// go to another window
+	if (!Random(3)) ai.castle_window = CASTLE_Windows[Random(GetLength(CASTLE_Windows))];
+	return true;
+}
+
+
+func UpdateDebugDisplay(){}
+
+
+
+/*-- Firing arrows --*/
+
+func FireArrow(int x, int y, int angle)
+{
+	var arrow = CreateObject(Arrow, x - GetX(), y - GetY());
+	arrow->SetStackCount(1);
+	arrow->Launch(angle, CASTLE_Arrow_Speed, this);
+	arrow.Collectible = false; // this is a free arrow after all...
+	AddEffect("IntArrowFade", arrow, 1, 1, nil, ClassicCastle);
+	Sound("Objects::Weapons::Bow::Shoot?");
+}
+
+func FxIntArrowFadeTimer(object arrow, proplist effect, int time)
+{
+	if (!GetEffect("InFlight", arrow))
+	{
+		arrow->FadeOut(30, true);
+		return FX_Execute_Kill;
+	}
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
