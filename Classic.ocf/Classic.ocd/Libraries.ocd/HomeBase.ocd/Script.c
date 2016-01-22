@@ -10,15 +10,15 @@ static const g_Homebase_Interact_Buy = 0;
 static const g_Homebase_Interact_Sell = 1;
 static const g_Homebase_Interact_RemoveFlag = 2;
 
-private func Collection2( object pObj, bool fPut )
+private func Collection2(object item)
 {
-	if(!IsBase() && pObj->~IsBaseFlag() && pObj->GetOwner() != NO_OWNER)
+	if(!IsBase() && item->~IsBaseFlag() && item->GetOwner() != NO_OWNER)
 	{
-		pObj->~SetBase(this);
+		item->~SetBase(this);
 		MakeBase(false); // this actually makes it a base...
 	}
 
-	_inherited(...);
+	_inherited(item);
 }
 
 private func OnFlagLost()

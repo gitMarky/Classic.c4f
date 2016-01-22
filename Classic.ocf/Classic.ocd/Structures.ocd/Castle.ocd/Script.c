@@ -72,6 +72,8 @@ func Collection2(object crew)
 	{
 		AddCastleDefenseAI(crew);		
 	}
+	
+	_inherited(crew);
 }
 
 func AddCastleDefenseAI(object crew)

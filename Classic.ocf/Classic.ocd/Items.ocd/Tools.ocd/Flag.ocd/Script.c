@@ -9,7 +9,8 @@ public func IsBaseFlag(){ return true;} // Can mark a home base
 
 private func Flying()
 {
-	SetDir(BoundBy(GetWind()/10+4,0,8));
+	SetDir(BoundBy(GetWind()/10+4, 0, 8));
+
 	if (!GetActTime() && GetActionTarget())
 	{
 		SetCategory(31 & GetActionTarget()->GetCategory());
@@ -28,15 +29,25 @@ func OnOwnerChanged(int new_owner, int old_owner)
 }
 
 
-public func SetBase(object homebase)
+public func SetBase(object homebase, bool actual_call)
 {
-	if(Contained()) Exit();
-	homebase->SetOwner(GetOwner());
-	SetAction("FlyBase",homebase);
-	AddEffect("IntBaseCheck", homebase, 1, 1, this);
-	Sound("Trumpet");
-
-	this.Collectible = 0;
+	// the GUI stuff causes a problem in the flag. If it is collected, 
+	// then it is ejected an idle right away, so it won't stay a flag
+	// the trick is to delay the actual call by 1 frame
+	if (!actual_call)
+	{
+		ScheduleCall(this, this.SetBase, 1, 0, homebase, true);
+	}
+	else
+	{
+		if (Contained()) Exit();
+		homebase->SetOwner(GetOwner());
+		SetAction("FlyBase", homebase);
+		AddEffect("IntBaseCheck", homebase, 1, 1, this);
+		Sound("Trumpet");
+	
+		this.Collectible = 0;
+	}
 }
 
 public func LostBase()
@@ -45,20 +56,20 @@ public func LostBase()
 	SetAction("Idle");
 }
 
-private func FxIntBaseCheckTimer(object target)
+private func FxIntBaseCheckTimer(object target, proplist effect, int time)
 {
-	if(!target)
+	if (!target)
 	{
 		SetAction("Idle");
 		LostBase();
-		return -1;
+		return FX_Execute_Kill;
 	}
 
-	if(ActIdle())
+	if (ActIdle())
 	{
 		target->~OnFlagLost();
 		LostBase();
-		return -1;
+		return FX_Execute_Kill;
 	}
 }
 
