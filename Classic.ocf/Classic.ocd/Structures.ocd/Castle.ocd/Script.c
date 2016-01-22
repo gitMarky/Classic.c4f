@@ -313,6 +313,106 @@ func FxIntArrowFadeTimer(object arrow, proplist effect, int time)
 	}
 }
 
+
+/*-- Defense script GUI --*/
+
+public func HasInteractionMenu() { return true; }
+
+public func GetInteractionMenus(object crew)
+{
+	var menus = _inherited(crew) ?? [];		
+
+	var defense_menu =
+	{
+		title = "$CastleDefense$",
+		entries_callback = this.GetCastleDefenseMenuEntries,
+		callback = "OnCastleDefense",
+		callback_hover = "OnCastleDefenseHover",
+		callback_target = this,
+		BackgroundColor = RGB(0, 50, 50),
+		Priority = 20
+	};
+
+	PushBack(menus, defense_menu);
+	return menus;
+}
+
+
+public func GetCastleDefenseMenuEntries(object crew)
+{
+	var menu_entries = [];
+
+	// default design of a control menu item
+	var custom_entry = 
+	{
+		Right = "100%", Bottom = "2em",
+		BackgroundColor = {Std = 0, OnHover = 0x50ff0000},
+		image = {Right = "2em"},
+		text = {Left = "2em"}
+	};
+	
+	// Add info message about how the defense mechanism works.
+	var lightbulb_graphics = "Yellow"; // better graphics?
+
+	PushBack(menu_entries, {symbol = this, extra_data = "description",
+			custom =
+			{
+				Prototype = custom_entry,
+				Bottom = "1.2em",
+				Priority = -1,
+				BackgroundColor = RGB(25, 100, 100),
+				text = {Prototype = custom_entry.text, Text = ""},
+				image = {Prototype = custom_entry.image, Symbol = Shield} //Icon_Lightbulb, GraphicsName = lightbulb_graphics}
+			}});
+	
+	// Add info message for every defender
+	for (var defender in defenders)
+	{
+		if (defender == nil) continue;
+
+		var defender_info = defender->GetName();
+		PushBack(menu_entries,
+		{
+		    symbol = defender->GetID(), // TODO: Display the actual clonk
+		    extra_data = Format("Object(%d)", defender->ObjectNumber()),
+			custom = 
+			{
+				Prototype = custom_entry,
+				Priority = 1,
+				text = {Prototype = custom_entry.text, Text = defender_info},
+				image = {Prototype = custom_entry.image, Symbol = Shield},
+			}
+		});
+	}
+
+	return menu_entries;
+}
+
+public func OnCastleDefenseHover(id symbol, string action, desc_menu_target, menu_id)
+{
+	var text;
+	if (action == "description")
+	{
+		text = "$DefenseInfo$";
+	}
+	else
+	{
+		var defender = eval(action); //Call(action);
+		var ammo = defender.ai.ammo_count;
+		var max = defender.ai.ammo_max;
+		
+		text = Format("$DefenderInfo$", ammo, max);
+		
+	}
+	GuiUpdateText(text, menu_id, 1, desc_menu_target);
+}
+
+public func OnCastleDefense(id symbol, string action, bool alt)
+{
+	// do nothing on click, or maybe let the clonk play an idle animation :p
+}
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // properties
