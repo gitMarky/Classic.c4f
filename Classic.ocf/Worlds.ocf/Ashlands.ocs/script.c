@@ -2,6 +2,24 @@
 
 func Initialize()
 {
+	InitRules();
+	InitGoals();
+	InitEnvironment();
+	InitVegetation();
+	InitAnimals();
+}
+
+func InitRules()
+{
+	var rules = [Rule_TeamAccount, Rule_ZoomLimit, Rule_StartingEquipment];
+	for (var rule in rules) CreateObject(rule);
+}
+
+func InitGoals()
+{
+	// Show wealth in HUD.
+	GUI_Controller->ShowWealth();
+
 	// Goal: Resource extraction, set to gold mining.
 	var goal = CreateObject(Goal_ResourceExtraction);
 	goal->SetResource("Gold");
@@ -12,14 +30,21 @@ func Initialize()
 	
 	// and gain some money
 	var goal3 = CreateObject(Goal_Wealth);
-	goal->SetWealthGoal(150);
+	goal3->SetWealthGoal(150);
+}
 
-	var time = CreateObject(Time);
-	time->SetCycleSpeed(20);
+func InitEnvironment()
+{
+	SetSkyAdjust(RGB(255, 128, 0));
 
-	SetTime(ToSeconds(10));
-	
-	
+	//var time = CreateObject(Time);
+	//time->SetCycleSpeed(20);
+
+	//SetTime(ToSeconds(10));
+}
+
+func InitVegetation()
+{
 	var burned_trees_1 = AutoPlaceVegetation(Tree1, 32);
 	var burned_trees_2 = AutoPlaceVegetation(Tree2, 32);
 	var burned_trees_3 = AutoPlaceVegetation(Tree3, 32);
@@ -32,47 +57,83 @@ func Initialize()
 		tree->SetGraphics("Burned");
 	
 	AutoPlaceVegetation(Tree2, 6);
-	
-	PlaceAnimals(ClassicFish, 7, PLACEMENT_Liquid, Material("Water"));
-	PlaceAnimals(Bird, 5, PLACEMENT_Air);
-	
-	return true;
 }
 
-
+func InitAnimals()
+{
+	PlaceAnimals(ClassicFish, 7, PLACEMENT_Liquid, Material("Water"));
+	PlaceAnimals(Bird, 5, PLACEMENT_Air);
+}
 
 func InitializePlayer(int plr)
 {
 	SetWealth(plr, 100);
 	
+	var myKnowledge =
+	[
+//		ADM3=1;
+//		FireBomb,
+		Flint,
+//		TFlint,
+//		Sailboat,
+//		Balloon,
+//		Dynamo,
+		ClassicWindmill,
+		PowerPlant,
+		Sawmill,
+		ClassicElevator,
+		ClassicPump,
+		ClassicHutWooden,
+		ClassicHutStone,
+//		Tower
+		];
+	
 	var myHomeBaseMaterial =
 	[
-		[Conkit,5],
-		[Loam,6],
-		[Wood,4],
-		[Metal,5], 
-		[Flint,5], 
-		[Sulphur,3], 
-		[Barrel,5], 
-		[ClassicFlag,3], 
-		[ClassicClonk,3], 
-		[ClassicLorry,2], 
-		[Bread,5]
+		[Conkit, 3],
+//		[Linekit, 6],
+		[Loam, 20],
+		[Wood, 5],
+		[Metal, 5],
+//		[Concrete, 20],
+		[Flint, 6],
+//		[TFlint, 7],
+//		[SuperTFlint, 3],
+//		[SuperFlint, 1],
+//		[Firebomb, 2],
+//		[Gunpowder, 6],
+		[MetalBarrel, 8],
+		[ClassicFlag, 1],
+		[ClassicClonk, 5],
+		[ClassicLorry, 1],
+		[Catapult, 1]
+//		[Sailboat, 1]
 	];
 	var myHomeBaseProduction = 
 	[
-		[Conkit,5], 
-		[Loam,6], 
-		[Wood,5], 
-		[Metal,3], 
-		[Flint,5], 
-		[Sulphur,2], 
-		[Barrel,5], 
-		[ClassicFlag,3], 
-		[ClassicClonk,2], 
-		[ClassicLorry,1], 
-		[Bread,5]
+		[Conkit, 3],
+//		[Linekit, 6],
+		[Loam, 12],
+		[Wood, 18],
+		[Metal, 5],
+//		[Concrete, 8],
+		[Flint, 6],
+//		[TFlint, 7],
+//		[SuperTFlint, 5],
+//		[SuperFlint, 3],
+//		[TeraFlint,1],
+//		[Firebomb, 2],
+//		[Gunpowder, 10],
+		[MetalBarrel, 3],
+//		[BombArrowPack, 2],
+		[ClassicFlag, 3],
+		[ClassicClonk, 5]
 	];
+	
+	for (var knowledge in myKnowledge)
+	{
+		SetPlrKnowledge(plr, knowledge);
+	}
 
 	for (var material in myHomeBaseMaterial)
 	{
