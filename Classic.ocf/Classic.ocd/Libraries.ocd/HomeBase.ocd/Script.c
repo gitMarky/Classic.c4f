@@ -5,10 +5,9 @@
  */
 
 #include Library_Base
+#include Library_Vendor
 
-static const g_Homebase_Interact_Buy = 0;
-static const g_Homebase_Interact_Sell = 1;
-static const g_Homebase_Interact_RemoveFlag = 2;
+static const g_Homebase_Interact_RemoveFlag = 1;
 
 private func Collection2(object item)
 {
@@ -37,23 +36,15 @@ public func IsInteractable(object clonk)
 	return true;
 }
 
-public func GetInteractionCount() { return 3; }
+public func GetInteractionCount() { return 1; }
 public func GetInteractionMetaInfo(object clonk, int num)
 {
-	if (num == g_Homebase_Interact_Buy)
-		return {IconName=nil, IconID=Library_Base, Description="$MsgBuy$"};
-	if (num == g_Homebase_Interact_Sell)
-		return {IconName=nil, IconID=BaseMaterial, Description="$MsgSell$"};
 	if (num == g_Homebase_Interact_RemoveFlag && IsBase())
 		return {IconName=nil, IconID=ClassicFlag, Description="$MsgRemoveFlag$"};
 }
 
 public func Interact(object clonk, int num)
 {
-	if (num == g_Homebase_Interact_Buy)
-		OpenBuyMenu(clonk);
-	if (num == g_Homebase_Interact_Sell)
-		OpenSellMenu(clonk);
 	if (num == g_Homebase_Interact_RemoveFlag)
 		RemoveFlag(clonk);
 
