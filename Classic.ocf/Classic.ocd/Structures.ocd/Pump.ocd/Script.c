@@ -53,14 +53,12 @@ func ExtractMaterialFromSource(object source_obj, int amount)
 // interface for the insertion logic
 func InsertMaterialAtDrain(object drain_obj, int material_index, int amount)
 {
-	var barrels = GetBarrelsIn(drain_obj);
+	var material_name = MaterialName(material_index);
+	var barrels = GetBarrelsIn(drain_obj, material_name);
 	var inserted = 0;
 	
 	for (var barrel in barrels)
 	{
-	
-		var material_name = MaterialName(material_index);
-		
 		var diff = barrel->PutLiquid(material_name, amount, this);
 		amount -= diff;
 		inserted += diff;
@@ -74,27 +72,28 @@ func InsertMaterialAtDrain(object drain_obj, int material_index, int amount)
 	return inserted;
 }
 
-func GetBarrelsIn(object target)
+func GetBarrelsIn(object target, material_name)
 {
-	var criteria_container, barrels;
+	var barrels;
+	var container;
 
-	if (target->IsContainer()) // the drain object is a container and contains barrels? this is usually the case if the pump is the drain
+	if (target->~IsContainer()) // the drain object is a container and contains barrels? this is usually the case if the pump is the drain
 	{
-		criteria_container = Find_Container(target);
+		container = target;
 	}
 	else if (target->Contained()) // the drain object is contained, this is the case if the pipe is in a building
 	{
-		criteria_container = Find_Container(target->Contained());
+		container = target->Contained();
 	}
 	// missing case: the drain object can store liquids without barrels
 	
-	if (criteria_container == nil)
+	if (container == nil || container->~QueryPumpMaterial(material_name))
 	{
 		barrels = [];
 	}
 	else
 	{
-		barrels = FindObjects(Find_Func("IsBarrel"), criteria_container);
+		barrels = FindObjects(Find_Func("IsBarrel"), Find_Container(container));
 	}
 	return barrels;
 }

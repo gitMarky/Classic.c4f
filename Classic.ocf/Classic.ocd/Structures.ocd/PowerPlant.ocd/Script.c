@@ -55,7 +55,8 @@ public func IsContainer() { return true; }
 
 protected func RejectCollect(id item, object obj)
 {
-	if (obj->~IsFuel())
+	if (obj->~IsFuel()
+	 || obj->~IsDrainPipe())
 		return false;
 	return true;
 }
@@ -189,6 +190,10 @@ func Smoking()
 	CreateParticle("Fire", 21 * GetCalcDir() + RandomX(-2, 2), 14 + RandomX(-2, 2), PV_Random(-1, 1), PV_Random(-1, 1), PV_Random(10, 18), Particles_Fire(), 2);
 }
 
+func QueryPumpMaterial(string material_name)
+{
+	return material_name != "Lava";
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
