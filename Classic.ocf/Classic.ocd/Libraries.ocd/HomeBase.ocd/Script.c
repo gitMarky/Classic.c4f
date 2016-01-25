@@ -7,8 +7,6 @@
 #include Library_Base
 #include Library_Vendor
 
-static const g_Homebase_Interact_RemoveFlag = 1;
-
 private func Collection2(object item)
 {
 	if(!IsBase() && item->~IsBaseFlag() && item->GetOwner() != NO_OWNER)
@@ -27,28 +25,66 @@ private func OnFlagLost()
 
 /* --- Buy materials at base --- */
 
+// Provides an interaction menu for buying things.
+public func HasInteractionMenu() { return true; }
 
-public func IsInteractable(object clonk)
+public func AllowBuyMenuEntries() { return GetFlag() != nil;}
+public func AllowSellMenuEntries() { return GetFlag() != nil;}
+
+public func GetInteractionMenus(object clonk)
 {
-	if (GetCon() < 100) return false;
-	if (!IsBase()) return false;
-	if(Hostile(GetOwner(), clonk->GetOwner())) return false;
-	return true;
+	var menus = _inherited(clonk) ?? [];
+
+	// only open the menus if ready
+	var base_menu =
+	{
+		title = "$MsgBaseControl$",
+		entries_callback = this.GetBaseControlMenuEntries,
+		callback = "OnBaseControlSelection",
+		callback_hover = "OnBaseControlHover",
+		callback_target = this,
+		BackgroundColor = GetPlayerColor(GetOwner()),
+		Priority = 30
+	};
+	PushBack(menus, base_menu);
+	
+	return menus;
 }
 
-public func GetInteractionCount() { return 1; }
-public func GetInteractionMetaInfo(object clonk, int num)
+
+public func GetBaseControlMenuEntries(object clonk)
 {
-	if (num == g_Homebase_Interact_RemoveFlag && IsBase())
-		return {IconName=nil, IconID=ClassicFlag, Description="$MsgRemoveFlag$"};
+	var menu_entries = [];
+	
+	if (GetFlag())
+	{
+		PushBack(menu_entries,
+			{symbol = this, extra_data = clonk,
+				custom =
+				{
+					Right = "100%", Bottom = "2em",
+					BackgroundColor = {Std = 0, OnHover = 0x50ff0000},
+					image = {Right = "2em", Symbol = GetFlag()},
+					text = {Left = "2em", Text = "$MsgRemoveFlag$"},
+					Bottom = "1.2em",
+					Priority = -1,
+					BackgroundColor = RGB(25, 100, 100),
+				}});
+	}
+	
+	return menu_entries;
 }
 
-public func Interact(object clonk, int num)
+public func OnBaseControlSelection(id symbol, object clonk)
 {
-	if (num == g_Homebase_Interact_RemoveFlag)
-		RemoveFlag(clonk);
+	RemoveFlag(clonk);
+	UpdateInteractionMenus(this.GetBaseControlMenuEntries);	
+}
 
-	return true;
+public func OnBaseControlHover(id symbol, object clonk, desc_menu_target, menu_id)
+{
+	var text = "$DescRemoveFlag$";
+	GuiUpdateText(text, menu_id, 1, desc_menu_target);
 }
 
 public func RemoveFlag(object clonk)
