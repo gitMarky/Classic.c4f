@@ -22,6 +22,83 @@ func Initialize()
 	_inherited(...);
 }
 
+// interface for the extraction logic
+func ExtractMaterialFromSource(object source_obj, int amount)
+{
+	var extracted = 0;
+	var barrels = GetBarrelsIn(source_obj);
+	var material_name = nil;
+	
+	for (var barrel in barrels)
+	{
+		if (!material_name) material_name = barrel->GetBarrelMaterial();
+
+		var diff = barrel->GetLiquid(material_name, amount, this);
+		amount -= diff;
+		extracted += diff;
+
+		if (!amount) break;
+	}
+
+	if (material_name)
+	{
+		return [material_name, extracted];
+	}
+	else
+	{
+		return source_obj->ExtractLiquidAmount(source_obj.ApertureOffsetX, source_obj.ApertureOffsetY, amount, true);
+	}
+}
+
+// interface for the insertion logic
+func InsertMaterialAtDrain(object drain_obj, int material_index, int amount)
+{
+	var barrels = GetBarrelsIn(drain_obj);
+	var inserted = 0;
+	
+	for (var barrel in barrels)
+	{
+	
+		var material_name = MaterialName(material_index);
+		
+		var diff = barrel->PutLiquid(material_name, amount, this);
+		amount -= diff;
+		inserted += diff;
+	}
+
+	if (amount)
+	{
+		inserted += drain_obj->InsertMaterial(material_index, drain_obj.ApertureOffsetX, drain_obj.ApertureOffsetY);
+	}
+	
+	return inserted;
+}
+
+func GetBarrelsIn(object target)
+{
+	var criteria_container, barrels;
+
+	if (target->IsContainer()) // the drain object is a container and contains barrels? this is usually the case if the pump is the drain
+	{
+		criteria_container = Find_Container(target);
+	}
+	else if (target->Contained()) // the drain object is contained, this is the case if the pipe is in a building
+	{
+		criteria_container = Find_Container(target->Contained());
+	}
+	// missing case: the drain object can store liquids without barrels
+	
+	if (criteria_container == nil)
+	{
+		barrels = [];
+	}
+	else
+	{
+		barrels = FindObjects(Find_Func("IsBarrel"), criteria_container);
+	}
+	return barrels;
+}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
