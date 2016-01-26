@@ -1,5 +1,5 @@
 [DefCore]
-id=PowerPlant
+id=ClassicPowerPlant
 Version=7,0
 Category=C4D_Structure
 Width=64
