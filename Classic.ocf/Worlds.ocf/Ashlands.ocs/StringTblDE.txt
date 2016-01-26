@@ -3,13 +3,13 @@ Difficulty=Schwierigkeit
 DescDifficulty=Setzt die Schwierigkeit dieser Runde.
 
 DiffEasy=Einfach
-DescDiffEasy=Die Schwierigkeit dieser Runde ist einfach.
+DescDiffEasy=Ziele:|- Gold abbauen, 80%||Katastrophen:|- Gewitter, 10%|- Erdbeben, 5%|- Meteoriten, 5% 
 
 DiffNormal=Normal
-DescDiffNormal=Die Schwierigkeit dieser Runde ist normal.
+DescDiffNormal=Ziele:|- Gold abbauen, 90%||Katastrophen:|- Gewitter, 15%|- Erdbeben, 10%|- Meteor, 8%|- Vulkan, 8%
 
 DiffHard=Schwer
-DescDiffHard=Die Schwierigkeit dieser Runde ist schwer.
+DescDiffHard=Ziele:|- Gold abbauen, 100%||Katastrophen:|- Gewitter, 20%|- Erdbeben, 15%|- Meteor, 11%|- Vulkan, 11%
 
 # Scenario parameters: map size
 MapSize=Kartengröße

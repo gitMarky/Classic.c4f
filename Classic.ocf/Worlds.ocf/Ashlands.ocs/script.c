@@ -44,16 +44,14 @@ func InitEnvironment(int difficulty)
 
 	// Some dark clouds which rain few ashes.
 	Cloud->Place(15);
-	Cloud->SetPrecipitation("Ashes", 10 * difficulty);
-	//Cloud->SetCloudRGB(75, 70, 55);
+	Cloud->SetPrecipitation("Ashes", 5 * difficulty);
 	Cloud->SetCloudRGB(60, 35, 25);
+	Cloud->SetLightning(5 + 5 * difficulty); // default: 15%
 
 	// Some natural disasters, earthquakes, volcanos, meteorites.
-	Meteor->SetChance(2 + 4 * difficulty);
-	Volcano->SetChance(2 + 4 * difficulty);	
-	if (difficulty >= 2)
-		Earthquake->SetChance(6 * difficulty);
-
+	Earthquake->SetChance(5 * difficulty); // default: 10%
+	Meteor->SetChance(2 + 3 * difficulty); // default: 8%
+	if (difficulty >= 2) Volcano->SetChance(2 + 3 * difficulty);	// default: 8%
 }
 
 func InitVegetation()

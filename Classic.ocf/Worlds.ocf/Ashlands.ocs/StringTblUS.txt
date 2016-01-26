@@ -3,13 +3,13 @@ Difficulty=Difficulty
 DescDifficulty=Sets this round's difficulty.
 
 DiffEasy=Easy
-DescDiffEasy=This round's difficulty will be set to easy.
+DescDiffEasy=Ziele:|- Mine gold, 80%||Disasters:|- Lightning, 10%|- Earthquake, 5%|- Meteor, 5% 
 
 DiffNormal=Normal
-DescDiffNormal=This round's difficulty will be set to normal.
+DescDiffNormal=Ziele:|- Mine gold, 90%||Disasters:|- Lightning, 15%|- Earthquake, 10%|- Meteor, 8%|- Volcano, 8%
 
 DiffHard=Hard
-DescDiffHard=This round's difficulty will be set to hard.
+DescDiffHard=Ziele:|- Mine gold, 100%||Disasters:|- Lightning, 20%|- Earthquake, 15%|- Meteor, 11%|- Volcano, 11%
 
 # Scenario parameters: map size
 MapSize=Map size
