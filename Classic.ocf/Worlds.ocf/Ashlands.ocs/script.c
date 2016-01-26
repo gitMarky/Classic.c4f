@@ -3,10 +3,11 @@
 func Initialize()
 {
 	InitRules();
-	InitGoals();
-	InitEnvironment();
+	InitGoals(SCENPAR_Difficulty);
+	InitEnvironment(SCENPAR_Difficulty);
 	InitVegetation();
-	InitAnimals();
+	InitAnimals(SCENPAR_MapSize);
+	InitMaterial(SCENPAR_MapSize);
 }
 
 func InitRules()
@@ -15,14 +16,14 @@ func InitRules()
 	for (var rule in rules) CreateObject(rule);
 }
 
-func InitGoals()
+func InitGoals(int difficulty)
 {
 	// Show wealth in HUD.
 	GUI_Controller->ShowWealth();
 
 	// Goal: Resource extraction, set to gold mining.
 	var goal = CreateObject(Goal_ResourceExtraction);
-	goal->SetResource("Gold");
+	goal->SetResource("Gold", Min(100, 70 + 10 * difficulty));
 	
 	// Goal: Resource extraction, set to oil extraction.
 	//var goal2 = CreateObject(Goal_ResourceExtraction);
@@ -30,16 +31,29 @@ func InitGoals()
 	
 	// and gain some money
 	var goal3 = CreateObject(Goal_Wealth);
-	goal3->SetWealthGoal(150);
+	goal3->SetWealthGoal(100 + 50 * difficulty);
 }
 
-func InitEnvironment()
+func InitEnvironment(int difficulty)
 {
 	var time = CreateObject(Time);
 	time.daycolour_global = [158, 65, 47];
 	time->SetCycleSpeed(20);
 
 	SetTime(ToSeconds(10));
+
+	// Some dark clouds which rain few ashes.
+	Cloud->Place(15);
+	Cloud->SetPrecipitation("Ashes", 10 * difficulty);
+	//Cloud->SetCloudRGB(75, 70, 55);
+	Cloud->SetCloudRGB(60, 35, 25);
+
+	// Some natural disasters, earthquakes, volcanos, meteorites.
+	Meteor->SetChance(2 + 4 * difficulty);
+	Volcano->SetChance(2 + 4 * difficulty);	
+	if (difficulty >= 2)
+		Earthquake->SetChance(6 * difficulty);
+
 }
 
 func InitVegetation()
@@ -58,10 +72,22 @@ func InitVegetation()
 	AutoPlaceVegetation(Tree2, 6);
 }
 
-func InitAnimals()
+func InitAnimals(int map_size)
 {
 	PlaceAnimals(ClassicFish, 7, PLACEMENT_Liquid, Material("Water"));
 	PlaceAnimals(Bird, 5, PLACEMENT_Air);
+}
+
+func InitMaterial(map_size)
+{
+	//InEarth=Rock=4;Loam=5;Flint=3;Gold=3;
+	//InEarthLevel=48,19
+
+	// Some objects in the earth.	
+	PlaceObjects(Rock, 40,"Earth");
+	PlaceObjects(Loam, 50, "Earth");
+	PlaceObjects(Flint, 30, "Earth");
+	PlaceObjects(Gold, 30, "Earth");
 }
 
 func InitializePlayer(int plr)

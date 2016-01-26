@@ -1,0 +1,25 @@
+# Scenario parameters: difficulty
+Difficulty=Difficulty
+DescDifficulty=Sets this round's difficulty.
+
+DiffEasy=Easy
+DescDiffEasy=This round's difficulty will be set to easy.
+
+DiffNormal=Normal
+DescDiffNormal=This round's difficulty will be set to normal.
+
+DiffHard=Hard
+DescDiffHard=This round's difficulty will be set to hard.
+
+# Scenario parameters: map size
+MapSize=Map size
+DescMapSize=Sets this round's map size.
+
+MapSmall=Small
+DescMapSmall=This round's map will be small.
+
+MapAverage=Average
+DescMapAverage=This round's map will be average.
+
+MapLarge=Large
+DescMapLarge=This round's map will be large.

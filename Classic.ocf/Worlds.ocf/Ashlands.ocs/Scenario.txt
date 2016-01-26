@@ -29,8 +29,6 @@ Crew=ClassicClonk=1;
 Buildings=ClassicHutWooden=1;
 
 [Landscape]
-InEarth=Rock=4;Loam=5;Flint=3;Gold=3;
-InEarthLevel=48,19
 Sky=Clouds1
 MapWidth=250
 MapHeight=171
@@ -42,8 +40,3 @@ StartSeason=28,0
 YearSpeed=0
 Wind=1,100
 Lightning=6,4
-
-[Disasters]
-Meteorite=2,1
-Volcano=2,1
-Earthquake=2,3
