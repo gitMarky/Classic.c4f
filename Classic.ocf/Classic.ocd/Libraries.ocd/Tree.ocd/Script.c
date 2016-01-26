@@ -109,7 +109,7 @@ public func ContextChop(pClonk)
 protected func Damage()
 {
     // Damaged dead trees should rot...
-    if (IsDeadTree()
+    if (this->IsDeadTree()
     && !GetEffect("IntTreeDecay", this)
     && GetCon() < 90
     && this.Touchable != 0)
@@ -132,8 +132,8 @@ public func CastLeafParticles()
 {
 	if (OnFire()) return;
 
-	var particles = GetLeafParticles();
-	if(!IsDeadTree() && particles != nil)
+	var particles = this->GetLeafParticles();
+	if(!this->IsDeadTree() && particles != nil)
 	{
 		var amount = Random(GetCon()/20) + 1;
 
@@ -150,7 +150,7 @@ public func CastLeafParticles()
 protected func ChopDown()
 {
 	SetAction("Chopped");
-	ScheduleCall(this, "CastLeafParticles", 5, 2);
+	ScheduleCall(this, this.CastLeafParticles, 5, 2);
 
 	_inherited();
 }
