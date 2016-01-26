@@ -61,13 +61,20 @@ func InitVegetation()
 	var burned_trees_3 = AutoPlaceVegetation(Tree3, 32);
 	
 	for (var tree in burned_trees_1)
-		tree->SetGraphics("Burned");
+		tree->SetBurned();
 	for (var tree in burned_trees_2)
-		tree->SetGraphics("Burned");
+		tree->SetBurned();
 	for (var tree in burned_trees_3)
-		tree->SetGraphics("Burned");
+		tree->SetBurned();
 	
 	AutoPlaceVegetation(Tree2, 6);
+	
+	PlaceGrass(15);
+	
+	for (var grass in FindObjects(Find_ID(Grass)))
+	{
+		grass->SetClrModulation(RGB(225+Random(30), Random(30), Random(30)));
+	}
 }
 
 func InitAnimals(int map_size)
@@ -101,15 +108,11 @@ func InitializePlayer(int plr)
 //		Sailboat,
 //		Balloon,
 //		Dynamo,
-		ClassicWindmill,
-		PowerPlant,
-		Sawmill,
-		ClassicElevator,
-		ClassicPump,
-		ClassicHutWooden,
-		ClassicHutStone,
 //		Tower
 		];
+	
+	GivePlayerSpecificKnowledge(plr, [ClassicHutWooden, ClassicHutStone, Sawmill, ClassicElevator, ClassicPump]);
+	GivePlayerPowerKnowledge(plr);
 	
 	var myHomeBaseMaterial =
 	[
