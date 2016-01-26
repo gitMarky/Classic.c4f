@@ -32,12 +32,14 @@ func Fuse()
 
 func FxFuseBurnTimer(object bomb, proplist effect, int timer)
 {
-	//Sound("Fire::Spark*");
-	CreateParticle("Fire", 0, 0, PV_Random(-5, 5), PV_Random(-15, 5), PV_Random(10, 40), Particles_Glimmer(), 5);
 
 	if (timer == 1)
 	{
 		Sound("Fire::Fuse");
+	}
+	if (timer <= 10 && !Random(5))
+	{
+		CreateParticle("Fire", 0, 0, PV_Random(-5, 5), PV_Random(-15, 5), PV_Random(10, 40), Particles_Glimmer(), 5);
 	}
 	if(timer >= 60)
 	{
