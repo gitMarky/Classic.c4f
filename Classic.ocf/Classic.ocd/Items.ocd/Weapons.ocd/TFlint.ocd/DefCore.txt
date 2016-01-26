@@ -1,5 +1,5 @@
 [DefCore]
-id=Flint
+id=TFlint
 Version=7,0
 Category=C4D_Object
 Width=6
@@ -8,6 +8,7 @@ Offset=-3,-3
 Vertices=2
 VertexX=-2,2
 VertexY=1,-1
+Components=Flint=1;Sulphur=1;
 VertexFriction=20
 Value=5
 Mass=10
