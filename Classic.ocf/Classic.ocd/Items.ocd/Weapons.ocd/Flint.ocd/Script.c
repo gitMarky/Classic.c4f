@@ -3,18 +3,17 @@
 protected func Construction()
 {
 	var graphic = Random(3);
-	if(graphic)
-		SetGraphics(Format("%d",graphic));
+	if (graphic) SetGraphics(Format("%d", graphic));
 }
 
 protected func Hit()
 {
-  Explode(ExplodeSize());
+	Explode(this->ExplodeSize());
 }
 
 public func ExplodeSize() 
-{ 
-  return(18); 
+{
+	 return 18;
 }
 
 local Collectible = 1;

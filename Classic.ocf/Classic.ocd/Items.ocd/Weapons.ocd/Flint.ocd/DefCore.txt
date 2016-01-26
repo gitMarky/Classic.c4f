@@ -9,6 +9,7 @@ Vertices=2
 VertexX=-2,2
 VertexY=1,-1
 VertexFriction=20
+Components=Sulphur=1;
 Value=5
 Mass=10
 Projectile=1
