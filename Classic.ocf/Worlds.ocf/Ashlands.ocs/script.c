@@ -85,14 +85,11 @@ func InitAnimals(int map_size)
 
 func InitMaterial(map_size)
 {
-	//InEarth=Rock=4;Loam=5;Flint=3;Gold=3;
-	//InEarthLevel=48,19
-
 	// Some objects in the earth.	
-	PlaceObjects(Rock, 40,"Earth");
-	PlaceObjects(Loam, 50, "Earth");
-	PlaceObjects(Flint, 30, "Earth");
-	PlaceObjects(Gold, 30, "Earth");
+	PlaceObjects(Rock, ConvertInEarthAmount(4),"Earth");
+	PlaceObjects(Loam, ConvertInEarthAmount(5), "Earth");
+	PlaceObjects(Flint, ConvertInEarthAmount(3), "Earth");
+	PlaceObjects(Gold, ConvertInEarthAmount(3), "Earth");
 }
 
 func InitializePlayer(int plr)
