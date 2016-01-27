@@ -16,7 +16,7 @@ protected func Damage()
 	else
 	{
 		// Explosion - delayed to avoid endless recursion
-		Schedule(this.DoExplode, 1);
+		ScheduleCall(this, this.DoExplode, 1);
 	}
 }
 
