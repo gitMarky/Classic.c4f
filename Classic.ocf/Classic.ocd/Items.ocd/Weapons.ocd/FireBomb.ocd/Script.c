@@ -13,6 +13,7 @@ protected func Hit()
 
 
 public func IsChemicalProduct() { return true;}
+public func GetLiquidNeed() { return ["Oil", Barrel->BarrelMaxFillLevel()]; }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
