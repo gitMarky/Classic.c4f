@@ -15,7 +15,7 @@ func InitRules(need_power)
 	var rules = [Rule_TeamAccount, Rule_ZoomLimit, Rule_StartingEquipment];
 	for (var rule in rules) CreateObject(rule);
 	
-	if (need_power == 1) CreateObject(Rule_NoPowerNeed);
+	if (need_power == 2) CreateObject(Rule_NoPowerNeed);
 }
 
 func InitGoals(int difficulty)
