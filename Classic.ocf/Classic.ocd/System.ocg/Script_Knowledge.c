@@ -40,7 +40,22 @@ global func GivePlayerBasicKnowledge(int plr)
 	return;
 }
 
-global func GivePlayerPowerKnowledge(int plr, bool ignore_power_producers)
+global func GivePlayerPowerKnowledge(int plr)
 {
 	GivePlayerSpecificKnowledge(plr, [ClassicWindmill, ClassicPowerPlant]);
+}
+
+global func GivePlayerChemicalKnowledge(int plr)
+{
+	GivePlayerSpecificKnowledge(plr, [ClassicChemicalFactory, Flint, TFlint, ClassicDynamiteBox]);
+}
+
+global func GivePlayerPumpingKnowledge(int plr)
+{
+	GivePlayerSpecificKnowledge(plr, [ClassicPump, MetalBarrel, Pipe]);
+}
+
+global func GivePlayerMiningKnowledge(int plr)
+{
+	GivePlayerSpecificKnowledge(plr, [ClassicElevator, ClassicLorry]);
 }
