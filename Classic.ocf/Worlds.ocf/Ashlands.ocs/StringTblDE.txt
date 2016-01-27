@@ -23,3 +23,14 @@ DescMapAverage=Die Karte dieser Runde wird durchschnittlich sein.
 
 MapLarge=Groﬂ
 DescMapLarge=Die Karte dieser Runde wird groﬂ sein.
+
+# Scenario parameters: Power need
+PowerNeed=Energieverbrauch
+DescPowerNeed=Bestimmt, ob Geb‰ude Energie verbrauchen.
+
+PowerNeedYes=An
+DescPowerNeedYes=Geb‰ude verbrauchen Energie. 
+
+PowerNeedNo=Aus
+DescPowerNeedNo=Geb‰ude verbrauchen keine Energie.
+

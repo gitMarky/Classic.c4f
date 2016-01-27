@@ -2,7 +2,7 @@
 
 func Initialize()
 {
-	InitRules();
+	InitRules(SCENPAR_PowerNeed);
 	InitGoals(SCENPAR_Difficulty);
 	InitEnvironment(SCENPAR_Difficulty);
 	InitVegetation();
@@ -10,10 +10,12 @@ func Initialize()
 	InitMaterial(SCENPAR_MapSize);
 }
 
-func InitRules()
+func InitRules(need_power)
 {
 	var rules = [Rule_TeamAccount, Rule_ZoomLimit, Rule_StartingEquipment];
 	for (var rule in rules) CreateObject(rule);
+	
+	if (need_power == 1) CreateObject(Rule_NoPowerNeed);
 }
 
 func InitGoals(int difficulty)
@@ -94,12 +96,12 @@ func InitMaterial(map_size)
 
 func InitializePlayer(int plr)
 {
+	var needs_power = !FindObject(Find_ID(Rule_NoPowerNeed));
+
 	SetWealth(plr, 100);
 	
 	var itemKnowledge =
 	[
-		Flint,
-		TFlint,
 		FireBomb,
 //		Sailboat,
 //		Balloon,
@@ -108,8 +110,11 @@ func InitializePlayer(int plr)
 		];
 	
 	GivePlayerSpecificKnowledge(plr, itemKnowledge);
-	GivePlayerSpecificKnowledge(plr, [ClassicHutWooden, ClassicHutStone, Sawmill, ClassicElevator, ClassicPump]);
-	GivePlayerPowerKnowledge(plr);
+	GivePlayerSpecificKnowledge(plr, [ClassicHutWooden, ClassicHutStone, Sawmill]);
+	if (needs_power) GivePlayerPowerKnowledge(plr);
+	GivePlayerMiningKnowledge(plr);
+	GivePlayerPumpingKnowledge(plr);	
+	GivePlayerChemicalKnowledge(plr);
 	
 	var myHomeBaseMaterial =
 	[

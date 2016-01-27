@@ -34,6 +34,7 @@ MapWidth=250
 MapHeight=171
 MapZoom=6
 
+
 [Weather]
 Climate=0,0
 StartSeason=28,0

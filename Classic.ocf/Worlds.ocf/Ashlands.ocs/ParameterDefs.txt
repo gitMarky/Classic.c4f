@@ -26,7 +26,7 @@ Default=2
 Name=$MapSize$
 Description=$DescMapSize$
 ID=MapSize
-Default=1
+Default=2
 
 	[Options]
 
@@ -44,3 +44,21 @@ Default=1
 		Name=$MapLarge$
 		Description=$DescMapLarge$
 		Value=3
+
+[ParameterDef]
+Name=$PowerNeed$
+Description=$DescPowerNeed$
+ID=PowerNeed
+Default=1
+
+	[Options]
+
+		[Option]
+		Name=$PowerNeedYes$
+		Description=$DescPowerNeedYes$
+		Value=1
+		
+		[Option]
+		Name=$PowerNeedNo$
+		Description=$DescPowerNeedNo$
+		Value=2
