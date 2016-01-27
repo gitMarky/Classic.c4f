@@ -2,8 +2,7 @@
 
 protected func Hit()
 {
-	Sound("WoodHit?");
-	return 1;
+	Sound("Hits::Materials::Wood::WoodHit?");
 }
 
 func Incineration()
