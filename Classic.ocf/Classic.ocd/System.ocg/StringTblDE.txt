@@ -5,7 +5,7 @@ TxtSell=Verkaufen
 TxtAttachTool=Anlegen
 TxtDetachTool=Ablegen
 
-
+MsgSell=Verkaufen
 
 
 

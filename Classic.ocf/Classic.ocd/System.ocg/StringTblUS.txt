@@ -5,6 +5,7 @@ TxtSell=Sell
 TxtAttachTool=Attach
 TxtDetachTool=Detach
 
+MsgSell=Sell
 
 
 
