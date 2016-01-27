@@ -3,7 +3,7 @@
 protected func Hit()
 {
 	// Cast flames on impact.
-	for (var i = 0; i < 20; i++)
+	for (var i = 0; i < 40; i++)
 		CastObjects(Flame, 1, 20, RandomX(-3, 3), RandomX(-4, 0));
 
 	// Sound effects.
