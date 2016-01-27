@@ -42,5 +42,5 @@ global func GivePlayerBasicKnowledge(int plr)
 
 global func GivePlayerPowerKnowledge(int plr, bool ignore_power_producers)
 {
-	var knowledge = [ClassicWindmill, ClassicPowerPlant];
+	GivePlayerSpecificKnowledge(plr, [ClassicWindmill, ClassicPowerPlant]);
 }

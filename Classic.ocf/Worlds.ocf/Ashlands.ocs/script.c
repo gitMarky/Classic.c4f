@@ -99,18 +99,18 @@ func InitializePlayer(int plr)
 {
 	SetWealth(plr, 100);
 	
-	var myKnowledge =
+	var itemKnowledge =
 	[
-//		ADM3=1;
-//		FireBomb,
 		Flint,
-//		TFlint,
+		TFlint,
+		FireBomb,
 //		Sailboat,
 //		Balloon,
 //		Dynamo,
 //		Tower
 		];
 	
+	GivePlayerSpecificKnowledge(plr, itemKnowledge);
 	GivePlayerSpecificKnowledge(plr, [ClassicHutWooden, ClassicHutStone, Sawmill, ClassicElevator, ClassicPump]);
 	GivePlayerPowerKnowledge(plr);
 	
@@ -123,10 +123,10 @@ func InitializePlayer(int plr)
 		[Metal, 5],
 //		[Concrete, 20],
 		[Flint, 6],
-//		[TFlint, 7],
+		[TFlint, 7],
 //		[SuperTFlint, 3],
-//		[SuperFlint, 1],
-//		[Firebomb, 2],
+		[ClassicDynamiteBox, 1],
+		[FireBomb, 2],
 //		[Gunpowder, 6],
 		[MetalBarrel, 8],
 		[ClassicFlag, 1],
@@ -144,11 +144,11 @@ func InitializePlayer(int plr)
 		[Metal, 5],
 //		[Concrete, 8],
 		[Flint, 6],
-//		[TFlint, 7],
+		[TFlint, 7],
 //		[SuperTFlint, 5],
-//		[SuperFlint, 3],
+		[ClassicDynamiteBox, 3],
 //		[TeraFlint,1],
-//		[Firebomb, 2],
+		[FireBomb, 2],
 //		[Gunpowder, 10],
 		[MetalBarrel, 3],
 //		[BombArrowPack, 2],
@@ -156,11 +156,6 @@ func InitializePlayer(int plr)
 		[ClassicClonk, 5]
 	];
 	
-	for (var knowledge in myKnowledge)
-	{
-		SetPlrKnowledge(plr, knowledge);
-	}
-
 	for (var material in myHomeBaseMaterial)
 	{
 		DoBaseMaterial(plr, material[0], material[1]);
