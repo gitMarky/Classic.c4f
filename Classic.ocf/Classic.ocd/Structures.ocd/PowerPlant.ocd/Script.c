@@ -14,6 +14,7 @@
 #include Library_DoorControl
 #include Library_PowerProducer
 #include Library_Flag
+#include Library_Tank
 
 #include Basement60
 
@@ -55,8 +56,7 @@ public func IsContainer() { return true; }
 
 protected func RejectCollect(id item, object obj)
 {
-	if (obj->~IsFuel()
-	 || obj->~IsDrainPipe())
+	if (obj->~IsFuel())
 		return false;
 	return true;
 }
@@ -165,19 +165,33 @@ func RefillFuel(bool cancel)
 	// Check if there is still enough fuel available.
 	if (fuel_amount <= 0)
 	{
+		var fuel_extracted;
+	
 		// Search for new fuel among the contents.
 		var fuel = GetFuelContents();
-
+		
 		if (!fuel)
+		{
+			// Extract the fuel amount from stored liquids
+			var fuel_stored = RemoveLiquid(nil, nil);
+			fuel_extracted = GetFuelValue(fuel_stored[0], fuel_stored[1]);
+		}
+		else
+		{
+			// Extract the fuel amount from the new piece of fuel.
+			fuel_extracted = fuel->~GetFuelAmount(true);
+			if (!fuel->~OnFuelRemoved(fuel_extracted)) fuel->RemoveObject();
+		}
+		
+		if (!fuel_extracted)
 		{
 			// Set action to idle and unregister this producer as available from the network.
 			if (cancel) UnregisterPowerProduction();
 			return false;
 		}
+		
 		// Extract the fuel amount from the new piece of fuel.
-		var extracted = fuel->~GetFuelAmount(true);
-		fuel_amount += extracted * 18;
-		if (!fuel->~OnFuelRemoved(extracted)) fuel->RemoveObject();
+		fuel_amount += fuel_extracted * 18;
 	}
 }
 
@@ -190,9 +204,49 @@ func Smoking()
 	CreateParticle("Fire", 21 * GetCalcDir() + RandomX(-2, 2), 14 + RandomX(-2, 2), PV_Random(-1, 1), PV_Random(-1, 1), PV_Random(10, 18), Particles_Fire(), 2);
 }
 
-func QueryPumpMaterial(string material_name)
+
+
+func GetFuelValue(string liquid, int amount)
 {
-	return material_name != "Lava";
+	if (liquid == "Oil") return amount;
+	if (liquid == "Lava") return amount / 2;
+	return 0;
+}
+
+
+func IsLiquidContainerForMaterial(string liquid)
+{
+	return WildcardMatch("Oil", liquid) || WildcardMatch("Lava", liquid);
+}
+
+func GetLiquidContainerMaxFillLevel()
+{
+	return 300; // can store one barrel - this should be enough, so that the pump does not fill too much oil into the engine
+}
+
+func QueryConnectPipe(object pipe)
+{
+	if (GetNeutralPipe())
+	{
+		pipe->Report("$MsgHasPipes$");
+		return true;
+	}
+
+	if (pipe->IsDrainPipe() || pipe->IsNeutralPipe())
+	{
+		return false;
+	}
+	else
+	{
+		pipe->Report("$MsgPipeProhibited$");
+		return true;
+	}
+}
+
+func OnPipeConnect(object pipe, string specific_pipe_state)
+{
+	SetNeutralPipe(pipe);
+	pipe->Report("$MsgConnectedPipe$");
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
