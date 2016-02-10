@@ -13,6 +13,7 @@ private func Collection2(object item)
 	{
 		item->~SetBase(this);
 		MakeBase(false); // this actually makes it a base...
+		ScheduleCall(this, this.UpdateInteractionMenus, 2);
 	}
 
 	_inherited(item);
@@ -20,6 +21,7 @@ private func Collection2(object item)
 
 private func OnFlagLost()
 {
+	UpdateInteractionMenus();
 	MakeBase(true);
 }
 
@@ -44,7 +46,7 @@ public func GetInteractionMenus(object clonk)
 		callback_hover = "OnBaseControlHover",
 		callback_target = this,
 		BackgroundColor = GetPlayerColor(GetOwner()),
-		Priority = 30
+		Priority = 60
 	};
 	PushBack(menus, base_menu);
 	

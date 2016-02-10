@@ -76,6 +76,7 @@ public func GetInteractionMenus(object clonk)
 
 	if (this->AllowSellMenuEntries())
 	{
+		Log("Adding sell menus");
 		var sell_menu =
 		{
 			title = "$MsgSell$",
@@ -83,9 +84,23 @@ public func GetInteractionMenus(object clonk)
 			callback = "OnSellMenuSelection",
 			callback_target = this,
 			BackgroundColor = RGB(50, 50, 0),
-			Priority = 20
+			Priority = 21
 		};
-		PushBack(menus, sell_menu);
+		
+		var has_sell_menu = false;
+		for (var menu in menus)
+		{
+			if (menu.title == "$MsgSell$")
+			{
+				has_sell_menu = true;
+				break;
+			}
+		}
+		
+		if (!has_sell_menu)
+		{
+			PushBack(menus, sell_menu);
+		}
 	}
 	
 	return menus;
@@ -121,4 +136,17 @@ public func OnSellMenuSelection(object item, extra_data, object clonk)
 	// Buy
 	DoSell(item, wealth_player);
 	UpdateInteractionMenus(this.GetSellMenuEntries);
+}
+
+public func Collection2(object item)
+{
+	UpdateInteractionMenus(this.GetSellMenuEntries);
+	_inherited(item);
+}
+
+
+public func Ejection(object item)
+{
+	UpdateInteractionMenus(this.GetSellMenuEntries);
+	_inherited(item);
 }
