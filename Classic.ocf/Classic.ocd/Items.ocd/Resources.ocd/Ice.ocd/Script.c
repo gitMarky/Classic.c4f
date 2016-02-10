@@ -2,7 +2,7 @@
 
 protected func Hit()
 {
-	Sound("CrystalHit?");
+	Sound("Hits::IceHit?");
 }
 
 protected func Construction()

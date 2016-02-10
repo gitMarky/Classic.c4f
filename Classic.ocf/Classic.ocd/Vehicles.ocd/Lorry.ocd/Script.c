@@ -29,7 +29,7 @@ protected func ContactRight()
 
 func Hit3()
 {
-	Sound("DullMetalHit?");
+	Sound("Hits::Materials::Metal::DullMetalHit?");
 }
 
 /*-- Content Dumping --*/
@@ -204,7 +204,7 @@ func DoClonk()
 
 func DoSoftHit()
 {
-	Sound("SoftHit*");
+	Sound("Hits::SoftHit?");
 }
 
 
