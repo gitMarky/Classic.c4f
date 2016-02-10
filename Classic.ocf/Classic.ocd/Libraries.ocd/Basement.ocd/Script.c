@@ -65,7 +65,7 @@ public func FxIntBasementHandlerStop(object target, proplist effect, int reason,
 
 	if(effect.basement)
 	{
-		effect.basement->Remove();
+		effect.basement->RemoveBasement();
 	}
 }
 
