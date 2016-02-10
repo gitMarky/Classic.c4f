@@ -22,6 +22,7 @@ func Initialize()
 	_inherited(...);
 }
 
+/*
 // interface for the extraction logic
 func ExtractMaterialFromSource(object source_obj, int amount)
 {
@@ -97,7 +98,7 @@ func GetBarrelsIn(object target, material_name)
 	}
 	return barrels;
 }
-
+*/
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
