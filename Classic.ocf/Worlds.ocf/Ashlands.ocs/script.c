@@ -22,18 +22,19 @@ func InitGoals(int difficulty)
 {
 	// Show wealth in HUD.
 	GUI_Controller->ShowWealth();
-
-	// Goal: Resource extraction, set to gold mining.
-	var goal = CreateObject(Goal_ResourceExtraction);
-	goal->SetResource("Gold", Min(100, 70 + 10 * difficulty));
 	
 	// Goal: Resource extraction, set to oil extraction.
 	//var goal2 = CreateObject(Goal_ResourceExtraction);
 	//goal2->SetResource("Oil");
 	
-	// and gain some money
-	var goal3 = CreateObject(Goal_Wealth);
-	goal3->SetWealthGoal(100 + 50 * difficulty);
+	// gain some money
+	var goal = CreateObject(Goal_Wealth);
+	goal->SetWealthGoal(100 + 50 * difficulty);
+
+	// Goal: Resource extraction, set to gold mining.
+	var goal3 = CreateObject(Goal_ResourceExtraction);
+	goal3->SetResource("Gold", Min(100, 70 + 10 * difficulty));
+
 }
 
 func InitEnvironment(int difficulty)

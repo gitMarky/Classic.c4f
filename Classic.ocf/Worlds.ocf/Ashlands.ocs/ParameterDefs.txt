@@ -30,20 +30,20 @@ Default=2
 
 	[Options]
 
-		[Option]
-		Name=$MapSmall$
-		Description=$DescMapSmall$
-		Value=1
+#		[Option]
+#		Name=$MapSmall$
+#		Description=$DescMapSmall$
+#		Value=1
 
 		[Option]
 		Name=$MapAverage$
 		Description=$DescMapAverage$
 		Value=2
 		
-		[Option]
-		Name=$MapLarge$
-		Description=$DescMapLarge$
-		Value=3
+#		[Option]
+#		Name=$MapLarge$
+#		Description=$DescMapLarge$
+#		Value=3
 
 [ParameterDef]
 Name=$PowerNeed$

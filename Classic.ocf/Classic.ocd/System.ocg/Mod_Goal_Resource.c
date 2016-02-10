@@ -2,7 +2,7 @@
 
 public func SetResource(string resource, int percent)
 {
-	if (!percent) percent = 100;
+	percent = percent ?? 100;
 
 	var pos = GetLength(resource_list);
 	resource_list[pos] = resource;
