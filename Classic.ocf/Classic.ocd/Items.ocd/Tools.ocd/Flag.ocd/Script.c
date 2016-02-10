@@ -52,7 +52,7 @@ public func SetBase(object homebase, bool actual_call)
 
 func DoTrumpet()
 {
-	Sound("Trumpet");
+	Sound("Interface::Trumpet");
 }
 
 public func LostBase()

@@ -37,26 +37,26 @@ public func OnProductionStart(id product)
 {
 	AddEffect("Working", this, 100, 1, this);
 	hold_production = false;
-	Sound("Gear", false, nil, nil, 1);
+	Sound("Structures::Gear", false, nil, nil, 1);
 }
 
 public func OnProductionHold(id product)
 {
 	hold_production = true;
-	Sound("Gear", false, nil, nil, -1);
+	Sound("Structures::Gear", false, nil, nil, -1);
 	Sound("Fire::Blowout");
 }
 
 public func OnProductionContinued(id product)
 {
 	hold_production = false;
-	Sound("Gear", false, nil, nil, 1);
+	Sound("Structures::Gear", false, nil, nil, 1);
 }
 
 public func OnProductionFinish(id product)
 {
 	RemoveEffect("Working", this);
-	Sound("Gear", false, nil, nil, -1);
+	Sound("Structures::Gear", false, nil, nil, -1);
 }
 
 protected func FxWorkingTimer()
@@ -76,12 +76,12 @@ private func Smoking()
 
 private func SoundOpenDoor()
 {
-  Sound("SteelGate2");
+	Sound("Structures::SteelGate2");
 }
   
 private func SoundCloseDoor()
 {
-  Sound("SteelGate2");
+	Sound("Structures::SteelGate2");
 }
 
 /* Properties */

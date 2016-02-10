@@ -2,7 +2,7 @@
 
 protected func Hit(x, y)
 {
-  Sound("Crystal?");
+  Sound("Hits::Crystal?");
   return true;
 }
 

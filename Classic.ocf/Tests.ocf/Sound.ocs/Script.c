@@ -40,7 +40,7 @@ global func StartTest()
 		[ClassicCastle, [ClassicCastle.SoundOpenDoor, ClassicCastle.SoundCloseDoor, ClassicCastle.SoundOpenGate, ClassicCastle.SoundCloseGate, ClassicCastle.FireArrow]],
 		//[ClassicChemicalFactory, [.]],
 		//[ClassicElevator, [.]],
-		//[ClassicFoundry, [.]],
+		[ClassicFoundry, [ClassicFoundry.Collection]],
 		[ClassicPowerPlant, [ClassicPowerPlant.SoundOpenDoor, ClassicPowerPlant.SoundCloseDoor, ClassicPowerPlant.Collection]],
 		//[ClassicWorkshop, [.]],
 		[ClassicLorry, [ClassicLorry.Hit3, ClassicLorry.DoClonk, ClassicLorry.DoSoftHit]]

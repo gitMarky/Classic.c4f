@@ -59,17 +59,17 @@ public func OnProductionFinish(id product)
 
 private func SoundOpenDoor()
 {
-	Sound("GateOpen");
+	Sound("Structures::GateOpen");
 }
 
 private func SoundCloseDoor()
 {
-	Sound("GateClose");
+	Sound("Structures::GateClose");
 }
 
 protected func Collection()
 {
-	Sound("Clonk");
+	Sound("Hits::Clonk");
 }
 
 public func FxSmeltingTimer(object target, proplist effect, int time)

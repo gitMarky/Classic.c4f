@@ -45,22 +45,22 @@ func IsContainer(){ return true; }
 
 private func SoundOpenDoor()
 {
-	Sound("DoorOpen");
+	Sound("Structures::DoorOpen");
 }
   
 private func SoundCloseDoor()
 {
-	Sound("DoorClose");
+	Sound("Structures::DoorClose");
 }
 
 private func SoundOpenGate()
 {
-	Sound("GateOpen");
+	Sound("Structures::GateOpen");
 }
   
 private func SoundCloseGate()
 {
-	Sound("GateClose");
+	Sound("Structures::GateClose");
 }
 
 

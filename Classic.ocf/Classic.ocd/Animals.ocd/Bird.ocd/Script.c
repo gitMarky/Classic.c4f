@@ -281,7 +281,7 @@ protected func Death()
 
 func DoTwitter()
 {
-	Sound("Raven?");
+	Sound("Animals::Bird::Raven?");
 }
 
 /* Animations */

@@ -63,7 +63,7 @@ private func DoBreak()
 	if (GetAction() == "Break") return;
 	if (Contained()) Contained()->Ejection(this);
 
-	Sound("EggBreak");
+	Sound("Animals::EggBreak");
 	SetAction("Break");
 }
 

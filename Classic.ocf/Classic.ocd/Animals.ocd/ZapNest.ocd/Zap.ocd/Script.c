@@ -95,12 +95,12 @@ private func Sting(obj)
 
 func DoBuzz()
 {
-	Sound("Bsss");
+	Sound("Animals::Zap::Bsss");
 }
 
 func DoSting()
 {
-	Sound("Sting");
+	Sound("Animals::Zap::Sting");
 }
 
 public func FindTarget(maxdist)

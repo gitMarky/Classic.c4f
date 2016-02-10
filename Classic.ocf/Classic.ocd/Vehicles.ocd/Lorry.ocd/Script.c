@@ -199,7 +199,7 @@ protected func Entrance(object container)
 
 func DoClonk()
 {
-	Sound("Clonk");
+	Sound("Hits::Clonk");
 }
 
 func DoSoftHit()

@@ -64,17 +64,17 @@ protected func RejectCollect(id item, object obj)
 
 private func SoundOpenDoor()
 {
-	Sound("GateOpen");
+	Sound("Structures::GateOpen");
 }
 
 private func SoundCloseDoor()
 {
-	Sound("GateClose");
+	Sound("Structures::GateClose");
 }
 
 protected func Collection(object obj, bool put)
 {
-	Sound("Objects::Clonk");
+	Sound("Hits::Clonk");
 }
 
 public func ContentsCheck()
@@ -121,7 +121,7 @@ public func OnPowerProductionStop(int amount)
 // Start call from working action.
 protected func WorkStart()
 {
-	Sound("PowerPlant", false, nil, nil, 1);
+	Sound("Structures::PowerPlant", false, nil, nil, 1);
 	return;
 }
 
@@ -145,7 +145,7 @@ protected func WorkStop()
 protected func WorkAbort()
 {
 	// Sound can be safely stopped here since this action will always end with an abort call.
-	Sound("PowerPlant", false, nil, nil, -1);
+	Sound("Structures::PowerPlant", false, nil, nil, -1);
 	return;	
 }
 

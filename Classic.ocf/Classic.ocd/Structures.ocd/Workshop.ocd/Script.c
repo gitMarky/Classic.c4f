@@ -60,12 +60,12 @@ public func DoBuildAnimation(bool build)
 {
 	if (build)
 	{
-		Sound("Gear", nil, nil, nil, 1);
+		Sound("Structures::Gear", nil, nil, nil, 1);
 		SetAnimAction("Build", WORKSHOP_AnimSlot_Working);
 	}
 	else
 	{
-		Sound("Gear", nil, nil, nil, -1);
+		Sound("Structures::Gear", nil, nil, nil, -1);
 		SetAnimAction("Idle", WORKSHOP_AnimSlot_Working);
 	}
 }
