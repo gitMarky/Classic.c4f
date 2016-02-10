@@ -64,7 +64,7 @@ protected func Check()
 	// Die randomly
 	if (!Random(160)) return Death();
 	// Buzz
-	if(!Random(50)) Sound("Bsss");
+	if(!Random(50)) DoBuzz();
 
 	// Get another target...
 	if (!Random(10)) target = FindTarget(200);
@@ -89,8 +89,18 @@ private func Sting(obj)
 {
 	if (obj == nil) return;
 	Punch(obj,3+Random(2));
-	Sound("Sting");
+	DoSting();
 	if(!Random(3)) Death();
+}
+
+func DoBuzz()
+{
+	Sound("Bsss");
+}
+
+func DoSting()
+{
+	Sound("Sting");
 }
 
 public func FindTarget(maxdist)

@@ -8,7 +8,7 @@ protected func Construction()
 
 protected func Hit()
 {
-	Sound("GeneralHit?");
+	Sound("Hits::Materials::Metal::LightMetalHit?");
 	return 1;
 }
 

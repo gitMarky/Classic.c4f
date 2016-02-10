@@ -43,7 +43,7 @@ private func FxIntAnimalActivityStatus( object target, proplist effect)
 	}
 
 	// Make a sound :)
-	if (!Random(25)) Sound("Raven?");
+	if (!Random(25)) DoTwitter();
 
 }
 
@@ -230,7 +230,7 @@ private func FlyTryAttack()
 	  // Poke it!
 	  this.pokeTarget->~GetPoked(this);
 	  SetAction("Attack");
-	  Sound("Raven?");
+	  DoTwitter();
 }
 
 private func FlyAvoidDanger()
@@ -277,6 +277,11 @@ protected func Death()
 {
 	ChangeDef(DeadBird);
 	_inherited();
+}
+
+func DoTwitter()
+{
+	Sound("Raven?");
 }
 
 /* Animations */

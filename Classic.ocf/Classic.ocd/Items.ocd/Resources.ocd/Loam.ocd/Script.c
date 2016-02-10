@@ -14,7 +14,7 @@ protected func Construction()
 // Impact sound
 func Hit()
 {
-	Sound("GeneralHit?");
+	Sound("Hits::GeneralHit?");
 }
 
 

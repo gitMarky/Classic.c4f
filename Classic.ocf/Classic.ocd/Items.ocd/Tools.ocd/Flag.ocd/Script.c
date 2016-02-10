@@ -44,10 +44,15 @@ public func SetBase(object homebase, bool actual_call)
 		homebase->SetOwner(GetOwner());
 		SetAction("FlyBase", homebase);
 		AddEffect("IntBaseCheck", homebase, 1, 1, this);
-		Sound("Trumpet");
+		DoTrumpet();
 	
 		this.Collectible = 0;
 	}
+}
+
+func DoTrumpet()
+{
+	Sound("Trumpet");
 }
 
 public func LostBase()

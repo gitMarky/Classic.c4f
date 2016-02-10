@@ -11,7 +11,7 @@ protected func Hit()
 {
 	
 	CastPXS("Sand", 200, 18);
-	Sound("GeneralHit?");
+	Sound("Hits::SoftHit?");
 	RemoveObject();
 	return 1;
 }
