@@ -3,13 +3,13 @@ Difficulty=Difficulty
 DescDifficulty=Sets this round's difficulty.
 
 DiffEasy=Easy
-DescDiffEasy=Ziele:|- Mine gold, 80%||Disasters:|- Lightning, 10%|- Earthquake, 5%|- Meteor, 5% 
+DescDiffEasy=Goals:|- Mine gold, 80%|- Wealth, 150 Clunkers||Disasters:|- Lightning, 10%|- Earthquake, 5%|- Meteor, 5% 
 
 DiffNormal=Normal
-DescDiffNormal=Ziele:|- Mine gold, 90%||Disasters:|- Lightning, 15%|- Earthquake, 10%|- Meteor, 8%|- Volcano, 8%
+DescDiffNormal=Goals:|- Mine gold, 90%|- Wealth, 200 Clunkers||Disasters:|- Lightning, 15%|- Earthquake, 10%|- Meteor, 8%|- Volcano, 8%
 
 DiffHard=Hard
-DescDiffHard=Ziele:|- Mine gold, 100%||Disasters:|- Lightning, 20%|- Earthquake, 15%|- Meteor, 11%|- Volcano, 11%
+DescDiffHard=Goals:|- Mine gold, 100%|- Wealth, 250 Clunkers||Disasters:|- Lightning, 20%|- Earthquake, 15%|- Meteor, 11%|- Volcano, 11%
 
 # Scenario parameters: map size
 MapSize=Map size

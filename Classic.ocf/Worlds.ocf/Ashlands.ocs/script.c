@@ -1,4 +1,4 @@
-/* Mountain range */
+/* Ash lands */
 
 func Initialize()
 {
@@ -95,11 +95,11 @@ func InitMaterial(map_size)
 	PlaceObjects(Gold, ConvertInEarthAmount(3), "Earth");
 }
 
-func InitializePlayer(int plr)
+func InitializePlayer(int player)
 {
 	var needs_power = !FindObject(Find_ID(Rule_NoPowerNeed));
 
-	SetWealth(plr, 100);
+	SetWealth(player, 100);
 	
 	var itemKnowledge =
 	[
@@ -110,17 +110,18 @@ func InitializePlayer(int plr)
 //		Tower
 		];
 	
-	GivePlayerSpecificKnowledge(plr, itemKnowledge);
-	GivePlayerSpecificKnowledge(plr, [ClassicHutWooden, ClassicHutStone, Sawmill]);
-	if (needs_power) GivePlayerPowerKnowledge(plr);
-	GivePlayerMiningKnowledge(plr);
-	GivePlayerPumpingKnowledge(plr);	
-	GivePlayerChemicalKnowledge(plr);
+	GivePlayerSpecificKnowledge(player, itemKnowledge);
+	GivePlayerSpecificKnowledge(player, [ClassicHutWooden, ClassicHutStone, Sawmill]);
+	if (needs_power) GivePlayerPowerKnowledge(player);
+	GivePlayerMiningKnowledge(player);
+	GivePlayerPumpingKnowledge(player);	
+	GivePlayerChemicalKnowledge(player);
 	
 	var myHomeBaseMaterial =
 	[
 		[Conkit, 3],
 //		[Linekit, 6],
+		[Pipe, 3],
 		[Loam, 20],
 		[Wood, 5],
 		[Metal, 5],
@@ -142,6 +143,7 @@ func InitializePlayer(int plr)
 	[
 		[Conkit, 3],
 //		[Linekit, 6],
+		[Pipe, 3],
 		[Loam, 12],
 		[Wood, 18],
 		[Metal, 5],
@@ -161,21 +163,47 @@ func InitializePlayer(int plr)
 	
 	for (var material in myHomeBaseMaterial)
 	{
-		DoBaseMaterial(plr, material[0], material[1]);
+		DoBaseMaterial(player, material[0], material[1]);
 	}
 	for (var material in myHomeBaseProduction)
 	{
-		DoBaseProduction(plr, material[0], material[1]);
+		DoBaseProduction(player, material[0], material[1]);
 	}
 
-	var homeBase = FindObject(Find_ID(ClassicHutWooden), Find_Distance(50, GetHiRank(plr)->GetX(), GetHiRank(plr)->GetY()));
-
-	if (homeBase)
-	{
-		homeBase->SetOwner(plr);
-		homeBase->CreateContents(ClassicFlag);
-		homeBase->CreateContents(Conkit);
-	}
+	CreateHomeBase(player);
 
 	return true;
+}
+
+func CreateHomeBase(int player)
+{
+	var found_position = false;
+	var x, y;
+
+	while (!found_position)
+	{
+		x = 50 + Random(LandscapeWidth() - 100);
+		// avoid lake?
+	  	while(Inside(x, LandscapeWidth() / 2 - 150, LandscapeWidth() / 2 + 150)) 
+	    	x = 50 + Random(LandscapeWidth() - 100);
+		y = 0;
+		while(!GBackSolid(x, y) && y < LandscapeHeight()) ++y;
+		
+		if (!FindObject(Find_ID(ClassicHutWooden), Find_Distance(50, x, y)))
+		{
+			found_position = true;
+		}
+	}
+
+	var homeBase = CreateObjectAbove(ClassicHutWooden, x, y, player); //FindObject(Find_ID(ClassicHutWooden), Find_Distance(50, GetHiRank(player)->GetX(), GetHiRank(player)->GetY()));
+
+	for (var i = 0; GetCrew(player, i); ++i)
+    {
+		GetCrew(player, i)->SetPosition(x + RandomX(-8,8), y - 10);
+    }
+
+	homeBase->CreateContents(Wood, 3);
+	homeBase->CreateContents(Rock, 5);
+	homeBase->CreateContents(ClassicFlag);
+	homeBase->CreateContents(Conkit);
 }

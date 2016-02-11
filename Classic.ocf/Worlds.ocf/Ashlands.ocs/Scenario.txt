@@ -14,19 +14,15 @@ Definition2=Classic.ocf/Classic.ocd
 
 [Player1]
 Crew=ClassicClonk=2;
-Buildings=ClassicHutWooden=1;
 
 [Player2]
-Crew=ClassicClonk=1;
-Buildings=ClassicHutWooden=1;
+Crew=ClassicClonk=2;
 
 [Player3]
-Crew=ClassicClonk=1;
-Buildings=ClassicHutWooden=1;
+Crew=ClassicClonk=2;
 
 [Player4]
-Crew=ClassicClonk=1;
-Buildings=ClassicHutWooden=1;
+Crew=ClassicClonk=2;
 
 [Landscape]
 Sky=Clouds1
