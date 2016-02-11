@@ -1,39 +1,32 @@
 [Head]
 Icon=24
 Title=Mountains
-Version=6,0
+Version=7,0
 Difficulty=15
 
 [Definitions]
 Definition1=Objects.ocd
 Definition2=Classic.ocf/Classic.ocd
 
-[Game]
-Rules=Rule_TeamAccount=1;Rule_ZoomLimit=1;Rule_StartingEquipment=1;
 
 [Player1]
-Crew=ClassicClonk=1;
-Buildings=ClassicHutWooden=1;
-Knowledge=ClassicHutWooden=1;ClassicWindmill=1;ClassicElevator=1;Sawmill=1;WallKit=1;Loam=1;Metal=1;Axe=1;Barrel=1;Dynamite=1;Conkit=1;Pipe=1;Shovel=1;Lorry=1;
+Crew=ClassicClonk=3;
+Buildings=ClassicHutStone=1;
 
 [Player2]
-Crew=ClassicClonk=1;
-Buildings=ClassicHutWooden=1;
-Knowledge=ClassicHutWooden=1;ClassicWindmill=1;ClassicElevator=1;Sawmill=1;WallKit=1;Loam=1;Metal=1;Axe=1;Barrel=1;Dynamite=1;Conkit=1;Pipe=1;Shovel=1;Lorry=1;
+Crew=ClassicClonk=3;
+Buildings=ClassicHutStone=1;
 
 [Player3]
-Crew=ClassicClonk=1;
-Buildings=ClassicHutWooden=1;
-Knowledge=ClassicHutWooden=1;ClassicWindmill=1;ClassicElevator=1;Sawmill=1;WallKit=1;Loam=1;Metal=1;Axe=1;Barrel=1;Dynamite=1;Conkit=1;Pipe=1;Shovel=1;Lorry=1;
+Crew=ClassicClonk=3;
+Buildings=ClassicHutStone=1;
 
 [Player4]
-Crew=ClassicClonk=1;
-Buildings=ClassicHutWooden=1;
-Knowledge=ClassicHutWooden=1;ClassicWindmill=1;ClassicElevator=1;Sawmill=1;WallKit=1;Loam=1;Metal=1;Axe=1;Barrel=1;Dynamite=1;Conkit=1;Pipe=1;Shovel=1;Lorry=1;
+Crew=ClassicClonk=3;
+Buildings=ClassicHutStone=1;
 
 [Landscape]
 VegetationLevel=100,0,0,100
-InEarth=Rock=5;Flint=10;Loam=2;Gold=1;
 InEarthLevel=18,6,0,100
 SkyFade=192,192,192,63,63
 Sky=Mountains
@@ -50,10 +43,4 @@ Gravity=89,0,10,200
 Climate=55,0,0,100
 StartSeason=75,0,0,100
 YearSpeed=0,0,0,100
-Rain=5,5,0,100
 Wind=1,100,-100,100
-
-[Disasters]
-Meteorite=1,0,0,100
-Volcano=2,0,0,100
-Earthquake=1,0,0,100
