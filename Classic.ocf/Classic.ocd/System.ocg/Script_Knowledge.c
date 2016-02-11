@@ -40,6 +40,11 @@ global func GivePlayerBasicKnowledge(int plr)
 	return;
 }
 
+global func GivePlayerCraftingKnowledge(int plr)
+{
+	GivePlayerSpecificKnowledge(plr, [Sawmill, ClassicFoundry, ClassicWorkshop]);
+}
+
 global func GivePlayerPowerKnowledge(int plr)
 {
 	GivePlayerSpecificKnowledge(plr, [ClassicWindmill, ClassicPowerPlant]);
