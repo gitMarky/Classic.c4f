@@ -1,0 +1,36 @@
+# Scenario parameters: difficulty
+Difficulty=Difficulty
+DescDifficulty=Sets this round's difficulty.
+
+DiffEasy=Easy
+DescDiffEasy=Goals:|- Mine gold, 80%|- Initial wealth, 50 Clunkers||Disasters:|- None
+
+DiffNormal=Normal
+DescDiffNormal=Goals:|- Mine gold, 90%|- Initial wealth, 25 Clunkers||Disasters:|- None
+
+DiffHard=Hard
+DescDiffHard=Goals:|- Mine gold, 100%|- Initial wealth, 0 Clunkers||Disasters:|- None
+
+# Scenario parameters: map size
+MapSize=Map size
+DescMapSize=Sets this round's map size.
+
+MapSmall=Small
+DescMapSmall=This round's map will be small.
+
+MapAverage=Average
+DescMapAverage=This round's map will be average.
+
+MapLarge=Large
+DescMapLarge=This round's map will be large.
+
+# Scenario parameters: Power need
+PowerNeed=Power need
+DescPowerNeed=Defines whether buildings require sufficient power to work.
+
+PowerNeedYes=On
+DescPowerNeedYes=Buildings do require power.
+
+PowerNeedNo=Off
+DescPowerNeedNo=Buildings do not require power.
+
