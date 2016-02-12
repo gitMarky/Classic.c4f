@@ -1,0 +1,2 @@
+Name=King Wacker's Crown
+Description=Sign of power and wealth.

@@ -1,0 +1,14 @@
+[DefCore]
+id=Crown
+Version=7,0
+Category=C4D_Object
+Width=9
+Height=7
+Offset=-5,-4
+Vertices=4
+VertexX=-5,-5,4,4
+VertexY=2,-2,2,-2
+VertexFriction=20,20,20,20
+Value=1000
+Mass=10
+Rotate=1

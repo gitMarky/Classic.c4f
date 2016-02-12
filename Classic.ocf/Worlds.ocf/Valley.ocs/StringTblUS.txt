@@ -1,0 +1,33 @@
+# Scenario parameters: difficulty
+Difficulty=Difficulty
+DescDifficulty=Sets this round's difficulty.
+
+DiffEasy=Easy
+DescDiffEasy=Initial wealth, 50 Clunkers||Disasters:|- Lightning, 5%|- Earthquake, 2%|- Rockfall, 2%
+
+DiffNormal=Normal
+DescDiffNormal=Initial wealth, 25 Clunkers||Disasters:|- Lightning, 10%|- Earthquake, 4%|- Rockfall, 4%
+
+DiffHard=Hard
+DescDiffHard=Initial wealth, 0 Clunkers||Disasters:|- Lightning, 15%|- Earthquake, 6%|- Rockfall, 6%
+
+# Scenario parameters: goal
+Goal=Goal
+DescGoal=Sets this round's goal.
+
+GoalCrown=Find the Crown
+DescGoalCrown=Legend says that ages ago the great King Wacker hid his crown somewhere in this valley, so that nobody but him could have it. Nowadays you cannot become a king with this crown anymore, but you still can make a fortune of it.||Find the crown on one of the sky islands and sell it.
+
+GoalConstruction=Settlement
+DescGoalConstruction=The two sides of this deep cut valley just wait to be settled.||Found a settlement that consists of the following structures:
+
+# Scenario parameters: Power need
+PowerNeed=Power need
+DescPowerNeed=Defines whether buildings require sufficient power to work.
+
+PowerNeedYes=On
+DescPowerNeedYes=Buildings do require power.
+
+PowerNeedNo=Off
+DescPowerNeedNo=Buildings do not require power.
+

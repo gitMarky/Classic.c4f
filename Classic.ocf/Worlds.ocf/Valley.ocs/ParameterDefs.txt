@@ -1,0 +1,64 @@
+[ParameterDef]
+Name=$Difficulty$
+Description=$DescDifficulty$
+ID=Difficulty
+Default=2
+
+
+	[Options]
+		
+		[Option]
+		Name=$DiffEasy$
+		Description=$DescDiffEasy$
+		Value=1
+		
+		[Option]
+		Name=$DiffNormal$
+		Description=$DescDiffNormal$
+		Value=2
+		
+		[Option]
+		Name=$DiffHard$
+		Description=$DescDiffHard$
+		Value=3
+		
+[ParameterDef]
+Name=$Goal$
+Description=$DescGoal$
+ID=Goal
+Default=1
+
+	[Options]
+
+		[Option]
+		Name=$GoalCrown$
+		Description=$DescGoalCrown$
+		Value=1
+
+		[Option]
+		Name=$GoalConstruction$
+		Description=$DescGoalConstruction$
+		Value=2
+		
+#		[Option]
+#		Name=$MapLarge$
+#		Description=$DescMapLarge$
+#		Value=3
+
+[ParameterDef]
+Name=$PowerNeed$
+Description=$DescPowerNeed$
+ID=PowerNeed
+Default=2
+
+	[Options]
+
+		[Option]
+		Name=$PowerNeedYes$
+		Description=$DescPowerNeedYes$
+		Value=1
+
+		[Option]
+		Name=$PowerNeedNo$
+		Description=$DescPowerNeedNo$
+		Value=2

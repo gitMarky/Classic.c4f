@@ -1,0 +1,33 @@
+# Scenario parameters: difficulty
+Difficulty=Schwierigkeit
+DescDifficulty=Setzt die Schwierigkeit dieser Runde.
+
+DiffEasy=Einfach
+DescDiffEasy=Startguthaben, 50 Clunker||Katastrophen:|- Gewitter, 5%|- Erdbeben, 2%|- Steinschlag, 2% 
+
+DiffNormal=Normal
+DescDiffNormal=Startguthaben, 25 Clunker||Katastrophen:|- Gewitter, 10%|- Erdbeben, 4%|- Steinschlag, 4%
+
+DiffHard=Schwer
+DescDiffHard=Startguthaben 0 Clunker||Katastrophen:|- Gewitter, 15%|- Erdbeben, 6%|- Steinschlag, 6%
+
+# Scenario parameters: goal
+Goal=Spielziel
+DescGoal=Setzt das Spielziel dieser Runde.
+
+GoalCrown=Kronensuche
+DescGoalCrown=Eine Legende besagt, dass vor Urzeiten der große König Wacker hier seine Krone versteckt hat, damit niemand sie ihm wegnehmen könnte. Heutzutage kann man mit dieser Krone kein König mehr werden, aber zu großem Reichtum reicht es allemal.||Finde die Krone auf einer der Himmelsinseln und verkaufe sie.
+
+GoalConstruction=Siedlungsbau
+DescGoalConstruction=Die beiden Ufer dieses in einem tiefen Tal gelegenen Sees warten nur darauf, besiedelt zu werden.||Errichte eine funktionierende Siedlung mit folgenden Gebäuden:
+
+# Scenario parameters: Power need
+PowerNeed=Energieverbrauch
+DescPowerNeed=Bestimmt, ob Gebäude Energie verbrauchen.
+
+PowerNeedYes=An
+DescPowerNeedYes=Gebäude verbrauchen Energie. 
+
+PowerNeedNo=Aus
+DescPowerNeedNo=Gebäude verbrauchen keine Energie.
+
