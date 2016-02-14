@@ -28,7 +28,19 @@ func InitGoals()
 {
 	if (SCENPAR_Goal == 1) // find the crown
 	{
-		// TODO
+		var chest_a = CreateObject(Chest, 380, 200);
+		var chest_b = CreateObject(Chest, 1000, 210);
+		
+		if (Random(2))
+		{
+			chest_a->CreateContents(Crown);
+		}
+		else
+		{
+			chest_b->CreateContents(Crown);
+		}
+		
+		CreateObject(Goal_GetCrown);
 	}
 	else if (SCENPAR_Goal == 2) // settlement
 	{

@@ -40,11 +40,6 @@ Default=1
 		Description=$DescGoalConstruction$
 		Value=2
 		
-#		[Option]
-#		Name=$MapLarge$
-#		Description=$DescMapLarge$
-#		Value=3
-
 [ParameterDef]
 Name=$PowerNeed$
 Description=$DescPowerNeed$
