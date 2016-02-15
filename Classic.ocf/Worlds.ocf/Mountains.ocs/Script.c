@@ -69,7 +69,7 @@ func InitializePlayer(int player)
 	
 	var vehicleKnowledge=
 	[
-		Catapult,
+		ClassicCatapult,
 		Balloon
 	];
 
@@ -99,7 +99,7 @@ func InitializePlayer(int player)
 		[ClassicFlag, 3],
 		[ClassicClonk, 2],
 		[ClassicLorry, 1],
-		[Catapult, 1]
+		[ClassicCatapult, 1]
 	];
 
 	var myHomeBaseProduction = 

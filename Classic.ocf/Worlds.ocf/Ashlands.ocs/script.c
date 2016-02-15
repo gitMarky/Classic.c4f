@@ -137,7 +137,7 @@ func InitializePlayer(int player)
 		[ClassicFlag, 1],
 		[ClassicClonk, 5],
 		[ClassicLorry, 1],
-		[Catapult, 1]
+		[ClassicCatapult, 1]
 //		[Sailboat, 1]
 	];
 	var myHomeBaseProduction = 

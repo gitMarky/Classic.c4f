@@ -146,8 +146,8 @@ func InitializePlayer(int player)
 	
 	var myKnowledge = 
 	[
-		Catapult,
-		Airship,
+		ClassicCatapult,
+		Blimp,
 		GunPowder,
 		FireBomb
 	];
