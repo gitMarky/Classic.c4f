@@ -5,7 +5,7 @@
  */
 
 
-protected func OnClonkRecruitment(object crew, int plr)
+protected func OnClonkRecruitment(object crew, int player)
 {
 	crew->CreateContents(Shovel);
 	crew->CreateContents(Axe);

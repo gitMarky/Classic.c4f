@@ -14,47 +14,47 @@ protected func Initialize()
 	return;
 }
 
-protected func InitializePlayer(int plr)
+protected func InitializePlayer(int player)
 {
 	// Set zoom to full map size.
-	SetPlayerZoomByViewRange(plr, LandscapeWidth(), nil, PLRZOOM_Direct);
+	SetPlayerZoomByViewRange(player, LandscapeWidth(), nil, PLRZOOM_Direct);
 	
 	// No FoW to see everything happening.
-	SetFoW(false, plr);
+	SetFoW(false, player);
 	
 	// All players belong to the first team.
 	// The second team only exists for testing.
-	SetPlayerTeam(plr, 1);
+	SetPlayerTeam(player, 1);
 		
 	// Initialize script player.
-	if (GetPlayerType(plr) == C4PT_Script)
+	if (GetPlayerType(player) == C4PT_Script)
 	{
 		// Store the player number.
 		if (script_plr == nil)
-			script_plr = plr;
+			script_plr = player;
 		// No crew needed.
-		GetCrew(plr)->RemoveObject();
+		GetCrew(player)->RemoveObject();
 		return;
 	}	
 	
 	// Move player to the start of the scenario.
-	GetCrew(plr)->SetPosition(120, 150);
+	GetCrew(player)->SetPosition(120, 150);
 	
 	// Some knowledge to construct a flagpole.
-	GetCrew(plr)->CreateContents(Hammer);
-	SetPlrKnowledge(plr, Flagpole);
+	GetCrew(player)->CreateContents(Hammer);
+	SetPlrKnowledge(player, Flagpole);
 	
 	// Add test control effect.
-	StartTests(plr);
+	StartTests(player);
 	return;
 }
 
-protected func RemovePlayer(int plr)
+protected func RemovePlayer(int player)
 {
 	// Remove script player.
-	if (GetPlayerType(plr) == C4PT_Script)
+	if (GetPlayerType(player) == C4PT_Script)
 	{
-		if (plr == script_plr)
+		if (player == script_plr)
 			script_plr = nil;
 		return;	
 	}
@@ -64,10 +64,10 @@ protected func RemovePlayer(int plr)
 /*-- Power Tests --*/
 
 // Test for power plant fueled by oil barrels.
-global func Test1_OnStart(int plr)
+global func Test1_OnStart(int player)
 {
 	// Power source: one power plant.
-	var engine = CreateObjectAbove(ClassicPowerPlant, 100, 160, plr);
+	var engine = CreateObjectAbove(ClassicPowerPlant, 100, 160, player);
 
 	for (var i = 0; i < 3; ++i)
 	{
@@ -76,7 +76,7 @@ global func Test1_OnStart(int plr)
 	}
 	
 	// Power consumer: chemical plant.
-	var chemical = CreateObjectAbove(ClassicChemicalFactory, 280, 160, plr);
+	var chemical = CreateObjectAbove(ClassicChemicalFactory, 280, 160, player);
 	chemical->CreateContents(Coal, 5);
 	chemical->AddToQueue(GunPowder, 5);
 
@@ -97,26 +97,26 @@ global func Test1_OnFinished()
 }
 
 // Test for power plant fueled by oil field and pump.
-global func Test2_OnStart(int plr)
+global func Test2_OnStart(int player)
 {
 	// Oil field
 	DrawMaterialQuad("Oil", 144, 168, 208 + 1, 168, 208 + 1, 304, 144, 304, true);
 
 	// Power source: one power plant.
-	var engine = CreateObjectAbove(ClassicPowerPlant, 70, 160, plr);
+	var engine = CreateObjectAbove(ClassicPowerPlant, 70, 160, player);
 	engine.fuel_amount = 100;
 	
 	// Power consumer: one pump.
-	var pump = CreateObjectAbove(ClassicPump, 124, 160, plr);
-	var source = CreateObjectAbove(Pipe, 176, 292, plr);
+	var pump = CreateObjectAbove(ClassicPump, 124, 160, player);
+	var source = CreateObjectAbove(Pipe, 176, 292, player);
 	source->ConnectPipeTo(pump, PIPE_STATE_Source);
-	var drain = CreateObjectAbove(Pipe, 100, 160, plr);
+	var drain = CreateObjectAbove(Pipe, 100, 160, player);
 	drain->ConnectPipeTo(pump, PIPE_STATE_Drain);
 	drain->ConnectPipeTo(engine);
 	
 	
 	// Power consumer: chemical plant.
-	var chemical = CreateObjectAbove(ClassicChemicalFactory, 280, 160, plr);
+	var chemical = CreateObjectAbove(ClassicChemicalFactory, 280, 160, player);
 	chemical->CreateContents(Coal, 10);
 	chemical->AddToQueue(GunPowder, 10);
 

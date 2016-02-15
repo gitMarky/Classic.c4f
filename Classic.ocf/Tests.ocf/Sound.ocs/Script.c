@@ -10,7 +10,7 @@ protected func Initialize()
 {
 }
 
-protected func InitializePlayer(int plr)
+protected func InitializePlayer(int player)
 {
 	StartTest();
 	return;

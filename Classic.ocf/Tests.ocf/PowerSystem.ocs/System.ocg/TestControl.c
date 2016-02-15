@@ -1,7 +1,7 @@
 /**
 	Test Control
 	Unit tests control. Invokes tests by calling the  global
-    function Test*_OnStart(int plr) and iterate through all 
+    function Test*_OnStart(int player) and iterate through all 
 	tests. The test is completed once Test*_Completed() returns
 	true. Then Test*_OnFinished() is called, to be able to reset 
 	the scenario for the next test.
@@ -18,7 +18,7 @@ global func StartTests(int player)
 	var effect = AddEffect("IntTestControl", nil, 100, 2);
 	effect.testnr = 1;
 	effect.launched = false;
-	effect.plr = player;
+	effect.player = player;
 }
 
 
@@ -35,7 +35,7 @@ global func LaunchTest(int nr)
 		effect = AddEffect("IntTestControl", nil, 100, 2);
 		effect.testnr = nr;
 		effect.launched = false;
-		effect.plr = GetPlayerByIndex(0, C4PT_User);
+		effect.player = GetPlayerByIndex(0, C4PT_User);
 		return;
 	}
 	// Finish the currently running test.
@@ -84,7 +84,7 @@ global func FxIntTestControlTimer(object target, proplist effect)
 		Log("=====================================");
 		Log("Test %d started:", effect.testnr);
 		// Start the test if available, otherwise finish test sequence.
-		if (!Call(Format("~Test%d_OnStart", effect.testnr), effect.plr))
+		if (!Call(Format("~Test%d_OnStart", effect.testnr), effect.player))
 		{
 			Log("Test %d not available, the previous test was the last test.", effect.testnr);
 			Log("=====================================");
