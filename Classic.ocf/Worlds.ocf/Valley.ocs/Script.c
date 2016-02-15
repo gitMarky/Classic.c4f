@@ -160,6 +160,7 @@ func InitializePlayer(int player)
 	GivePlayerPumpingKnowledge(player);
 	GivePlayerChemicalKnowledge(player);
 	GivePlayerSpecificKnowledge(player, myKnowledge);
+	GivePlayerSpecificKnowledge(player, [WoodenBridge]);
 
 	for (var material in myHomeBaseMaterial)
 	{
