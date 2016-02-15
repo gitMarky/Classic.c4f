@@ -110,6 +110,7 @@ func InitializePlayer(int player)
 //		Tower
 		];
 	
+	GivePlayerBasicKnowledge(player);
 	GivePlayerSpecificKnowledge(player, itemKnowledge);
 	GivePlayerSpecificKnowledge(player, [ClassicHutWooden, ClassicHutStone, Sawmill]);
 	if (needs_power) GivePlayerPowerKnowledge(player);

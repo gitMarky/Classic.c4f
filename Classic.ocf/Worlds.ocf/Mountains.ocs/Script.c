@@ -72,7 +72,8 @@ func InitializePlayer(int player)
 		Catapult,
 		Balloon
 	];
-	
+
+	GivePlayerBasicKnowledge(player);	
 	GivePlayerSpecificKnowledge(player, [ClassicHutWooden, ClassicHutStone]);
 	GivePlayerCraftingKnowledge(player);
 	if (needs_power) GivePlayerPowerKnowledge(player);

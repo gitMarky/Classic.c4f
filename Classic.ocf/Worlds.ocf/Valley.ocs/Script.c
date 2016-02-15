@@ -152,6 +152,7 @@ func InitializePlayer(int player)
 		FireBomb
 	];
 
+	GivePlayerBasicKnowledge(player);
 	GivePlayerSpecificKnowledge(player, [ClassicHutWooden, ClassicHutStone, ClassicCastle]);
 	GivePlayerCraftingKnowledge(player);
 	if (needs_power) GivePlayerPowerKnowledge(player);

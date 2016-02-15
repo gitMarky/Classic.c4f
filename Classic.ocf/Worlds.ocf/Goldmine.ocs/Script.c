@@ -18,7 +18,7 @@ func InitRules(need_power)
 {
 	var rules = [Rule_TeamAccount, Rule_ZoomLimit, Rule_StartingEquipment];
 	for (var rule in rules) CreateObject(rule);
-	
+
 	if (need_power == 2) CreateObject(Rule_NoPowerNeed);
 }
 
@@ -115,6 +115,7 @@ func InitializePlayer(int player)
 		DoBaseProduction(player, material[0], material[1]);
 	}
 	
+	GivePlayerBasicKnowledge(player);
 	GivePlayerSpecificKnowledge(player, [Flint, TFlint, ClassicDynamiteBox]);
 	GivePlayerSpecificKnowledge(player, [ClassicHutWooden, Sawmill, ClassicWorkshop, ClassicChemicalFactory]);
 	if (needs_power) GivePlayerSpecificKnowledge(player, [ClassicWindmill]);
