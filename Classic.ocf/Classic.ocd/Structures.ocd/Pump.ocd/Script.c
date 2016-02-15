@@ -11,7 +11,7 @@ protected func Definition(def)
 {
 	if (def == ClassicPump)
 	{
-		def.PictureTransformation = Trans_Rotate(50, 0, 1, 0);
+		def.PictureTransformation = Trans_Mul(Trans_Rotate(-20, 0, 1, 0), Trans_Rotate(10, 0, 0, 1), Trans_Rotate(-10, 1, 0, 0));
 		def.MeshTransformation = Trans_Translate(1000, 4000, 0);
 	}
 }
