@@ -13,7 +13,7 @@ local IsDisabled = false;
 static const STRUCTURE_Destruction_Con = 30;
 
 
-public func Damage(int change, int cause, int cause_plr)
+public func Damage(int change, int cause, int cause_player)
 {
 	// Only do stuff if the object has the HitPoints property.
 	if (this)
@@ -29,7 +29,7 @@ public func Damage(int change, int cause, int cause_plr)
 			StructureIncinerate();
 		}
 	}
-	return _inherited(change, cause, cause_plr);
+	return _inherited(change, cause, cause_player);
 }
 
 // This object is a structure.

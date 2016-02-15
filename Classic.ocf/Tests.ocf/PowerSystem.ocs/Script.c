@@ -4,12 +4,12 @@
 */
 
 
-static script_plr;
+static script_player;
 
 protected func Initialize()
 {
 	// Create a script player for some tests.
-	script_plr = nil;
+	script_player = nil;
 	CreateScriptPlayer("PowerBuddy", RGB(0, 0, 255), nil, CSPF_NoEliminationCheck);
 	return;
 }
@@ -30,8 +30,8 @@ protected func InitializePlayer(int player)
 	if (GetPlayerType(player) == C4PT_Script)
 	{
 		// Store the player number.
-		if (script_plr == nil)
-			script_plr = player;
+		if (script_player == nil)
+			script_player = player;
 		// No crew needed.
 		GetCrew(player)->RemoveObject();
 		return;
@@ -54,8 +54,8 @@ protected func RemovePlayer(int player)
 	// Remove script player.
 	if (GetPlayerType(player) == C4PT_Script)
 	{
-		if (player == script_plr)
-			script_plr = nil;
+		if (player == script_player)
+			script_player = nil;
 		return;	
 	}
 	return;

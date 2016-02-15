@@ -1,7 +1,5 @@
 /* Gold mine */
 
-static g_highest_plr_count; // max number of players that were ever in the round
-
 static const SCENARIO_LandscapeWidth_OnePlayer = 640;
 
 func Initialize()

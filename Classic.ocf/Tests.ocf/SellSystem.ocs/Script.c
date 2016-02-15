@@ -4,7 +4,7 @@
 */
 
 
-static script_plr;
+static script_player;
 
 protected func Initialize()
 {
