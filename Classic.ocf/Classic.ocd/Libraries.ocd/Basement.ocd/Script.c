@@ -12,7 +12,7 @@
 protected func Construction()
 {
 	_inherited(...);
-	CreateBasement();
+	ScheduleCall(this, this.CreateBasement, 1);
 }
   
 protected func Destruction()
@@ -32,7 +32,7 @@ private func BasementWidth(){ return 0; }
 
 private func CreateBasement()
 {
-	if(!GetEffect(FX_BasementHandler,this)) AddEffect(FX_BasementHandler,this,1,0,this,0,BasementID());
+	if(!GetEffect(FX_BasementHandler, this)) AddEffect(FX_BasementHandler, this, 1, 0, this, 0, BasementID());
 }
 
 private func RemoveBasement()
@@ -52,7 +52,14 @@ public func FxIntBasementHandlerStart(object target, proplist effect, int tempor
 	if(!effect.basement)
 	{
 		effect.basement = target->CreateObjectAbove(basementID, 0, -1, target->GetOwner());
-		effect.basement -> SetPosition(effect.basement->GetX(), target->GetDefBottom()-effect.basement->GetDefOffset(1));
+		
+		var x = effect.basement->GetX();
+		var defBottom = target->GetDefBottom();
+		var offsetY = effect.basement->GetDefOffset(1);
+		var y = defBottom - offsetY;
+		//Log("Creating basement at %d %d (%d - %d", x, y, defBottom, offsetY);
+		
+		effect.basement -> SetPosition(x, y);
 		effect.basement -> MoveOutClonks();
 		effect.basement -> SetCategory(C4D_StaticBack);
 		target->~SetBasement(effect.basement);
