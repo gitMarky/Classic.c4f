@@ -7,60 +7,51 @@
 
  
 // Gives the player specific knowledge as given in the knowledge array.
-global func GivePlayerSpecificKnowledge(int plr, array knowledge)
+global func GivePlayerSpecificKnowledge(int player, array knowledge)
 {
 	for (var plan in knowledge)
-		SetPlrKnowledge(plr, plan);
+		SetPlrKnowledge(player, plan);
 }
 
 // Removes the player specific knowledge as given in the knowledge array.
-global func RemovePlayerSpecificKnowledge(int plr, array knowledge)
+global func RemovePlayerSpecificKnowledge(int player, array knowledge)
 {
 	for (var plan in knowledge)
-		SetPlrKnowledge(plr, plan, true);
+		SetPlrKnowledge(player, plan, true);
 }
 
 // Gives the player plans according to basic knowledge.
-global func GivePlayerBasicKnowledge(int plr)
+global func GivePlayerBasicKnowledge(int player)
 {
-	var knowledge = [
-		// Basic structures for a settlement and production of tools and explosives.
-		Flagpole, Basement, WindGenerator, SteamEngine, Compensator, Sawmill, Foundry, Elevator, ToolsWorkshop, ChemicalLab, Chest,
-		// Basic tools for mining and tree chopping and loam production.
-		Shovel, Hammer, Axe, Pickaxe, Barrel, Bucket, Torch,
-		// The basic resources.
-		Metal, Loam, GoldBar,
-		// Some of the basic explosives.
-		Dynamite, DynamiteBox,
-		// Some basic vehicles which aid in the settlement construction.
-		Lorry
+	// Basic tools for mining and tree chopping
+	var knowledge =
+	[
+		Shovel, Axe, Pickaxe, Barrel, Torch, Flint
 	];
-	for (var plan in knowledge)
-		SetPlrKnowledge(plr, plan);
-	return;
+	GivePlayerSpecificKnowledge(player, knowledge);
 }
 
-global func GivePlayerCraftingKnowledge(int plr)
+global func GivePlayerCraftingKnowledge(int player)
 {
-	GivePlayerSpecificKnowledge(plr, [Sawmill, ClassicFoundry, ClassicWorkshop]);
+	GivePlayerSpecificKnowledge(player, [Sawmill, ClassicFoundry, ClassicWorkshop]);
 }
 
-global func GivePlayerPowerKnowledge(int plr)
+global func GivePlayerPowerKnowledge(int player)
 {
-	GivePlayerSpecificKnowledge(plr, [ClassicWindmill, ClassicPowerPlant]);
+	GivePlayerSpecificKnowledge(player, [ClassicWindmill, ClassicPowerPlant]);
 }
 
-global func GivePlayerChemicalKnowledge(int plr)
+global func GivePlayerChemicalKnowledge(int player)
 {
-	GivePlayerSpecificKnowledge(plr, [ClassicChemicalFactory, Flint, TFlint, ClassicDynamiteBox]);
+	GivePlayerSpecificKnowledge(player, [ClassicChemicalFactory, TFlint, GunPowder, FireBomb]);
 }
 
-global func GivePlayerPumpingKnowledge(int plr)
+global func GivePlayerPumpingKnowledge(int player)
 {
-	GivePlayerSpecificKnowledge(plr, [ClassicPump, MetalBarrel, Pipe]);
+	GivePlayerSpecificKnowledge(player, [ClassicPump, MetalBarrel, Pipe]);
 }
 
-global func GivePlayerMiningKnowledge(int plr)
+global func GivePlayerMiningKnowledge(int player)
 {
-	GivePlayerSpecificKnowledge(plr, [ClassicElevator, ClassicLorry]);
+	GivePlayerSpecificKnowledge(player, [ClassicElevator, ClassicLorry, ClassicDynamiteBox]);
 }

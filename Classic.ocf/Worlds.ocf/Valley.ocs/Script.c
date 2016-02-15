@@ -1,9 +1,13 @@
-/* Gold mine */
+/* Valley of Kings */
 
-static g_highest_plr_count; // max number of players that were ever in the round
+
+local homebase_locations;
+
 
 func Initialize()
 {
+	homebase_locations = [{x = RandomX(95, 145), y = 825, used = false}, {x = RandomX(1275, 1335), y = 825, used = false}];
+
 	var area_skylands = Rectangle(0, 0, LandscapeWidth(), 869);
 	var area_lake = Rectangle(150, 870, LandscapeWidth()-300, LandscapeHeight()-870);
 	var area_lake = Rectangle(150, 870, LandscapeWidth()-300, LandscapeHeight()-870);
@@ -102,19 +106,21 @@ func InitMaterial()
 }
 
 
-func InitializePlayer(int plr)
+func InitializePlayer(int player)
 {
-	SetWealth(plr, 50 - (SCENPAR_Difficulty - 1) * 25);
+	var needs_power = !FindObject(Find_ID(Rule_NoPowerNeed));
+
+	SetWealth(player, 50 - (SCENPAR_Difficulty - 1) * 25);
 	
 	var myHomeBaseMaterial =
 	[
 		[Conkit, 5],
-		[Pipe, 3],
-		[Loam, 6],
-		[Wood, 4],
+		[Pipe, 4],
+		[Loam, 5],
+		[Wood, 5],
 		[Metal, 5], 
 		[Flint, 5], 
-		[Sulphur, 3], 
+		[TFlint, 5], 
 		[Barrel, 5], 
 		[ClassicFlag, 3], 
 		[ClassicClonk, 3], 
@@ -126,34 +132,63 @@ func InitializePlayer(int plr)
 	[
 		[Conkit, 5], 
 		[Pipe, 2],
-		[Loam, 6], 
+		[Loam, 3], 
 		[Wood, 5], 
 		[Metal, 3], 
 		[Flint, 5], 
-		[Sulphur, 2], 
+		[TFlint, 5], 
 		[Barrel, 5], 
 		[ClassicFlag, 3], 
 		[ClassicClonk, 2], 
 		[ClassicLorry, 1], 
 		[Bread, 5]
 	];
+	
+	var myKnowledge = 
+	[
+		Catapult,
+		Airship,
+		GunPowder,
+		FireBomb
+	];
+
+	GivePlayerSpecificKnowledge(player, [ClassicHutWooden, ClassicHutStone, ClassicCastle]);
+	GivePlayerCraftingKnowledge(player);
+	if (needs_power) GivePlayerPowerKnowledge(player);
+	GivePlayerMiningKnowledge(player);
+	GivePlayerPumpingKnowledge(player);
+	GivePlayerChemicalKnowledge(player);
+	GivePlayerSpecificKnowledge(player, myKnowledge);
 
 	for (var material in myHomeBaseMaterial)
 	{
-		DoBaseMaterial(plr, material[0], material[1]);
+		DoBaseMaterial(player, material[0], material[1]);
 	}
 	for (var material in myHomeBaseProduction)
 	{
-		DoBaseProduction(plr, material[0], material[1]);
+		DoBaseProduction(player, material[0], material[1]);
 	}
 
+	var i = Random(2);
+	
+	var location = nil;
+	for (var i = 0; (!location || location.used == true); ++i)
+	{
+		location = homebase_locations[i % 2];
+	}
+	location.used = true;
 
-	var homeBase = FindObject(Find_ID(ClassicHutWooden), Find_Owner(NO_OWNER), Find_Distance(50, GetHiRank(plr)->GetX(), GetHiRank(plr)->GetY()));
+	var homeBase = CreateObject(ClassicHutStone, location.x, location.y, player);
 
 	if (homeBase)
 	{
-		homeBase->SetOwner(plr);
+		homeBase->SetOwner(player);
 		homeBase->CreateContents(ClassicFlag);
+		
+		for (var i = 0; i < GetCrewCount(player); ++i)
+		{
+			GetCrew(player, i)->SetPosition(homeBase->GetX() + RandomX(-10, 10), homeBase->GetDefBottom() - 10);
+		}
 	}
 	return true;
 }
