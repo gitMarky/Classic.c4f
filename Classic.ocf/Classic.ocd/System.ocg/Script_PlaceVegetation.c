@@ -259,11 +259,11 @@ global func AutoPlaceVegetation(id definition, int quantity, bool quantity_relat
 		
 		number = trees_per_width * trees_per_height / 10;
 		
-		Log("Calculated a maximum amount of %d trees", number);
+		//Log("Calculated a maximum amount of %d trees", number);
 		
 		number = Max(1, number * quantity / 100);
 		
-		Log("Actual amount is %d", number);
+		//Log("Actual amount is %d", number);
 	}
 	else
 	{

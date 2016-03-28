@@ -52,7 +52,7 @@ public func AttachedToolCancelUse(object user)
 // Item activation
 func ControlUseStart(object clonk, int x, int y)
 {
-	Log("Using loam %d %d", x, y);
+	//Log("Using loam %d %d", x, y);
 	if (!(clonk->~Bridge()))
 	{
 		clonk->CancelUse();

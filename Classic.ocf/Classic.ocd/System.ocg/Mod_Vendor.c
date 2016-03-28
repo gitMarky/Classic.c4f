@@ -80,7 +80,6 @@ public func GetInteractionMenus(object clonk)
 
 	if (this->AllowSellMenuEntries())
 	{
-		Log("Adding sell menus");
 		var sell_menu =
 		{
 			title = "$MsgSell$",
