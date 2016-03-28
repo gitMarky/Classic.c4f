@@ -9,3 +9,4 @@ func Construction()
 
 local Name = "$Name$";
 local Description = "$Description$";
+local ContactCalls = true;

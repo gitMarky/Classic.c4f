@@ -277,3 +277,4 @@ local Description = "$Description$";
 local Touchable = 1;
 local Rebuy = true;
 local BorderBound = 1;
+local ContactCalls = true;

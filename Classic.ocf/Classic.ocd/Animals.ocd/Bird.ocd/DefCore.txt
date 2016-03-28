@@ -2,7 +2,6 @@
 id=Bird
 Version=7,0
 Category=C4D_Living
-ContactCalls=1
 Width=14
 Height=12
 Offset=-7,-6

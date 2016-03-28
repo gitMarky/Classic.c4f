@@ -19,5 +19,3 @@ SolidMask=0,0,24,2,0,24
 Picture=96,0,80,80
 HorizontalFix=1
 NoPushEnter=1
-ContactCalls=1
-

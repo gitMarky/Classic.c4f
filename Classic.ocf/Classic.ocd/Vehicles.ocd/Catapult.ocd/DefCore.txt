@@ -2,7 +2,6 @@
 id=ClassicCatapult
 Version=7,0
 Category=C4D_Vehicle
-ContactCalls=1
 Width=34
 Height=30
 Offset=-17,-15

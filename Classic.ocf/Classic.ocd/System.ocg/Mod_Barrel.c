@@ -3,22 +3,22 @@
 
 public func CalcValue(object in_base, int for_player)
 {
-	if (LiquidContainerIsEmpty())
+	if (GetLiquidAmount() == 0)
 	{
 		return GetDefValue();
 	}
 	else
 	{
 		var value = 0;
-		var liquid = GetLiquidType();
+		for (var liquid in Contents())
+		{
+			if (liquid->~GetLiquidType())
+			{
+				value += liquid->GetValue();
+			}
+		}
 		
-		if (liquid == "Lava"
-		 || liquid == "DuroLava"
-		 || liquid == "Acid") value = 4;
-		if (liquid == "Oil"
-		 || liquid == "FireFluid") value = 16;
-		
-		return GetLiquidFillLevel() * value / GetLiquidContainerMaxFillLevel();
+		return value;
 	}
 }
 

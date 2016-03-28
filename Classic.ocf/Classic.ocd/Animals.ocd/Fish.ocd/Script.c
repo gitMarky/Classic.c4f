@@ -134,3 +134,4 @@ local Collectible=1;
 local NoBurnDecay=1;
 local BreatheWater=1;
 local BorderBound = C4D_Border_Sides | C4D_Border_Top | C4D_Border_Bottom;
+local ContactCalls = true;
