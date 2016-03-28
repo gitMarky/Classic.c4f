@@ -1,5 +1,9 @@
 #appendto Library_Vendor
 
+private func EjectAllContents()
+{
+	// Called when buying stuff, should do nothing, so that contents stay in the vendor
+}
 
 // ----- Selling
 
