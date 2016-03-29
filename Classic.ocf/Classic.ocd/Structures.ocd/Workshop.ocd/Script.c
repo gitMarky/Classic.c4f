@@ -25,6 +25,7 @@ func Definition(id def)
 	                                      Trans_Translate(1000, -5000, -2000));
 }
 
+func NoConstructionFlip(){ return true; } // not supported
 
 public func Initialize()
 {

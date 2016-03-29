@@ -33,6 +33,7 @@ func Definition(id def)
 	                                      Trans_Translate(1000, -5000, -2000));
 }
 
+func NoConstructionFlip(){ return true; } // not supported
 
 // Variable to store the fuel amount currently held in the engine.
 local fuel_amount;

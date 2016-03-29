@@ -21,7 +21,7 @@ func Definition(def)
 	                                      Trans_Rotate(-20,0,1,0));
 }
 
-
+func NoConstructionFlip(){ return true; } // not supported
 
 /*-- Production --*/
 

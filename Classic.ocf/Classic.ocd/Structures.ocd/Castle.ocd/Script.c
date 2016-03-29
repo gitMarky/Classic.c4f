@@ -24,6 +24,7 @@ protected func Definition(def)
 	}
 }
 
+func NoConstructionFlip(){ return true; } // not supported
 
 protected func Construction()
 {

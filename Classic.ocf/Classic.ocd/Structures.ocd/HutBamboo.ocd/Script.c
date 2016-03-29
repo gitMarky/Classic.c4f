@@ -18,6 +18,8 @@ func Definition(id def)
 	                                      Trans_Rotate(-10, 1, 0, 0));
 }
 
+func NoConstructionFlip(){ return true; } // not supported
+
 func IsContainer(){ return true; }
 
 protected func SoundOpenDoor() { return nil;}

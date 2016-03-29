@@ -16,6 +16,8 @@ local HitPoints = 45;
 
 func IsContainer(){ return true; }
 
+func NoConstructionFlip(){ return true; } // not supported
+
 local ActMap = {
 OpenDoor = {
 	Prototype = Action,

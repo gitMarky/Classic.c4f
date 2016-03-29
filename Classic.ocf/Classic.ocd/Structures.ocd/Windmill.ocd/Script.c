@@ -13,6 +13,8 @@ func Definition(id def)
 	                                      Trans_Rotate( 30, 0, 1, 0));
 }
 
+func NoConstructionFlip(){ return true; } // not supported
+
 protected func Construction()
 {
 	_inherited(...);

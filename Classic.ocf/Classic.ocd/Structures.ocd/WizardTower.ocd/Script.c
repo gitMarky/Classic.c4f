@@ -11,6 +11,9 @@
 
 #include Basement42
 
+
+func NoConstructionFlip(){ return true; } // not supported
+
 local BlastIncinerate = 100;
 local HitPoints = 100;
 

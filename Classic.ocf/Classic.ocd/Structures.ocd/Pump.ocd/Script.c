@@ -16,6 +16,8 @@ protected func Definition(def)
 	}
 }
 
+func NoConstructionFlip(){ return true; } // not supported
+
 func Initialize()
 {
 	this.MeshTransformation = ClassicPump.MeshTransformation; // somehow it always took that of the pump

@@ -25,6 +25,8 @@ func Definition(id def)
 }
 
 
+func NoConstructionFlip(){ return true; } // not supported
+
 /*-- Production --*/
 
 private func IgnoreKnowledge() { return true; }

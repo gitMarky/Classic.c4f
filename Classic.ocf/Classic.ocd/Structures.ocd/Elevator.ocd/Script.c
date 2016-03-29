@@ -4,6 +4,9 @@
 #include Library_Ownable
 #include BasementElevator
 
+
+func NoConstructionFlip(){ return true; } // not supported
+
 // used in the elevator case
 //static const Elevator_needed_power = 50;
 
