@@ -24,5 +24,5 @@ public func CalcValue(object in_base, int for_player)
 
 public func OnSale(int for_player, object in_base)
 {
-	CreateContents(this->GetID()); // create an empty barrel of the same kind
+	if (in_base) in_base->CreateContents(this->GetID()); // create an empty barrel of the same kind
 }

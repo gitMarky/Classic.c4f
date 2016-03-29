@@ -26,10 +26,10 @@ global func StartTest(int player)
 	Log("Testing Sell System:");
 
 	var test_data = [
-		["Oil", 16],
-		["Lava", 4],
-		["Acid", 4],
-		["Water", 0]];
+		[Oil, 16],
+		[Lava, 4],
+		[Acid, 4],
+		[Water, 0]];
 		
 	var barrels = [Barrel, MetalBarrel];
 	
@@ -39,6 +39,8 @@ global func StartTest(int player)
 		{
 			var liquid = data[0];
 			var profit = data[1];
+			if (!barrel_type->IsLiquidContainerForMaterial(liquid->GetLiquidType())) continue;
+			
 			passed &= TestSellBarrel(player, seller, barrel_type, liquid, barrel_type->GetLiquidContainerMaxFillLevel(), profit);
 			passed &= TestSellBarrel(player, seller, barrel_type, liquid, barrel_type->GetLiquidContainerMaxFillLevel() / 2, profit / 2);
 			passed &= TestSellBarrel(player, seller, barrel_type, liquid, barrel_type->GetLiquidContainerMaxFillLevel() / 4, profit / 4);
@@ -58,19 +60,19 @@ global func StartTest(int player)
 }
 
 
-global func TestSellBarrel(int player, object seller, id def, string liquid, int fill_level, int expected_profit)
+global func TestSellBarrel(int player, object seller, id def, id liquid, int fill_level, int expected_profit)
 {
 	var passed = true;
 	SetWealth(player, 0);
 
 	var barrel = seller->CreateContents(def);
-	barrel->SetLiquidContainer(liquid, fill_level);
+	liquid->CreateLiquid(fill_level, barrel); //barrel->SetLiquidContainer(liquid, fill_level);
 
 	seller->DoSell(barrel, player);
 	
 	var profit = GetWealth(player);
 	var test = profit == expected_profit; passed &= test;
-	Log(" - Selling %s barrel, filled 100%: profit = %d, expected %d; passed: %v", liquid, profit, expected_profit, test);	
+	Log(" - Selling %v barrel, filled 100%: profit = %d, expected %d; passed: %v", liquid, profit, expected_profit, test);	
 
 	SetWealth(player, 0);
 	
@@ -82,7 +84,7 @@ global func TestSellBarrel(int player, object seller, id def, string liquid, int
 
 	if (remaining_barrel)
 	{
-		test = remaining_barrel->LiquidContainerIsEmpty(); passed &= test;
+		test = (remaining_barrel->GetLiquidAmount() <= 0); passed &= test;
 		Log("  * New barrel is empty: %v", test);
 		
 		remaining_barrel->RemoveObject();
