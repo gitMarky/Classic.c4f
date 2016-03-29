@@ -114,10 +114,10 @@ func InitializePlayer(int player)
 	}
 	
 	GivePlayerBasicKnowledge(player);
-	GivePlayerSpecificKnowledge(player, [Flint, TFlint, ClassicDynamiteBox]);
+	GivePlayerSpecificKnowledge(player, [TFlint]);
 	GivePlayerSpecificKnowledge(player, [ClassicHutWooden, Sawmill, ClassicWorkshop, ClassicChemicalFactory]);
 	if (needs_power) GivePlayerSpecificKnowledge(player, [ClassicWindmill]);
-	GivePlayerSpecificKnowledge(player, [ClassicLorry]);
+	GivePlayerMiningKnowledge(player);
 
 	var homeBase = FindObject(Find_ID(ClassicHutWooden), Find_Owner(NO_OWNER), Find_Distance(50, GetHiRank(player)->GetX(), GetHiRank(player)->GetY()));
 
