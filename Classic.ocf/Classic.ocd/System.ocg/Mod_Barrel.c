@@ -3,26 +3,19 @@
 
 public func CalcValue(object in_base, int for_player)
 {
-	if (GetLiquidAmount() == 0)
-	{
-		return GetDefValue();
-	}
-	else
-	{
-		var value = 0;
-		for (var liquid in Contents())
-		{
-			if (liquid->~GetLiquidType())
-			{
-				value += liquid->GetValue();
-			}
-		}
-		
-		return value;
-	}
+	return GetDefValue();
 }
 
-public func OnSale(int for_player, object in_base)
+public func QueryOnSell(int for_player, object in_base)
 {
-	if (in_base) in_base->CreateContents(this->GetID()); // create an empty barrel of the same kind
+	if (Contents() && in_base)
+	{
+		// Sell contents first
+		for(var contents in FindObjects(Find_Container(this)))
+		{
+			in_base->~DoSell(contents, for_player);
+		}
+		return true;
+	}
+	return false;
 }
