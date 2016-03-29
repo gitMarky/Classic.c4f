@@ -71,8 +71,9 @@ global func Test1_OnStart(int player)
 
 	for (var i = 0; i < 3; ++i)
 	{
-		var barrel = engine->CreateContents(Barrel, 1);
-		barrel->SetLiquidContainer("Oil", 10);
+		var barrel = CreateObject(Barrel); //engine->CreateContents(Barrel, 1);
+		Oil->CreateLiquid(10, barrel); //->SetLiquidContainer("Oil", 10);
+		engine->Collect(barrel, true);
 	}
 	
 	// Power consumer: chemical plant.
@@ -92,7 +93,7 @@ global func Test1_Completed()
 
 global func Test1_OnFinished()
 {
-	RemoveAll(Find_Or(Find_ID(ClassicPowerPlant), Find_ID(ClassicChemicalFactory)));
+	RemoveAll(Find_Or(Find_ID(ClassicPowerPlant), Find_ID(ClassicChemicalFactory), Find_ID(Barrel)));
 	return;
 }
 
@@ -127,7 +128,7 @@ global func Test2_OnStart(int player)
 
 global func Test2_Completed()
 {
-	return (ObjectCount(Find_ID(IronBomb)) >= 10);
+	return (ObjectCount(Find_ID(GunPowder)) >= 10);
 }
 
 global func Test2_OnFinished()

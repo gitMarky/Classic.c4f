@@ -54,10 +54,18 @@ protected func Initialize()
 
 public func IsContainer() { return true; }
 
+
 protected func RejectCollect(id item, object obj)
 {
+	// Accept fuel only
 	if (obj->~IsFuel())
 		return false;
+
+	// Is the object a container? If so, try to empty it.
+	if (obj->~IsContainer() || obj->~IsLiquidContainer())
+	{
+		GrabContents(obj);
+	}
 	return true;
 }
 
@@ -80,14 +88,15 @@ protected func Collection(object obj, bool put)
 public func ContentsCheck()
 {
 	// If active don't do anything.
-	if (GetEffect("Working", this))
+	if (IsWorking()) 
 		return;
 
 	// If there is fuel available let the network know.
-	if (fuel_amount > 0 || GetFuelContents())
+	if (GetFuelAmount() > 0 || GetFuelContents())
 		RegisterPowerProduction(PowerPlant_produced_power);
 	return;
 }
+
 
 public func GetFuelAmount()
 {
@@ -105,8 +114,10 @@ public func GetProducerPriority() { return 0; }
 
 // Callback from the power library for production of power request.
 public func OnPowerProductionStart(int amount) 
-{
-	RefillFuel(false);
+{ 
+	// Check if there is fuel.
+	RefillFuel();
+	// There is enough fuel so start producing power and notify network of this.
 	AddEffect("Working", this, 100, 1, this);
 	return true;
 }
@@ -125,12 +136,22 @@ protected func WorkStart()
 	return;
 }
 
+// Status?
+protected func IsWorking(){ return GetEffect("Working", this);}
+
 // Phase call from working action, every two frames.
 protected func FxWorkingTimer(object target, proplist effect, int timer)
 {
-	BurnFuel(1);	// Reduce the fuel amount by 1 per frame.
-	RefillFuel(true); //
-	Smoking();
+	DoFuelAmount(-1); // Reduce the fuel amount by 1 per frame
+	RefillFuel(); // Check if there is still enough fuel available.
+	Smoking(); // Smoke from the exhaust shaft.
+	
+	if (GetFuelAmount() <= 0)
+	{
+		UnregisterPowerProduction();
+		WorkAbort();
+		return FX_Execute_Kill;
+	}
 	return;
 }
 
@@ -149,51 +170,36 @@ protected func WorkAbort()
 	return;	
 }
 
+func RefillFuel()
+{
+	// Check if there is still enough fuel available.
+	var no_fuel = GetFuelAmount() <= 0;
+	// The reserve is probably not necessary
+	var should_keep_reserve = IsWorking() && GetNeutralPipe() && GetFuelAmount() < 100;
+	if (no_fuel || should_keep_reserve)
+	{
+		var fuel_extracted;
+	
+		// Search for new fuel among the contents.
+		var fuel = GetFuelContents();
+		if (fuel)
+		{
+			fuel_extracted = fuel->~GetFuelAmount();
+			if (!fuel->~OnFuelRemoved(fuel_extracted)) fuel->RemoveObject();
+	
+			DoFuelAmount(fuel_extracted * 18);
+		}
+	}
+}
 
 func GetFuelContents()
 {
 	return FindObject(Find_Container(this), Find_Func("IsFuel"));
 }
 
-func BurnFuel(int amount)
+func DoFuelAmount(int amount)
 {
-	fuel_amount -= amount;
-}
-
-func RefillFuel(bool cancel)
-{
-	// Check if there is still enough fuel available.
-	if (fuel_amount <= 0)
-	{
-		var fuel_extracted;
-	
-		// Search for new fuel among the contents.
-		var fuel = GetFuelContents();
-		
-		if (!fuel || fuel->~IsLiquidContainer())
-		{
-			fuel = fuel ?? this;
-			// Extract the fuel amount from stored liquids
-			var fuel_stored = fuel->RemoveLiquid(nil, nil);
-			fuel_extracted = GetFuelValue(fuel_stored[0], fuel_stored[1]);
-		}
-		else
-		{
-			// Extract the fuel amount from the new piece of fuel.
-			fuel_extracted = fuel->~GetFuelAmount(true);
-			if (!fuel->~OnFuelRemoved(fuel_extracted)) fuel->RemoveObject();
-		}
-		
-		if (!fuel_extracted)
-		{
-			// Set action to idle and unregister this producer as available from the network.
-			if (cancel) UnregisterPowerProduction();
-			return false;
-		}
-		
-		// Extract the fuel amount from the new piece of fuel.
-		fuel_amount += fuel_extracted * 18;
-	}
+	fuel_amount += amount;
 }
 
 func Smoking()
@@ -206,15 +212,6 @@ func Smoking()
 }
 
 
-
-func GetFuelValue(string liquid, int amount)
-{
-	if (liquid == "Oil") return amount;
-	if (liquid == "Lava") return amount / 2;
-	return 0;
-}
-
-
 func IsLiquidContainerForMaterial(string liquid)
 {
 	return WildcardMatch("Oil", liquid) || WildcardMatch("Lava", liquid);
@@ -222,7 +219,7 @@ func IsLiquidContainerForMaterial(string liquid)
 
 func GetLiquidContainerMaxFillLevel()
 {
-	return 300; // can store one barrel - this should be enough, so that the pump does not fill too much oil into the engine
+	return 300;
 }
 
 func QueryConnectPipe(object pipe)
