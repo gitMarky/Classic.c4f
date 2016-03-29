@@ -7,7 +7,7 @@ TxtDetachTool=Detach
 
 MsgSell=Sell
 
-
+TxtMissingMaterial=Missing Material
 
 
 

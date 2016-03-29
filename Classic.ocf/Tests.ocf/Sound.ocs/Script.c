@@ -43,7 +43,8 @@ global func StartTest()
 		[ClassicFoundry, [ClassicFoundry.Collection]],
 		[ClassicPowerPlant, [ClassicPowerPlant.SoundOpenDoor, ClassicPowerPlant.SoundCloseDoor, ClassicPowerPlant.Collection]],
 		//[ClassicWorkshop, [.]],
-		[ClassicLorry, [ClassicLorry.Hit3, ClassicLorry.DoClonk, ClassicLorry.DoSoftHit]]
+		[ClassicLorry, [ClassicLorry.Hit3, ClassicLorry.DoClonk, ClassicLorry.DoSoftHit]],
+		[ConstructionSite, [ConstructionSite.Interact]]
 	];
 	
 	for (var test in sounds)
