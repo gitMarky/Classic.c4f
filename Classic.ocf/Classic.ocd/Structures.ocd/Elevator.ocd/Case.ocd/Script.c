@@ -109,13 +109,16 @@ func FxElevatorUpperLimitCheckTimer(target, effect, time)
 // or else we cannot ungrab :'(
 func ControlDown(object clonk)
 {
-	return false;
-}
-
-
-func ControlDownSingle(object clonk)
-{
-	if (IsSlave()) return Control2Master("ControlDownSingle", clonk);
+// code below is in comments, because the previous implementation used Control-Down-Double to ungrab
+// maybe this will be implemented again, but probably not. Will delete the comment once the decision was made.
+//	return false;
+//}
+//
+//
+//func ControlDownSingle(object clonk)
+//{
+//	if (IsSlave()) return Control2Master("ControlDownSingle", clonk);
+	if (IsSlave()) return Control2Master("ControlDown", clonk);
 
 	SetMoveDirection(COMD_Down, true, false);
 	return true;
