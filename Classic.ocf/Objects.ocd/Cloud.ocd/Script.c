@@ -342,7 +342,16 @@ private func RainDrop()
 			if (!i)
 				CastPXS(mat, 1, 0, x, y);
 			continue;
-		}		
+		}
+		
+		if (mat == "Ashes")
+		{
+			if (!i)
+			{
+				CastPXS(mat, 1, 0, x, y);
+			}
+			continue;
+		}
 
 		var particle = new particle_cache.rain {};
 		if(Random(2))
