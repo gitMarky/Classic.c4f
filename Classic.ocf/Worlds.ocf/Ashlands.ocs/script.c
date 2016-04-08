@@ -180,6 +180,8 @@ func CreateHomeBase(int player)
 {
 	var found_position = false;
 	var x, y;
+	
+	var homeBaseType = ClassicHutWooden;
 
 	while (!found_position)
 	{
@@ -190,14 +192,14 @@ func CreateHomeBase(int player)
 		y = 0;
 		while(!GBackSolid(x, y) && y < LandscapeHeight()) ++y;
 		
-		if (!FindObject(Find_ID(ClassicHutWooden), Find_Distance(50, x, y)))
+		if (!FindObject(Find_ID(homeBaseType), Find_Distance(50, x, y)))
 		{
 			found_position = true;
 		}
 	}
 
-	var homeBase = CreateObjectAbove(ClassicHutWooden, x, y, player); //FindObject(Find_ID(ClassicHutWooden), Find_Distance(50, GetHiRank(player)->GetX(), GetHiRank(player)->GetY()));
-
+	var homeBase = CreateObjectAbove(homeBaseType, x, y, player);
+	
 	for (var i = 0; GetCrew(player, i); ++i)
     {
 		GetCrew(player, i)->SetPosition(x + RandomX(-8,8), y - 10);
@@ -205,6 +207,13 @@ func CreateHomeBase(int player)
 
 	homeBase->CreateContents(Wood, 3);
 	homeBase->CreateContents(Rock, 5);
-	homeBase->CreateContents(ClassicFlag);
 	homeBase->CreateContents(Conkit);
+
+	var flag = homeBase->CreateObject(ClassicFlag);
+	flag->SetOwner(player);
+	homeBase->Collect(flag, true); // won't add the flag correctly without the callbacks
+	homeBase->DigFreeRect(homeBase->GetX() + homeBaseType->GetDefOffset(0), 
+	                      homeBase->GetY() + homeBaseType->GetDefOffset(1),
+						  homeBaseType->GetDefWidth(),
+						  homeBaseType->GetDefHeight());
 }
