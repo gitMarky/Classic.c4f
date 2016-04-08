@@ -8,7 +8,6 @@ Difficulty=45
 
 [Definitions]
 Definition1=Objects.ocd
-Definition2=Classic.ocf/Classic.ocd
 
 [Game]
 

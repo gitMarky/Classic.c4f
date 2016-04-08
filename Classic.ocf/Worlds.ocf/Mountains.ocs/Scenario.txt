@@ -6,7 +6,6 @@ Difficulty=15
 
 [Definitions]
 Definition1=Objects.ocd
-Definition2=Classic.ocf/Classic.ocd
 
 
 [Player1]
