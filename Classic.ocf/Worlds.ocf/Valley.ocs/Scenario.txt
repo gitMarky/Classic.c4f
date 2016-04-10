@@ -6,7 +6,7 @@ Difficulty=5
 MaxPlayer=2
 
 [Definitions]
-Definition2=Classic.ocf/Classic.ocd
+Definition1=Objects.ocd
 
 [Player1]
 Crew=ClassicClonk=1

@@ -7,7 +7,6 @@ MaxPlayer=8
 
 [Definitions]
 Definition1=Objects.ocd
-Definition2=Classic.ocf/Classic.ocd
 
 [Player1]
 Crew=ClassicClonk=1;
