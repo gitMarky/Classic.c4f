@@ -13,7 +13,8 @@ global func StartTest(int player)
 	var passed = true;
 	
 	passed &= Test1(player);
-	passed &= Test2(player);	
+	passed &= Test2(player);
+	passed &= Test3(player);
 
 	Log("---------------------");
 	Log("Done!");
@@ -88,6 +89,29 @@ global func Test2(int player)
 		passed &= doTest("Clonk should be a crew member. Got %v, expected %d", GetCrew(player, 1), clonk);
 	}
 
+	if (clonk) clonk->RemoveObject();
+	if (base) base->RemoveObject();
+
+	return passed;
+}
+
+
+global func Test3(int player)
+{
+	var passed = true;
+	var base = CreateObjectAbove(ClassicHutWooden, GetCrew(player)->GetX(), GetCrew(player)->GetY() + 10, player);
+
+	Log("---------------------");
+	Log("Test: Sell a shovel");
+
+	passed &= doTest("Player should have no shovel buyable before selling it. Got %d, expected %d.", GetBaseMaterial(player, Shovel), 0);
+	
+	var shovel = base->CreateContents(Shovel);
+	
+	base->DoSell(shovel, player);
+	
+	passed &= doTest("Player should have a shovel buyable after selling it. Got %d, expected %d.", GetBaseMaterial(player, Shovel), 1);
+	
 	if (base) base->RemoveObject();
 
 	return passed;
