@@ -208,13 +208,24 @@ public func IsDeadTree() { return false; } // Überladen von toten Bäumen
 
 /** Reproduction of plants: Called every 2 seconds by a timer.
 */
-private func Seed()
+private func DoSeed()
 {
 	var plant = _inherited(...);
 	
 	if (plant)
 	{	
-		if (plant->GetMaterial() == Material("Tunnel"))
+		var tunnel = false;
+		
+		var coordinates = [[0, 0], [0, -10]];
+		
+		for (var xy in coordinates)
+		if (plant->GetMaterial(xy[0], xy[1]) == Material("Tunnel"))
+		{
+			tunnel = true;
+			break;
+		}
+			
+		if (tunnel)
 		{
 			plant->RemoveObject();
 		}
