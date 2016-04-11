@@ -1,11 +1,3 @@
-/**
-	Power System
-	Unit tests for the power system. 
-*/
-
-
-static script_player;
-
 protected func Initialize()
 {
 }
@@ -20,8 +12,28 @@ global func StartTest(int player)
 {
 	var passed = true;
 	
+	passed &= Test1(player);
+	passed &= Test2(player);	
+
+	Log("---------------------");
+	Log("Done!");
+	if (passed)
+	{
+		Log("All tests passed!");
+	}
+	else
+	{
+		Log("Test failed");
+	}
+}
+
+
+
+global func Test1(int player)
+{
+	var passed = true;
 	var seller = CreateObjectAbove(ClassicHutWooden, GetCrew(player)->GetX(), GetCrew(player)->GetY() + 10, player);
-	
+
 	Log("---------------------");
 	Log("Testing Sell System:");
 
@@ -47,16 +59,38 @@ global func StartTest(int player)
 		}
 	}
 
+	if (seller) seller->RemoveObject();
+
+	return passed;
+}
+
+
+global func Test2(int player)
+{
+	var passed = true;
+	var base = CreateObjectAbove(ClassicHutWooden, GetCrew(player)->GetX(), GetCrew(player)->GetY() + 10, player);
+
+	DoBaseMaterial(player, ClassicClonk, 1);
+
 	Log("---------------------");
-	Log("Done!");
-	if (passed)
+	Log("Test: Buy a clonk");
+	
+	SetWealth(player, ClassicClonk->GetValue());
+
+	var clonk = base->DoBuy(ClassicClonk, player, player, base);
+	
+	passed &= doTest("Clonk should be created. Got %v, expected %v.", !!clonk, true);
+	
+	if (clonk)
 	{
-		Log("All tests passed!");
+		passed &= doTest("Clonk has the correct owner. Got %d, expected %d.", clonk->GetOwner(), player);
+		passed &= doTest("Clonk is in the hut. Got %v, expected %v.", clonk->Contained(), base);
+		passed &= doTest("Clonk should be a crew member. Got %v, expected %d", GetCrew(player, 1), clonk);
 	}
-	else
-	{
-		Log("Test failed");
-	}
+
+	if (base) base->RemoveObject();
+
+	return passed;
 }
 
 
@@ -92,5 +126,18 @@ global func TestSellBarrel(int player, object seller, id def, id liquid, int fil
 	
 	if (barrel) barrel->RemoveObject();
 
+	return test;
+}
+
+
+
+global func doTest(description, returned, expected)
+{
+	var test = (returned == expected);
+	
+	var predicate = "[Fail]";
+	if (test) predicate = "[Pass]";
+	
+	Log(Format("%s %s", predicate, description), returned, expected);
 	return test;
 }
