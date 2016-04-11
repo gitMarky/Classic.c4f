@@ -112,7 +112,7 @@ func InitializePlayer(int player)
 	
 	GivePlayerBasicKnowledge(player);
 	GivePlayerSpecificKnowledge(player, itemKnowledge);
-	GivePlayerSpecificKnowledge(player, [ClassicHutWooden, ClassicHutStone, Sawmill]);
+	GivePlayerSpecificKnowledge(player, [ClassicHutWooden, ClassicHutStone, Sawmill, ClassicFoundry]);
 	if (needs_power) GivePlayerPowerKnowledge(player);
 	GivePlayerMiningKnowledge(player);
 	GivePlayerPumpingKnowledge(player);	
