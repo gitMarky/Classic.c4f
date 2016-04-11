@@ -22,30 +22,6 @@ func Initialize()
 }
 
 
-public func IsInteractable(object clonk)
-{
-	if (GetCon() < 100) return false;
-	if (!elevator) return false;
-	if (Hostile(GetOwner(), clonk->GetOwner())) return false;
-	if (clonk->GetProcedure() != DFA_PUSH) return false;
-	//if (clonk->GetActionTarget() !) no action target check! interaction from vehicle would be impossible
-	return true;
-}
-
-public func GetInteractionCount() { return 1; }
-public func GetInteractionMetaInfo(object clonk, int num)
-{
-		return {IconName=nil, IconID=Icon_ElevatorInteractions, Description="$TxtDrillshaft$"};
-}
-
-
-public func Interact(object clonk, int num)
-{
-	// drill!
-	SetMoveDirection(COMD_Down, true, true);
-	return true;
-}
-
 
 func Drilling()
 {
@@ -105,24 +81,6 @@ func FxElevatorUpperLimitCheckTimer(target, effect, time)
 	return 1;
 }
 
-
-// or else we cannot ungrab :'(
-func ControlDown(object clonk)
-{
-// code below is in comments, because the previous implementation used Control-Down-Double to ungrab
-// maybe this will be implemented again, but probably not. Will delete the comment once the decision was made.
-//	return false;
-//}
-//
-//
-//func ControlDownSingle(object clonk)
-//{
-//	if (IsSlave()) return Control2Master("ControlDownSingle", clonk);
-	if (IsSlave()) return Control2Master("ControlDown", clonk);
-
-	SetMoveDirection(COMD_Down, true, false);
-	return true;
-}
 
 func ControlLeft(object clonk)
 {
