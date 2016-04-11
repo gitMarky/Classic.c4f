@@ -152,10 +152,6 @@ protected func FxIntUprightAttachTimer(object target, proplist effect, int timer
 
 /*-- Contents --*/
 
-private func MaxContentsCount()
-{
-	return 50;
-}
 
 protected func RejectCollect(id object_id, object obj)
 {
@@ -163,7 +159,7 @@ protected func RejectCollect(id object_id, object obj)
 	if (GetEffect(LORRY_Effect_BlockCollection, obj)) return true;
 
 	// objects can still be collected
-	if (ContentsCount() < this->MaxContentsCount())
+	if (ContentsCount() < MaxContentsCount)
 	{
 		DoClonk();
 		return false;
@@ -278,3 +274,5 @@ local Touchable = 1;
 local Rebuy = true;
 local BorderBound = 1;
 local ContactCalls = true;
+local MaxContentsCount = 50;
+
