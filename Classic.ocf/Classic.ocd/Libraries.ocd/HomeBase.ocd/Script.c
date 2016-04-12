@@ -9,10 +9,13 @@
 
 private func Collection2(object item)
 {
-	if(!IsBase() && item->~IsBaseFlag() && item->GetOwner() != NO_OWNER)
+	if (item->~IsBaseFlag())
 	{
-		item->~SetBase(this);
-		MakeBase(false); // this actually makes it a base...
+		if(!IsBase() && item->GetOwner() != NO_OWNER)
+		{
+			item->~SetBase(this);
+			MakeBase(false); // this actually makes it a base...
+		}
 		ScheduleCall(this, this.UpdateInteractionMenus, 2);
 	}
 
