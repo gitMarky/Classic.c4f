@@ -25,7 +25,6 @@ func InitGoals(int difficulty)
 	// Goal: Resource extraction, set to gold mining.
 	var goal = CreateObject(Goal_ResourceExtraction);
 	goal->SetResource("Gold", Min(100, 70 + 10 * difficulty));
-	goal->SetResource("Gold");
 }
 
 func InitEnvironment(int difficulty)
