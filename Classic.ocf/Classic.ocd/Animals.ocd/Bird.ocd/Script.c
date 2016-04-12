@@ -481,7 +481,7 @@ private func BirdFindTree(proplist effect)
 public func BirdStartBuildNest(pThis, pTree)
 {
 	  var effect = AnimalGetActivityEffect();
-	  if (!pTree && effect == nil) return;
+	  if (!pTree || effect == nil) return;
 	  if (pTree->GetX()<GetX())
 		  SetDir(DIR_Left);
 	  else
