@@ -138,7 +138,7 @@ public func OnSellMenuSelection(object item, extra_data, object clonk)
 	var wealth_player = clonk->GetController();
 	// Buy
 	DoSell(item, wealth_player);
-	UpdateInteractionMenus(this.GetSellMenuEntries);
+	UpdateInteractionMenus([this.GetBuyMenuEntries, this.GetSellMenuEntries]);
 }
 
 public func Collection2(object item)
