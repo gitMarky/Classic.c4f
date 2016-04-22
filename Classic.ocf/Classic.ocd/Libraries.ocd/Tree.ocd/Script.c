@@ -206,22 +206,6 @@ protected func FxIntTreeDecayTimer(object target, proplist effect, int time)
 
 public func IsDeadTree() { return false; } // Überladen von toten Bäumen
 
-/** Reproduction of plants: Called every 2 seconds by a timer.
-*/
-private func Seed()
-{
-	var plant = _inherited(...);
-	
-	if (plant)
-	{	
-		if (plant->GetMaterial() == Material("Tunnel"))
-		{
-			plant->RemoveObject();
-		}
-	}
-	
-	return plant;
-}
 
 
 local ActMap = {
