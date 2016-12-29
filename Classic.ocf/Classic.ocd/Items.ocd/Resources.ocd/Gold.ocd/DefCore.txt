@@ -12,5 +12,4 @@ VertexFriction=40,40,40
 Picture=0,48,64,64
 Value=5
 Mass=12
-Components=Gold=1
 Rotate=1

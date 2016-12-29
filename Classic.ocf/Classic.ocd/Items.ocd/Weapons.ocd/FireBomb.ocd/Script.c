@@ -22,3 +22,4 @@ public func GetLiquidNeed() { return ["Oil", Barrel->BarrelMaxFillLevel()]; }
 local Name = "$Name$";
 local Description = "$Description$";
 local Collectible = 1;
+local Components = {Flint = 1};

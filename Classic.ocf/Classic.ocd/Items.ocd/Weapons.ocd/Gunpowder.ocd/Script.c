@@ -42,3 +42,4 @@ local Description = "$Description$";
 local Collectible = 1;
 local BlastIncinerate = 1;
 local ContactIncinerate = 1;
+local Components = {Coal = 1};

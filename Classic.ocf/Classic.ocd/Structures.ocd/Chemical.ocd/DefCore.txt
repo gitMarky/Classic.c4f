@@ -11,7 +11,6 @@ VertexY=-10,-11,28,28
 VertexFriction=50,50,100,100
 Value=200
 Mass=2500
-Components=Rock=5;Metal=3
 Picture=0,0,48,57
 Entrance=-8,12,16,16
 Collection=7,-5,16,11

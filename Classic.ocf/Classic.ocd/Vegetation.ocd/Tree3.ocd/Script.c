@@ -2,6 +2,8 @@
 
 #include Library_ChoppableTree
 
+local Components = {Wood = 5};
+
 local ActMap = {
 Still = {
 		Length=40,

@@ -11,7 +11,6 @@ VertexY=5,-6
 VertexFriction=50,50
 Value=100
 Mass=2
-Components=ClassicFlag=1
 Picture=576,0,256,256
 Float=1
 ColorByOwner=1

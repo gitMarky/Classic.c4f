@@ -7,7 +7,6 @@ Height=8
 Offset=-45,-4
 Value=1
 Mass=10
-Components=Rock=5
 SolidMask=0,0,90,8,0,0
 Vertices=2
 VertexX=-44,34

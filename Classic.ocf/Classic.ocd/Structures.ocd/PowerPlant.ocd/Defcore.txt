@@ -7,7 +7,6 @@ Height=52
 Offset=-32,-26
 Value=180
 Mass=4000
-Components=Rock=6;Metal=3
 Picture=0,0,64,52
 Vertices=4
 VertexX=-26,20,-28,28

@@ -275,4 +275,5 @@ local Rebuy = true;
 local BorderBound = 1;
 local ContactCalls = true;
 local MaxContentsCount = 50;
+local Components = {Metal = 2};
 

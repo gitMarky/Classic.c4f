@@ -24,6 +24,7 @@ func Initialize()
 	_inherited(...);
 }
 
+
 /*
 // interface for the extraction logic
 func ExtractMaterialFromSource(object source_obj, int amount)
@@ -110,3 +111,4 @@ local Name = "$Name$";
 local Description = "$Description$";
 local BlastIncinerate = 50;
 local LineAttach = [-10, 10];
+local Components = {Wooed = 3, Metal = 1};

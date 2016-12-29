@@ -1,5 +1,7 @@
 #include Airship
 
+local Components = {Metal = 6, Wood = 8};
+
 func Construction()
 {
 	_inherited(...);

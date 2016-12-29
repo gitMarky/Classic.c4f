@@ -2,6 +2,8 @@
 
 #include Library_ChoppableTree
 
+local Components = {Wood = 3};
+
 private func RootDepth() { return 0;} // This is how far it is rooted in the earth
 public func NoForegroundVegetation(object plant){ return plant->GetID() == Grass; } // Grass in front of it looks stupid :/
 

@@ -33,6 +33,7 @@ local Name = "$Name$";
 local Description = "$Description$";
 local BlastIncinerate = 10;
 local ContactIncinerate = 3;
+local Components = {Wood = 3};
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

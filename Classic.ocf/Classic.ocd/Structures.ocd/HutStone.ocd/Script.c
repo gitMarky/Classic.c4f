@@ -9,3 +9,4 @@
 local BlastIncinerate = 75;
 local ContainBlast = true;
 local HitPoints = 75;
+local Components = {Rock = 5, Wood = 3};

@@ -12,7 +12,6 @@ VertexCNAT=1,4,2,8
 VertexFriction=100,100,100,100
 Value=10
 Mass=15
-Components=ClassicPiranha=1
 Float=1
 StretchGrowth=1
 IncompleteActivity=1

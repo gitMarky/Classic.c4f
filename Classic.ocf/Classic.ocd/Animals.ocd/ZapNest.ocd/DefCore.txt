@@ -10,6 +10,5 @@ VertexY=1
 VertexFriction=100
 Value=5
 Mass=3
-Components=ZapNest=1
 Picture=0,0,70,70
 Fragile=1

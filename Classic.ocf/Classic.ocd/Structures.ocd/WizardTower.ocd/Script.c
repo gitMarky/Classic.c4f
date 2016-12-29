@@ -20,3 +20,4 @@ local HitPoints = 100;
 local Name="$Name$";
 local Description = "$Description$";
 local ContainBlast = true;
+local Components = {Rock = 4, Wood = 2, Metal = 2};

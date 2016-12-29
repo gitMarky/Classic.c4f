@@ -27,3 +27,4 @@ public func IsChemicalProduct() { return true; }
 
 func IsAlchemContainer() { return true ; }
 func AlchemProcessTime() { return 100; }
+local Components = {Sulphur = 1};

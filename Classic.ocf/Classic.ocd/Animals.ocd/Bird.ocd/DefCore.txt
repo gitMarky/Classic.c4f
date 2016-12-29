@@ -12,7 +12,6 @@ VertexCNAT=4,8,1,2,1,2
 VertexFriction=100,100,100,100,100,100
 Value=10
 Mass=5
-Components=Bird=1
 Picture=560,0,64,64
 Float=1
 StretchGrowth=1

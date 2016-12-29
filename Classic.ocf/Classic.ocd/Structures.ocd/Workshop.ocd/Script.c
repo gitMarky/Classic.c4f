@@ -124,6 +124,7 @@ local Description = "$Description$";
 local BlastIncinerate = 100;
 local ContainBlast = 1;
 local HitPoints = 100;
+local Components = {Wood = 6, Metal = 3};
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

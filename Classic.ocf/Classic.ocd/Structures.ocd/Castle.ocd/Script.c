@@ -454,6 +454,7 @@ local Name = "$Name$";
 local Description = "$Description$";
 local BlastIncinerate = 160;
 local ContainBlast = 1;
+local Components = {Rock = 12, Wood = 5};
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //

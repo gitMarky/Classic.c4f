@@ -27,3 +27,4 @@ local Description = "$Description$";
 local BlastIncinerate = 60;
 local ContactIncinerate = 5;
 local HitPoints = 50;
+local Components = {Wood = 4, Metal = 1};

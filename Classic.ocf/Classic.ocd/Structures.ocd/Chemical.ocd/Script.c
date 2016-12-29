@@ -91,6 +91,7 @@ local Description ="$Description$";
 local BlastIncinerate = 100;
 local ContainBlast = true;
 local HitPoints = 70;
+local Components = {Rock = 5, Metal = 3};
 
 
 local ActMap = {

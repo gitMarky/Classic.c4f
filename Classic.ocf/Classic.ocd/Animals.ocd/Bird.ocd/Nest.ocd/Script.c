@@ -140,3 +140,4 @@ local Name = "$Name$";
 local Description = "$Description$";
 local ContactIncinerate = 1;
 local BlastIncinerate = 10;
+local Components = {Wood = 1};

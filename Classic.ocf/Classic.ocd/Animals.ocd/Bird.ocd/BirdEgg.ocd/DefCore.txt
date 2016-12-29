@@ -10,6 +10,5 @@ VertexY=1
 VertexFriction=20
 Value=10
 Mass=10
-Components=BirdEgg=1
 Fragile=1
 Picture=0,24,48,48

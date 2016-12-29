@@ -11,5 +11,4 @@ VertexY=-3,-3,2,2
 VertexFriction=80,80,80,80
 Value=15
 Mass=15
-Components=Wood=2;Metal=1;
 Picture=0,32,80,80

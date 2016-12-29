@@ -7,7 +7,6 @@ Height=6
 Offset=-3,-3
 Value=3
 Mass=5
-Components=Coal=1
 Vertices=1
 VertexY=1
 VertexFriction=20

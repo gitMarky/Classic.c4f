@@ -13,6 +13,7 @@
 
 local BlastIncinerate = 45;
 local HitPoints = 45;
+local Components = {Wood = 4, Rock = 1};
 
 func IsContainer(){ return true; }
 

@@ -7,7 +7,6 @@ Height=87
 Offset=-42,-43
 Value=400
 Mass=10000
-Components=Rock=12;Wood=5
 SolidMask=84,109,84,12,0,45
 TopFace=0,109,84,12,0,45
 Picture=84,0,84,87
