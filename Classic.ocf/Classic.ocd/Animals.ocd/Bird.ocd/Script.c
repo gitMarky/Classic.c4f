@@ -155,7 +155,7 @@ private func FxIntAnimalActivityShelter( object target, proplist effect)
 
  	    	nest_x = BoundBy( nest_x, Abs(BirdNest->GetDefOffset()) + 5, LandscapeWidth() - BirdNest->GetDefWidth() - BirdNest->GetDefOffset());
 
-			SetCommand( "Call", this, pTree, 0, 0, "BirdStartBuildNest");
+			SetCommand( "Call", this, pTree, 0, nil, "BirdStartBuildNest");
 			AddCommand( "MoveTo", nil, nest_x, nest_y);
  	    }
 

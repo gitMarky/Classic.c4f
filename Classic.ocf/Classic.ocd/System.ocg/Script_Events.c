@@ -87,17 +87,13 @@ global func HasEventListener(string event, object target)
  *              
  *              OnEvent(source, listener)
  */
-global func AddEventListener(object target)
+global func AddEventListener(object target, ev1, ev2, ev3, ev4, ev5, ev6, ev7, ev8, ev9)
 {
 	if (this != nil && target == nil)
 		target = this;
 	
-	if (HasEventListener(event, target)) return;
-	
-	
-	var i = 1;
-	var event; // proplist
-	while (event = Par(i++))
+	var events = [ev1, ev2, ev3, ev4, ev5, ev6, ev7, ev8, ev9];
+	for (var event in events)
 	{
 		var name = nil, functionCall = nil;
 		
@@ -114,6 +110,8 @@ global func AddEventListener(object target)
 		{
 			continue;
 		}
+
+	    if (HasEventListener(name, target)) continue;
 
 		var listener = AddEffect("EventListener", target, 1, 0, target);
 		
