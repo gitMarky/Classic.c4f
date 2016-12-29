@@ -12,8 +12,8 @@ DiffHard=Schwer
 DescDiffHard=Ziele:|- Gold abbauen, 100%|- Startguthaben 0 Clunker||Katastrophen:|- Keine
 
 # Scenario parameters: map size
-MapSize=Kartengrˆﬂe
-DescMapSize=Setzt die Kartengrˆﬂe dieser Runde.
+MapSize=Kartengr√∂√üe
+DescMapSize=Setzt die Kartengr√∂√üe dieser Runde.
 
 MapSmall=Klein
 DescMapSmall=Die Karte dieser Runde wird klein sein
@@ -21,16 +21,15 @@ DescMapSmall=Die Karte dieser Runde wird klein sein
 MapAverage=Durchschnittlich
 DescMapAverage=Die Karte dieser Runde wird durchschnittlich sein.
 
-MapLarge=Groﬂ
-DescMapLarge=Die Karte dieser Runde wird groﬂ sein.
+MapLarge=Gro√ü
+DescMapLarge=Die Karte dieser Runde wird gro√ü sein.
 
 # Scenario parameters: Power need
 PowerNeed=Energieverbrauch
-DescPowerNeed=Bestimmt, ob Geb‰ude Energie verbrauchen.
+DescPowerNeed=Bestimmt, ob Geb√§ude Energie verbrauchen.
 
 PowerNeedYes=An
-DescPowerNeedYes=Geb‰ude verbrauchen Energie. 
+DescPowerNeedYes=Geb√§ude verbrauchen Energie. 
 
 PowerNeedNo=Aus
-DescPowerNeedNo=Geb‰ude verbrauchen keine Energie.
-
+DescPowerNeedNo=Geb√§ude verbrauchen keine Energie.

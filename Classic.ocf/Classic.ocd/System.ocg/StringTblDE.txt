@@ -17,7 +17,7 @@ TxtMissingMaterial=Fehlendes Material
 # Just copied from the original, this should catch a lot of warnings
 
 CON_Jump=Springen
-CON_Jump_Desc=Im Laufen abspringen, aus dem Wasser springen oder sich von einer Wand abstoßen.
+CON_Jump_Desc=Im Laufen abspringen, aus dem Wasser springen oder sich von einer Wand abstoÃŸen.
 
 CON_AimAxisLeft=Zielen - Links (Analog Stick)
 CON_AimAxisRight=Zielen - Rechts (Analog Stick)
@@ -50,27 +50,27 @@ CON_Hotkey8=Hotkey 8
 CON_Hotkey9=Hotkey 9
 CON_Hotkey0=Hotkey 10
 
-CON_Contents=Inventarmenü
-CON_Contents_Desc=Öffnen und schließen des Inventarmenüs. Über das Inventarmenü können Gegenstände aus Truhen, Loren usw. herausgenommen und hineingetan werden sowie Dinge mit anderen Clonks getauscht werden.
-CON_PlayerMenu=Spielermenü
-CON_PlayerMenu_Desc=Öffnen und schließen des Spielermenüs.
+CON_Contents=InventarmenÃ¼
+CON_Contents_Desc=Ã–ffnen und schlieÃŸen des InventarmenÃ¼s. Ãœber das InventarmenÃ¼ kÃ¶nnen GegenstÃ¤nde aus Truhen, Loren usw. herausgenommen und hineingetan werden sowie Dinge mit anderen Clonks getauscht werden.
+CON_PlayerMenu=SpielermenÃ¼
+CON_PlayerMenu_Desc=Ã–ffnen und schlieÃŸen des SpielermenÃ¼s.
 
-CON_MenuSelect=Menü - Auswählen
-CON_MenuSelect_Desc=Bestätigen einer Auswahl im Menü.
-CON_MenuCancel=Menü: Schließen
-CON_MenuCancel_Desc=Schließen eines Menüs ohne eine Auswahl getroffen zu haben.
-CON_MenuOKAll=Menü - okay, alle
-CON_MenuOK=Menü: OK
-CON_MenuOK_Desc=Im Menü bestätigen.
+CON_MenuSelect=Men - AuswÃ¤hlen
+CON_MenuSelect_Desc=BestÃ¤tigen einer Auswahl im MenÃ¼.
+CON_MenuCancel=MenÃ¼: SchlieÃŸen
+CON_MenuCancel_Desc=SchlieÃŸen eines MenÃ¼s ohne eine Auswahl getroffen zu haben.
+CON_MenuOKAll=MenÃ¼ - okay, alle
+CON_MenuOK=MenÃ¼: OK
+CON_MenuOK_Desc=Im MenÃ¼ bestÃ¤tigen.
 
-CON_NextCrew=Nächster Clonk
-CON_NextCrew_Desc=Auswählen des nächsten Clonks der eigenen Mannschaft. Im Spiel wird die eigene Mannschaft in der Anzeige am oberen Bildschirmrand angezeigt.
+CON_NextCrew=NÃ¤chster Clonk
+CON_NextCrew_Desc=AuswÃ¤hlen des nÃ¤chsten Clonks der eigenen Mannschaft. Im Spiel wird die eigene Mannschaft in der Anzeige am oberen Bildschirmrand angezeigt.
 CON_PreviousCrew=Letzter Clonk
-CON_PreviousCrew_Desc=Auswählen des vorherigen Clonks der eigenen Mannschaft. Im Spiel wird die eigene Mannschaft in der Anzeige am oberen Bildschirmrand angezeigt.
+CON_PreviousCrew_Desc=AuswÃ¤hlen des vorherigen Clonks der eigenen Mannschaft. Im Spiel wird die eigene Mannschaft in der Anzeige am oberen Bildschirmrand angezeigt.
 CON_ZoomIn=Reinzoomen
 CON_ZoomIn_Desc=In die Spielwelt hineinzoomen um Details sichtbar zu machen.
 CON_ZoomOut=Rauszoomen
-CON_ZoomOut_Desc=Aus der Spielwelt herauszoomen um eine Übersicht zu bekommen.
+CON_ZoomOut_Desc=Aus der Spielwelt herauszoomen um eine Ãœbersicht zu bekommen.
 
 # -- Assignment specific strings
 
@@ -85,19 +85,19 @@ KEY_GamepadUseAlt=Benutzen / Werfen (andere Hand)
 KEY_GamepadUseAlt_Desc=Benutzen des Gegenstandes in der anderen Hand. Falls der Gegenstand nicht benutzt werden kann, wird er stattdessen bei Loslassen der Taste in die Richtung geworfen in die mit dem Analog Stick gezielt wird.
 
 KEY_Left=Links
-KEY_Left_Desc=Nach links laufen, schwimmen, hangeln oder sich nach links von einer Wand abstoßen. Beim Klettern links an einer Wand kann hiermit ein Gegenstand aufgenommen werden der in der Wand steckt.
+KEY_Left_Desc=Nach links laufen, schwimmen, hangeln oder sich nach links von einer Wand abstoÃŸen. Beim Klettern links an einer Wand kann hiermit ein Gegenstand aufgenommen werden der in der Wand steckt.
 KEY_Right=Rechts
-KEY_Right_Desc=Nach rechts laufen, schwimmen, hangeln oder sich nach rechts von einer Wand abstoßen. Beim Klettern rechts an einer Wand kann hiermit ein Gegenstand aufgenommen werden der in der Wand steckt.
+KEY_Right_Desc=Nach rechts laufen, schwimmen, hangeln oder sich nach rechts von einer Wand abstoÃŸen. Beim Klettern rechts an einer Wand kann hiermit ein Gegenstand aufgenommen werden der in der Wand steckt.
 KEY_Up=Hoch
 KEY_Up_Desc=Nach oben klettern oder schwimmen. Beim Hangeln wird hiermit ein Gegenstand aufgesammelt der in der Decke steckt.
 KEY_Down=Runter
 KEY_Down_Desc=Nach unten klettern, schwimmen oder sich beim Hangeln fallen lassen. Im Stehen wird hiermit ein herumliegender Gegenstand aufgesammelt.
 
-KEY_AimAxis_Desc=Mit dem Analog Stick zum Werfen oder Benutzen eines Gegenständes zielen. Kann auch statt den Richtungstasten zum Steuern des Clonks verwendet werden.
+KEY_AimAxis_Desc=Mit dem Analog Stick zum Werfen oder Benutzen eines Gegenstandes zielen. Kann auch statt den Richtungstasten zum Steuern des Clonks verwendet werden.
 
 KEY_Interact=Interagieren
-KEY_Interact_Desc=Interagieren mit Fahrzeugen, Gebäuden und anderen Dingen die bei dem Clonk stehen: Gebäude betreten und verlassen, Fahrzeuge anfassen und in Gebäude schieben, Werkzeuge und Waffen in Werkstätten herstellen und vieles mehr.
+KEY_Interact_Desc=Interagieren mit Fahrzeugen, GebÃ¤uden und anderen Dingen die bei dem Clonk stehen: GebÃ¤ude betreten und verlassen, Fahrzeuge anfassen und in GebÃ¤ude schieben, Werkzeuge und Waffen in WerkstÃ¤tten herstellen und vieles mehr.
 
-KEY_Hotkey_Desc=Hotkeys:|Nr + l/r Maustaste - Den jeweiligen Gegenstand in die eine/andere Hand nehmen|Nr + Shift - Den jeweiligen Gegenstand ablegen|Nr + Interagieren - Mit dem jeweiligen Ding interagieren|Nr + Strg - Den jeweiligen Clonk aus der Mannschaftsleiste auswählen
+KEY_Hotkey_Desc=Hotkeys:|Nr + l/r Maustaste - Den jeweiligen Gegenstand in die eine/andere Hand nehmen|Nr + Shift - Den jeweiligen Gegenstand ablegen|Nr + Interagieren - Mit dem jeweiligen Ding interagieren|Nr + Strg - Den jeweiligen Clonk aus der Mannschaftsleiste auswÃ¤hlen
 
 KEY_Ungrab=Fahrzeug loslassen

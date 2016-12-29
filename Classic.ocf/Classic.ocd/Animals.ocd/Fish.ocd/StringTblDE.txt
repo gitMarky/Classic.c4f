@@ -3,5 +3,5 @@ Description=Kleiner Bewohner des Meeres.
 
 TxtMovement=Bewegen
 TxtDrop=Gegenstand fallen lassen
-TxtLeave=Zurückverwandeln
+TxtLeave=ZurÃ¼ckverwandeln
 TxtEmbowel=Verwerten

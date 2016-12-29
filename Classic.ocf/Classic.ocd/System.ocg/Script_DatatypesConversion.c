@@ -15,7 +15,7 @@ global func BytesToInt(array bytes) {
 		(bytes[0] << (3*8));
 }
 
-// Extracts a single byte from a variable (usefull mostly just for ints)
+// Extracts a single byte from a variable (useful mostly just for ints)
 global func GetByte(value, position) {
 	if (GetType(value) == C4V_Int) {
 		return value >> ((3-position)*8) & 255;
@@ -28,9 +28,9 @@ global func GetByte(value, position) {
 
 global func SetByte(value, newvalue, position) {
 	if (GetType(value) == C4V_Int) {
-		// Alte Farbe 'löschen'
+		// Delete old color
 		value = value & ~(255 << ((3-position)*8));
-		// Neue hinzufügen
+		// Add new color
 		return (value|newvalue << ((3-position)*8));
 	}
 }

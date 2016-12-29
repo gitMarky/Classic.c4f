@@ -16,18 +16,18 @@ Goal=Spielziel
 DescGoal=Setzt das Spielziel dieser Runde.
 
 GoalCrown=Kronensuche
-DescGoalCrown=Eine Legende besagt, dass vor Urzeiten der groﬂe Kˆnig Wacker hier seine Krone versteckt hat, damit niemand sie ihm wegnehmen kˆnnte. Heutzutage kann man mit dieser Krone kein Kˆnig mehr werden, aber zu groﬂem Reichtum reicht es allemal.||Finde die Krone auf einer der Himmelsinseln und verkaufe sie.
+DescGoalCrown=Eine Legende besagt, dass vor Urzeiten der gro√üe K√∂nig Wacker hier seine Krone versteckt hat, damit niemand sie ihm wegnehmen k√∂nnte. Heutzutage kann man mit dieser Krone kein K√∂nig mehr werden, aber zu gro√üem Reichtum reicht es allemal.||Finde die Krone auf einer der Himmelsinseln und verkaufe sie.
 
 GoalConstruction=Siedlungsbau
-DescGoalConstruction=Die beiden Ufer dieses in einem tiefen Tal gelegenen Sees warten nur darauf, besiedelt zu werden.||Errichte eine funktionierende Siedlung mit folgenden Geb‰uden:
+DescGoalConstruction=Die beiden Ufer dieses in einem tiefen Tal gelegenen Sees warten nur darauf, besiedelt zu werden.||Errichte eine funktionierende Siedlung mit folgenden Geb√§uden:
 
 # Scenario parameters: Power need
 PowerNeed=Energieverbrauch
-DescPowerNeed=Bestimmt, ob Geb‰ude Energie verbrauchen.
+DescPowerNeed=Bestimmt, ob Geb√§ude Energie verbrauchen.
 
 PowerNeedYes=An
-DescPowerNeedYes=Geb‰ude verbrauchen Energie. 
+DescPowerNeedYes=Geb√§ude verbrauchen Energie. 
 
 PowerNeedNo=Aus
-DescPowerNeedNo=Geb‰ude verbrauchen keine Energie.
+DescPowerNeedNo=Geb√§ude verbrauchen keine Energie.
 

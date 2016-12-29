@@ -1,6 +1,6 @@
 Name=Werkstatt
-Description=Fabrik für Fahrzeuge und schwere Waffen.
+Description=Fabrik fÃ¼r Fahrzeuge und schwere Waffen.
 
-NoPlrKnowledge=Keine Baupläne vorhanden
+NoPlrKnowledge=Keine BauplÃ¤ne vorhanden
 Construction=Konstruktion
 Production=Produktion

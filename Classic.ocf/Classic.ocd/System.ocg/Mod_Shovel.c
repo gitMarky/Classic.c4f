@@ -16,7 +16,7 @@ public func ControlUseHolding(object clonk, int x, int y)
 		dig_effect.dig_y = y;		
 		dig_effect.dig_angle = Angle(0, 0, x, y);	
 		
-		// lock angle in 5° increments
+		// lock angle in 5Â° increments
 		var diff = dig_effect.dig_angle % 10;
 		var target;
 		if (diff > 0 && diff < 3)

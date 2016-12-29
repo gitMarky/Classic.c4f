@@ -1,3 +1,2 @@
 Name=Fundament
-Description=Eine stabile Basis für Gebäude. Beim Bauen auf ebenen Untergrund achten.
-
+Description=Eine stabile Basis fÃ¼r GebÃ¤ude.

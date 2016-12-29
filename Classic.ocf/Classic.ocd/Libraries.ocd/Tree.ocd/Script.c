@@ -204,7 +204,7 @@ protected func FxIntTreeDecayTimer(object target, proplist effect, int time)
 	return FX_OK;
 }
 
-public func IsDeadTree() { return false; } // Überladen von toten Bäumen
+public func IsDeadTree() { return false; } // overload dead trees
 
 
 

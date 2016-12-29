@@ -1,5 +1,5 @@
 Name=Baum
-Description=Kann gef‰llt und zu Holz zers‰gt werden.
+Description=Kann gef√§llt und zu Holz zers√§gt werden.
 
-TxtChop=F‰llen
+TxtChop=F√§llen
 

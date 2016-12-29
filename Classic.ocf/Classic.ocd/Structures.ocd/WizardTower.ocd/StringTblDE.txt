@@ -1,10 +1,10 @@
 Name=Zauberturm
-Description=Wandelt Kristalle und Blitze in Zauberenergie um. Zauberclonks können im Turm Energie aufladen.
+Description=Wandelt Kristalle und Blitze in Zauberenergie um. Zauberclonks kÃ¶nnen im Turm Energie aufladen.
 
 
 TxtNotEnoughIngredients=Nicht genug|alchemische Zutaten!|Es fehlen|%s.
 TxtNotEnoughEnergy=Nicht genug Zauberenergie!
-TxtNoSpells=Keine Zaubersprüche verfügbar
+TxtNoSpells=Keine ZaubersprÃ¼che verfÃ¼gbar
 TxtDoMagic=Zaubern: %s
 TxtConjure=Zaubern
 TxtAimspellsleft=Nach links zaubern

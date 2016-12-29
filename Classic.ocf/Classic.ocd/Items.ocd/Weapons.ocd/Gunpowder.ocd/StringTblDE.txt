@@ -1,3 +1,3 @@
-Name=Schießpulver
-Description=Für den Betrieb von Geschützen.
+Name=SchieÃŸpulver
+Description=FÃ¼r den Betrieb von GeschÃ¼tzen.
 

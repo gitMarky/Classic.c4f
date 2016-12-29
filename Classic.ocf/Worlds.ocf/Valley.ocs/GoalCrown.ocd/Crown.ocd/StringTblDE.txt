@@ -1,2 +1,2 @@
-Name=König Wackers Krone
+Name=KÃ¶nig Wackers Krone
 Description=Zeichen von Macht und Reichtum.

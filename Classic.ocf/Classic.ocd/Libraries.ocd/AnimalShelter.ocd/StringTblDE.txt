@@ -1,2 +1,2 @@
 Name=Unterschlupf
-Description=Lässt Tiere einen Bau oder ein Nest bauen.
+Description=LÃ¤sst Tiere einen Bau oder ein Nest bauen.

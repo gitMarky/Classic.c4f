@@ -1,2 +1,2 @@
 Name=Feuerstein
-Description=Explodiert bei Erschütterung.
+Description=Explodiert bei ErschÃ¼tterung.

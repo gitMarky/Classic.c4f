@@ -1,2 +1,2 @@
 Name=Schwefel
-Description=Material für verschiedene Sprengstoffe
+Description=Material fÃ¼r verschiedene Sprengstoffe

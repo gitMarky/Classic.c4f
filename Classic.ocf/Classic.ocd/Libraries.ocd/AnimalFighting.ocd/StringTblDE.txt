@@ -1,2 +1,2 @@
 Name=Kampfverhalten
-Description=L‰sst Tiere vor Feinden fliehen, oder sie bek‰mpfen.
+Description=L√§sst Tiere vor Feinden fliehen, oder sie bek√§mpfen.
