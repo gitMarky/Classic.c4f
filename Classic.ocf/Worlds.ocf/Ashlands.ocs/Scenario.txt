@@ -3,7 +3,6 @@ Icon=27
 Title=Ashlands
 Version=7,0
 MaxPlayer=12
-Access=1
 Difficulty=45
 
 [Definitions]
@@ -35,4 +34,3 @@ Climate=0,0
 StartSeason=28,0
 YearSpeed=0
 Wind=1,100
-Lightning=6,4
