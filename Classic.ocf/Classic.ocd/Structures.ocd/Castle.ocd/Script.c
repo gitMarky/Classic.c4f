@@ -17,7 +17,7 @@ local defenders;
 
 protected func Definition(def) 
 {
-	_inherited(...);
+	_inherited(def, ...);
 	if (def == ClassicCastle)
 	{
 	    def.PictureTransformation = Trans_Mul(Trans_Rotate(-20, 0, 1, 0), Trans_Rotate(-15, 1, 0, 0), Trans_Rotate(7, 0, 0, 1), Trans_Translate(10000, -5000, 30000), Trans_Scale(900, 900, 450));

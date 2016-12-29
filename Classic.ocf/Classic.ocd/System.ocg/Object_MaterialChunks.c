@@ -12,8 +12,8 @@
 
 protected func Construction()
 {
-	ScheduleCall(this, "IgnoreDigRemove", 5);
-	_inherited();
+	ScheduleCall(this, this.IgnoreDigRemove, 5);
+	_inherited(...);
 }
 
 protected func IgnoreDigRemove()

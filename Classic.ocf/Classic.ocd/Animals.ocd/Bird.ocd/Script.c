@@ -276,7 +276,7 @@ protected func Departure()
 protected func Death()
 {
 	ChangeDef(DeadBird);
-	_inherited();
+	_inherited(...);
 }
 
 func DoTwitter()

@@ -81,7 +81,7 @@ private func AnimalInitActivityCalls()
 private func AnimalAddActivityCalls() // this should be overloaded by the other libraries for adding new stuff
 {
 	PushBack(this.animalActivityList, ANIMAL_ActivityCall_Movement);
-	_inherited();
+	_inherited(...);
 }
 
 /* Collecting animals */

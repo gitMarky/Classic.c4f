@@ -76,7 +76,7 @@ func CanStackSellableContents(object first, object second)
 
 public func GetInteractionMenus(object clonk)
 {
-	var menus = _inherited() ?? [];
+	var menus = _inherited(clonk, ...) ?? [];
 
 	if (this->AllowSellMenuEntries())
 	{

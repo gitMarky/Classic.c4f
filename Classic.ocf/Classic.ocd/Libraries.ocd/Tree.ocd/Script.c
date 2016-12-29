@@ -124,7 +124,7 @@ protected func Hit3(int x, int y)
 {
 	CastLeafParticles();
 
-	_inherited(...);
+	_inherited(x, y,...);
 }
 
 
@@ -152,14 +152,14 @@ protected func ChopDown()
 	SetAction("Chopped");
 	ScheduleCall(this, this.CastLeafParticles, 5, 2);
 
-	_inherited();
+	_inherited(...);
 }
 
 protected func Incineration()
 {
 	SetGraphics("Burned");
 	SetAction("Chopped");
-	_inherited();
+	_inherited(...);
 }
 
 func FxTreeFallTimer(object target, proplist effect, int time)

@@ -12,6 +12,6 @@ static const ANIMAL_ActivityCall_Forage = "Forage"; 	// this call is used for fi
 private func AnimalAddActivityCalls() // this should be overloaded by the other libraries for adding new stuff
 {
 	PushBack(this.animalActivityList, ANIMAL_ActivityCall_Forage);
-	_inherited();
+	_inherited(...);
 }
 

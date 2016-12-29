@@ -97,7 +97,7 @@ protected func Incineration(int by_player)
 		AddEffect("IntStopBurnDecay", this, 1, 1, this);
 	}
 	
-	return _inherited(...);
+	return _inherited(by_player, ...);
 }
 
 protected func FxIntStopBurnDecayTimer(object target, proplist effect, int timer)

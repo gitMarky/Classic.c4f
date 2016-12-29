@@ -44,7 +44,7 @@ func Initialize()
 	CreateRope();
 	CreateDummy();
 
-	return _inherited();
+	return _inherited(...);
 }
 
 func CreateCase()

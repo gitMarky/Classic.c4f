@@ -6,7 +6,7 @@ local dead = false;
 func StartAnimation()
 {
 	if (GetAction() == "Chopped") return;
-	_inherited();
+	_inherited(...);
 }
 
 func SetBurned()
