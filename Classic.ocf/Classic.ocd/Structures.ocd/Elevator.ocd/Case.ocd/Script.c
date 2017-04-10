@@ -43,7 +43,7 @@ func Drilling()
 	DigFreeRect(rect.x, rect.y, rect.w - rect.x, rect.h - rect.y);
 
 	// has to remove dug out earth!!!!!
-	var chunks = FindObjects(Find_Func("IsRemoveableMaterialChunk"), Find_InRect(bounds_l,bounds_u, bounds_r-bounds_l, bounds_d-bounds_u));
+	var chunks = FindObjects(Find_Func("IsRemoveableMaterialChunk"), Find_InRect(bounds_l, bounds_u, bounds_r-bounds_l, bounds_d-bounds_u));
 	for (var obj in chunks) obj->RemoveObject();
 }
 

@@ -75,7 +75,7 @@ protected func RootSurface()
 		while ((GetContact(-1) & CNAT_Bottom) && limit_up-- > 0)
 				SetPosition(GetX(), GetY()-1);
 
-		if (!(GetContact(-1) & CNAT_Bottom)) SetPosition(GetX(),GetY()+RootDepth()); // try make the plant stuck
+		if (!(GetContact(-1) & CNAT_Bottom)) SetPosition(GetX(), GetY()+RootDepth()); // try make the plant stuck
 	}
 }
   
@@ -178,11 +178,11 @@ func FxTreeFallTimer(object target, proplist fx, int time)
 		if ((contact & CNAT_Bottom))
 		{
 			if (!Random(10))
-				SetPosition(GetX(),GetY()-2);
+				SetPosition(GetX(), GetY()-2);
 			else
-				SetPosition(GetX(),GetY()-1);
+				SetPosition(GetX(), GetY()-1);
 
-			SetXDir(RandomX(-3,3));
+			SetXDir(RandomX(-3, 3));
 		}
 	}
 
@@ -191,7 +191,7 @@ func FxTreeFallTimer(object target, proplist fx, int time)
 
 private func GetLeafParticles()
 {
-	return Particles_Colored(Particles_Leaves(), RGB(64,150,64), RGB(0,110,0) );
+	return Particles_Colored(Particles_Leaves(), RGB(64, 150, 64), RGB(0, 110, 0) );
 }
 
 

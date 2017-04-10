@@ -14,12 +14,12 @@ Initialize = {
 Still = {
 		Length=1,
 		Delay=50,
-		X=0,Y=0,Wdt=40,Hgt=56,
+		X=0, Y=0, Wdt=40, Hgt=56,
 		NextAction="Still",
 },
 Breeze = {
 		Length=20,
 		Delay=5,
-		X=0,Y=0,Wdt=40,Hgt=56,
+		X=0, Y=0, Wdt=40, Hgt=56,
 },
 };

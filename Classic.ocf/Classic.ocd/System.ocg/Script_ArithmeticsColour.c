@@ -64,7 +64,7 @@ global func ColorSetLightness(int rgba, int lightness) {
  */
 
 global func HSL2RGB(hsl) {
-	var alpha = GetByte(hsl, 0), hue = GetByte(hsl,1), sat = GetByte(hsl,2), lightness=GetByte(hsl,3);
+	var alpha = GetByte(hsl, 0), hue = GetByte(hsl, 1), sat = GetByte(hsl, 2), lightness=GetByte(hsl, 3);
 	var red, green, blue;
 	var var1, var2;
 	
@@ -89,7 +89,7 @@ global func HSL2RGB(hsl) {
 
 
 global func RGB2HSL(rgb) {
-	var alpha = GetByte(rgb, 0), red = GetByte(rgb,1), green = GetByte(rgb,2), blue = GetByte(rgb,3);
+	var alpha = GetByte(rgb, 0), red = GetByte(rgb, 1), green = GetByte(rgb, 2), blue = GetByte(rgb, 3);
 	var min_val = Min(red, Min(green, blue)), max_val = Max(red, Max(green, blue));
 	var diff_val = max_val - min_val;
 	var lightness = (max_val + min_val)/2;

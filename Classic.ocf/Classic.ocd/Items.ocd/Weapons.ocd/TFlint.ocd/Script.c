@@ -3,7 +3,7 @@
 protected func Construction()
 {
 	var graphic = Random(3);
-	if (graphic) SetGraphics(Format("%d",graphic));
+	if (graphic) SetGraphics(Format("%d", graphic));
 }
 
 public func ControlUse(object clonk, int x, int y)
@@ -43,7 +43,7 @@ func FxFuseBurnTimer(object bomb, proplist effect, int timer)
 	}
 	if (timer >= 60)
 	{
-		Sound("Fire::FuseLoop",nil,nil,nil,-1);
+		Sound("Fire::FuseLoop", nil, nil, nil,-1);
 		DoExplode();
 		return FX_Execute_Kill;
 	}
@@ -61,7 +61,7 @@ func ExplodeSize()
 
 protected func Hit(int x, int y)
 {
-	StonyObjectHit(x,y);
+	StonyObjectHit(x, y);
 	Fuse();
 }
 

@@ -9,13 +9,13 @@ Parameters:
 
 @par definition Object to be planted.
 @par amount Quantity to be planted.
-@par rectangle [optional] Target rectangle as array [x,y,width,height]. Always in absolute coordinates.
+@par rectangle [optional] Target rectangle as array [x, y, width, height]. Always in absolute coordinates.
 @par material_soil [optional] The soil material in which the plant grows, use {@c nil} (default) for placement in materials with Soil=1.
 @par material_liquid [optional] Use 0 for non-submerged plants, or the material number for placement in that liquid (e.g. Material("Lava") for lava plants).
 @par underground [optional] If {@c true} the object will be placed only in tunnels.
 @par hanging [optional] Set to {@c true} for hanging plants, such as stalactices hanging from caves.
-@par con_range [optional] Defines the min and max growth rate the vegetation can vary in e.g. [0,100] for random growth
-@par rot_range [optional] Defines the min and max rotation adjustment to the landscape in e.g. [-30,30] for -30 to +30 degrees.
+@par con_range [optional] Defines the min and max growth rate the vegetation can vary in e.g. [0, 100] for random growth
+@par rot_range [optional] Defines the min and max rotation adjustment to the landscape in e.g. [-30, 30] for -30 to +30 degrees.
 @return array An array with the placed vegetation.
 
 @version 0.3

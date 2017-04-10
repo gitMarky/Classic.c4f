@@ -5,13 +5,13 @@ protected func Hit(){	Break(28);}
 
 public func Break(int num)
 {
-	var x,y;
+	var x, y;
 	if (!num) num=28;
 	for (var i=0;i<num;++i)
 	{
 		x=Random(11)-5;
 		y=Random(11)-5;
-		if (!GBackSolid(x,y))
+		if (!GBackSolid(x, y))
 			CreateObject(Zap, x, y, NO_OWNER);
 	}
 	RemoveObject();

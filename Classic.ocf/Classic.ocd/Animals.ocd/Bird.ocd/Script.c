@@ -566,7 +566,7 @@ public func AvoidHittingLandscape()
 	var ydir_change = 1;
 
 	var dx = GetXDir()*15;
-	var dist2 = dist + 10*BoundBy(Abs(GetXDir())-3,0,10);
+	var dist2 = dist + 10*BoundBy(Abs(GetXDir())-3, 0, 10);
 	var d_min = 40;
 
 	// calculate distance to landscape right below the bird
@@ -577,7 +577,7 @@ public func AvoidHittingLandscape()
 
 	for (d_down = GetDefOffset(1) + GetID()->GetDefHeight(); d_down < dist; d_down++)
 	{
-		if (GBackSemiSolid(0,d_down)) break;
+		if (GBackSemiSolid(0, d_down)) break;
 	}
 
 	// calculate distance to landscape in movement direction
@@ -588,13 +588,13 @@ public func AvoidHittingLandscape()
 
 	for (d_down_dir = GetDefOffset(1) + GetID()->GetDefHeight(); d_down_dir < dist2; d_down_dir++)
 	{
-		if (GBackSemiSolid(dx,d_down_dir)) break;
+		if (GBackSemiSolid(dx, d_down_dir)) break;
 	}
 
 	// adjust height
 
-	var target_y = GetY()+(d_down-d_top)/2 +BoundBy(+d_min-d_top,0,d_min)-BoundBy(+d_min-d_down,0,d_min);
-	var target_y_dir = GetY()+(d_down_dir-d_top_dir)/2 +BoundBy(+d_min-d_top_dir,0,d_min)-BoundBy(+d_min-d_down_dir,0,d_min);
+	var target_y = GetY()+(d_down-d_top)/2 +BoundBy(+d_min-d_top, 0, d_min)-BoundBy(+d_min-d_down, 0, d_min);
+	var target_y_dir = GetY()+(d_down_dir-d_top_dir)/2 +BoundBy(+d_min-d_top_dir, 0, d_min)-BoundBy(+d_min-d_down_dir, 0, d_min);
 
 	var w1, w2;
 
@@ -636,10 +636,10 @@ private func GetFeasableHeight(int x)
 	{
 		height -= 10;
 
-		if (GBackSemiSolid(x-GetX(),height-GetY())) continue; // actually free where we move
-		if (GBackSemiSolid(x-GetX(),height-GetY()+safe_distance)) continue; // keep safe distance to bottom
+		if (GBackSemiSolid(x-GetX(), height-GetY())) continue; // actually free where we move
+		if (GBackSemiSolid(x-GetX(), height-GetY()+safe_distance)) continue; // keep safe distance to bottom
 
-		if (GetPathLength(GetX(),GetY(), x, height) != nil) // and we can plan to this point!!
+		if (GetPathLength(GetX(), GetY(), x, height) != nil) // and we can plan to this point!!
 			found_starting_point = true;
 	}
 
@@ -647,7 +647,7 @@ private func GetFeasableHeight(int x)
 	{
 		bottom_range = height;
 
-		while ( height > 0 && !GBackSemiSolid(x-GetX(),height-GetY()))
+		while ( height > 0 && !GBackSemiSolid(x-GetX(), height-GetY()))
 		{
 			height -= 10;
 		}
@@ -664,10 +664,10 @@ private func GetFeasableHeight(int x)
 	{
 		height += 10;
 
-		if (GBackSemiSolid(x-GetX(),height-GetY())) continue; // actually free where we move
-		if (GBackSemiSolid(x-GetX(),height-GetY()-safe_distance)) continue; // keep safe distance to top
+		if (GBackSemiSolid(x-GetX(), height-GetY())) continue; // actually free where we move
+		if (GBackSemiSolid(x-GetX(), height-GetY()-safe_distance)) continue; // keep safe distance to top
 
-		if (GetPathLength(GetX(),GetY(), x, height) != nil) // and we can plan to this point!!
+		if (GetPathLength(GetX(), GetY(), x, height) != nil) // and we can plan to this point!!
 			found_starting_point = true;
 	}
 
@@ -675,7 +675,7 @@ private func GetFeasableHeight(int x)
 	{
 		top_range = height;
 
-		while ( height < LandscapeHeight() && !GBackSemiSolid(x-GetX(),height-GetY()))
+		while ( height < LandscapeHeight() && !GBackSemiSolid(x-GetX(), height-GetY()))
 		{
 			height += 10;
 		}

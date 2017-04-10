@@ -20,7 +20,7 @@ func RemoveBackpack()
 
 //private func DiggingProcess()
 //{
-//	SetXDir(this.dig_xdir,100); SetYDir(this.dig_ydir,100);
+//	SetXDir(this.dig_xdir, 100); SetYDir(this.dig_ydir, 100);
 //	return true;
 //}
 

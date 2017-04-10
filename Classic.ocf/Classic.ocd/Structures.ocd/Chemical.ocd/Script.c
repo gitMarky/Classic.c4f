@@ -18,7 +18,7 @@ func Definition(def)
 	def.MeshTransformation = Trans_Translate(1500);
 	def.PictureTransformation = Trans_Mul(Trans_Translate(0, 0, -1000),
 	                                      Trans_Rotate(-25, 1, 0, 0),
-	                                      Trans_Rotate(-20,0,1,0));
+	                                      Trans_Rotate(-20, 0, 1, 0));
 }
 
 func NoConstructionFlip(){ return true; } // not supported

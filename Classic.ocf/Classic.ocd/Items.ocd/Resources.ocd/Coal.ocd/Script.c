@@ -4,12 +4,12 @@ protected func Construction()
 {
 	var graphic = Random(5);
 	if (graphic)
-		SetGraphics(Format("%d",graphic));
+		SetGraphics(Format("%d", graphic));
 }
 
 protected func Hit(x, y)
 {
-	StonyObjectHit(x,y);
+	StonyObjectHit(x, y);
 	return true;
 }
 

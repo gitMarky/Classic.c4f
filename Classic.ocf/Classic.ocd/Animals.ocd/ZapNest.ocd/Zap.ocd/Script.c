@@ -4,7 +4,7 @@ local target, origin_x, origin_y;
 
 private func Flying()
 {
-	var xdir,ydir;
+	var xdir, ydir;
 
 	if (GetXDir() < 0)
 		SetDir(DIR_Left);
@@ -38,10 +38,10 @@ private func Flying()
 
 	if (target)
 	{
-		xdir += BoundBy((target->GetX()-GetX()),-11,11);
-		ydir += BoundBy((target->GetY()-GetY())/3,-7,7);
+		xdir += BoundBy((target->GetX()-GetX()),-11, 11);
+		ydir += BoundBy((target->GetY()-GetY())/3,-7, 7);
 	}
-	else if (Distance(GetX(),GetY(),origin_x, origin_y) > 50) // return to the swarm
+	else if (Distance(GetX(), GetY(), origin_x, origin_y) > 50) // return to the swarm
 	{
 		xdir = BoundBy(origin_x - GetX(), -1, 1);
 		ydir = BoundBy(origin_y - GetY(), -1, 1);
@@ -49,10 +49,10 @@ private func Flying()
 		ydir = RandomX(ydir, 6 * ydir);
 	}
 
-	if (GBackLiquid(xdir,ydir))
+	if (GBackLiquid(xdir, ydir))
 		SetSpeed();
 	else
-		SetSpeed(xdir,ydir);
+		SetSpeed(xdir, ydir);
 }
 
 protected func Check()
@@ -76,8 +76,8 @@ protected func Check()
 	if (target)
 	if (!Random(30)
 	|| target->Contained()
-	|| GBackSemiSolid(target->GetX()-GetX(),target->GetY()-GetY())
-    || (!Random(5) && !PathFree(GetX(),GetY(),target->GetX(),target->GetY())))
+	|| GBackSemiSolid(target->GetX()-GetX(), target->GetY()-GetY())
+    || (!Random(5) && !PathFree(GetX(), GetY(), target->GetX(), target->GetY())))
 		target = nil;
 
 	// sting
@@ -88,7 +88,7 @@ protected func Check()
 private func Sting(obj)
 {
 	if (obj == nil) return;
-	Punch(obj,3+Random(2));
+	Punch(obj, 3+Random(2));
 	DoSting();
 	if (!Random(3)) Death();
 }
@@ -137,7 +137,7 @@ Fly = {
 		Speed=100,
 		Length=10,
 		Delay=2,
-		X=0,Y=0,Wdt=4,Hgt=4,OffX=-1,OffY=-1,
+		X=0, Y=0, Wdt=4, Hgt=4, OffX=-1, OffY=-1,
 		NextAction="Fly",
 		PhaseCall="Flying",
 		EndCall="Check",

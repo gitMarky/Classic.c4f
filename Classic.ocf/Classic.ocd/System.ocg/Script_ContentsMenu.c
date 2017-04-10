@@ -54,7 +54,7 @@ global func GetStackedContents()
 		var has_stacked = false;
 		for (var stackcontent in stacked)
 		{
-			if (!CanStackObjects(content,stackcontent[0])) continue;
+			if (!CanStackObjects(content, stackcontent[0])) continue;
 			stackcontent[GetLength(stackcontent)] = content;
 			has_stacked = true;
 			break;

@@ -153,7 +153,7 @@ func InitializePlayer(int player)
 		[TFlint, 7],
 //		[SuperTFlint, 5],
 		[ClassicDynamiteBox, 3],
-//		[TeraFlint,1],
+//		[TeraFlint, 1],
 		[FireBomb, 2],
 		[GunPowder, 10],
 		[MetalBarrel, 3],
@@ -202,7 +202,7 @@ func CreateHomeBase(int player)
 	
 	for (var i = 0; GetCrew(player, i); ++i)
     {
-		GetCrew(player, i)->SetPosition(x + RandomX(-8,8), y - 10);
+		GetCrew(player, i)->SetPosition(x + RandomX(-8, 8), y - 10);
     }
 
 	homeBase->CreateContents(Wood, 3);

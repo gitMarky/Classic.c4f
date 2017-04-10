@@ -8,7 +8,7 @@ protected func Construction()
 {
 	var graphic = Random(3);
 	if (graphic)
-		SetGraphics(Format("%d",graphic));
+		SetGraphics(Format("%d", graphic));
 }
 
 // Impact sound
@@ -133,12 +133,12 @@ func FxIntBridgeTimer(object clonk, proplist effect, int time)
 	var ox = dy * line_wdt / d, oy = -dx * line_wdt / d;
 	dx = dx * line_len / (d*10);
 	dy = dy * line_len / (d*10);
-	DrawMaterialQuad("Earth-earth", last_x-ox,last_y-oy, last_x+dx-ox,last_y+dy-oy, last_x+dx+ox,last_y+dy+oy, last_x+ox,last_y+oy, DMQ_Bridge);
+	DrawMaterialQuad("Earth-earth", last_x-ox, last_y-oy, last_x+dx-ox, last_y+dy-oy, last_x+dx+ox, last_y+dy+oy, last_x+ox, last_y+oy, DMQ_Bridge);
 	effect.LastX += dx;
 	effect.LastY += dy;
 
 	// bridge time is up?
-	loamused += Max(line_len/10,1);
+	loamused += Max(line_len/10, 1);
 	if (loamused >= BridgeLength)
 	{
 		clonk->CancelUse();

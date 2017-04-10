@@ -41,6 +41,6 @@ global func PlaceGrass(int amount, int start, int end, int height, int bottom)
 		}
 		x += 9;
 
-		variance = BoundBy(variance + RandomX(-5,5), 0, 100);
+		variance = BoundBy(variance + RandomX(-5, 5), 0, 100);
 	}
 }

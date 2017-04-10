@@ -96,7 +96,7 @@ public func FxSmeltingTimer(object target, proplist effect, int time)
 
 	if (time == 290)
 	{
-		Sound("Fire::Fire", false ,100, nil, -1);
+		Sound("Fire::Fire", false , 100, nil, -1);
 		Sound("Structures::Furnace::Stop");
 		return FX_Execute_Kill;
 	}

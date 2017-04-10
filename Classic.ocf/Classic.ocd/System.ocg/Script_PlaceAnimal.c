@@ -11,7 +11,7 @@ static const PLACEMENT_Material_Any = -1;
  
  @par definition Object to be placed.
  @par amount Quantity to be planted.
- @par rectangle [optional] Target rectangle as array [x,y,width,height]. Always in absolute coordinates.
+ @par rectangle [optional] Target rectangle as array [x, y, width, height]. Always in absolute coordinates.
  @par placement [optional]
  {@table
   {@tr {@th Constant} {@th Value} {@th Description}}

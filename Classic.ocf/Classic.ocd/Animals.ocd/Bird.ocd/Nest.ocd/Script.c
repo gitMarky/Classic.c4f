@@ -55,7 +55,7 @@ public func UpdateGraphics(object pObj)
 		var info = {object = nil, posX = nil, posY = nil,};
 		info.object = pObj;
 		info.posX = RandomX(GetDefOffset()-pObj->GetDefOffset(), GetID()->GetDefWidth()+GetDefOffset()-(pObj->GetDefWidth()+ pObj->GetDefOffset()));
-		info.posY = GetID()->GetDefHeight()+GetDefOffset(1)-(pObj->GetDefHeight()+ pObj->GetDefOffset(1)) -3 + RandomX(-1,1);
+		info.posY = GetID()->GetDefHeight()+GetDefOffset(1)-(pObj->GetDefHeight()+ pObj->GetDefOffset(1)) -3 + RandomX(-1, 1);
 
 		var addInfo = true;
 		for (var savedInfo in this.contentList)

@@ -265,7 +265,7 @@ local ActMap = {
 
 func Definition(def)
 {
-	def.PictureTransformation = Trans_Mul(Trans_Rotate(-25,1,0,0),Trans_Rotate(40,0,1,0));
+	def.PictureTransformation = Trans_Mul(Trans_Rotate(-25, 1, 0, 0), Trans_Rotate(40, 0, 1, 0));
 }
 
 local Name = "$Name$";

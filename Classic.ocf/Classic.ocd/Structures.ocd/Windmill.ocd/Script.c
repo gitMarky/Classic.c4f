@@ -18,7 +18,7 @@ func NoConstructionFlip(){ return true; } // not supported
 protected func Construction()
 {
 	_inherited(...);
-	this.MeshTransformation = Trans_Mul(Trans_Rotate(RandomX(-5,5), 0, 1, 0), 
+	this.MeshTransformation = Trans_Mul(Trans_Rotate(RandomX(-5, 5), 0, 1, 0), 
 	                                    Trans_Translate(-1200, -11000, 0));
 }
 
