@@ -450,7 +450,7 @@ private func BirdFindTree(proplist effect)
 
     var obj, pTree;
     // Find a suitable tree
-    for(obj in FindObjects(Find_Func("IsTree"), Find_Distance(distance),
+    for (obj in FindObjects(Find_Func("IsTree"), Find_Distance(distance),
                Find_Not(Find_OCF(OCF_OnFire)), Find_Func("IsStanding")))
     {
     	if (obj->GetCon() < 100) continue;
@@ -570,23 +570,23 @@ public func AvoidHittingLandscape()
 	var d_min = 40;
 
 	// calculate distance to landscape right below the bird
-	for(d_top = Abs(GetDefOffset(1)); d_top < dist; d_top++)
+	for (d_top = Abs(GetDefOffset(1)); d_top < dist; d_top++)
 	{
 		if (GBackSemiSolid(0,-d_top)) break;
 	}
 
-	for(d_down = GetDefOffset(1) + GetID()->GetDefHeight(); d_down < dist; d_down++)
+	for (d_down = GetDefOffset(1) + GetID()->GetDefHeight(); d_down < dist; d_down++)
 	{
 		if (GBackSemiSolid(0,d_down)) break;
 	}
 
 	// calculate distance to landscape in movement direction
-	for(d_top_dir = Abs(GetDefOffset(1)); d_top_dir < dist2; d_top_dir++)
+	for (d_top_dir = Abs(GetDefOffset(1)); d_top_dir < dist2; d_top_dir++)
 	{
 		if (GBackSemiSolid(dx,-d_top_dir)) break;
 	}
 
-	for(d_down_dir = GetDefOffset(1) + GetID()->GetDefHeight(); d_down_dir < dist2; d_down_dir++)
+	for (d_down_dir = GetDefOffset(1) + GetID()->GetDefHeight(); d_down_dir < dist2; d_down_dir++)
 	{
 		if (GBackSemiSolid(dx,d_down_dir)) break;
 	}

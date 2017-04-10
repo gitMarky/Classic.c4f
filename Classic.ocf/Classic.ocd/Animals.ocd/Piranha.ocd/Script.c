@@ -82,8 +82,8 @@ private func InitFuzzyRules()
 private func UpdateVision()
 {
 	brain->Fuzzify("hunger", hunger);
-	UpdateVisionFor("food", "food_range", FindObjects(Find_Distance(VisionMaxRange), Find_OCF(OCF_Alive), Find_Func("IsPrey"), Find_NoContainer(), Sort_Distance()), true);
-	UpdateVisionFor("friend", nil, FindObjects(Find_Distance(VisionMaxRange), Find_ID(GetID()), Find_Exclude(this), Find_NoContainer(), Sort_Distance()));
+	UpdateVisionfor ("food", "food_range", FindObjects(Find_Distance(VisionMaxRange), Find_OCF(OCF_Alive), Find_Func("IsPrey"), Find_NoContainer(), Sort_Distance()), true);
+	UpdateVisionfor ("friend", nil, FindObjects(Find_Distance(VisionMaxRange), Find_ID(GetID()), Find_Exclude(this), Find_NoContainer(), Sort_Distance()));
 	UpdateWallVision();
 }
 

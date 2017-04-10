@@ -187,10 +187,10 @@ func CreateHomeBase(int player)
 	{
 		x = 50 + Random(LandscapeWidth() - 100);
 		// avoid lake?
-	  	while(Inside(x, LandscapeWidth() / 2 - 150, LandscapeWidth() / 2 + 150)) 
+	  	while (Inside(x, LandscapeWidth() / 2 - 150, LandscapeWidth() / 2 + 150)) 
 	    	x = 50 + Random(LandscapeWidth() - 100);
 		y = 0;
-		while(!GBackSolid(x, y) && y < LandscapeHeight()) ++y;
+		while (!GBackSolid(x, y) && y < LandscapeHeight()) ++y;
 		
 		if (!FindObject(Find_ID(homeBaseType), Find_Distance(50, x, y)))
 		{

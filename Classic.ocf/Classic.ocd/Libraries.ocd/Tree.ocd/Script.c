@@ -137,7 +137,7 @@ public func CastLeafParticles()
 	{
 		var amount = Random(GetCon()/20) + 1;
 
-		for(var i=0; i<amount; i++)
+		for (var i=0; i<amount; i++)
 		{
 			var x = GetDefOffset(0) + Random(GetID()->GetDefWidth()-20) +10;
 			var y = GetDefOffset(1) + Random(GetID()->GetDefHeight()-GetDefFireTop()-20) +10;

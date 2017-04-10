@@ -51,7 +51,7 @@ protected func Entrance(object container)
 	if (!(container->~IsNest()))
 	{
 		ClearScheduleCall(this, "FinishBreeding");
-		for(var obj in FindObjects(Find_Container(this)))
+		for (var obj in FindObjects(Find_Container(this)))
 		{
 			if (obj) obj->RemoveObject();
 		}

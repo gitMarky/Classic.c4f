@@ -55,14 +55,14 @@ func FxIntBaseTimer(pThis, effect, iTime)
 	var pObj;
 	// Can this base heal? Then look for clonks that need some
 	if (CanHeal() && GetHeal())
-		for(pObj in FindObjects(Find_Container(this), Find_OCF(OCF_CrewMember), Find_Allied(GetOwner())))
+		for (pObj in FindObjects(Find_Container(this), Find_OCF(OCF_CrewMember), Find_Allied(GetOwner())))
 		{
 			if (pObj->GetEnergy() < pObj->GetMaxEnergy() && !GetEffect("IntBaseHeal", pObj))
 				AddEffect("IntBaseHeal", pObj, 1, 1, this);
 		}
 	// Can this base extinguish? Then look for something on fire
 	if (CanExtinguish())
-		for(pObj in FindObjects(Find_Container(this), Find_OCF(OCF_OnFire), Find_Allied(GetOwner())))
+		for (pObj in FindObjects(Find_Container(this), Find_OCF(OCF_OnFire), Find_Allied(GetOwner())))
 			pObj->Extinguish();
 }
 

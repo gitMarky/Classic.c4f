@@ -34,7 +34,7 @@ global func FireEventGlobal(string event)
 	var objects = FindObjects(Find_Func("HasEventListener"));
 	
 	var target;
-	for(target in objects)
+	for (target in objects)
 	{
 		if (target) FireEvent(event, target);
 	}

@@ -15,7 +15,7 @@ func FxIntDigTimer(pTarget, effect, iTime)
 	{
 		var chunks = FindObjects(Find_Func("IsRemoveableMaterialChunk"), Find_Distance(12));
 
-		for(var obj in chunks) obj->RemoveObject();
+		for (var obj in chunks) obj->RemoveObject();
 	}
 	
 	return _inherited(pTarget, effect, iTime);

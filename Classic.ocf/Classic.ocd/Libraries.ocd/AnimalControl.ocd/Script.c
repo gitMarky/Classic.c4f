@@ -132,7 +132,7 @@ protected func FxIntAnimalActivityTimer(object target, proplist effect, int time
 	if (effect.ignoreCalls) return;
 
 	var call;
-	for(call in target->~AnimalActivityCalls())
+	for (call in target->~AnimalActivityCalls())
 	{
 		if (call == nil) break;
 

@@ -44,7 +44,7 @@ func Drilling()
 
 	// has to remove dug out earth!!!!!
 	var chunks = FindObjects(Find_Func("IsRemoveableMaterialChunk"), Find_InRect(bounds_l,bounds_u, bounds_r-bounds_l, bounds_d-bounds_u));
-	for(var obj in chunks) obj->RemoveObject();
+	for (var obj in chunks) obj->RemoveObject();
 }
 
 local Plane = 250;

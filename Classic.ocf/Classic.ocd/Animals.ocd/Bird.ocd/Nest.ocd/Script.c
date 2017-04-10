@@ -58,7 +58,7 @@ public func UpdateGraphics(object pObj)
 		info.posY = GetID()->GetDefHeight()+GetDefOffset(1)-(pObj->GetDefHeight()+ pObj->GetDefOffset(1)) -3 + RandomX(-1,1);
 
 		var addInfo = true;
-		for(var savedInfo in this.contentList)
+		for (var savedInfo in this.contentList)
 		{
 			if (GetType(savedInfo) != C4V_PropList) continue;
 			if (savedInfo.object == pObj) addInfo = false;
@@ -69,12 +69,12 @@ public func UpdateGraphics(object pObj)
 
 	var layer = GetUnusedOverlayID(1);
 
-	for(var i = 1; i < layer; i++)
+	for (var i = 1; i < layer; i++)
 	{
 		SetGraphics(nil, nil, i, GFXOV_MODE_Base);
 	}
 
-	for(var savedInfo in this.contentList)
+	for (var savedInfo in this.contentList)
 	{
 		if (savedInfo.object == nil) continue;
 		if (savedInfo.object->Contained() != this) continue;
@@ -102,7 +102,7 @@ private func Remove()
 private func DropContents()
 {
 	if (this.contentList)
-	for(var savedInfo in this.contentList)
+	for (var savedInfo in this.contentList)
 	{
 		if (savedInfo.object->Contained() != this) continue;
 		savedInfo.object->Exit(savedInfo.posX, savedInfo.posY);
