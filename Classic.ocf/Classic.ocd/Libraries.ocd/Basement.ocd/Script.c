@@ -32,8 +32,9 @@ private func BasementWidth(){ return 0; }
 
 private func CreateBasement()
 {
-	if(!GetEffect(FX_BasementHandler, this)) AddEffect(FX_BasementHandler, this, 1, 0, this, 0, BasementID());
+	if (!GetEffect(FX_BasementHandler, this)) CreateEffect(IntBasementHandler, 1, 0, BasementID());
 }
+
 
 private func RemoveBasement()
 {
@@ -41,65 +42,68 @@ private func RemoveBasement()
 }
 
 
-/* Effekte */
+/* Effects */
 
-public func FxIntBasementHandlerStart(object target, proplist effect, int temporary, id basementID)
+local IntBasementHandler = new Effect
 {
-	if(temporary) return;
-
-	if(target->GetID() == basementID) return;
-
-	if(!effect.basement)
+	Start = func (int temporary, id basementID)
 	{
-		effect.basement = target->CreateObjectAbove(basementID, 0, -1, target->GetOwner());
-		
-		var x = effect.basement->GetX();
-		var defBottom = target->GetDefBottom();
-		var offsetY = effect.basement->GetDefOffset(1);
-		var y = defBottom - offsetY;
-		//Log("Creating basement at %d %d (%d - %d", x, y, defBottom, offsetY);
-		
-		effect.basement -> SetPosition(x, y);
-		effect.basement -> MoveOutClonks();
-		effect.basement -> SetCategory(C4D_StaticBack);
-		target->~SetBasement(effect.basement);
-	}
-}
-
-public func FxIntBasementHandlerStop(object target, proplist effect, int reason, bool temporary)
-{
-	if(temporary) return;
-
-	if(effect.basement)
+		if (temporary) return;
+	
+		if (this.Target->GetID() == basementID) return;
+	
+		if (!this.basement)
+		{
+			this.basement = this.Target->CreateObjectAbove(basementID, 0, -1, this.Target->GetOwner());
+			
+			var x = this.basement->GetX();
+			var defBottom = this.Target->GetDefBottom();
+			var offsetY = this.basement->GetDefOffset(1);
+			var y = defBottom - offsetY;
+			//Log("Creating basement at %d %d (%d - %d", x, y, defBottom, offsetY);
+			
+			this.basement -> SetPosition(x, y);
+			this.basement -> MoveOutClonks();
+			this.basement -> SetCategory(C4D_StaticBack);
+			this.Target->~SetBasement(this.basement);
+		}
+	},
+	
+	Stop = func (int reason, bool temporary)
 	{
-		effect.basement->RemoveBasement();
-	}
-}
+		if (temporary) return;
+	
+		if (this.basement)
+		{
+			this.basement->RemoveBasement();
+		}
+	},
+};
 
 
 /* Just copied, needs better code! */
 
 private func MoveOutClonks()
 {
-	var pObj;
-	if(GetID()!=BasementID()) return;
+	var clonk;
+	if (GetID() != BasementID()) return;
 
 	var tol = 10;
 
-	for(pObj in FindObjects(Find_InRect(-tol-BasementWidth()/2,-15, +2*tol + BasementWidth(), +25),
+	for (clonk in FindObjects(Find_InRect(-tol-BasementWidth()/2,-15, +2*tol + BasementWidth(), +25),
                                 Find_OCF(OCF_Collectible | OCF_Grab | OCF_Alive),
                                 Find_NoContainer(),
                                 Find_Not(Find_Func("IsBridge")),
                                 Find_Not(Find_Category(C4D_Structure))))
-		MoveOutClonk(pObj);
+		MoveOutClonk(clonk);
 }
   
-private func MoveOutClonk(object pObj)
+private func MoveOutClonk(object clonk)
 {
-	if(GetID()!=BasementID()) return;
+	if (GetID() != BasementID()) return;
 
-	while(pObj->Stuck() && Inside(pObj->GetY()-this->GetY(),-15,+5))
-		pObj->SetPosition(pObj->GetX(),pObj->GetY()-1);  
+	while (clonk->Stuck() && Inside(clonk->GetY() - this->GetY(), -15, +5))
+		clonk->SetPosition(clonk->GetX(), clonk->GetY() - 1);  
 }
 
 local Name="$Name$";

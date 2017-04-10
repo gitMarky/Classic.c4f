@@ -7,11 +7,11 @@
 #include Dynamite
 
 // time in frames until explosion
-func FuseTime() { return 100; }
+local FuseTime = 100;
 
 local Name = "$Name$";
 local Description = "$Description$";
-local Collectible = 1;
+local Collectible = true;
 
 local BlastIncinerate = 1;
 local ContactIncinerate = 1;

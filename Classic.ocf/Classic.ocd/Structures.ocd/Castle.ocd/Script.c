@@ -111,7 +111,7 @@ func AddCastleDefenseAI(object crew)
 	var guard_range_x = 300;
 	var guard_range_y = 200;
 	AI->SetGuardRange(crew, GetX()-guard_range_x, GetY()-guard_range_y, guard_range_x*2, guard_range_y*2);
-	AI->SetMaxAggroDistance(crew, AI_DefMaxAggroDistance);
+	AI->SetMaxAggroDistance(crew, AI.MaxAggroDistance);
 	
 }
 

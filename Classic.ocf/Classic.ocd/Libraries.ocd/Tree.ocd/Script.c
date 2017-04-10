@@ -162,18 +162,18 @@ protected func Incineration()
 	_inherited(...);
 }
 
-func FxTreeFallTimer(object target, proplist effect, int time)
+func FxTreeFallTimer(object target, proplist fx, int time)
 {
 	// this makes sure that the tree falls properly,
 	// does not get stuck in an upright position
-	if(!effect.stopForcedFall)
+	if (!fx.stopForcedFall)
 	{
 		var contact = GetContact(-1);
 
 		// if you hit the landscape somewhere else, then stop forced falling
 		// or if you have a 'believable' rotation already, or if it just took to long
 		 if ((contact & CNAT_Top || contact & CNAT_Center) || !Inside(GetR(), -70, 70) || time > 50)
-			 effect.stopForcedFall = true;
+			 fx.stopForcedFall = true;
 
 		if ((contact & CNAT_Bottom))
 		{
@@ -186,7 +186,7 @@ func FxTreeFallTimer(object target, proplist effect, int time)
 		}
 	}
 
-	return _inherited(target, effect, time);
+	return _inherited(target, fx);
 }
 
 private func GetLeafParticles()
@@ -195,7 +195,7 @@ private func GetLeafParticles()
 }
 
 
-protected func FxIntTreeDecayTimer(object target, proplist effect, int time)
+protected func FxIntTreeDecayTimer(object target, proplist fx, int time)
 {
 	if (!target->~IsDeadTree() || target->GetCon() >= 90)
 		return FX_Execute_Kill;

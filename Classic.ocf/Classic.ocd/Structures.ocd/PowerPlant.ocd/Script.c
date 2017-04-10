@@ -218,7 +218,7 @@ func IsLiquidContainerForMaterial(string liquid)
 	return WildcardMatch("Oil", liquid) || WildcardMatch("Lava", liquid);
 }
 
-func GetLiquidContainerMaxFillLevel()
+func GetLiquidContainerMaxFillLevel(liquid_name)
 {
 	return 300;
 }
