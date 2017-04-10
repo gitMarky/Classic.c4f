@@ -12,7 +12,7 @@ protected func Hit()
 	Sound("Hits::GeneralHit?");
 }
 
-local Collectible = 1;
+local Collectible = true;
 local Name = "$Name$";
 local Description = "$Description$";
 local Rebuy = true;

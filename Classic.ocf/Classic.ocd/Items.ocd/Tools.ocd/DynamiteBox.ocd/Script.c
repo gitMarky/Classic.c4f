@@ -11,7 +11,7 @@ func Construction()
 	SetGraphics(nil, DynamiteBox);
 }
 
-local Collectible = 1;
+local Collectible = true;
 local Name = "$Name$";
 local Description = "$Description$";
 local BlastIncinerate = 1;

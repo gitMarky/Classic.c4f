@@ -17,7 +17,7 @@ public func IsFoundryIngredient() { return true; }
 public func IsValuable(){ return true; }
 
 
-local Collectible = 1;
+local Collectible = true;
 local Name = "$Name$";
 local Description = "$Description$";
 local Plane = 470;

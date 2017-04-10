@@ -199,7 +199,7 @@ public func GetMaterialNeed() { return ["Earth", 25]; }
 
 public func GetMaterialIcon(string mat) { return Earth; }
 
-local Collectible = 1;
+local Collectible = true;
 local Name = "$Name$";
 local Description = "$Description$";
 local UsageHelp = "$UsageHelp$";

@@ -86,4 +86,4 @@ Break = {
 
 local Name = "$Name$";
 local Description = "$Description";
-local Collectible=1;
+local Collectible = true;

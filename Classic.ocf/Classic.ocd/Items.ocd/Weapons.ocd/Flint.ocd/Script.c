@@ -16,7 +16,7 @@ public func ExplodeSize()
 	 return 18;
 }
 
-local Collectible = 1;
+local Collectible = true;
 local Name = "$Name$";
 local Description = "$Description$";
 local Rebuy = true;
