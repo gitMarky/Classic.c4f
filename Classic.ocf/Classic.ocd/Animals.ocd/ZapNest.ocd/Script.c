@@ -6,7 +6,7 @@ protected func Hit(){	Break(28);}
 public func Break(int num)
 {
 	var x,y;
-	if(!num) num=28;
+	if (!num) num=28;
 	for (var i=0;i<num;++i)
 	{
 		x=Random(11)-5;

@@ -11,7 +11,7 @@ private func Collection2(object item)
 {
 	if (item->~IsBaseFlag())
 	{
-		if(!IsBase() && item->GetOwner() != NO_OWNER)
+		if (!IsBase() && item->GetOwner() != NO_OWNER)
 		{
 			item->~SetBase(this);
 			MakeBase(false); // this actually makes it a base...

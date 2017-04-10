@@ -126,14 +126,14 @@ global func FxEventListenerOnEvent(object target, proplist effect, object source
 	
 	if (target)
 	{
-		if(function)
+		if (function)
 			target->Call(function, source);
 		else
 			target->Call("OnEvent", source, effect);
 	}
 	else
 	{
-		if(function)
+		if (function)
 			Call(function, source, effect);
 		else
 			Call("OnEvent", source, effect);

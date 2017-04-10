@@ -12,7 +12,7 @@
 
 public func PauseTime()
 {
-	if(!GetCycleSpeed()) return false; // is already paused or not paused at all
+	if (!GetCycleSpeed()) return false; // is already paused or not paused at all
 
 	var effect = GetEffect("IntTimePaused", this);
 
@@ -20,7 +20,7 @@ public func PauseTime()
 	{
 		effect = AddEffect("IntTimePaused", this, 1);
 	}
-	if(!effect) return false;
+	if (!effect) return false;
 
 	effect.backup_advance_seconds_per_tick = advance_seconds_per_tick;
 	advance_seconds_per_tick = 0;
@@ -30,7 +30,7 @@ public func PauseTime()
 public func ResumeTime()
 {
 	var effect = GetEffect("IntTimePaused", this);
-	if(!effect) return false;
+	if (!effect) return false;
 
 	SetCycleSpeed(effect.backup_advance_seconds_per_tick);
 	RemoveEffect(nil, nil, effect);

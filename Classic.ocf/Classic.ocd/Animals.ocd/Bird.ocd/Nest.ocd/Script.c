@@ -17,7 +17,7 @@ protected func Initialize()
 private func FxIntCheckTreeTimer()
 {
 	  // Everything ok
-	  if(pTree && !(pTree->OnFire()) && pTree->IsStanding()) return;
+	  if (pTree && !(pTree->OnFire()) && pTree->IsStanding()) return;
 
 	  DestroyNest();
 	  return -1;
@@ -47,7 +47,7 @@ public func Ejection(object pObj)
 
 public func UpdateGraphics(object pObj)
 {
-	if(GetType(this.contentList) != C4V_Array)
+	if (GetType(this.contentList) != C4V_Array)
 		this.contentList = CreateArray();
 
 	if (pObj != nil)
@@ -60,8 +60,8 @@ public func UpdateGraphics(object pObj)
 		var addInfo = true;
 		for(var savedInfo in this.contentList)
 		{
-			if(GetType(savedInfo) != C4V_PropList) continue;
-			if(savedInfo.object == pObj) addInfo = false;
+			if (GetType(savedInfo) != C4V_PropList) continue;
+			if (savedInfo.object == pObj) addInfo = false;
 		}
 
 		if (addInfo) PushBack(this.contentList, info);

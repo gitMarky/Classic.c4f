@@ -42,7 +42,7 @@ global func CreateContentsMenus()
 
 global func GetStackedContents()
 {
-	if(!this) return nil;
+	if (!this) return nil;
 
 	var contents = FindObjects(Find_Container(this), Find_Not(Find_OCF(OCF_CrewMember)));
 	var stacked = [];

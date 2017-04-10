@@ -128,7 +128,7 @@ func FxIntBridgeTimer(object clonk, proplist effect, int time)
 	// Don't use up loam if the mouse position is reached...
 	// wait for the mouse being moved and then continue bridging
 	// into that direction
-	if(!d) return FX_OK;
+	if (!d) return FX_OK;
 
 	var ox = dy * line_wdt / d, oy = -dx * line_wdt / d;
 	dx = dx * line_len / (d*10);

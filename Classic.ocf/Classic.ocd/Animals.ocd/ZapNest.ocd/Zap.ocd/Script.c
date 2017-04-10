@@ -12,12 +12,12 @@ private func Flying()
 		SetDir(DIR_Right);
 
 	var fleeFromObj = FindObject(Find_Distance(50), Find_Category(C4D_Object), Find_OCF(OCF_HitSpeed1), Find_NoContainer());
-	if(fleeFromObj != nil)
+	if (fleeFromObj != nil)
 	{
 		xdir = BoundBy(GetX() - fleeFromObj->GetX(), -1, 1);
 		ydir = BoundBy(GetY() - fleeFromObj->GetY(), -1, 1);
-		if(xdir == 0) xdir = Random(2) * 2 - 1;
-		if(ydir == 0) ydir = Random(2) * 2 - 1;
+		if (xdir == 0) xdir = Random(2) * 2 - 1;
+		if (ydir == 0) ydir = Random(2) * 2 - 1;
 		xdir = RandomX(5 * xdir, 10 * xdir);
 		ydir = RandomX(5 * ydir, 10 * ydir);
 
@@ -28,7 +28,7 @@ private func Flying()
 
 
 	// do nothing
-	if(Random(4)) return;
+	if (Random(4)) return;
 
 	// random velocity
 	xdir = Random(13)-6;
@@ -64,7 +64,7 @@ protected func Check()
 	// Die randomly
 	if (!Random(160)) return Death();
 	// Buzz
-	if(!Random(50)) DoBuzz();
+	if (!Random(50)) DoBuzz();
 
 	// Get another target...
 	if (!Random(10)) target = FindTarget(200);
@@ -81,7 +81,7 @@ protected func Check()
 		target = nil;
 
 	// sting
-	if(!Random(2))
+	if (!Random(2))
 	 Sting(FindTarget());
 }
   
@@ -90,7 +90,7 @@ private func Sting(obj)
 	if (obj == nil) return;
 	Punch(obj,3+Random(2));
 	DoSting();
-	if(!Random(3)) Death();
+	if (!Random(3)) Death();
 }
 
 func DoBuzz()

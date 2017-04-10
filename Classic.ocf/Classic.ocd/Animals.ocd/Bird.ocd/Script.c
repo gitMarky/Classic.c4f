@@ -36,7 +36,7 @@ private func FxIntAnimalActivityStatus( object target, proplist effect)
 	effect.ignoreCalls = false;
 
 	// Dead birds don't do much...
-	if(!GetAlive())
+	if (!GetAlive())
 	{
 		effect.ignoreCalls = true;
 		return;
@@ -69,7 +69,7 @@ private func FxIntAnimalActivityMovement( object target, proplist effect)
 
 	if (GetAction() == "Sit")
 	{
-		if(Random(2))
+		if (Random(2))
 			SetDir(DIR_Left);
 		else
 			SetDir(DIR_Right);
@@ -125,7 +125,7 @@ private func FxIntAnimalActivityShelter( object target, proplist effect)
 	if (target != this) return;
 
 	// remove current shelter
-	if(effect.shelter)
+	if (effect.shelter)
 	{
 		  // if the nest is not hanging on a tree anymore
 		  // if the nest is flooded
@@ -139,7 +139,7 @@ private func FxIntAnimalActivityShelter( object target, proplist effect)
 	}
 
 	// No nest? Build one!
-	if(!effect.shelter)
+	if (!effect.shelter)
 	{
 	    var pTree = BirdFindTree(effect);
 
@@ -163,7 +163,7 @@ private func FxIntAnimalActivityShelter( object target, proplist effect)
 	}
 	else
 	{
-		if(effect.shelter->GetCon() < 100) BirdFlyToNest(effect); // builds the rest
+		if (effect.shelter->GetCon() < 100) BirdFlyToNest(effect); // builds the rest
 	}
 
 	if (IsNight()) // go to sleep
@@ -221,11 +221,11 @@ private func FlyTryAttack()
 	  if (GetAction() != "Fly") return;
 
 	  // Find a blimp or balloon
-	  if(!this.pokeTarget)
+	  if (!this.pokeTarget)
 	  {
 		  this.pokeTarget = FindObject(Find_Func("IsPokeableByBird", this));
 	  }
-	  if(!this.pokeTarget) return;
+	  if (!this.pokeTarget) return;
 
 	  // Poke it!
 	  this.pokeTarget->~GetPoked(this);
@@ -507,10 +507,10 @@ protected func BirdPrepareBuildNest()
 protected func BirdDoBuildNest()
 {
 	  var effect = AnimalGetActivityEffect();
-	  if(!effect || !effect.shelter || effect.shelter->OnFire() || ObjectDistance(effect.shelter) > GetID()->GetDefWidth())
+	  if (!effect || !effect.shelter || effect.shelter->OnFire() || ObjectDistance(effect.shelter) > GetID()->GetDefWidth())
 	  { SetAction("Fly");  return; }
 
-	  if(GetPhase()%2) return;
+	  if (GetPhase()%2) return;
 
 	  effect.shelter->DoCon(1);
 	  if (effect.shelter->GetCon()>=100)
@@ -524,9 +524,9 @@ protected func BirdDoBuildNest()
 
 private func BirdFlyToNest(proplist effect)
 {
-	if(!effect.shelter) return;
+	if (!effect.shelter) return;
 
-	if(effect.shelter->GetCon() < 100)
+	if (effect.shelter->GetCon() < 100)
 	{
 		// continue building the nest
 		SetCommand("Call", this, 0, 0, nil, "BirdPrepareBuildNest");
@@ -544,7 +544,7 @@ private func BirdFlyToNest(proplist effect)
 protected func BirdEnterNest()
 {
 	  var effect = AnimalGetActivityEffect();
-	  if(!effect || !effect.shelter) return;
+	  if (!effect || !effect.shelter) return;
 
 	  ForceEnter(effect.shelter);
 }
@@ -552,7 +552,7 @@ protected func BirdEnterNest()
 
 public func AvoidHittingLandscape()
 {
-	if(Contained()) return;
+	if (Contained()) return;
 
 	var dist = GetID()->GetDefHeight()*2;
 
@@ -572,23 +572,23 @@ public func AvoidHittingLandscape()
 	// calculate distance to landscape right below the bird
 	for(d_top = Abs(GetDefOffset(1)); d_top < dist; d_top++)
 	{
-		if(GBackSemiSolid(0,-d_top)) break;
+		if (GBackSemiSolid(0,-d_top)) break;
 	}
 
 	for(d_down = GetDefOffset(1) + GetID()->GetDefHeight(); d_down < dist; d_down++)
 	{
-		if(GBackSemiSolid(0,d_down)) break;
+		if (GBackSemiSolid(0,d_down)) break;
 	}
 
 	// calculate distance to landscape in movement direction
 	for(d_top_dir = Abs(GetDefOffset(1)); d_top_dir < dist2; d_top_dir++)
 	{
-		if(GBackSemiSolid(dx,-d_top_dir)) break;
+		if (GBackSemiSolid(dx,-d_top_dir)) break;
 	}
 
 	for(d_down_dir = GetDefOffset(1) + GetID()->GetDefHeight(); d_down_dir < dist2; d_down_dir++)
 	{
-		if(GBackSemiSolid(dx,d_down_dir)) break;
+		if (GBackSemiSolid(dx,d_down_dir)) break;
 	}
 
 	// adjust height
@@ -598,7 +598,7 @@ public func AvoidHittingLandscape()
 
 	var w1, w2;
 
-	if(GetYDir() <= 3)
+	if (GetYDir() <= 3)
 	{
 		w1 = 2;
 		w2 = 1;
@@ -610,12 +610,12 @@ public func AvoidHittingLandscape()
 	}
 	target_y = (w1*target_y + w2*target_y_dir)/(w1+w2);
 
-	if(GetY() < target_y - tolerance_y)
+	if (GetY() < target_y - tolerance_y)
 	{
 		SetYDir(BoundBy(GetYDir()+ydir_change, -7, 7));
 	}
 
-	if(GetY() > target_y + tolerance_y)
+	if (GetY() > target_y + tolerance_y)
 	{
 		SetYDir(BoundBy(GetYDir()-ydir_change, -7, 7));
 	}

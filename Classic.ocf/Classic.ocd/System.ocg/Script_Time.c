@@ -27,7 +27,7 @@ global func GetTime()
 {
 	var time = FindObject(Find_ID(Time));
 
-	if(time)
+	if (time)
 	{
 		return time->GetTime();
 	}

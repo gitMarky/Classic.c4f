@@ -105,7 +105,7 @@ public func OnProductionFinish(id product)
 
 protected func Working()
 {
-	if(!hold_production) Smoking();
+	if (!hold_production) Smoking();
 }
 
 

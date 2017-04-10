@@ -56,10 +56,10 @@ private func AnimalInit()
 	else
 		AnimalTurnRight();
 
-	if( AnimalGetActivityEffect() == nil)
+	if ( AnimalGetActivityEffect() == nil)
 		AddEffect(ANIMAL_Effect_Activity, this, 50, AnimalActivityInterval(), this);
 
-	if( GetEffect(ANIMAL_Effect_Turn, this) == nil)
+	if ( GetEffect(ANIMAL_Effect_Turn, this) == nil)
 		AddEffect(ANIMAL_Effect_Turn, this, 1, 1, this);
 }
 
@@ -70,7 +70,7 @@ public func AnimalGetActivityEffect()
 
 private func AnimalInitActivityCalls()
 {
-	if(GetType(this.animalActivityList) != C4V_Array)
+	if (GetType(this.animalActivityList) != C4V_Array)
 		this.animalActivityList = CreateArray();
 
 	AnimalAddActivityCalls();
@@ -125,20 +125,20 @@ protected func FxIntAnimalActivityStart(object target, proplist effect, int temp
 
 protected func FxIntAnimalActivityTimer(object target, proplist effect, int time)
 {
-	if(effect.remove) return -1;
+	if (effect.remove) return -1;
 
 	EffectCall(target, effect, ANIMAL_ActivityCall_Status); // this is always called
 
-	if(effect.ignoreCalls) return;
+	if (effect.ignoreCalls) return;
 
 	var call;
 	for(call in target->~AnimalActivityCalls())
 	{
-		if(call == nil) break;
+		if (call == nil) break;
 
 		EffectCall(target, effect, call);
 
-		if(effect.ignoreCalls) break;
+		if (effect.ignoreCalls) break;
 	}
 }
 

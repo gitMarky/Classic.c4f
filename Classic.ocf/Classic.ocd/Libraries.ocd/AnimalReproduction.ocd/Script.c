@@ -35,7 +35,7 @@ private func AnimalReproductionCondition()
 private func AnimalReproductionTooMany()
 {
 //	var reproductionControl = FindObject(Find_ID(REPR));
-//	if(!reproductionControl)
+//	if (!reproductionControl)
 //	{
 //		if (AnimalReproductionCount() >= AnimalReproductionMaxCount()) return true;
 //	}

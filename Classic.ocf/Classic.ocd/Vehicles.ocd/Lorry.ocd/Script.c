@@ -171,7 +171,7 @@ protected func RejectCollect(id object_id, object obj)
 	else
 	{
 		// if not carried, objects slide over the lorry
-		if(Abs(obj->GetXDir()) > 5)
+		if (Abs(obj->GetXDir()) > 5)
 		{
 			obj->SetYDir(-2);
 			obj->SetRDir(0);

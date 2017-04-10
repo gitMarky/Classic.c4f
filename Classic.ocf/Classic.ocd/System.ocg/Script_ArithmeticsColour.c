@@ -101,7 +101,7 @@ global func RGB2HSL(rgb) {
 		sat=0;
 	} else {
 		
-		if(lightness<128) {
+		if (lightness<128) {
 			sat = (255*diff_val)/(max_val+min_val);
 		} else {
 			sat = (255*diff_val)/(510-(max_val+min_val));
@@ -111,7 +111,7 @@ global func RGB2HSL(rgb) {
 		diff_green= ((255*(max_val-green))/6 + (255*diff_val)/2)/diff_val;
 		diff_blue = ((255*(max_val-blue ))/6 + (255*diff_val)/2)/diff_val;
 			
-		if	 (red ==max_val) hue = diff_blue-diff_green;
+		if (red ==max_val) hue = diff_blue-diff_green;
 		else if (green == max_val) hue = 255/3+diff_red-diff_blue;
 		else if (blue == max_val) hue = 510/3+diff_green-diff_red;
 		

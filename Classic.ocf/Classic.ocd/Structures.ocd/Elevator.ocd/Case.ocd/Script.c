@@ -33,7 +33,7 @@ func Drilling()
 	var bounds_d = GetID()->GetDefHeight() + GetDefOffset(1) + additional_y;
 
 	var rect = Rectangle(GetX() + bounds_l, GetY() + bounds_u, GetX() + bounds_r, GetY() + bounds_d);
-	if(IsMaster())
+	if (IsMaster())
 	{
 		rect.x = Min(rect.x, partner->GetX() + bounds_l);
 		rect.y = Min(rect.y, partner->GetY() + bounds_u);
@@ -51,22 +51,22 @@ local Plane = 250;
 
 func FxElevatorUpperLimitCheckTimer(target, effect, time)
 {
-	if(!elevator) return -1;
-	if(IsSlave()) return -1;
+	if (!elevator) return -1;
+	if (IsSlave()) return -1;
 
 	var d = GetY() - (elevator->GetY() + 15); // was 20
 
 	// HOW COULD THIS HAPPEN :C
-	if(d <= 0)
+	if (d <= 0)
 	{
-		if(GetYDir() < 0)
+		if (GetYDir() < 0)
 		{
 			SetPosition(GetX(), GetY() - d);
 			ForceSync();
 			ContactTop();
 		}
 		else
-			if(GetYDir() == 0)
+			if (GetYDir() == 0)
 				SetPosition(GetX(), GetY() - d);
 
 		effect.Interval = 1;
@@ -100,8 +100,8 @@ func ControlRight(object clonk)
 
 func FxFetchVehiclesTimer(target, effect, time)
 {
-	if(!elevator) return -1;
-	if(IsSlave()) return 1;
+	if (!elevator) return -1;
+	if (IsSlave()) return 1;
 
 	// look for vehicles
 	var additional = -9;
@@ -110,7 +110,7 @@ func FxFetchVehiclesTimer(target, effect, time)
 	var y = - 12;
 	var h = + 15;
 
-	if(IsMaster())
+	if (IsMaster())
 	{
 		x = Min(x, partner->GetX() - GetX() - 12 - additional);
 		w = Max(w, partner->GetX() - GetX() + 12 + additional);

@@ -17,7 +17,7 @@ private func SeedArea() { return 400; }
 private func TreeStrength() { return 150; }
 private func MaxDamage()
 {
-	if(!this)
+	if (!this)
 		return TreeStrength();
 	else
 		return TreeStrength() * Max(GetCon(), 30)/100;
@@ -115,7 +115,7 @@ protected func Damage()
     && this.Touchable != 0)
         AddEffect("IntTreeDecay", this, 1, 51, this);
 
-    if(!Random(3)) CastLeafParticles();
+    if (!Random(3)) CastLeafParticles();
 
   	_inherited(...);
 }
@@ -133,7 +133,7 @@ public func CastLeafParticles()
 	if (OnFire()) return;
 
 	var particles = this->GetLeafParticles();
-	if(!this->IsDeadTree() && particles != nil)
+	if (!this->IsDeadTree() && particles != nil)
 	{
 		var amount = Random(GetCon()/20) + 1;
 

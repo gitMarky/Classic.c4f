@@ -99,8 +99,8 @@ func Destruction()
 
 func LostCase()
 {
-//	if(partner) partner->LoseCombination();
-	if(rope) rope->RemoveObject();
+//	if (partner) partner->LoseCombination();
+	if (rope) rope->RemoveObject();
 
 	// for now: the elevator dies, too
 	Incinerate();

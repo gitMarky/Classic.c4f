@@ -11,9 +11,9 @@ global func PlaceGrass(int amount, int start, int end, int height, int bottom)
 		start = 0;
 	if (!end)
 		end = LandscapeWidth();
-	if(!height)
+	if (!height)
 		height = 0;
-	if(!bottom)
+	if (!bottom)
 		bottom = LandscapeHeight();
 		
 	var x = start, y; 
@@ -35,7 +35,7 @@ global func PlaceGrass(int amount, int start, int end, int height, int bottom)
 						grass->SetObjDrawTransform(scale_x, 0, lat_x, 0, scale_y, -lat_y);
 
 						// put in foreground :D
-						if(!Random(GrassForegroundFrequency())) ScheduleCall(grass, "PlaceVegetationForeground", 5, 0, grass);
+						if (!Random(GrassForegroundFrequency())) ScheduleCall(grass, "PlaceVegetationForeground", 5, 0, grass);
 					}
 			y += 3;
 		}

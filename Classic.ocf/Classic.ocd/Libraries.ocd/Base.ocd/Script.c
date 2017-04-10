@@ -34,7 +34,7 @@ public func IsBase() { return fIsBase; }
 // Makes this building a base or removes the base functionallity
 public func MakeBase(bool fRemoveBase)
 {
-	if(fRemoveBase)
+	if (fRemoveBase)
 	{
 		fIsBase = 0;
 		RemoveEffect("IntBase", this);
@@ -43,7 +43,7 @@ public func MakeBase(bool fRemoveBase)
 	{
 		fIsBase = 1;
 		AddEffect("IntBase", this, 1, 10, this);
-		//if(!FindObject(Find_ID(BaseMaterial), Find_Owner(GetOwner())))
+		//if (!FindObject(Find_ID(BaseMaterial), Find_Owner(GetOwner())))
 		//	CreateObjectAbove(BaseMaterial,AbsX(10),AbsY(10),GetOwner());
 	}
 }
@@ -54,14 +54,14 @@ func FxIntBaseTimer(pThis, effect, iTime)
 {
 	var pObj;
 	// Can this base heal? Then look for clonks that need some
-	if(CanHeal() && GetHeal())
+	if (CanHeal() && GetHeal())
 		for(pObj in FindObjects(Find_Container(this), Find_OCF(OCF_CrewMember), Find_Allied(GetOwner())))
 		{
-			if(pObj->GetEnergy() < pObj->GetMaxEnergy() && !GetEffect("IntBaseHeal", pObj))
+			if (pObj->GetEnergy() < pObj->GetMaxEnergy() && !GetEffect("IntBaseHeal", pObj))
 				AddEffect("IntBaseHeal", pObj, 1, 1, this);
 		}
 	// Can this base extinguish? Then look for something on fire
-	if(CanExtinguish())
+	if (CanExtinguish())
 		for(pObj in FindObjects(Find_Container(this), Find_OCF(OCF_OnFire), Find_Allied(GetOwner())))
 			pObj->Extinguish();
 }
@@ -69,14 +69,14 @@ func FxIntBaseTimer(pThis, effect, iTime)
 func FxIntBaseHealTimer(pClonk, effect)
 {
 	// The clonk has left the base? Stop!
-	if(pClonk->Contained() != this) return -1;
+	if (pClonk->Contained() != this) return -1;
 	// Full energy? Stop too.
-	if(pClonk->GetEnergy() >= pClonk->GetMaxEnergy()) return -1;
+	if (pClonk->GetEnergy() >= pClonk->GetMaxEnergy()) return -1;
 
 	// No energy left? Buy some
-	if(!iEnergy)
+	if (!iEnergy)
 	{
-		if(GetWealth(GetOwner()) >= GetHealCost())
+		if (GetWealth(GetOwner()) >= GetHealCost())
 		{
 			DoWealth(GetOwner(), -GetHealCost());
 			Sound("UI::UnCash?", {player =  pClonk->GetOwner()});
@@ -84,7 +84,7 @@ func FxIntBaseHealTimer(pClonk, effect)
 		}
 	}
 	// Some energy in the storage? heal clonk
-	if(iEnergy)
+	if (iEnergy)
 	{
 		pClonk->DoEnergy(200, 1, FX_Call_EngBaseRefresh, GetOwner()+1);
 		iEnergy--;
