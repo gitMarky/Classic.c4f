@@ -5,3 +5,4 @@ Category=C4D_StaticBack
 Width=1
 Height=1
 Picture=0,0,56,56
+HideInCreator=true
