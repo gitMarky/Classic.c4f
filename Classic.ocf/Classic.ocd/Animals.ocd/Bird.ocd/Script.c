@@ -17,7 +17,7 @@ public func AnimalInitialAction(){    return "Fly";}
 
 /* Initialisierung */
 
-private func FxIntAnimalTurnTimer(object target, proplist effect)
+private func FxIntAnimalTurnTimer(object target, proplist ai)
 {
     if (target != this) return;
 
@@ -29,16 +29,16 @@ private func FxIntAnimalTurnTimer(object target, proplist effect)
 
 }
 
-private func FxIntAnimalActivityStatus( object target, proplist effect)
+private func FxIntAnimalActivityStatus( object target, proplist ai)
 {
     if (target != this) return;
 
-    effect.ignoreCalls = false;
+    ai.ignoreCalls = false;
 
     // Dead birds don't do much...
     if (!GetAlive())
     {
-        effect.ignoreCalls = true;
+        ai.ignoreCalls = true;
         return;
     }
 
@@ -47,7 +47,7 @@ private func FxIntAnimalActivityStatus( object target, proplist effect)
 
 }
 
-private func FxIntAnimalActivityMovement( object target, proplist effect)
+private func FxIntAnimalActivityMovement( object target, proplist ai)
 {
     if (target != this) return;
 
@@ -115,47 +115,47 @@ private func FxIntAnimalActivityMovement( object target, proplist effect)
 //        AnimalTurnLeft();
 }
 
-private func FxIntAnimalActivityFight( object target, proplist effect)
+private func FxIntAnimalActivityFight( object target, proplist ai)
 {
     if (target != this) return;
 
 }
-private func FxIntAnimalActivityShelter( object target, proplist effect)
+private func FxIntAnimalActivityShelter( object target, proplist ai)
 {
     if (target != this) return;
 
     // remove current shelter
-    if (effect.shelter)
+    if (ai.shelter)
     {
           // if the nest is not hanging on a tree anymore
           // if the nest is flooded
           // if the nest is burning
-          if (effect.shelter->GetAction() == "Decay"
-           || GBackSemiSolid(effect.shelter->GetX()-GetX(), effect.shelter->GetY()-GetY())
-           || effect.shelter->OnFire())
+          if (ai.shelter->GetAction() == "Decay"
+           || GBackSemiSolid(ai.shelter->GetX()-GetX(), ai.shelter->GetY()-GetY())
+           || ai.shelter->OnFire())
           {
-                  effect.shelter = nil;
+                  ai.shelter = nil;
           }
     }
 
     // No nest? Build one!
-    if (!effect.shelter)
+    if (!ai.shelter)
     {
-        var pTree = BirdFindTree(effect);
+        var tree = BirdFindTree(ai);
 
-         if (pTree)
+         if (tree)
          {
-             if (!GetEffect("IntBirdNestMarker", pTree))
-                   AddEffect("IntBirdNestMarker", pTree, 1, 0, this);
+             if (!GetEffect("IntBirdNestMarker", tree))
+                   AddEffect("IntBirdNestMarker", tree, 1, 0, this);
 
-            var id = pTree->GetID();
+            var id = tree->GetID();
 
-            var nest_x = pTree->GetX()+id->GetDefOffset()+Random(id->GetDefWidth()-20)+10;
-             var nest_y = pTree->GetY()+id->GetDefOffset(1)+Random(id->GetDefHeight()-id->GetDefFireTop()-20)+10;
+            var nest_x = tree->GetX()+id->GetDefOffset()+Random(id->GetDefWidth()-20)+10;
+             var nest_y = tree->GetY()+id->GetDefOffset(1)+Random(id->GetDefHeight()-id->GetDefFireTop()-20)+10;
 
              nest_x = BoundBy( nest_x, Abs(BirdNest->GetDefOffset()) + 5, LandscapeWidth() - BirdNest->GetDefWidth() - BirdNest->GetDefOffset());
 
-            SetCommand( "Call", this, pTree, 0, nil, "BirdStartBuildNest");
+            SetCommand( "Call", this, tree, 0, nil, "BirdStartBuildNest");
             AddCommand( "MoveTo", nil, nest_x, nest_y);
          }
 
@@ -163,21 +163,21 @@ private func FxIntAnimalActivityShelter( object target, proplist effect)
     }
     else
     {
-        if (effect.shelter->GetCon() < 100) BirdFlyToNest(effect); // builds the rest
+        if (ai.shelter->GetCon() < 100) BirdFlyToNest(ai); // builds the rest
     }
 
     if (IsNight()) // go to sleep
     {
-        BirdFlyToNest(effect);
+        BirdFlyToNest(ai);
 
-        if (Contained() && effect.shelter == Contained() && GetActTime() > 100 && GetAction() != "Sleep")
+        if (Contained() && ai.shelter == Contained() && GetActTime() > 100 && GetAction() != "Sleep")
         {
             SetAction("Sleep");
         }
     }
     else // leave the nest!
     {
-        if (Contained() && effect.shelter && Contained() == effect.shelter)
+        if (Contained() && ai.shelter && Contained() == ai.shelter)
         {
             Exit();
         }
@@ -196,20 +196,20 @@ private func AnimalOnTurnRight()
 
 private func AnimalReproductionCondition()
 {
-    var effect = AnimalGetActivityEffect();
-    if (!effect) return false;
-    if (!effect.shelter) return false;
-    if (Contained() != effect.shelter) return false;
+    var ai = AnimalGetActivityEffect();
+    if (!ai) return false;
+    if (!ai.shelter) return false;
+    if (Contained() != ai.shelter) return false;
     return true;
 }
 
 private func AnimalReproductionCustom()
 {
     if (Random(AnimalReproductionRate())) return true;
-    var effect = AnimalGetActivityEffect();
-    if (!effect) return true;
+    var ai = AnimalGetActivityEffect();
+    if (!ai) return true;
 
-    var egg = effect.shelter->CreateContents(BirdEgg);
+    var egg = ai.shelter->CreateContents(BirdEgg);
     egg->Fertilize(GetID(), 2000);
 
     return true;
@@ -435,20 +435,20 @@ local BorderBound = 7;
 
 
 
-private func BirdFindTree(proplist effect)
+private func BirdFindTree(proplist ai)
 {
-    if (effect.tree)
+    if (ai.tree)
     {
-        if (!(effect.tree->IsStanding()))
-            effect.tree = nil;
+        if (!(ai.tree->IsStanding()))
+            ai.tree = nil;
         else
-            return effect.tree;
+            return ai.tree;
     }
 
     var goodTrees = CreateArray();
     var distance = 500;
 
-    var obj, pTree;
+    var obj, tree;
     // Find a suitable tree
     for (obj in FindObjects(Find_Func("IsTree"), Find_Distance(distance),
                Find_Not(Find_OCF(OCF_OnFire)), Find_Func("IsStanding")))
@@ -468,32 +468,32 @@ private func BirdFindTree(proplist effect)
         var dist = ObjectDistance(target);
         if (dist < distance)
         {
-            pTree = target;
+            tree = target;
             distance = dist;
         }
     }
     // save for future use
-    effect.tree = target;
+    ai.tree = target;
     return target;
 }
 
 
-public func BirdStartBuildNest(pThis, pTree)
+public func BirdStartBuildNest(self, tree)
 {
-      var effect = AnimalGetActivityEffect();
-      if (!pTree || effect == nil) return;
-      if (pTree->GetX()<GetX())
+      var ai = AnimalGetActivityEffect();
+      if (!tree || ai == nil) return;
+      if (tree->GetX()<GetX())
           SetDir(DIR_Left);
       else
           SetDir(DIR_Right);
 
-      effect.shelter = CreateConstruction(BirdNest, (-GetID()->GetDefWidth()+2*GetID()->GetDefWidth()*GetDir())/2, +5, -1, 30);
+      ai.shelter = CreateConstruction(BirdNest, (-GetID()->GetDefWidth()+2*GetID()->GetDefWidth()*GetDir())/2, +5, -1, 30);
 
-      effect.shelter.pTree = pTree;
-      effect.shelter->SetAction("Be", pTree);
+      ai.shelter.tree = tree;
+      ai.shelter->SetAction("Be", tree);
 
-      if (GetEffect("IntBirdNestMarker", pTree))
-          RemoveEffect("IntBirdNestMarker", pTree);
+      if (GetEffect("IntBirdNestMarker", tree))
+          RemoveEffect("IntBirdNestMarker", tree);
 }
 
 protected func BirdPrepareBuildNest()
@@ -506,47 +506,47 @@ protected func BirdPrepareBuildNest()
 
 protected func BirdDoBuildNest()
 {
-      var effect = AnimalGetActivityEffect();
-      if (!effect || !effect.shelter || effect.shelter->OnFire() || ObjectDistance(effect.shelter) > GetID()->GetDefWidth())
+      var ai = AnimalGetActivityEffect();
+      if (!ai || !ai.shelter || ai.shelter->OnFire() || ObjectDistance(ai.shelter) > GetID()->GetDefWidth())
       { SetAction("Fly");  return; }
 
       if (GetPhase()%2) return;
 
-      effect.shelter->DoCon(1);
-      if (effect.shelter->GetCon()>=100)
+      ai.shelter->DoCon(1);
+      if (ai.shelter->GetCon()>=100)
       {
                SetAction("Fly");
-               BirdFlyToNest(effect);
+               BirdFlyToNest(ai);
       }
 }
 
 
 
-private func BirdFlyToNest(proplist effect)
+private func BirdFlyToNest(proplist ai)
 {
-    if (!effect.shelter) return;
+    if (!ai.shelter) return;
 
-    if (effect.shelter->GetCon() < 100)
+    if (ai.shelter->GetCon() < 100)
     {
         // continue building the nest
         SetCommand("Call", this, 0, 0, nil, "BirdPrepareBuildNest");
-        AddCommand("MoveTo", effect.shelter);
+        AddCommand("MoveTo", ai.shelter);
     }
     else
     {
         // Fly to the nest and enter it
         SetCommand("Call", this, 0, 0, nil, "BirdEnterNest");
-        AddCommand("MoveTo", effect.shelter);
+        AddCommand("MoveTo", ai.shelter);
     }
 }
 
 
 protected func BirdEnterNest()
 {
-      var effect = AnimalGetActivityEffect();
-      if (!effect || !effect.shelter) return;
+      var ai = AnimalGetActivityEffect();
+      if (!ai || !ai.shelter) return;
 
-      ForceEnter(effect.shelter);
+      ForceEnter(ai.shelter);
 }
 
 
