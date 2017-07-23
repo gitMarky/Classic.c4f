@@ -148,14 +148,12 @@ private func FxIntAnimalActivityShelter( object target, proplist ai)
              if (!GetEffect("IntBirdNestMarker", tree))
                    AddEffect("IntBirdNestMarker", tree, 1, 0, this);
 
-            var id = tree->GetID();
-
-            var nest_x = tree->GetX()+id->GetDefOffset()+Random(id->GetDefWidth()-20)+10;
-             var nest_y = tree->GetY()+id->GetDefOffset(1)+Random(id->GetDefHeight()-id->GetDefFireTop()-20)+10;
+            var nest_x = tree->GetX() + RandomX(tree->GetLeft() + 10, tree->GetRight() - 10);
+            var nest_y = tree->GetY() + RandomX(tree->GetTop() + 10, tree->GetBottom() - tree.FireTop - 10);
 
              nest_x = BoundBy( nest_x, Abs(BirdNest->GetDefOffset()) + 5, LandscapeWidth() - BirdNest->GetDefWidth() - BirdNest->GetDefOffset());
 
-            SetCommand( "Call", this, tree, 0, nil, "BirdStartBuildNest");
+            SetCommand( "Call", this, tree, nil, nil, "BirdStartBuildNest");
             AddCommand( "MoveTo", nil, nest_x, nest_y);
          }
 
