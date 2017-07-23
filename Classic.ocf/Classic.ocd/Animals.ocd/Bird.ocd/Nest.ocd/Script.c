@@ -4,7 +4,7 @@
  * Author: Marky, original found in Clonk Rage
  */
 
-local pTree;
+local tree;
 
 public func IsNest(){ return true;}
 
@@ -17,7 +17,7 @@ protected func Initialize()
 private func FxIntCheckTreeTimer()
 {
 	  // Everything ok
-	  if (pTree && !(pTree->OnFire()) && pTree->IsStanding()) return;
+	  if (tree && !(tree->OnFire()) && tree->IsStanding()) return;
 
 	  DestroyNest();
 	  return -1;
