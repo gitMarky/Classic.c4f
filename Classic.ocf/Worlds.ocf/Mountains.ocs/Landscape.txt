@@ -21,12 +21,12 @@ map Mountains {
   overlay { algo=sin; rotate=-20; oy=10; mat=Earth; tex=earth; turbulence=10;
 
     // earth variation
-    InRandom { mat=Earth; tex=earth_dry; };
-    MatLayer { mat=Earth; tex=earth_midSoil; a=4; };
-    MatLayer { mat=Earth; tex=earth_rough; a=2; };
+    InRandom { mat=Earth; tex=earth; };
+    MatLayer { mat=Earth; tex=earth_root; a=4; };
+    MatLayer { mat=Earth; tex=earth_spongy; a=2; };
 
     // some InGround-stuff
-    MatLayer { mat=Rock; tex=rock; InRandom { mat=Rock; tex=rock_cracked; }; };
+    MatLayer { mat=Rock; tex=rock; InRandom { mat=Rock; tex=rock; }; };
     SomeSpots & overlay { mat=Granite; tex=granite; };
     MatLayer { mat=Coal; tex=coal; };
     SomeSpots & overlay { mat=Sulphur; tex=sulphur; };
@@ -44,7 +44,7 @@ map Mountains {
     overlay { algo=border; a=1; b=2; mat=Earth; tex=earth; };
 
     // more InGround
-    MatLayer { mat=Rock; tex=rock_cracked; InRandom { mat=Rock; tex=rock; }; };
+    MatLayer { mat=Rock; tex=rock; InRandom { mat=Rock; tex=rock_smooth; }; };
 
   };
 };
