@@ -28,7 +28,7 @@
 36=Ore-ore
 
 40=Granite-granite
-42=Granite-rock
+42=Granite-granite_rock
 
 45=Gold-gold
 
