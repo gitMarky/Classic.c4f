@@ -10,8 +10,8 @@ MaxAirSpeed=100
 MaxSlide=1
 Placement=50
 TextureOverlay=gold
-LightEmit=0,32,32
-LightSpot=32,64,32
+LightEmit=0,8,8
+LightSpot=8,16,8
 LightAngle=230
 MinShapeOverlap=10
 
