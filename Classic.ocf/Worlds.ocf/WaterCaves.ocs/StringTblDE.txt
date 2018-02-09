@@ -1,0 +1,35 @@
+# Scenario parameters: difficulty
+Difficulty=Schwierigkeit
+DescDifficulty=Setzt die Schwierigkeit dieser Runde.
+
+DiffEasy=Einfach
+DescDiffEasy=Ziele:|- Erz abbauen, 80%||Katastrophen:|- Erdbeben, 2%|- Meteor, 2%|- Vulkan, 4% 
+
+DiffNormal=Normal
+DescDiffNormal=Ziele:|- Erz abbauen, 90%||Katastrophen:|- Erdbeben, 4%|- Meteor, 4%|- Vulkan, 8%
+
+DiffHard=Schwer
+DescDiffHard=Ziele:|- Erz abbauen, 100%||Katastrophen:|- Erdbeben, 6%|- Meteor, 6%|- Vulkan, 12%
+
+# Scenario parameters: map size
+MapSize=Kartengröße
+DescMapSize=Setzt die Kartengröße dieser Runde.
+
+MapSmall=Klein
+DescMapSmall=Die Karte dieser Runde wird klein sein
+
+MapAverage=Durchschnittlich
+DescMapAverage=Die Karte dieser Runde wird durchschnittlich sein.
+
+MapLarge=Groß
+DescMapLarge=Die Karte dieser Runde wird groß sein.
+
+# Scenario parameters: Power need
+PowerNeed=Energieverbrauch
+DescPowerNeed=Bestimmt, ob Gebäude Energie verbrauchen.
+
+PowerNeedYes=An
+DescPowerNeedYes=Gebäude verbrauchen Energie. 
+
+PowerNeedNo=Aus
+DescPowerNeedNo=Gebäude verbrauchen keine Energie.
