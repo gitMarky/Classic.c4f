@@ -1,42 +1,20 @@
-/* Gold mine */
+#include Library_Scenario
 
 static const SCENARIO_LandscapeWidth_OnePlayer = 640;
 
-func Initialize()
+
+private func Init_Goals()
 {
-	InitRules(SCENPAR_PowerNeed);
-	InitGoals(SCENPAR_Difficulty);
-	InitEnvironment(SCENPAR_Difficulty);
-	InitVegetation();
-	InitAnimals(SCENPAR_MapSize);
-	InitMaterial(SCENPAR_MapSize);
+	AddGoal_Resource(Gold, 70 + 10 * SCENPAR_Difficulty);
 }
 
-func InitRules(need_power)
+private func Init_Environment()
 {
-	var rules = [Rule_TeamAccount, Rule_ZoomLimit, Rule_StartingEquipment];
-	for (var rule in rules) CreateObject(rule);
-
-	if (need_power == 2) CreateObject(Rule_NoPowerNeed);
-}
-
-func InitGoals(int difficulty)
-{
-	// Goal: Resource extraction, set to gold mining.
-	var goal = CreateObject(Goal_ResourceExtraction);
-	goal->SetResource("Gold", Min(100, 70 + 10 * difficulty));
-}
-
-func InitEnvironment(int difficulty)
-{
-	var time = CreateObject(Time);
-	time->SetCycleSpeed(20);
-
-	SetTime(ToSeconds(10));
+	AddAmbience_Time();
 }
 
 
-func InitVegetation()
+private func Init_Vegetation()
 {
 	PlaceGrass(85);
 
@@ -51,27 +29,36 @@ func InitVegetation()
 	AutoPlaceVegetation(Tree4, amount_tree4); // 100 == 12 trees with 1 player
 }
 
-func InitAnimals(int map_size)
+private func Init_Animals(int map_size)
 {
 	// players are not initialized yet, but the map can expand. Cheat a little here :)
 	PlaceAnimals(Bird, Max(1, LandscapeWidth()/SCENARIO_LandscapeWidth_OnePlayer), PLACEMENT_Air);
 }
 
-func InitMaterial(int map_size)
+private func Init_Material(int map_size)
 {
-	// Some objects in the earth.	
-	PlaceObjects(Rock, ConvertInEarthAmount(1),"Earth");
-	PlaceObjects(Gold, ConvertInEarthAmount(1), "Earth");
-	PlaceObjects(Flint, ConvertInEarthAmount(1), "Earth");
-	PlaceObjects(Loam, ConvertInEarthAmount(1), "Earth");
+	PlaceInEarth(Rock, 1);
+	PlaceInEarth(Gold, 1);
+	PlaceInEarth(Flint, 1);
+	PlaceInEarth(Loam, 1);
 }
 
-func InitializePlayer(int player)
+private func Player_StartingMaterial(int player)
+{
+	SetWealth(player, 50 - (SCENPAR_Difficulty - 1) * 25); // 50; 25; 0
+
+	var homeBase = FindObject(Find_ID(ClassicHutWooden), Find_Owner(NO_OWNER), Find_Distance(50, GetHiRank(player)->GetX(), GetHiRank(player)->GetY()));
+	if (homeBase)
+	{
+		homeBase->SetOwner(player);
+		homeBase->CreateContents(ClassicFlag);
+	}
+}
+
+private func Player_InitialKnowledge(int player)
 {
 	var needs_power = !FindObject(Find_ID(Rule_NoPowerNeed));
 
-	SetWealth(player, 50 - (SCENPAR_Difficulty - 1) * 25); // 50; 25; 0
-	
 	var myHomeBaseMaterial =
 	[
 		[Conkit, 5],
@@ -117,14 +104,5 @@ func InitializePlayer(int player)
 	GivePlayerSpecificKnowledge(player, [ClassicHutWooden, Sawmill, ClassicWorkshop, ClassicChemicalFactory]);
 	if (needs_power) GivePlayerSpecificKnowledge(player, [ClassicWindmill]);
 	GivePlayerMiningKnowledge(player);
-
-	var homeBase = FindObject(Find_ID(ClassicHutWooden), Find_Owner(NO_OWNER), Find_Distance(50, GetHiRank(player)->GetX(), GetHiRank(player)->GetY()));
-
-	if (homeBase)
-	{
-		homeBase->SetOwner(player);
-		homeBase->CreateContents(ClassicFlag);
-	}
-
 	return true;
 }

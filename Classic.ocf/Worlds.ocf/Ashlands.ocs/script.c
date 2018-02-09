@@ -1,63 +1,30 @@
-/* Ash lands */
+#include Library_Scenario
 
-func Initialize()
+private func Init_Goals()
 {
-	InitRules(SCENPAR_PowerNeed);
-	InitGoals(SCENPAR_Difficulty);
-	InitEnvironment(SCENPAR_Difficulty);
-	InitVegetation();
-	InitAnimals(SCENPAR_MapSize);
-	InitMaterial(SCENPAR_MapSize);
+	AddGoal_Wealth(100 + 50 * SCENPAR_Difficulty);
+	AddGoal_Resource(Gold, 70 + 10 * SCENPAR_Difficulty);
+	//AddGoal_Resource(Oil, 70 + 10 * SCENPAR_Difficulty);
 }
 
-func InitRules(need_power)
+private func Init_Environment()
 {
-	var rules = [Rule_TeamAccount, Rule_ZoomLimit, Rule_StartingEquipment];
-	for (var rule in rules) CreateObject(rule);
-	
-	if (need_power == 2) CreateObject(Rule_NoPowerNeed);
-}
-
-func InitGoals(int difficulty)
-{
-	// Show wealth in HUD.
-	GUI_Controller->ShowWealth();
-	
-	// Goal: Resource extraction, set to oil extraction.
-	//var goal2 = CreateObject(Goal_ResourceExtraction);
-	//goal2->SetResource("Oil");
-	
-	// gain some money
-	var goal = CreateObject(Goal_Wealth);
-	goal->SetWealthGoal(100 + 50 * difficulty);
-
-	// Goal: Resource extraction, set to gold mining.
-	var goal3 = CreateObject(Goal_ResourceExtraction);
-	goal3->SetResource("Gold", Min(100, 70 + 10 * difficulty));
-
-}
-
-func InitEnvironment(int difficulty)
-{
-	var time = CreateObject(Time);
-	time.daycolour_global = [158, 65, 47];
-	time->SetCycleSpeed(20);
-
-	SetTime(ToSeconds(10));
+	// Starting time & special sky color
+	AddAmbience_Time(10).daycolour_global = [158, 65, 47];
 
 	// Some dark clouds which rain few ashes.
 	Cloud->Place(15);
-	Cloud->SetPrecipitation("Ashes", 5 * difficulty);
+	Cloud->SetPrecipitation("Ashes", 5 * SCENPAR_Difficulty);
 	Cloud->SetCloudRGB(60, 35, 25);
-	Cloud->SetLightning(5 + 5 * difficulty); // default: 15%
+	Cloud->SetLightning(5 + 5 * SCENPAR_Difficulty);
 
-	// Some natural disasters, earthquakes, volcanos, meteorites.
-	Earthquake->SetChance(5 * difficulty); // default: 10%
-	Meteor->SetChance(2 + 3 * difficulty); // default: 8%
-	if (difficulty >= 2) Volcano->SetChance(2 + 3 * difficulty);	// default: 8%
+	// Some natural disasters
+	Disaster(Earthquake, 2, 3);
+	Disaster(Meteor, 2, 1);
+	Disaster(Volcano, 2, 1, 2);
 }
 
-func InitVegetation()
+private func Init_Vegetation()
 {
 	var burned_trees_1 = AutoPlaceVegetation(Tree1, 32);
 	var burned_trees_2 = AutoPlaceVegetation(Tree2, 32);
@@ -80,27 +47,24 @@ func InitVegetation()
 	}
 }
 
-func InitAnimals(int map_size)
+private func Init_Animals()
 {
 	PlaceAnimals(ClassicFish, 7, PLACEMENT_Liquid, Material("Water"));
 	PlaceAnimals(Bird, 5, PLACEMENT_Air);
 }
 
-func InitMaterial(map_size)
+private func Init_Material()
 {
-	// Some objects in the earth.	
-	PlaceObjects(Rock, ConvertInEarthAmount(4),"Earth");
-	PlaceObjects(Loam, ConvertInEarthAmount(5), "Earth");
-	PlaceObjects(Flint, ConvertInEarthAmount(3), "Earth");
-	PlaceObjects(Gold, ConvertInEarthAmount(3), "Earth");
+	PlaceInEarth(Rock, 4);
+	PlaceInEarth(Loam, 5);
+	PlaceInEarth(Flint, 3);
+	PlaceInEarth(Gold, 3);
 }
 
-func InitializePlayer(int player)
+private func Player_InitialKnowledge(int player)
 {
 	var needs_power = !FindObject(Find_ID(Rule_NoPowerNeed));
 
-	SetWealth(player, 100);
-	
 	var itemKnowledge =
 	[
 		FireBomb,
@@ -109,7 +73,7 @@ func InitializePlayer(int player)
 //		Dynamo,
 //		Tower
 		];
-	
+
 	GivePlayerBasicKnowledge(player);
 	GivePlayerSpecificKnowledge(player, itemKnowledge);
 	GivePlayerSpecificKnowledge(player, [ClassicHutWooden, ClassicHutStone, Sawmill, ClassicFoundry]);
@@ -117,7 +81,7 @@ func InitializePlayer(int player)
 	GivePlayerMiningKnowledge(player);
 	GivePlayerPumpingKnowledge(player);	
 	GivePlayerChemicalKnowledge(player);
-	
+
 	var myHomeBaseMaterial =
 	[
 		[Conkit, 3],
@@ -161,7 +125,7 @@ func InitializePlayer(int player)
 		[ClassicFlag, 3],
 		[ClassicClonk, 5]
 	];
-	
+
 	for (var material in myHomeBaseMaterial)
 	{
 		DoBaseMaterial(player, material[0], material[1]);
@@ -170,14 +134,12 @@ func InitializePlayer(int player)
 	{
 		DoBaseProduction(player, material[0], material[1]);
 	}
-
-	CreateHomeBase(player);
-
-	return true;
 }
 
-func CreateHomeBase(int player)
+private func Player_StartingMaterial(int player)
 {
+	SetWealth(player, 100);
+	
 	var found_position = false;
 	var x, y;
 	

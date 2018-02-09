@@ -1,49 +1,28 @@
-/* Mountain range */
+#include Library_Scenario
 
-func Initialize()
+
+private func Init_Goals()
 {
-	InitRules(SCENPAR_PowerNeed);
-	InitGoals(SCENPAR_Difficulty);
-	InitEnvironment(SCENPAR_Difficulty);
-	InitVegetation();
-	InitMaterial(SCENPAR_MapSize);
+	AddGoal_Resource(Ore, 70 + 10 * SCENPAR_Difficulty);
 }
 
-func InitRules(need_power)
-{
-	var rules = [Rule_TeamAccount, Rule_ZoomLimit, Rule_StartingEquipment];
-	for (var rule in rules) CreateObject(rule);
-	
-	if (need_power == 2) CreateObject(Rule_NoPowerNeed);
-}
-
-func InitGoals(int difficulty)
-{
-	// Goal: Resource extraction, set to ore mining.
-	var goal = CreateObject(Goal_ResourceExtraction);
-	goal->SetResource("Ore", Min(100, 70 + 10 * difficulty));
-}
-
-func InitEnvironment(int difficulty)
+func Init_Environment()
 {
 	SetSkyParallax(0, 14, 14, 0, 0, nil, nil);
 
-	var time = CreateObject(Time);
-	time->SetCycleSpeed(20);
-
-	SetTime(ToSeconds(10));
+	AddAmbience_Time();
 
 	// Disasters
-	Meteor->SetChance(2 * difficulty);
-	Volcano->SetChance(4 * difficulty);
-	Earthquake->SetChance(2 * difficulty);
+	Disaster(Meteor, 0, 2);
+	Disaster(Volcano, 0, 4);
+	Disaster(Earthquake, 0, 2);
 	
 	// Clouds
 	Cloud->Place(5);
-	Cloud->SetPrecipitation("Water", 5 * difficulty);
+	Cloud->SetPrecipitation("Water", 5 * SCENPAR_Difficulty);
 }
 
-func InitVegetation()
+private func Init_Vegetation()
 {
 	AutoPlaceVegetation(Tree1, 5);
 	AutoPlaceVegetation(Tree2, 25);
@@ -51,23 +30,32 @@ func InitVegetation()
 	AutoPlaceVegetation(Tree4, 100);
 }
 
-func InitMaterial(int map_size)
+private func Init_Material(int map_size)
 {
-	//InEarth=Rock=5;Flint=10;Loam=2;Gold=1;
-
-	PlaceObjects(Rock, ConvertInEarthAmount(5), "Earth");
-	PlaceObjects(Flint, ConvertInEarthAmount(10), "Earth");
-	PlaceObjects(Loam, ConvertInEarthAmount(2), "Earth");
-	PlaceObjects(Gold, ConvertInEarthAmount(1), "Earth");
+	PlaceInEarth(Rock, 5);
+	PlaceInEarth(Flint, 10);
+	PlaceInEarth(Loam, 2);
+	PlaceInEarth(Gold, 1);
 }
 
-func InitializePlayer(int player)
+
+private func Player_StartingMaterial(int player)
+{
+	SetWealth(player, 50);
+
+	var homeBase = FindObject(Find_ID(ClassicHutStone), Find_Distance(50, GetHiRank(player)->GetX(), GetHiRank(player)->GetY()));
+	if (homeBase)
+	{
+		homeBase->SetOwner(player);
+		homeBase->CreateContents(ClassicFlag);
+	}
+}
+
+private func Player_InitialKnowledge(int player)
 {
 	var needs_power = !FindObject(Find_ID(Rule_NoPowerNeed));
 
-	SetWealth(player, 50);
-	
-	var vehicleKnowledge=
+	var vehicleKnowledge =
 	[
 		ClassicCatapult,
 		Balloon
@@ -128,14 +116,6 @@ func InitializePlayer(int player)
 	for (var material in myHomeBaseProduction)
 	{
 		DoBaseProduction(player, material[0], material[1]);
-	}
-
-	var homeBase = FindObject(Find_ID(ClassicHutStone), Find_Distance(50, GetHiRank(player)->GetX(), GetHiRank(player)->GetY()));
-
-	if (homeBase)
-	{
-		homeBase->SetOwner(player);
-		homeBase->CreateContents(ClassicFlag);
 	}
 
 	return true;
