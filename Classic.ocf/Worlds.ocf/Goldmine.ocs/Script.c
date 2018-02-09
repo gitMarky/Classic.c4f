@@ -29,7 +29,7 @@ private func Init_Vegetation()
 	AutoPlaceVegetation(Tree4, amount_tree4); // 100 == 12 trees with 1 player
 }
 
-private func Init_Animals(int map_size)
+private func Init_Animals()
 {
 	// players are not initialized yet, but the map can expand. Cheat a little here :)
 	PlaceAnimals(Bird, Max(1, LandscapeWidth()/SCENARIO_LandscapeWidth_OnePlayer), PLACEMENT_Air);

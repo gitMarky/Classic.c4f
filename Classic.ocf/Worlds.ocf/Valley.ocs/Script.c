@@ -41,15 +41,15 @@ private func Init_Goals()
 	}
 }
 
-private func Init_Environment(int difficulty)
+private func Init_Environment()
 {
 	AddAmbience_Time(17);
 
 	Cloud->Place(15);
-	Cloud->SetLightning(5 * difficulty);
+	Cloud->SetLightning(5 * SCENPAR_Difficulty);
 	
-	Earthquake->SetChance(2 * difficulty);
-	Rockfall->SetChance(2 * difficulty);
+	Earthquake->SetChance(2 * SCENPAR_Difficulty);
+	Rockfall->SetChance(2 * SCENPAR_Difficulty);
 	Rockfall->SetArea(Rectangle(50, 0, LandscapeWidth()-100, 50));
 }
 

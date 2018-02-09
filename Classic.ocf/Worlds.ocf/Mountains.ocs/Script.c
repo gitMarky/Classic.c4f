@@ -30,7 +30,7 @@ private func Init_Vegetation()
 	AutoPlaceVegetation(Tree4, 100);
 }
 
-private func Init_Material(int map_size)
+private func Init_Material()
 {
 	PlaceInEarth(Rock, 5);
 	PlaceInEarth(Flint, 10);
