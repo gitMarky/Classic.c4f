@@ -27,14 +27,14 @@ private func Init_Environment()
 
 private func Init_Vegetation()
 {
-	var burned_trees_1 = AutoPlaceVegetation(Tree1, 6);
+	var burned_trees_1 = Tree1->PlaceByMapSize(6);
 
 	for (var tree in burned_trees_1)
 		tree->~SetBurned();
 
-	AutoPlaceVegetation(Tree1, 15);
-	AutoPlaceVegetation(Tree2, 9);
-	AutoPlaceVegetation(Tree3, 12);
+	Tree1->PlaceByMapSize(15);
+	Tree2->PlaceByMapSize(9);
+	Tree3->PlaceByMapSize(12);
 
 	PlaceGrass(15);
 	

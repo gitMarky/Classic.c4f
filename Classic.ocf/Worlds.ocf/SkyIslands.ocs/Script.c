@@ -13,10 +13,10 @@ private func Init_Environment()
 
 private func Init_Vegetation()
 {
-	AutoPlaceVegetation(Tree1, 1);
-	AutoPlaceVegetation(Tree2, 2);
-	AutoPlaceVegetation(Tree3, 1);
-	AutoPlaceVegetation(Tree4, 1);
+	Tree1->PlaceByMapSize(1);
+	Tree2->PlaceByMapSize(2);
+	Tree3->PlaceByMapSize(1);
+	Tree4->PlaceByMapSize(1);
 }
 
 private func Init_Material()

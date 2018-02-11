@@ -18,15 +18,10 @@ private func Init_Vegetation()
 {
 	PlaceGrass(85);
 
-	var amount_tree1 = RandomX(50, 75); // 75 is original
-	var amount_tree2 = RandomX(40, 50); // 50 is original
-	var amount_tree3 = 30 + (75 - amount_tree1)/2; // 30 is original 
-	var amount_tree4 = 25 + 50 - amount_tree2; // 25 is original
-	
-	AutoPlaceVegetation(Tree1, amount_tree1); // 100 == 4 trees with 1 player
-	AutoPlaceVegetation(Tree2, amount_tree2); // 100 == 12 trees with 1 player
-	AutoPlaceVegetation(Tree3, amount_tree3); // 100 == 7 trees with 1 player
-	AutoPlaceVegetation(Tree4, amount_tree4); // 100 == 12 trees with 1 player
+	Tree1->PlaceByMapSize(4); // 100 == 4 trees with 1 player
+	Tree2->PlaceByMapSize(12); // 100 == 12 trees with 1 player
+	Tree3->PlaceByMapSize(7); // 100 == 7 trees with 1 player
+	Tree4->PlaceByMapSize(12); // 100 == 12 trees with 1 player
 }
 
 private func Init_Animals()

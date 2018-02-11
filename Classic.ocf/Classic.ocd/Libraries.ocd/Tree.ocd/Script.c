@@ -46,6 +46,42 @@ public func GetVegetationRotation() { return [-30, 30]; }
  */
 public func GetVegetationConRange() { return [25, 150]; }
 
+public func Place(int amount, proplist area, proplist settings)
+{
+	var trees = _inherited(amount, area, settings);
+	
+	var root_depth = this->~GetVegetationRootDepth() ?? 5;
+	var con_range = this->~GetVegetationConRange() ?? [100, 100];
+	var rot_range = this->~GetVegetationRotation() ?? [0, 0];
+	var y_direction = 1;
+	
+	for (var plant in trees)
+	{
+		plant->SetCon(RandomX(con_range[0], con_range[1]));
+		
+		if (Random(2)) // do not always autorotate
+		{
+			
+			var bot_dy = (plant->GetCon() * this->GetDefHeight()) / 200;
+			
+			var lefty = plant->GetYBorder(Max(0, plant->GetX()-2), plant->GetY() + bot_dy, -2 * y_direction, 30);
+			var righty = plant->GetYBorder(Min(LandscapeWidth(), plant->GetX()+2), plant->GetY() + bot_dy, -2 * y_direction, 30);
+			if (lefty != -1 && righty != -1)
+			{
+				plant->RelSetR
+				(
+					BoundBy((Angle(-2, lefty, 2, righty) - 90) / 4, rot_range[0], rot_range[1]),
+					0,
+					bot_dy - root_depth
+				);
+			}
+		}
+
+	}
+	
+	return trees;
+}
+
 /* Initialisierung */
 
 protected func Construction()

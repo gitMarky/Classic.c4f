@@ -56,14 +56,14 @@ private func Init_Environment()
 private func Init_Vegetation()
 {
 	PlaceGrass(85);
+
+	Tree1->Place(2, area_skylands);
+	Tree2->Place(4, area_skylands);
+	Tree3->Place(5, area_skylands);
 	
-	AutoPlaceVegetation(Tree1, 10, PLACEMENT_Amount_Relative, area_skylands);
-	AutoPlaceVegetation(Tree2, 20, PLACEMENT_Amount_Relative, area_skylands);
-	AutoPlaceVegetation(Tree3, 15, PLACEMENT_Amount_Relative, area_skylands);
-	
-	AutoPlaceVegetation(Tree1, 30, PLACEMENT_Amount_Relative, area_lake);
-	AutoPlaceVegetation(Tree2, 45, PLACEMENT_Amount_Relative, area_lake);
-	AutoPlaceVegetation(Tree3, 45, PLACEMENT_Amount_Relative, area_lake);
+	Tree1->Place(6, area_lake);
+	Tree2->Place(9, area_lake);
+	Tree3->Place(9, area_lake);
 
 	Seaweed->Place(25, area_lake);
 	Coral->Place(5, area_lake);

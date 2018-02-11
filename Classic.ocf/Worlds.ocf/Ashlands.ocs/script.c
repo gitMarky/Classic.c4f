@@ -26,9 +26,9 @@ private func Init_Environment()
 
 private func Init_Vegetation()
 {
-	var burned_trees_1 = AutoPlaceVegetation(Tree1, 32);
-	var burned_trees_2 = AutoPlaceVegetation(Tree2, 32);
-	var burned_trees_3 = AutoPlaceVegetation(Tree3, 32);
+	var burned_trees_1 = Tree1->Place(32);
+	var burned_trees_2 = Tree2->Place(32);
+	var burned_trees_3 = Tree3->Place(32);
 	
 	for (var tree in burned_trees_1)
 		tree->SetBurned();
@@ -37,8 +37,8 @@ private func Init_Vegetation()
 	for (var tree in burned_trees_3)
 		tree->SetBurned();
 	
-	AutoPlaceVegetation(Tree2, 6);
-	
+	Tree2->Place(6);
+
 	PlaceGrass(15);
 	
 	for (var grass in FindObjects(Find_ID(Grass)))

@@ -44,8 +44,8 @@ private func Init_Vegetation()
 {
 	// Shell, 1
 	// Idol, 1
-	AutoPlaceVegetation(Tree2, 2);
-	AutoPlaceVegetation(Tree3, 3);
+	Tree2->PlaceByMapSize(2);
+	Tree3->PlaceByMapSize(3);
 }
 
 private func Init_Material()
