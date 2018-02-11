@@ -244,31 +244,7 @@ global func AutoPlaceVegetation(id definition, int quantity, bool quantity_relat
 		height = rectangle.h;
 	}
 
-	if (quantity_relative == nil)
-	{
-		quantity_relative = PLACEMENT_Amount_Relative;
-	}
-
-	var number;
-
-	if (quantity_relative == PLACEMENT_Amount_Relative)
-	{
-		// at 100% vegetation density, about 10% of the landscape area should be covered in plants
-		var trees_per_width = width/Max(10, definition->GetDefWidth());
-		var trees_per_height = height/Max(10, definition->GetDefHeight());
-		
-		number = trees_per_width * trees_per_height / 10;
-		
-		//Log("Calculated a maximum amount of %d trees", number);
-		
-		number = Max(1, number * quantity / 100);
-		
-		//Log("Actual amount is %d", number);
-	}
-	else
-	{
-		number = quantity;
-	}
+	var number = quantity;
 	
 	var material_soil = definition->~GetVegetationSoil();
 	var material_liquid = definition->~GetVegetationLiquid();
