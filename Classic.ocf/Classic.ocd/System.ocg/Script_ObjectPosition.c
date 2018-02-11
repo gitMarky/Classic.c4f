@@ -1,21 +1,3 @@
-/**
- Moves the object a relative to its current position;
- @par x Move this many pixels in x direction
- @par y Move this many pixels in y direction
- @return The object itself.
- @version 0.3
- */
-global func ShiftPosition(int x, int y)
-{
-	if (!this)
-	{
-		FatalError("This function needs object context");
-	}
-	
-	SetPosition(GetX() + x, GetY() + y);
-	
-	return this;
-}
 
 /**
  Sets the Rotation using a custom rotation center.
@@ -45,7 +27,7 @@ global func RelSetR(int angle, int center_x, int center_y)
 	var targetX = (-Sin(angle1, 100) * radius) / 100 + rotX;
 	var targetY = (Cos(angle1, 100) * radius) / 100 + rotY;
 	// adjust position
-	ShiftPosition(targetX, targetY);
+	MovePosition(targetX, targetY);
 	SetR(angle);
 	return this;
 }
