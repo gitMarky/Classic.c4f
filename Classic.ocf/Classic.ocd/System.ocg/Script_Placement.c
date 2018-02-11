@@ -4,6 +4,17 @@
  @version 0.3
  */
 
+
+/**
+ Places objects on the map, relative to the map size
+ */
+global func PlaceByMapSize(int amount, proplist rectangle, proplist settings)
+{
+	AssertObjectContext();
+	return this->Place(ConvertInEarthAmount(amount, 9), rectangle, settings, ...);
+}
+
+
 static const PLACEMENT_Type_Object = 1;
 static const PLACEMENT_Type_Animal = 2;
 static const PLACEMENT_Type_Vegetation = 4;
