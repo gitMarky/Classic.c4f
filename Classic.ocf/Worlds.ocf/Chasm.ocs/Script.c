@@ -46,7 +46,7 @@ private func Init_Vegetation()
 
 private func Init_Animals()
 {
-	PlaceAnimals(Bird, 3, PLACEMENT_Air);
+	Bird->PlaceByMapSize(3);
 	// 2 monster eggs
 	// 1 zap nest
 	// 4 fire monster eggs

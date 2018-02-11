@@ -32,7 +32,7 @@ private func Init_Vegetation()
 private func Init_Animals()
 {
 	// players are not initialized yet, but the map can expand. Cheat a little here :)
-	PlaceAnimals(Bird, Max(1, LandscapeWidth()/SCENARIO_LandscapeWidth_OnePlayer), PLACEMENT_Air);
+	Bird->PlaceByMapSize(3);
 }
 
 private func Init_Material(int map_size)

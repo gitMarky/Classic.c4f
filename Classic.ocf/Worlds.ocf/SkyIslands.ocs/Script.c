@@ -29,7 +29,7 @@ private func Init_Material()
 
 private func Init_Animals()
 {
-	PlaceAnimals(Bird, 3);
+	Bird->PlaceByMapSize(3);
 	// PlaceInEarth(MonsterEgg, 7);
 	PlaceInEarth(ZapNest, 4);
 }

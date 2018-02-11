@@ -57,8 +57,8 @@ private func Init_Material()
 
 private func Init_Animals()
 {
-	PlaceAnimals(ClassicFish, 5);
-	PlaceAnimals(Wipf, 6);
+	ClassicFish->PlaceByMapSize(5);
+	Wipf->PlaceByMapSize(6);
 	// PlaceInEarth(MonsterEgg, 1);
 	PlaceInEarth(ZapNest, 3);
 }

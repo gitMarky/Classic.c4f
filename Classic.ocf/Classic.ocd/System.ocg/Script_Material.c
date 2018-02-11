@@ -7,6 +7,6 @@
 global func ConvertInEarthAmount(int amount, int divisor)
 {
 	var materialAmount = GetMaterialCount(Material("Earth"));
-	var factor = materialAmount / (40000 * Max(1, divisor)); // creates a factor of 10 most of the time
-	return amount * factor;
+	var factor = Max(1, materialAmount / 40000); // creates a factor of 10 most of the time
+	return amount * factor / Max(divisor, 1);
 }

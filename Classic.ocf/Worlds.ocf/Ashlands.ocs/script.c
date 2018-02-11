@@ -49,8 +49,8 @@ private func Init_Vegetation()
 
 private func Init_Animals()
 {
-	PlaceAnimals(ClassicFish, 7, PLACEMENT_Liquid, Material("Water"));
-	PlaceAnimals(Bird, 5, PLACEMENT_Air);
+	ClassicFish->PlaceByMapSize(7);
+	Bird->PlaceByMapSize(5);
 }
 
 private func Init_Material()

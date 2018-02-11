@@ -73,8 +73,8 @@ private func Init_Vegetation()
 
 private func Init_Animals()
 {
-	PlaceAnimals(ClassicFish, 15, PLACEMENT_Liquid, Material("Water"), area_lake);
-	PlaceAnimals(Bird, 5, PLACEMENT_Air, nil, area_skylands);
+	ClassicFish->PlaceByMapSize(15, area_lake);
+	Bird->PlaceByMapSize(5, area_skylands);
 }
 
 private func Init_Material()
@@ -83,7 +83,6 @@ private func Init_Material()
 	PlaceInEarth(Gold, 1);
 	PlaceInEarth(Flint, 1);
 	PlaceInEarth(Loam, 1);
-
 }
 
 private func Player_StartingMaterial(int player)

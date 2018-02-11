@@ -22,11 +22,11 @@ func Init_Environment()
 
 private func Init_Vegetation()
 {
-	Seaweed->Place(3);
-	Tree3->Place(2);
-	Tree2->Place(2);
-	Tree1->Place(2);
-	Tree_Coconut->Place(2);
+	Seaweed->PlaceByMapSize(3);
+	Tree3->PlaceByMapSize(2);
+	Tree2->PlaceByMapSize(2);
+	Tree1->PlaceByMapSize(2);
+	Tree_Coconut->PlaceByMapSize(2);
 	// Bush 1
 	// Tree burned 2  2
 }
@@ -42,13 +42,13 @@ private func Init_Material()
 
 private func Init_Animals()
 {
-	Wipf->Place(3);
-	ClassicFish->Place(3);
-	Shark->Place(2);
+	Wipf->PlaceByMapSize(3);
+	ClassicFish->PlaceByMapSize(3);
+	Shark->PlaceByMapSize(2);
 	//PlaceInEarth(FireMonsterEgg, 4);
 	//PlaceInEarth(MonsterEgg, 5);
 	PlaceInEarth(ZapNest, 2);
-	Bird->~Place(1);
+	Bird->PlaceByMapSize(1);
 }
 
 private func Player_StartingMaterial(int player)

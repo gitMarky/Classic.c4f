@@ -685,3 +685,35 @@ private func GetFeasableHeight(int x)
 
     return nil;
 }
+
+
+private func Place(int amount, proplist rectangle, proplist settings)
+{
+	var max_tries = 4 * amount;
+	var loc_area = nil;
+	if (rectangle) 
+		loc_area = Loc_InArea(rectangle);
+	var birds = [];
+	var loc_bkg = Loc_Or(Loc_Tunnel(), Loc_Sky());
+
+	while ((amount > 0) && (--max_tries > 0))
+	{
+		var spot = FindLocation(loc_bkg, Loc_Space(30), loc_area);
+		if (!spot)
+			continue;
+		
+		var bird = CreateObject(this, spot.x, spot.y, NO_OWNER);
+		if (!bird) 
+			continue;
+		
+		if (bird->Stuck())
+		{
+			bird->RemoveObject();
+			continue;
+		}
+		PushBack(birds, bird);
+		--amount;
+	}
+	// Return a list of all created birds.
+	return birds;
+}
