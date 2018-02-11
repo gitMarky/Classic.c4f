@@ -33,3 +33,9 @@ private func Init_Animals()
 	// PlaceInEarth(MonsterEgg, 7);
 	PlaceInEarth(ZapNest, 4);
 }
+
+private func Player_StartingMaterial(int player)
+{
+	SetWealth(player, 70);
+	ClassicHutWooden->PlaceHomebase(player);
+}

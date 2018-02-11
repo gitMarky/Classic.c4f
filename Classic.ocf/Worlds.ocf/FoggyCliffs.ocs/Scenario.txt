@@ -13,19 +13,15 @@ Definition2=Decoration.ocd
 
 [Player1]
 Crew=ClassicClonk=1;
-Buildings=ClassicHutWooden=1;
 
 [Player2]
 Crew=ClassicClonk=1;
-Buildings=ClassicHutWooden=1;
 
 [Player3]
 Crew=ClassicClonk=1;
-Buildings=ClassicHutWooden=1;
 
 [Player4]
 Crew=ClassicClonk=1;
-Buildings=ClassicHutWooden=1;
 
 [Landscape]
 Sky=Cloud1

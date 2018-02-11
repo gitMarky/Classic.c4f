@@ -42,13 +42,7 @@ private func Init_Material()
 private func Player_StartingMaterial(int player)
 {
 	SetWealth(player, 50);
-
-	var homeBase = FindObject(Find_ID(ClassicHutStone), Find_Distance(50, GetHiRank(player)->GetX(), GetHiRank(player)->GetY()));
-	if (homeBase)
-	{
-		homeBase->SetOwner(player);
-		homeBase->CreateContents(ClassicFlag);
-	}
+	ClassicHutStone->PlaceHomebase(player);
 }
 
 private func Player_InitialKnowledge(int player)

@@ -10,19 +10,15 @@ Definition1=Objects.ocd
 
 [Player1]
 Crew=ClassicClonk=3;
-Buildings=ClassicHutStone=1;
 
 [Player2]
 Crew=ClassicClonk=3;
-Buildings=ClassicHutStone=1;
 
 [Player3]
 Crew=ClassicClonk=3;
-Buildings=ClassicHutStone=1;
 
 [Player4]
 Crew=ClassicClonk=3;
-Buildings=ClassicHutStone=1;
 
 [Landscape]
 VegetationLevel=100,0,0,100

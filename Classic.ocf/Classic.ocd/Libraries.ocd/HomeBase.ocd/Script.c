@@ -155,6 +155,7 @@ public func PlaceHomebase(int player, proplist settings, proplist area)
 		
 		// Let the first crew exit
 		GetHiRank(player)->SetCommand("Exit");
+		return homebase;
 	}
 	else
 	{

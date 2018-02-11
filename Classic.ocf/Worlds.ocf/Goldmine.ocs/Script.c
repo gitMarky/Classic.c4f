@@ -41,13 +41,7 @@ private func Init_Material(int map_size)
 private func Player_StartingMaterial(int player)
 {
 	SetWealth(player, 50 - (SCENPAR_Difficulty - 1) * 25); // 50; 25; 0
-
-	var homeBase = FindObject(Find_ID(ClassicHutWooden), Find_Owner(NO_OWNER), Find_Distance(50, GetHiRank(player)->GetX(), GetHiRank(player)->GetY()));
-	if (homeBase)
-	{
-		homeBase->SetOwner(player);
-		homeBase->CreateContents(ClassicFlag);
-	}
+	ClassicHutWooden->PlaceHomebase(player);
 }
 
 private func Player_InitialKnowledge(int player)
