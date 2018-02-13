@@ -44,23 +44,23 @@ private func Init_Vegetation()
 {
 	// Shell, 1
 	// Idol, 1
-	Tree2->PlaceByMapSize(2);
-	Tree3->PlaceByMapSize(3);
+	Tree2->Place(AdjustToMapSize(2));
+	Tree3->Place(AdjustToMapSize(3));
 }
 
 private func Init_Material()
 {
-	PlaceInEarth(Gold, 1);
-	PlaceInEarth(Loam, 1);
-	PlaceInEarth(Rock, 1);
+	Gold->PlaceInEarth(AdjustToMapSize(1));
+	Loam->PlaceInEarth(AdjustToMapSize(1));
+	Rock->PlaceInEarth(AdjustToMapSize(1));
 }
 
 private func Init_Animals()
 {
-	ClassicFish->PlaceByMapSize(5);
-	Wipf->PlaceByMapSize(6);
-	// PlaceInEarth(MonsterEgg, 1);
-	PlaceInEarth(ZapNest, 3);
+	ClassicFish->Place(AdjustToMapSize(5));
+	Wipf->Place(AdjustToMapSize(6));
+	// MonsterEgg->PlaceInEarth(AdjustToMapSize(1));
+	ZapNest->PlaceInEarth(AdjustToMapSize(3));
 }
 
 private func Player_StartingMaterial(int player)

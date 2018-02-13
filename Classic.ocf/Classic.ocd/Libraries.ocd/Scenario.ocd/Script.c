@@ -94,8 +94,3 @@ private func Disaster(id type, int chance, int variance, int min_difficulty)
 }
 
 /* -- Materials -- */
-
-private func PlaceInEarth(id type, int amount)
-{
-	PlaceObjects(type, ConvertInEarthAmount(amount), "Earth");
-}

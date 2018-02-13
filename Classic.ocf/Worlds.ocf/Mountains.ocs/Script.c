@@ -11,6 +11,8 @@ func Init_Environment()
 	SetSkyParallax(0, 14, 14, 0, 0, nil, nil);
 
 	AddAmbience_Time();
+	
+	Volcano->SetMinStrength(16);
 
 	// Disasters
 	Disaster(Meteor, 0, 2);
@@ -24,18 +26,23 @@ func Init_Environment()
 
 private func Init_Vegetation()
 {
-	Tree1->PlaceByMapSize(1);
-	Tree2->PlaceByMapSize(5);
-	Tree3->PlaceByMapSize(3);
-	Tree4->PlaceByMapSize(20);
+	Tree1->Place(AdjustToMapSize(1));
+	Tree2->Place(AdjustToMapSize(5));
+	Tree3->Place(AdjustToMapSize(3));
+	Tree4->Place(AdjustToMapSize(30));
+	Flower->Place(AdjustToMapSize(5));
+	Bone->PlaceOnSurface(AdjustToMapSize(RandomX(2, 7)));
+	Skull->PlaceOnSurface(AdjustToMapSize(RandomX(2, 4)));
+	PlaceGrass(30);
 }
 
 private func Init_Material()
 {
-	PlaceInEarth(Rock, 5);
-	PlaceInEarth(Flint, 10);
-	PlaceInEarth(Loam, 2);
-	PlaceInEarth(Gold, 1);
+	Rock->PlaceOnSurface(AdjustToMapSize(5));
+	Rock->PlaceInEarth(5);
+	Flint->PlaceInEarth(10);
+	Loam->PlaceInEarth(2);
+	Gold->PlaceInEarth(1);
 }
 
 

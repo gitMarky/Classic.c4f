@@ -46,10 +46,54 @@ public func GetVegetationRotation() { return [-30, 30]; }
  */
 public func GetVegetationConRange() { return [25, 150]; }
 
+
+/**
+ Placement function for trees.
+ 
+ @par settings has the following settings:
+               - under_sky => if true the tree does need sunlight; default: true
+ */
 public func Place(int amount, proplist area, proplist settings)
 {
+	if (!settings) settings = {};
+	settings.under_sky = settings.under_sky ?? true;
+
 	var trees = _inherited(amount, area, settings);
 	
+	var retries = 4;
+	
+	PlaceAssertSettings(trees, settings);
+	for (var current = GetLength(trees); current <= amount && retries >= 0; retries --)
+	{
+		var remaining = amount - current;
+		var next = _inherited(remaining, area, settings);
+		PlaceAssertSettings(next, settings);
+		trees = Concatenate(trees, next);
+		current = GetLength(trees);
+	}
+	
+	PlaceRandomize(trees);
+}
+
+
+private func PlaceAssertSettings(array trees, proplist settings)	
+{
+	if (trees)
+	{
+		for (var plant in trees)
+		{ 
+			if (settings.under_sky && !LocFunc_HasSunLight(plant->GetX(), plant->GetY()))
+			{
+				plant->RemoveObject();
+			}
+		}
+		RemoveHoles(trees);
+	}
+}
+
+	
+public func PlaceRandomize(array trees)
+{	
 	var root_depth = this->~GetVegetationRootDepth() ?? 5;
 	var con_range = this->~GetVegetationConRange() ?? [100, 100];
 	var rot_range = this->~GetVegetationRotation() ?? [0, 0];

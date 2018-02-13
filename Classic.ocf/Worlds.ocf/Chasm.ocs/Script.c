@@ -27,14 +27,14 @@ private func Init_Environment()
 
 private func Init_Vegetation()
 {
-	var burned_trees_1 = Tree1->PlaceByMapSize(6);
+	var burned_trees_1 = Tree1->Place(AdjustToMapSize(6));
 
 	for (var tree in burned_trees_1)
 		tree->~SetBurned();
 
-	Tree1->PlaceByMapSize(15);
-	Tree2->PlaceByMapSize(9);
-	Tree3->PlaceByMapSize(12);
+	Tree1->Place(AdjustToMapSize(15));
+	Tree2->Place(AdjustToMapSize(9));
+	Tree3->Place(AdjustToMapSize(12));
 
 	PlaceGrass(15);
 	
@@ -46,7 +46,7 @@ private func Init_Vegetation()
 
 private func Init_Animals()
 {
-	Bird->PlaceByMapSize(3);
+	Bird->Place(AdjustToMapSize(3));
 	// 2 monster eggs
 	// 1 zap nest
 	// 4 fire monster eggs
@@ -55,11 +55,11 @@ private func Init_Animals()
 private func InitMaterial()
 {
 	// Some objects in the earth.	
-	PlaceInEarth(Bone, 2);
-	PlaceInEarth(Flint, 7);
-	PlaceInEarth(Gold, 4);
-	PlaceInEarth(Loam, 5);
-	PlaceInEarth(Skull, 1);
+	Bone->PlaceInEarth(AdjustToMapSize(2));
+	Flint->PlaceInEarth(AdjustToMapSize(7));
+	Gold->PlaceInEarth(AdjustToMapSize(4));
+	Loam->PlaceInEarth(AdjustToMapSize(5));
+	Skull->PlaceInEarth(AdjustToMapSize(1));
 }
 
 

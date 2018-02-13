@@ -22,33 +22,34 @@ func Init_Environment()
 
 private func Init_Vegetation()
 {
-	Seaweed->PlaceByMapSize(3);
-	Tree3->PlaceByMapSize(2);
-	Tree2->PlaceByMapSize(2);
-	Tree1->PlaceByMapSize(2);
-	Tree_Coconut->PlaceByMapSize(2);
+	Seaweed->Place(AdjustToMapSize(6));
+	Coral->Place(AdjustToMapSize(2));
+	
+	LargeCaveMushroom->Place(AdjustToMapSize(3));
+	Mushroom->Place(AdjustToMapSize(10));
+	
 	// Bush 1
 	// Tree burned 2  2
 }
 
 private func Init_Material()
 {
-	PlaceInEarth(Bone, 1);
-	PlaceInEarth(Rock, 4);
-	PlaceInEarth(Flint, 8);
-	PlaceInEarth(Gold, 1);
-	PlaceInEarth(Loam, 10);
+	Bone->PlaceInEarth(1);
+	Rock->PlaceInEarth(4);
+	Flint->PlaceInEarth(8);
+	Gold->PlaceInEarth(1);
+	Loam->PlaceInEarth(10);
 }
 
 private func Init_Animals()
 {
-	Wipf->PlaceByMapSize(3);
-	ClassicFish->PlaceByMapSize(3);
-	Shark->PlaceByMapSize(2);
-	//PlaceInEarth(FireMonsterEgg, 4);
-	//PlaceInEarth(MonsterEgg, 5);
-	PlaceInEarth(ZapNest, 2);
-	Bird->PlaceByMapSize(1);
+	Wipf->Place(AdjustToMapSize(3));
+	ClassicFish->Place(AdjustToMapSize(3));
+	Shark->Place(AdjustToMapSize(2));
+	//FireMonsterEgg->PlaceInEarth(4);
+	//MonsterEgg->PlaceInEarth(5);
+	ZapNest->PlaceInEarth(2);
+	Bat->Place(AdjustToMapSize(5));
 }
 
 private func Player_StartingMaterial(int player)

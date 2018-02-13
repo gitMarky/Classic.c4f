@@ -6,6 +6,7 @@ Difficulty=15
 
 [Definitions]
 Definition1=Objects.ocd
+Definition2=Decoration.ocd
 
 
 [Player1]

@@ -18,24 +18,24 @@ private func Init_Vegetation()
 {
 	PlaceGrass(85);
 
-	Tree1->PlaceByMapSize(4); // 100 == 4 trees with 1 player
-	Tree2->PlaceByMapSize(12); // 100 == 12 trees with 1 player
-	Tree3->PlaceByMapSize(7); // 100 == 7 trees with 1 player
-	Tree4->PlaceByMapSize(12); // 100 == 12 trees with 1 player
+	Tree1->Place(AdjustToMapSize(4)); // 100 == 4 trees with 1 player
+	Tree2->Place(AdjustToMapSize(12)); // 100 == 12 trees with 1 player
+	Tree3->Place(AdjustToMapSize(7)); // 100 == 7 trees with 1 player
+	Tree4->Place(AdjustToMapSize(12)); // 100 == 12 trees with 1 player
 }
 
 private func Init_Animals()
 {
 	// players are not initialized yet, but the map can expand. Cheat a little here :)
-	Bird->PlaceByMapSize(3);
+	Bird->Place(AdjustToMapSize(3));
 }
 
 private func Init_Material(int map_size)
 {
-	PlaceInEarth(Rock, 1);
-	PlaceInEarth(Gold, 1);
-	PlaceInEarth(Flint, 1);
-	PlaceInEarth(Loam, 1);
+	Rock->PlaceInEarth(AdjustToMapSize(1));
+	Gold->PlaceInEarth(AdjustToMapSize(1));
+	Flint->PlaceInEarth(AdjustToMapSize(1));
+	Loam->PlaceInEarth(AdjustToMapSize(1));
 }
 
 private func Player_StartingMaterial(int player)

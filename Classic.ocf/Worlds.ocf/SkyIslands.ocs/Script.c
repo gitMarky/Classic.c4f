@@ -13,25 +13,25 @@ private func Init_Environment()
 
 private func Init_Vegetation()
 {
-	Tree1->PlaceByMapSize(1);
-	Tree2->PlaceByMapSize(2);
-	Tree3->PlaceByMapSize(1);
-	Tree4->PlaceByMapSize(1);
+	Tree1->Place(AdjustToMapSize(1));
+	Tree2->Place(AdjustToMapSize(2));
+	Tree3->Place(AdjustToMapSize(1));
+	Tree4->Place(AdjustToMapSize(1));
 }
 
 private func Init_Material()
 {
-	PlaceInEarth(Flint, 1);
-	PlaceInEarth(Gold, 1);
-	PlaceInEarth(Loam, 1);
-	PlaceInEarth(Rock, 1);
+	Flint->PlaceInEarth(AdjustToMapSize(1));
+	Gold->PlaceInEarth(AdjustToMapSize(1));
+	Loam->PlaceInEarth(AdjustToMapSize(1));
+	Rock->PlaceInEarth(AdjustToMapSize(1));
 }
 
 private func Init_Animals()
 {
-	Bird->PlaceByMapSize(3);
-	// PlaceInEarth(MonsterEgg, 7);
-	PlaceInEarth(ZapNest, 4);
+	Bird->Place(AdjustToMapSize(3));
+	// MonsterEgg->PlaceInEarth(AdjustToMapSize(7));
+	ZapNest->PlaceInEarth(AdjustToMapSize(4));
 }
 
 private func Player_StartingMaterial(int player)

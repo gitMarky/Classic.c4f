@@ -49,16 +49,16 @@ private func Init_Vegetation()
 
 private func Init_Animals()
 {
-	ClassicFish->PlaceByMapSize(7);
-	Bird->PlaceByMapSize(5);
+	ClassicFish->Place(AdjustToMapSize(7));
+	Bird->Place(AdjustToMapSize(5));
 }
 
 private func Init_Material()
 {
-	PlaceInEarth(Rock, 4);
-	PlaceInEarth(Loam, 5);
-	PlaceInEarth(Flint, 3);
-	PlaceInEarth(Gold, 3);
+	Rock->PlaceInEarth(AdjustToMapSize(4));
+	Loam->PlaceInEarth(AdjustToMapSize(5));
+	Flint->PlaceInEarth(AdjustToMapSize(3));
+	Gold->PlaceInEarth(AdjustToMapSize(3));
 }
 
 private func Player_InitialKnowledge(int player)
