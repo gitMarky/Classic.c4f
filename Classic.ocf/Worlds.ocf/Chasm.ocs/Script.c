@@ -23,6 +23,7 @@ private func Init_Environment()
 	Disaster(Volcano, 15, 6);
 	Disaster(Earthquake, 8, 4);
 	Volcano->SetMaterial("DuroLava");
+	BoilingLava->Place(2);
 }
 
 private func Init_Vegetation()
@@ -37,29 +38,36 @@ private func Init_Vegetation()
 	Tree3->Place(AdjustToMapSize(12));
 
 	PlaceGrass(15);
-	
+
 	for (var grass in FindObjects(Find_ID(Grass)))
 	{
 		grass->SetClrModulation(RGB(225+Random(30), Random(30), Random(30)));
 	}
+
+	Stalactite->Place(AdjustToMapSize(20));
 }
 
 private func Init_Animals()
 {
 	Bird->Place(AdjustToMapSize(3));
+	Bat->Place(AdjustToMapSize(5));
 	// 2 monster eggs
 	// 1 zap nest
 	// 4 fire monster eggs
 }
 
-private func InitMaterial()
+private func Init_Material()
 {
 	// Some objects in the earth.	
 	Bone->PlaceInEarth(AdjustToMapSize(2));
 	Flint->PlaceInEarth(AdjustToMapSize(7));
 	Gold->PlaceInEarth(AdjustToMapSize(4));
 	Loam->PlaceInEarth(AdjustToMapSize(5));
-	Skull->PlaceInEarth(AdjustToMapSize(1));
+	
+	// Some volcano remains
+	Skull->PlaceOnSurface(AdjustToMapSize(10));
+	Rock->PlaceOnSurface(AdjustToMapSize(10));
+	Coal->PlaceOnSurface(AdjustToMapSize(10));
 }
 
 

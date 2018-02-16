@@ -18,10 +18,13 @@ private func Init_Vegetation()
 {
 	PlaceGrass(85);
 
-	Tree1->Place(AdjustToMapSize(4)); // 100 == 4 trees with 1 player
-	Tree2->Place(AdjustToMapSize(12)); // 100 == 12 trees with 1 player
-	Tree3->Place(AdjustToMapSize(7)); // 100 == 7 trees with 1 player
-	Tree4->Place(AdjustToMapSize(12)); // 100 == 12 trees with 1 player
+	Tree1->Place(AdjustToMapSize(4));
+	Tree2->Place(AdjustToMapSize(12));
+	Tree3->Place(AdjustToMapSize(7));
+	Tree4->Place(AdjustToMapSize(12));
+	
+	Flower->Place(AdjustToMapSize(2));
+	Fern->Place(AdjustToMapSize(2));
 }
 
 private func Init_Animals()

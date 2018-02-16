@@ -22,35 +22,40 @@ private func Init_Environment()
 	Disaster(Earthquake, 2, 3);
 	Disaster(Meteor, 2, 1);
 	Disaster(Volcano, 2, 1, 2);
+	
+	Stalactite->Place(AdjustToMapSize(10));
 }
 
 private func Init_Vegetation()
 {
-	var burned_trees_1 = Tree1->Place(32);
-	var burned_trees_2 = Tree2->Place(32);
-	var burned_trees_3 = Tree3->Place(32);
-	
-	for (var tree in burned_trees_1)
-		tree->SetBurned();
-	for (var tree in burned_trees_2)
-		tree->SetBurned();
-	for (var tree in burned_trees_3)
-		tree->SetBurned();
+	CallForEach(Tree1->Place(10), "SetBurned");
+	CallForEach(Tree2->Place(10), "SetBurned");
+	CallForEach(Tree3->Place(10), "SetBurned");
 	
 	Tree2->Place(6);
 
-	PlaceGrass(15);
+	PlaceGrass(55);
 	
 	for (var grass in FindObjects(Find_ID(Grass)))
 	{
 		grass->SetClrModulation(RGB(225+Random(30), Random(30), Random(30)));
 	}
+	
+	Skull->PlaceOnSurface(AdjustToMapSize(5));
+	Bone->PlaceOnSurface(AdjustToMapSize(15));
+	Coal->PlaceOnSurface(AdjustToMapSize(7));
+	
+	LargeCaveMushroom->Place(7);
 }
 
 private func Init_Animals()
 {
 	ClassicFish->Place(AdjustToMapSize(7));
 	Bird->Place(AdjustToMapSize(5));
+
+	// MonsterEgg->PlaceInEarth(AdjustToMapSize(1));
+	// FireMonsterEgg->PlaceInEarth(AdjustToMapSize(2));
+	ZapNest->PlaceInEarth(AdjustToMapSize(4));
 }
 
 private func Init_Material()

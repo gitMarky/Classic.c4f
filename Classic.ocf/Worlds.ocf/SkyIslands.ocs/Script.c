@@ -13,10 +13,14 @@ private func Init_Environment()
 
 private func Init_Vegetation()
 {
-	Tree1->Place(AdjustToMapSize(1));
-	Tree2->Place(AdjustToMapSize(2));
-	Tree3->Place(AdjustToMapSize(1));
-	Tree4->Place(AdjustToMapSize(1));
+	Tree1->Place(AdjustToMapSize(3));
+	Tree2->Place(AdjustToMapSize(6));
+	Tree3->Place(AdjustToMapSize(3));
+	Tree4->Place(AdjustToMapSize(3));
+	Vine->Place(AdjustToMapSize(5));
+	Branch->Place(AdjustToMapSize(5));
+	Flower->Place(AdjustToMapSize(5));
+	PlaceGrass(90);
 }
 
 private func Init_Material()

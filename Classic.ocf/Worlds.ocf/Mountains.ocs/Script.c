@@ -12,7 +12,7 @@ func Init_Environment()
 
 	AddAmbience_Time();
 	
-	Volcano->SetMinStrength(16);
+	Volcano->SetMinStrength(20);
 
 	// Disasters
 	Disaster(Meteor, 0, 2);

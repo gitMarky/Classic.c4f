@@ -44,20 +44,28 @@ private func Init_Vegetation()
 {
 	// Shell, 1
 	// Idol, 1
-	Tree2->Place(AdjustToMapSize(2));
-	Tree3->Place(AdjustToMapSize(3));
+	Tree2->Place(AdjustToMapSize(17));
+	Tree3->Place(AdjustToMapSize(25));
+
+	Fern->Place(AdjustToMapSize(7));
+
+	Branch->Place(AdjustToMapSize(7));
+	PlaceGrass(60);
+
+	Seaweed->Place(AdjustToMapSize(90));
+	Coral->Place(AdjustToMapSize(20));
 }
 
 private func Init_Material()
 {
-	Gold->PlaceInEarth(AdjustToMapSize(1));
-	Loam->PlaceInEarth(AdjustToMapSize(1));
-	Rock->PlaceInEarth(AdjustToMapSize(1));
+	Gold->PlaceInEarth(AdjustToMapSize(3));
+	Loam->PlaceInEarth(AdjustToMapSize(3));
+	Rock->PlaceInEarth(AdjustToMapSize(3));
 }
 
 private func Init_Animals()
 {
-	ClassicFish->Place(AdjustToMapSize(5));
+	ClassicFish->Place(AdjustToMapSize(25));
 	Wipf->Place(AdjustToMapSize(6));
 	// MonsterEgg->PlaceInEarth(AdjustToMapSize(1));
 	ZapNest->PlaceInEarth(AdjustToMapSize(3));

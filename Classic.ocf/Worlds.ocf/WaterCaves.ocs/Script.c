@@ -18,18 +18,22 @@ func Init_Environment()
 	// Clouds
 	Cloud->Place(5);
 	Cloud->SetPrecipitation("Water", 5 * SCENPAR_Difficulty);
+
+	// Other
+	Stalactite->Place(AdjustToMapSize(25));
 }
 
 private func Init_Vegetation()
 {
-	Seaweed->Place(AdjustToMapSize(6));
-	Coral->Place(AdjustToMapSize(2));
+	Seaweed->Place(AdjustToMapSize(70));
+	Coral->Place(AdjustToMapSize(10));
+
+	LargeCaveMushroom->Place(AdjustToMapSize(10), nil, {terraform = false});
+	Mushroom->Place(AdjustToMapSize(25));
+
+	Branch->Place(AdjustToMapSize(50));
 	
-	LargeCaveMushroom->Place(AdjustToMapSize(3));
-	Mushroom->Place(AdjustToMapSize(10));
-	
-	// Bush 1
-	// Tree burned 2  2
+	CallForEach(Grass->PlaceOnSurface(AdjustToMapSize(70)), Grass.Randomize, [1, 1, 1, 1, 100, 100, 500, 1000], 50, 200);
 }
 
 private func Init_Material()
@@ -44,11 +48,11 @@ private func Init_Material()
 private func Init_Animals()
 {
 	Wipf->Place(AdjustToMapSize(3));
-	ClassicFish->Place(AdjustToMapSize(3));
+	ClassicFish->Place(AdjustToMapSize(30));
 	Shark->Place(AdjustToMapSize(2));
-	//FireMonsterEgg->PlaceInEarth(4);
-	//MonsterEgg->PlaceInEarth(5);
-	ZapNest->PlaceInEarth(2);
+	//FireMonsterEgg->PlaceInEarth(AdjustToMapSize(4));
+	//MonsterEgg->PlaceInEarth(AdjustToMapSize(5));
+	ZapNest->PlaceInEarth(AdjustToMapSize(2));
 	Bat->Place(AdjustToMapSize(5));
 }
 

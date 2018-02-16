@@ -27,7 +27,7 @@ Crew=ClassicClonk=1;
 Sky=Cloud1
 MapWidth=250
 MapHeight=70
-MapZoom=8
+MapZoom=10
 
 [Weather]
 Climate=20,12

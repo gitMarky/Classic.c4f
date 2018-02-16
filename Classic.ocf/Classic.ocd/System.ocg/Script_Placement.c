@@ -31,13 +31,23 @@ global func PlaceOnSurface(int amount, proplist rectangle, proplist settings)
 
 	if (!settings) settings = {};
 	settings.no_stuck = settings.no_stuck ?? false;
+	settings.liquid = settings.liquid ?? false;
+	
 	
 	var loc_area = nil;
 	if (rectangle) 
 		loc_area = Loc_InArea(rectangle);
 
 	var objects = [];
-	var loc_bkg = Loc_Or(Loc_Tunnel(), Loc_Sky());
+	var loc_bkg;
+	if (settings.liquid)
+	{
+		loc_bkg = Loc_Liquid();
+	}
+	else
+	{
+		loc_bkg = Loc_And(Loc_Or(Loc_Tunnel(), Loc_Sky()), Loc_Not(Loc_Liquid()));
+	}
 
 	while ((amount > 0) && (--max_tries > 0))
 	{

@@ -73,6 +73,7 @@ public func Place(int amount, proplist area, proplist settings)
 	}
 	
 	PlaceRandomize(trees);
+	return trees;
 }
 
 

@@ -57,6 +57,16 @@ global func ColorSetLightness(int rgba, int lightness) {
 	return HSL2RGB(hsla);
 }
 
+global func ColorSetValue(int rgba, int value)
+{
+	var color = SplitRGBaValue(rgba);
+	var max_value = BoundBy(Max(Max(color.R, color.G), color.B), 1, 255);
+	return RGBa(color.R * value / max_value,
+	            color.G * value / max_value,
+	            color.B * value / max_value,
+	            color.Alpha);
+}
+
 
 /* Functions from System.c4g, but fixed 
  * - RGB2HSL and HSL2RGB discarding alpha channel
