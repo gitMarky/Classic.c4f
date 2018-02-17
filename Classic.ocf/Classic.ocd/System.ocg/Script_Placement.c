@@ -22,6 +22,8 @@ global func AdjustToMapSize(int amount)
  
  @par settings the possible settings:
                - no_stuck => true does place objects if they are stuck
+               - liquid => true finds in liquid, false finds everything but liquid
+               - location => set to additional Loc_*() functions if desired.
  */
 global func PlaceOnSurface(int amount, proplist rectangle, proplist settings)
 {
@@ -51,7 +53,7 @@ global func PlaceOnSurface(int amount, proplist rectangle, proplist settings)
 
 	while ((amount > 0) && (--max_tries > 0))
 	{
-		var spot = FindLocation(loc_bkg, loc_area, Loc_Wall(CNAT_Bottom));
+		var spot = FindLocation(loc_bkg, loc_area, Loc_Wall(CNAT_Bottom), settings.location);
 		if (!spot)
 			continue;
 		
@@ -72,10 +74,32 @@ global func PlaceOnSurface(int amount, proplist rectangle, proplist settings)
 }
 
 
+
+global func Loc_Sky() {	return Loc_Material("Sky"); } // The original is broken, because liquid can count as sky...
+
+
 global func PlaceInEarth(int amount)
 {
 	AssertDefinitionContext();
 	PlaceObjects(this, ConvertInEarthAmount(amount), "Earth");
+}
+
+
+global func PlaceByCriteria(int amount)
+{
+	AssertDefinitionContext();
+	var max_tries = 4 * amount;
+	var placed = [];
+	while ((amount > 0) && (--max_tries > 0))
+	{
+		var spot = FindLocation(...);
+		if (!spot) continue;
+
+		var obj = CreateObject(this, spot.x, spot.y, NO_OWNER);
+		PushBack(placed, obj);
+		--amount;
+	}
+	return placed;
 }
 
 

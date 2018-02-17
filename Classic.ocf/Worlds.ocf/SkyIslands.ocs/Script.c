@@ -6,6 +6,18 @@ private func Init_Environment()
 	//SetGamma(RGB(10, 9, 10), RGB(161, 157, 159), RGB(255, 254, 255), 2);
 	AddAmbience_Time();
 	
+	// Bird song
+	var birds = Ambience_Sounds->PlaceOnSurface(AdjustToMapSize(10), nil, {location = Loc_Space(30, CNAT_Top)});
+	for (var bird in birds)
+	{
+		bird->SetSound("Ambience::BirdSong?")
+		    ->SetInterval(25)
+		    ->SetChance(13)
+		    ->SetCondition(Global.IsDay)
+		    ->Wait(RandomX(1, 10) * 25);
+		bird->MovePosition(0, -30);
+	}
+	
 	// Clouds
 	Cloud->Place(5);
 	Cloud->SetLightning(10 * SCENPAR_Difficulty);

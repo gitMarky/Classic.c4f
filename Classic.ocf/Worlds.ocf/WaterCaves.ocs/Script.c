@@ -11,9 +11,7 @@ func Init_Environment()
 	AddAmbience_Time();
 
 	// Disasters
-	Disaster(Meteor, 0, 2);
-	Disaster(Volcano, 0, 4);
-	Disaster(Earthquake, 0, 2);
+	Disaster(Earthquake, 12, 4);
 	
 	// Clouds
 	Cloud->Place(5);
@@ -21,6 +19,17 @@ func Init_Environment()
 
 	// Other
 	Stalactite->Place(AdjustToMapSize(25));
+	
+	// Sounds
+	for (var y = 0; y < LandscapeHeight(); y += 510)
+	for (var x = 0; x < LandscapeWidth(); x += 530)
+	{
+		var drip = CreateObject(Ambience_Sounds, x, y, NO_OWNER);
+		drip->SetSound("Ambience::CaveDrip?")
+            ->SetInterval(800)
+            ->SetChance(100)
+            ->Wait(RandomX(1, 4) * 50);
+	}
 }
 
 private func Init_Vegetation()
