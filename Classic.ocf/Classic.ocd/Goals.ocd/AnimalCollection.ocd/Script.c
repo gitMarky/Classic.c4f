@@ -18,6 +18,7 @@ private func Initialize()
 	list_animals = [];
 	list_death_allowed = [];
 	list_death_count = [];
+	CreateEffect(FxDeathMonitor, 1, 1);
 	return inherited(...);
 }
 
@@ -200,7 +201,7 @@ public func GetShortDescription(int player)
 
 	// Put the message together
 	var icon = GetMessageIcon( list_animals[message_index]);
-	if (list_death_allowed[i] > 0)
+	if (list_death_allowed[message_index] > 0)
 	{
 		return Format("{{%i}}: %d|{{%i}} %d", icon, remaining[message_index], Icon_Skull, forgiveness[message_index]);
 	}
@@ -210,6 +211,65 @@ public func GetShortDescription(int player)
 	}
 }
 
+/* -- Death monitors -- */
+
+// Notifies the goal of the death of a target
+local FxRegisterDeath = new Effect
+{
+	Start = func (temporary, object goal)
+	{
+		if (!temporary)
+		{
+			this.notify = goal;
+		}
+		return true;
+	},
+	
+	Destruction = func (int reason)
+	{
+		if (FX_Call_RemoveDeath == reason)
+		{
+			if (this.notify)
+			{
+				this.notify->RegisterDeath(this.Target);
+			}
+		}
+	}
+};
+
+// Adds death notification effects to animals
+// Cannot register animals that are removed/killed during placement,
+// but this is actually an advantage here because those should not count ;)
+local FxDeathMonitor = new Effect
+{
+	Timer = func()
+	{
+		for (var animal in Target.list_animals)
+		{
+			if (!animal)
+				continue;
+				
+			for (var living in FindObjects(Find_ID(animal), Find_OCF(OCF_Alive)))
+			{
+				if (!GetEffect("FxRegisterDeath", living))
+				{
+					living->CreateEffect(Goal_CollectAnimals.FxRegisterDeath, 1, nil, this.Target);
+				}
+			}
+		}
+	}
+};
+
+// Callback by death monitor
+private func RegisterDeath(object animal)
+{
+	var type = animal->GetID();
+	var index = GetIndexOf(list_animals, type);
+	if (-1 != index)
+	{
+		list_death_count[index] += 1;
+	}
+}
 
 /*-- Proplist --*/
 
