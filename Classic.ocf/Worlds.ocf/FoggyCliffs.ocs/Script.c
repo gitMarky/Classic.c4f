@@ -92,7 +92,7 @@ private func SeaSounds(int amount)
 		sound->SetSound("Ambience::Wave?")
 		     ->SetInterval(35)
 		     ->SetChance(RandomX(40, 80))
-		     ->SetIcon(ClassicFish);
+		     ->SetIcon(Water);
 	}
 }
 
