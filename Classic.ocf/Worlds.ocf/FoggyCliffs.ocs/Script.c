@@ -13,23 +13,20 @@ private func Init_Environment()
 	Disaster(Meteor, 4, 1);
 	Disaster(Earthquake, 2, 1);
 
-	Cloud->Place(25);
+	Cloud->Place(5);
 	Cloud->SetLightning(1);
 
-	//Nebel platzieren
-	//for(var i;i<260;++i) 
-	//	CreateParticle("Fog",Random(LandscapeWidth()),Random(LandscapeHeight()*2/3),RandomX(3,9),0,RandomX(1000,1500));
-	//Wipfe platzieren
-	/*
-	while(pWipf=FindObject(WIPF,0,0,0,0,0,0,0,0,pWipf)) {
-		iTimeout=0;
-		while(Stuck(pWipf)||GetMaterial(GetX(pWipf),GetY(pWipf))!=Material("Tunnel")) {
-			SetPosition(Random(LandscapeWidth()),RandomX(LandscapeHeight()*2/3,LandscapeHeight()),pWipf);
-			if(iTimeout++ > 50000) { RemoveObject(pWipf); break; }
-		}
+	var fog_interval = 150;
+	var fog_start = -200; // Fog starts at this x position usually
+	var fog_velocity = 5;
+	var fog_range = (LandscapeWidth() + 2 * Abs(fog_start)) * 10 / fog_velocity; // the average fog particle needs this many frames to traverse the landscape
+	for (var frame = 0; frame < fog_range; frame += fog_interval)
+	{
+		var pos = fog_start + frame * fog_velocity / 10;
+		DoFog(PV_Random(pos - 50, pos + 50));
 	}
-	*/
-	//ScriptGo(1);
+
+	CreateEffect(FxFoggyCliffs, 1, fog_interval);
 }
 
 
@@ -62,6 +59,19 @@ private func Init_Animals()
 	Wipf->Place(AdjustToMapSize(6));
 	// MonsterEgg->PlaceInEarth(AdjustToMapSize(1));
 	ZapNest->PlaceInEarth(AdjustToMapSize(3));
+	
+	// Place wipfs in tunnels
+	for (var wipf in FindObjects(Find_ID(Wipf)))
+	{
+		if (wipf->GetMaterial() != Material("Tunnel"))
+		{
+			var location = FindLocation(Loc_Wall(CNAT_Bottom), Loc_Tunnel(), Loc_Space(wipf->GetDefHeight(), CNAT_Top));
+			if (location)
+			{
+				wipf->SetPosition(location.x, location.y - wipf->GetBottom());
+			}
+		}
+	}
 }
 
 private func Player_StartingMaterial(int player)
@@ -70,18 +80,6 @@ private func Player_StartingMaterial(int player)
 	ClassicHutWooden->PlaceHomebase(player);
 }
 
-/*
-func Script0()
-{
-	CreateParticle("Fog",0,Random(LandscapeHeight()*2/3),RandomX(3,9),0,RandomX(1000,1500)); 
-}
-
-func Script4()
-{
-	return(goto(0));
-}
-*/
-//Sound-Objekte platzieren
 
 private func SeaSounds(int amount)
 {
@@ -96,6 +94,7 @@ private func SeaSounds(int amount)
 	}
 }
 
+
 private func SeaGulls(int amount)
 {
 	var ambience = Ambience_Sounds->PlaceByCriteria(amount, Loc_And(Loc_Material("Sky"), Loc_Func(Scenario.Loc_SeaGull), Loc_Func(Scenario.Loc_SeaSound)));
@@ -109,17 +108,40 @@ private func SeaGulls(int amount)
 	}
 }
 
+
 private func Loc_SeaLevel(int x, int y)
 {
 	return !GBackSemiSolid(x, y - 5);
 }
+
 
 private func Loc_SeaGull(int x, int y)
 {
 	return (Material("Earth") == GetMaterial(x, y + 105)) && PathFree(x, y, x, y + 100);
 }
 
+
 private func Loc_SeaSound(int x, int y)
 {
 	return !FindObject(Find_ID(Ambience_Sounds), Find_Distance(LandscapeWidth() / 20, x, y));
+}
+
+local FxFoggyCliffs = new Effect
+{
+	Timer = func ()
+	{
+		DoFog(-200);
+	}
+};
+
+global func DoFog(x, int amount)
+{
+	var particles =
+	{
+		Prototype = Particles_Cloud(),
+		Alpha = PV_Random(150, 50),
+		Size = PV_Random(300, 500),
+	};
+
+	CreateParticle("Fog", x, Random(LandscapeHeight()*2/3), PV_Random(3,9), 0, 0, particles, amount); 
 }
