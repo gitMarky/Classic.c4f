@@ -3,54 +3,49 @@
  *
  * Author: Marky, original found in Clonk Rage
  */
+ 
+#include Library_AnimalEgg
+#include Library_Stackable
 
-private func Destruction()
+
+public func MaxStackCount() { return 3; }
+
+private func Initialize()
 {
-	ClearScheduleCall(this, "FinishBreeding");
+	this.MeshTransformation = Trans_Scale(800, 800, 800);
 	_inherited(...);
 }
 
-public func Fertilize(id type, int breedTime)
+private func Destruction()
+{
+	ClearScheduleCall(this, this.FinishBreeding);
+	_inherited(...);
+}
+
+private func Fertilize(id type, int breedTime)
 {
 	//Log("Fertilize %v %d", type, breedTime);
 	var child = CreateConstruction(type, 0, 0, -1, Max(10, type->~AnimalReproductionBirthSize()));
 	if (child)
 	{
 		child->ForceEnter(this);
-		ScheduleCall(this, "FinishBreeding", breedTime);
+		ScheduleCall(this, this.FinishBreeding, breedTime);
 	}
+	RemoveTimer(this.Breed);
 
 	return child;
 }
 
-public func FinishBreeding()
+private func FinishBreeding()
 {
-	var child = Contents();
-
-	if (child)
-	{
-		child->Exit();
-		child->~AnimalBirth();
-	}
-
-	DoBreak();
+	Hatch();
 }
 
-protected func Hit()
-{
-	if (Random(2)) DoBreak();
-}
-
-protected func Damage()
-{
-	return DoBreak();
-}
-
-protected func Entrance(object container)
+private func Entrance(object container)
 {
 	if (!(container->~IsNest()))
 	{
-		ClearScheduleCall(this, "FinishBreeding");
+		ClearScheduleCall(this, this.FinishBreeding);
 		for (var obj in FindObjects(Find_Container(this)))
 		{
 			if (obj) obj->RemoveObject();
@@ -58,31 +53,7 @@ protected func Entrance(object container)
 	}
 }
 
-private func DoBreak()
-{
-	if (GetAction() == "Break") return;
-	if (Contained()) Contained()->Ejection(this);
-
-	Sound("Animals::EggBreak");
-	SetAction("Break");
-}
-
-protected func Destroy()
-{
-	RemoveObject();
-}
-
-local ActMap = {
-Break = {
-		Prototype = Action,
-		Name = "Break",
-		Length = 7,
-		Delay = 2,
-		X = 5, Y = 0, Wdt = 5, Hgt = 6,
-		NextAction = "Break",
-		EndCall = "Destroy",
-},
-};
+private func GetEggColor() { return RGB(239, 177, 54); } // For particle effects
 
 local Name = "$Name$";
 local Description = "$Description";

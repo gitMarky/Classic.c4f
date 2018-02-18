@@ -20,7 +20,7 @@ private func GetCarryPhase() { return 500; }
 
 /* -- Properties -- */
 
-private func GetEggColor() { return RGB(243, 244, 242); } // For particle effects
+private func GetEggColor() { return RGB(230, 78, 5); } // For particle effects
 
 local Collectible = true;
 local Name = "$Name$";
