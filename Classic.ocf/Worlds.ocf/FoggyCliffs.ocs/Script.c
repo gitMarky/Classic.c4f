@@ -57,7 +57,7 @@ private func Init_Animals()
 {
 	ClassicFish->Place(AdjustToMapSize(25));
 	Wipf->Place(AdjustToMapSize(6));
-	// MonsterEgg->PlaceInEarth(AdjustToMapSize(1));
+	MonsterEgg->PlaceInEarth(AdjustToMapSize(1));
 	ZapNest->PlaceInEarth(AdjustToMapSize(3));
 	
 	// Place wipfs in tunnels

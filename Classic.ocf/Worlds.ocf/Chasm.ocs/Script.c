@@ -51,9 +51,9 @@ private func Init_Animals()
 {
 	Bird->Place(AdjustToMapSize(3));
 	Bat->Place(AdjustToMapSize(5));
-	// 2 monster eggs
-	// 1 zap nest
-	// 4 fire monster eggs
+	MonsterEgg->PlaceInEarth(AdjustToMapSize(2));
+	FireMonsterEgg->PlaceInEarth(AdjustToMapSize(4));
+	ZapNest->PlaceInEarth(AdjustToMapSize(1));
 }
 
 private func Init_Material()

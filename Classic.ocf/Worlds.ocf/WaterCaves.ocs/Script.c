@@ -59,8 +59,8 @@ private func Init_Animals()
 	Wipf->Place(AdjustToMapSize(3));
 	ClassicFish->Place(AdjustToMapSize(30));
 	Shark->Place(AdjustToMapSize(2));
-	//FireMonsterEgg->PlaceInEarth(AdjustToMapSize(4));
-	//MonsterEgg->PlaceInEarth(AdjustToMapSize(5));
+	FireMonsterEgg->PlaceInEarth(AdjustToMapSize(4));
+	MonsterEgg->PlaceInEarth(AdjustToMapSize(5));
 	ZapNest->PlaceInEarth(AdjustToMapSize(2));
 	Bat->Place(AdjustToMapSize(5));
 }

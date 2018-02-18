@@ -46,7 +46,7 @@ private func Init_Material()
 private func Init_Animals()
 {
 	Bird->Place(AdjustToMapSize(3));
-	// MonsterEgg->PlaceInEarth(AdjustToMapSize(7));
+	MonsterEgg->PlaceInEarth(AdjustToMapSize(7));
 	ZapNest->PlaceInEarth(AdjustToMapSize(4));
 }
 

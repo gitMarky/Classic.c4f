@@ -53,8 +53,8 @@ private func Init_Animals()
 	ClassicFish->Place(AdjustToMapSize(7));
 	Bird->Place(AdjustToMapSize(5));
 
-	// MonsterEgg->PlaceInEarth(AdjustToMapSize(1));
-	// FireMonsterEgg->PlaceInEarth(AdjustToMapSize(2));
+	MonsterEgg->PlaceInEarth(AdjustToMapSize(1));
+	FireMonsterEgg->PlaceInEarth(AdjustToMapSize(2));
 	ZapNest->PlaceInEarth(AdjustToMapSize(4));
 }
 
