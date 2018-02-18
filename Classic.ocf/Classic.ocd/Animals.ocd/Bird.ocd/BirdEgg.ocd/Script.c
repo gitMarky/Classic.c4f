@@ -5,14 +5,10 @@
  */
  
 #include Library_AnimalEgg
-#include Library_Stackable
-
-
-public func MaxStackCount() { return 3; }
 
 private func Initialize()
 {
-	this.MeshTransformation = Trans_Scale(800, 800, 800);
+	this.MeshTransformation = Trans_Mul(Trans_Scale(800, 800, 800), Trans_Rotate(RandomX(25, 35), 0, 1, 0));
 	_inherited(...);
 }
 

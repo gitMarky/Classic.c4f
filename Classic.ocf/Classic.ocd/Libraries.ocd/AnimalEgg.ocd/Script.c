@@ -1,6 +1,13 @@
 
 /* -- Engine Callbacks -- */
 
+private func Definition(def)
+{
+	this.PictureTransformation = Trans_Rotate(20, 0, 0, 1);
+	_inherited(def, ...);
+}
+
+
 private func Hit(int x, int y)
 {
 	StonyObjectHit(x,y);
