@@ -35,14 +35,6 @@ private func ContactRight()
 
 private func AnimalCanTurn(){ return !Stuck() && (GetAction() == "Walk" || GetAction() == "Swim"); }
 
-private func HitCheck()
-{
-	var target = FindObject(Find_Func("IsPrey"), Find_AtPoint(), Find_NoContainer());
-	if (target)
-	{
-		Punch(target, 10);
-	}
-}
 
 public func DoJump()
 {
@@ -53,31 +45,54 @@ public func DoJump()
 	}
 }
 
+public func Jump(int xdir, int ydir)
+{
+	SetAction("Jump");
+	
+	ydir = ydir ?? -30;
+	xdir = xdir ?? 5;
+	if (GetDir() == DIR_Left)
+		xdir *= -1;
+
+	SetSpeed(GetXDir() + xdir, ydir - GetXDir() / 2);
+	
+	if (IsDusty())
+	{
+		var range = GetDefWidth() * GetCon() / 200;
+		var dir = Sign(GetXDir());
+		var particles = Particles_GroundDust();
+		CreateParticle("Dust", PV_Random(range * dir * -2, range * dir * -1), GetVertex(2, 1), PV_Random(dir * 2, dir * 1), PV_Random(-2, -5), PV_Random(36, 2 * 36), particles, GetCon() / 10);
+	}
+	return;
+}
+
 /* -- Engine callbacks -- */
 
 private func Death()
 {
-	Sound("DeathGrowl");
+	Sound("Animals::Monster::MonsterDeathGrowl");
 	SetDir(DIR_Left);
-	SetAction("Dead");
+	SetAction(Format("Dead%d", RandomX(1, 2)));
 }
 
 /* -- Activity -- */
 
 private func FxIntAnimalActivityMovement(object target, proplist ai)
 {
+	//Log("Animal movement");
     if (target != this) return;
     
 	// Do nothing
 	if (Random(2) && (GetAction() == "Walk" || GetAction() == "Swim"))
 	{
-		if (GetAction == "Walk")
+		//Log("Monster walking");
+		if (GetAction() == "Walk")
 		{
 			// Jump
 			if (!Random(3)) return DoJump();
 			
 			// Look around
-			if (!Random(8)) return SetAction("LookUp");
+			if (!Random(8)) return SetAction("Look");
 		}
 		
 		if (Random(2))
@@ -91,6 +106,126 @@ private func FxIntAnimalActivityMovement(object target, proplist ai)
 	}
 }
 
+/* -- Attacking things -- */
+
+
+// Hit targets while walking
+private func HitCheck()
+{
+	var strength = GetAttackStrength();
+	DoAttack(strength, false);
+	if (!Random(3))
+	{
+		ShakeViewport(strength, 0, 0, Max(1, GetCon()));
+	}
+
+}
+
+// Hit targets by jumping on them
+private func Hit2()
+{
+	var full_range = GetYDir() >= 20;
+	var factor;
+	if (full_range)
+	{
+		factor = 2;
+	}
+	else
+	{
+		factor = 1;
+	}
+
+	var strength = GetAttackStrength(factor);
+	DoAttack(strength, full_range);
+	ShakeViewport(strength, 0, 0, Max(1, GetCon()));
+	if (IsDusty())
+	{
+		var particles = Particles_GroundDust();
+		var range = GetDefWidth() * GetCon() / 300;
+		CreateParticle("Dust", PV_Random(-range, range), GetVertex(2, 1), PV_Random(-3, 3), PV_Random(-2, -7), PV_Random(36, 2 * 36), particles, GetCon() / 5);
+	}
+}
+
+
+private func DoAttack(int strength, bool full_range)
+{
+	for (var target in GetAttackTargets(full_range))
+	{
+		if (!GetEffect("FxMonsterHitCooldown", target))
+		{
+			target->CreateEffect(FxMonsterHitCooldown, 1, 40);
+			Punch(target, strength);
+		}
+	}
+}
+
+
+private func GetAttackTargets(bool full_range)
+{
+	var range_x = GetDefWidth() * GetCon() / 200;
+	var range_y = GetDefWidth() * GetCon() / 200;
+	var area;
+	if (full_range)
+	{
+		area = Find_InRect(-range_x, 0, 2 * range_x, range_y);
+	}
+	else
+	{
+		area = Find_InRect((-1 + GetDir()) * range_x, 0, range_x, range_y);
+	}
+	return FindObjects(Find_Func("IsPrey"), area, Find_NoContainer());
+}
+
+
+private func GetAttackStrength(int factor)
+{
+	return Max(1, (factor ?? 1) * GetCon() / 10);
+}
+
+
+local FxMonsterHitCooldown = new Effect
+{
+	Timer = func()
+	{
+		return FX_Execute_Kill;
+	},
+};
+
+
+/* -- Effects -- */
+
+
+private func FootStep()
+{
+	if (IsDusty())
+	{
+		var dir = Sign(GetXDir());
+		var particles = Particles_GroundDust();
+		CreateParticle("Dust", PV_Random(dir * -2, dir * -1), 8, PV_Random(dir * 2, dir * 1), PV_Random(-2, -3), PV_Random(36, 2 * 36), particles, 5);
+	}
+}
+
+
+private func IsDusty()
+{
+	return GetMaterialVal("DigFree", "Material", GetMaterial(GetVertex(2, 0), GetVertex(2, 1) + 2)) != 0;
+}
+
+
+private func Particles_GroundDust()
+{
+	var clr = SplitRGBaValue(GetAverageTextureColor(GetTexture(GetVertex(2, 0), GetVertex(2, 1) + 2)));
+	var particles =
+	{
+		Prototype = Particles_Dust(),
+		R = clr.R,
+		G = clr.G,
+		B = clr.B,
+		Size = PV_KeyFrames(0, 0, 5, 100, 20, 1000, 10), // slightly larger dust than usually
+	};
+	return particles;
+}
+
 
 /* -- Properties -- */
 
@@ -102,7 +237,7 @@ local MaxBreath = 720; // Monster can breathe for 20 seconds under water.
 local NoBurnDecay = 1;
 local ContactCalls = true;
 local Collectible = true;
-local BorderBound = 7;
+local BorderBound = C4D_Border_Sides;
 
 /* -- Actions -- */
 
@@ -115,16 +250,14 @@ Walk = {
 	FlipDir = 1,
 	Length = 16,
 	Delay = 5,
-	X = 0,
-	Y = 0,
-	Wdt = 48,
-	Hgt = 34,
+	FacetBase = 1,
 	Accel = 8,
 	Decel = 48,
 	Speed = 200,
 	NextAction = "Walk",
 	StartCall = "HitCheck",
 	InLiquidAction = "Swim",
+	Animation = "Walk",
 },
 
 Turn = {
@@ -135,10 +268,7 @@ Turn = {
 	FlipDir = 1,
 	Length = 7,
 	Delay = 2,
-	X = 0,
-	Y = 68,
-	Wdt = 48,
-	Hgt = 34,
+	FacetBase = 1,
 	NextAction = "Walk",
 },
 
@@ -150,14 +280,12 @@ Jump = {
 	FlipDir = 1,
 	Length = 17,
 	Delay = 1,
-	X = 0,
-	Y = 34,
-	Wdt = 48,
-	Hgt = 34,
+	FacetBase = 1,
 	Speed = 200,
 	Accel = 14,
 	NextAction = "Hold",
 	InLiquidAction = "Swim",
+	Animation = "Jump",
 },
 
 Swim = {
@@ -168,29 +296,10 @@ Swim = {
 	FlipDir = 1,
 	Length = 16,
 	Delay = 5,
-	X = 0,
-	Y = 0,
-	Wdt = 48,
-	Hgt = 34,
+	FacetBase = 1,
 	NextAction = "Swim",
 	StartCall = "HitCheck",
-},
-
-LookUp = {
-	Prototype = Action,
-	Name = "LookUp",
-	Procedure = DFA_NONE,
-	Directions = 2,
-	FlipDir = 1,
-	Length = 12,
-	Delay = 1,
-	Attach = 8,
-	X = 0,
-	Y = 102,
-	Wdt = 48,
-	Hgt = 34,
-	NextAction = "Look",
-	InLiquidAction = "Swim",
+	Animation = "Walk",
 },
 
 Look = {
@@ -199,32 +308,43 @@ Look = {
 	Procedure = DFA_NONE,
 	Directions = 2,
 	FlipDir = 1,
-	Delay = 15,
+	Delay = 40,
 	Attach = 8,
-	X = 528,
-	Y = 102,
-	Wdt = 48,
-	Hgt = 34,
-	NextAction = "LookAway",
-	InLiquidAction = "Swim",
-},
-
-LookAway = {
-	Prototype = Action,
-	Name = "LookAway",
-	Procedure = DFA_NONE,
-	Directions = 2,
-	FlipDir = 1,
-	Length = 12,
-	Reverse = 1,
-	Delay = 1,
-	Attach = 8,
-	X = 0,
-	Y = 102,
-	Wdt = 48,
-	Hgt = 34,
+	FacetBase = 1,
 	NextAction = "Walk",
 	InLiquidAction = "Swim",
+	Animation = "Look",
 },
+
+Dead1 = {
+	Prototype = Action,
+	Name = "Dead1",
+	Animation = "Death1",
+	Procedure = DFA_NONE,
+	Length = 30,
+	Delay = 1,
+	FacetBase = 1,
+	Directions = 2,
+	FlipDir = 1,
+	NextAction = "Hold",
+	NoOtherAction = 1,
+	ObjectDisabled = 1,
+},
+
+Dead2 = {
+	Prototype = Action,
+	Name = "Dead2",
+	Animation = "Death2",
+	Procedure = DFA_NONE,
+	Length = 50,
+	Delay = 1,
+	FacetBase = 1,
+	Directions = 2,
+	FlipDir = 1,
+	NextAction = "Hold",
+	NoOtherAction = 1,
+	ObjectDisabled = 1,
+},
+
 
 };
