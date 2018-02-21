@@ -199,9 +199,10 @@ private func FootStep()
 {
 	if (IsDusty())
 	{
+		var range = GetDefWidth() * GetCon() / 300;
 		var dir = Sign(GetXDir());
 		var particles = Particles_GroundDust();
-		CreateParticle("Dust", PV_Random(dir * -2, dir * -1), 8, PV_Random(dir * 2, dir * 1), PV_Random(-2, -3), PV_Random(36, 2 * 36), particles, 5);
+		CreateParticle("Dust", PV_Random(dir * -2 * range, dir * range), 8, PV_Random(dir * 2, dir * 1), PV_Random(-2, -3), PV_Random(36, 2 * 36), particles);
 	}
 }
 
@@ -258,6 +259,7 @@ Walk = {
 	StartCall = "HitCheck",
 	InLiquidAction = "Swim",
 	Animation = "Walk",
+	PhaseCall = "FootStep",
 },
 
 Turn = {
@@ -281,8 +283,8 @@ Jump = {
 	Length = 17,
 	Delay = 1,
 	FacetBase = 1,
-	Speed = 200,
-	Accel = 14,
+	Speed = 100,
+	Accel = 8,
 	NextAction = "Hold",
 	InLiquidAction = "Swim",
 	Animation = "Jump",
