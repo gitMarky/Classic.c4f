@@ -25,7 +25,7 @@ public func StartFlame()
 		
 	CreateEffect(FxFireAttack, 1, 1);
 	Sound("Fire::Inflame");
-	Sound("Animals::Monster::MonsterGrowl?");
+	PlaySoundGrowl();
 	PlayAnimation("Breath", ANIM_SLOT_Monster_Attack, Anim_Linear(0, 0, GetAnimationLength("Breath"), 40, ANIM_Remove));
 	SetAction("FireBreath"); // So that it does not walk
 }

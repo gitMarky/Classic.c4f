@@ -42,7 +42,7 @@ public func DoJump()
 {
 	if (GetAction() == "Walk")
 	{
-		if (Random(2)) Sound("Animals::Monster::MonsterGrowl?");
+		if (Random(2)) PlaySoundGrowl();
 		Jump();
 	}
 }
@@ -72,7 +72,7 @@ public func Jump(int xdir, int ydir)
 
 private func Death()
 {
-	Sound("Animals::Monster::MonsterDeathGrowl");
+	PlaySoundDeath();
 	SetDir(DIR_Left);
 	SetAction(Format("Dead%d", RandomX(1, 2)));
 }
@@ -229,6 +229,17 @@ private func Particles_GroundDust()
 	return particles;
 }
 
+/* -- Sounds -- */
+
+private func PlaySoundGrowl()
+{
+	Sound("Animals::Monster::MonsterGrowl?", {pitch = 100 - GetCon()});
+}
+
+private func PlaySoundDeath()
+{
+	Sound("Animals::Monster::MonsterDeathGrowl", {pitch = 100 - GetCon()});
+}
 
 /* -- Animal hunt goal -- */
 
