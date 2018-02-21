@@ -18,6 +18,24 @@ private func GetCarryTransform(clonk)
 private func GetCarryBone() { return "Main"; }
 private func GetCarryPhase() { return 500; }
 
+
+/* -- Animal hunt goal -- */
+
+private func IsAnimalType(type)
+{
+	return type == FireMonster
+ 	    || type == GOAL_AnimalType_Monster;
+}
+
+/* -- Birth -- */
+
+private func CreateHatchling()
+{
+	var baby = CreateObjectAbove(FireMonster, 0, 0, GetOwner());
+	baby->SetCon(20);
+	return baby;
+}
+
 /* -- Properties -- */
 
 private func GetEggColor() { return RGB(230, 78, 5); } // For particle effects

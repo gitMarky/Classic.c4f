@@ -33,7 +33,7 @@ private func Hatch()
 	this.Collectible = false;
 	
 	// Release the animal
-	var child = Contents();
+	var child = Contents() ?? this->~CreateHatchling();
 	if (child)
 	{
 		child->Exit();

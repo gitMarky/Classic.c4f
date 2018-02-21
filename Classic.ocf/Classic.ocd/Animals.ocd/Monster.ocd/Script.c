@@ -230,6 +230,13 @@ private func Particles_GroundDust()
 }
 
 
+/* -- Animal hunt goal -- */
+
+private func IsAnimalType(type)
+{
+	return type == GOAL_AnimalType_Monster;
+}
+
 /* -- Properties -- */
 
 local Name = "$Name$";
