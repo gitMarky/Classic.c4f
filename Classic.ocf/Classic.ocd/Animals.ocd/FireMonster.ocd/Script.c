@@ -44,6 +44,10 @@ private func Flaming(int target_angle)
 	flame->SetController(GetController());
 	flame->SetXDir(+Sin(angle, range));
 	flame->SetYDir(-Cos(angle, range));
+	
+	// Fiat lux!
+	flame->SetLightRange(60, 40);
+	flame->SetLightColor(FIRE_LIGHT_COLOR);
 }
 
 
