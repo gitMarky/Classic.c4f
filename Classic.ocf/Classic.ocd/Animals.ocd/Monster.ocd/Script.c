@@ -3,6 +3,8 @@
 #include Library_AnimalControl
 #include Library_AnimalReproduction
 
+static const ANIM_SLOT_Monster_Attack = 2;
+
 /* -- Reproduction -- */
 
 private func AnimalReproductionRate(){    return 2000;}
@@ -79,17 +81,17 @@ private func Death()
 
 private func FxIntAnimalActivityMovement(object target, proplist ai)
 {
-	//Log("Animal movement");
     if (target != this) return;
     
 	// Do nothing
 	if (Random(2) && (GetAction() == "Walk" || GetAction() == "Swim"))
 	{
-		//Log("Monster walking");
 		if (GetAction() == "Walk")
 		{
 			// Jump
 			if (!Random(3)) return DoJump();
+			
+			if (this->~SpecialActivity()) return;
 			
 			// Look around
 			if (!Random(8)) return SetAction("Look");
