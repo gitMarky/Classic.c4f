@@ -5,14 +5,16 @@
 
 private func GetCarryTransform(clonk)
 {
+	var offset;
 	if (GetCarrySpecial(clonk))
 	{
-		return Trans_Identity();
+		offset = Trans_Translate(3000, 0, 0);
 	}
 	else
 	{
-		return Trans_Rotate(90, 0, 0, 1);
+		offset = Trans_Identity();
 	}
+	return Trans_Mul(Trans_Rotate(90, 0, 0, 1), offset);
 }
 
 private func GetCarryBone() { return "Main"; }
