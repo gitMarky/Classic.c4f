@@ -248,6 +248,37 @@ private func IsAnimalType(type)
 	return type == GOAL_AnimalType_Monster;
 }
 
+
+/* -- Turning -- */
+
+private func Construction()
+{
+	_inherited(...);
+	var fx = CreateEffect(FxTurn, 1, 1);
+	fx.dir = GetDir();
+}
+
+
+local FxTurn = new Effect
+{
+	Timer = func ()
+	{
+		// Switch directions?
+		if (this.dir != this.Target->GetDir())
+		{
+			this.dir = this.Target->GetDir();
+			this.progress = 180 - this.progress; // invert the turn progress
+		}
+		// Update the graphics
+		if (this.progress)
+		{
+			this.progress = Max(0, this.progress - 10);
+			this.Target.MeshTransformation = Trans_Rotate(this.progress, 0, 1, 0);
+		}
+	}
+};
+
+
 /* -- Properties -- */
 
 local Name = "$Name$";
