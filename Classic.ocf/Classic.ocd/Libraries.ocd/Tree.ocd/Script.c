@@ -187,18 +187,39 @@ public func ContextChop(pClonk)
   return true;
 }
 
-protected func Damage()
+protected func Damage(int change, int cause)
 {
     // Damaged dead trees should rot...
     if (this->IsDeadTree()
     && !GetEffect("IntTreeDecay", this)
     && GetCon() < 90
     && this.Touchable != 0)
+    {
         AddEffect("IntTreeDecay", this, 1, 51, this);
+    }
 
-    if (!Random(3)) CastLeafParticles();
+	if (cause == FX_Call_DmgFire)
+	{
+		if (OnFire() >= 70)
+		{
+			SetGraphics("Burned");
+			
+			if (Random(5))
+			{
+				SetAction("Chopped");
+			}
+			else
+			{
+				ChopDown();
+			}
+		}
+	}
+	else
+	{
+    	if (!Random(3)) CastLeafParticles();
+    }
 
-  	_inherited(...);
+  	_inherited(change, cause, ...);
 }
 
 protected func Hit3(int x, int y)
@@ -228,6 +249,7 @@ public func CastLeafParticles()
 	}
 }
 
+
 protected func ChopDown()
 {
 	SetAction("Chopped");
@@ -236,12 +258,6 @@ protected func ChopDown()
 	_inherited(...);
 }
 
-protected func Incineration()
-{
-	SetGraphics("Burned");
-	SetAction("Chopped");
-	_inherited(...);
-}
 
 func FxTreeFallTimer(object target, proplist fx, int time)
 {
