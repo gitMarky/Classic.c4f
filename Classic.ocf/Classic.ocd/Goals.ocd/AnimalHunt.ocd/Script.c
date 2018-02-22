@@ -60,7 +60,7 @@ public func SetAnimal(type, int min_amount, bool placed_by_scenario)
 	SaveSetting(type);
 
 	// Do some logic for placing the minimal amount
-	var count = ObjectCount(Find_ID(type));
+	var count = GetLength(FindAnimals(type));
 	var to_place = min_amount- count;
 	if (!placed_by_scenario)
 	{
@@ -71,7 +71,8 @@ public func SetAnimal(type, int min_amount, bool placed_by_scenario)
 		}
 
 		// Place them
-		GetAnimalID(type)->Place(to_place);
+		var animal = GetAnimalID(type);
+		if (animal) animal->Place(to_place);
 	}
 	return this;
 }
