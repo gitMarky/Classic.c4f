@@ -1,21 +1,4 @@
 
-/**
- Adjusts an amount to the map size, if 
- the scenario has a function 'AdjustAmountToMapSize'.
- Otherwise leaves the amount as it is.
- */
-global func AdjustToMapSize(int amount)
-{
-	if (Scenario.AdjustAmountToMapSize)
-	{
-		return Scenario->AdjustAmountToMapSize(amount);
-	}
-	else
-	{
-		return amount;
-	}
-}
-
 
 /**
  Places an object on surfaces.
@@ -75,10 +58,9 @@ global func PlaceOnSurface(int amount, proplist rectangle, proplist settings)
 
 
 
-global func Loc_Sky() {	return Loc_Material("Sky"); } // The original is broken, because liquid can count as sky...
 
 
-global func PlaceInEarth(int amount)
+global func PlaceInEarthExact(int amount)
 {
 	AssertDefinitionContext();
 	PlaceObjects(this, ConvertInEarthAmount(amount), "Earth");
@@ -101,6 +83,96 @@ global func PlaceByCriteria(int amount)
 	}
 	return placed;
 }
+
+/* -- Special placement -- */
+
+
+global func PlaceInEarth(int relative_amount)
+{
+	AssertDefinitionContext();
+	PlaceControl()->AddType(this, relative_amount);
+}
+
+
+/**
+ Adjusts an amount to the map size, if 
+ the scenario has a function 'AdjustAmountToMapSize'.
+ Otherwise leaves the amount as it is.
+ */
+global func AdjustToMapSize(int amount)
+{
+	if (Scenario.AdjustAmountToMapSize)
+	{
+		return Scenario->AdjustAmountToMapSize(amount);
+	}
+	else
+	{
+		return amount;
+	}
+}
+
+
+global func PlaceControl()
+{
+	var fx = GetEffect("FxPlaceControl", Scenario);
+	if (!fx)
+	{
+		fx = Scenario->CreateEffect(FxPlaceControl, 1, 1);
+	}
+	ScheduleCall();
+	return fx;
+}
+
+
+static const FxPlaceControl = new Effect
+{
+	SetLevel = func(int level)
+	{
+		this.Level = BoundBy(level, 1, 1000);
+	},
+	
+	AddType = func (id type, int relative_amount)
+	{
+		this.Objects = this.Objects ?? {};
+		var data = this.Objects[Format("%i", type)];
+		if (data)
+		{
+			data.numerator += relative_amount;
+		}
+		else
+		{
+			this.Objects[Format("%i", type)] = {type = type, numerator = relative_amount};
+		}
+	},
+	
+	Timer = func()
+	{
+		var material = "Earth";
+		this.Objects = this.Objects ?? {};
+		// Determine total amount
+		var denominator = 0;
+		for (var key in GetProperties(this.Objects))
+		{
+			denominator += Max(0, this.Objects[key].numerator);
+		}
+		// Place everything
+		var total = ConvertInMatAmount(material, this.Level);
+		for (var key in GetProperties(this.Objects))
+		{
+			var data = this.Objects[key];
+			var amount = total * data.numerator / Max(1, denominator);
+			// Insert
+			PlaceObjects(data.type, amount, material);
+		}
+	
+		return FX_Execute_Kill;
+	},
+};
+
+/* -- Location conditions -- */
+
+ // The original is broken, because liquid can count as sky...
+global func Loc_Sky() {	return Loc_Material("Sky"); }
 
 
 global func LocFunc_HasSunLight(int x, int y)
