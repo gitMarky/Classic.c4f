@@ -350,8 +350,10 @@ Swim = {
 	Length = 16,
 	Delay = 5,
 	FacetBase = 1,
+	Speed = 96,
+	Accel = 7,
+	Decel = 9,
 	NextAction = "Swim",
-	StartCall = "HitCheck",
 	Animation = "Walk",
 },
 
