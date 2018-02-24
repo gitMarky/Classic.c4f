@@ -57,16 +57,6 @@ global func PlaceOnSurface(int amount, proplist rectangle, proplist settings)
 }
 
 
-
-
-
-global func PlaceInEarthExact(int amount)
-{
-	AssertDefinitionContext();
-	PlaceObjects(this, ConvertInEarthAmount(amount), "Earth");
-}
-
-
 global func PlaceByCriteria(int amount)
 {
 	AssertDefinitionContext();
@@ -86,9 +76,6 @@ global func PlaceByCriteria(int amount)
 
 /* -- Special placement -- */
 
-// No order in itself, just for separating the layers
-static const PLACE_Layer_Earth = 0;	
-static const PLACE_Layer_Nest = 1;	
 
 global func PlaceInEarth(int amount, int in_relation_to, int level, int divisor)
 {
@@ -111,7 +98,7 @@ global func PlaceInMaterial(string material, int amount, int in_relation_to, int
 	factor = factor ?? 1;
 	divisor = Max(1, divisor);
 	var total = (factor * amount / in_relation_to) / divisor;
-	Log("Will place %d; from: %d/%d, to_place = %d, divisor = %d", total, amount, in_relation_to, factor, divisor);
+	//Log("Will place %d; from: %d/%d, to_place = %d, divisor = %d", total, amount, in_relation_to, factor, divisor);
 	PlaceObjects(this, total, material);
 }
 
@@ -132,77 +119,6 @@ global func AdjustToMapSize(int amount)
 		return amount;
 	}
 }
-
-
-global func PlaceControl()
-{
-	var fx = GetEffect("FxPlaceControl", Scenario);
-	if (!fx)
-	{
-		fx = Scenario->CreateEffect(FxPlaceControl, 1, 1);
-	}
-	ScheduleCall();
-	return fx;
-}
-
-
-static const FxPlaceControl = new Effect
-{
-	SetLevel = func(int level)
-	{
-		this.Level = BoundBy(level, 1, 1000);
-	},
-
-	AddType = func (id type, int relative_amount, int layer)
-	{
-		layer = layer ?? 0;
-		if (!this.Objects) this.Objects = [];
-		this.Objects[layer] = this.Objects[layer] ?? {};
-		var data = this.Objects[layer][Format("%i", type)];
-		if (data)
-		{
-			data.numerator += relative_amount;
-		}
-		else
-		{
-			this.Objects[layer][Format("%i", type)] = {type = type, numerator = relative_amount};
-		}
-	},
-	
-	Timer = func()
-	{
-		if (!this.Objects) this.Objects = [];
-		for (var layer = 0; layer <= GetLength(this.Objects); ++layer)
-		{
-			PlaceLayer(this.Objects[layer]);
-		}
-		
-		return FX_Execute_Kill;
-	},
-	
-	PlaceLayer = func (proplist objects)
-	{
-		if (objects)
-		{
-			var material = "Earth";
-			// Determine total amount
-			var denominator = 0;
-			for (var key in GetProperties(objects))
-			{
-				denominator += Max(0, objects[key].numerator);
-			}
-			// Place everything
-			var total = ConvertInMatAmount(material, this.Level);
-			for (var key in GetProperties(objects))
-			{
-				var data = objects[key];
-				var amount = total * data.numerator / Max(1, denominator);
-				// Insert
-				PlaceObjects(data.type, amount, material);
-			}
-		}
-	},
-};
 
 /* -- Location conditions -- */
 
