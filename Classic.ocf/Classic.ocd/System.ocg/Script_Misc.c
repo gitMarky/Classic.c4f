@@ -13,3 +13,13 @@ global func CallForEach(array every, function_name)
 	}
 	return results;
 }
+
+
+/**
+ Gets a random number starting at 'initial' with 
+ values differing by +/- 'range'
+ */
+global func RandomRange(int initial, int range)
+{
+	return RandomX(initial - range, initial + range);
+}

@@ -86,6 +86,9 @@ global func PlaceByCriteria(int amount)
 
 /* -- Special placement -- */
 
+// No order in itself, just for separating the layers
+static const PLACE_Layer_Earth = 0;	
+static const PLACE_Layer_Nest = 1;	
 
 global func PlaceInEarth(int relative_amount)
 {
@@ -130,42 +133,55 @@ static const FxPlaceControl = new Effect
 	{
 		this.Level = BoundBy(level, 1, 1000);
 	},
-	
-	AddType = func (id type, int relative_amount)
+
+	AddType = func (id type, int relative_amount, int layer)
 	{
-		this.Objects = this.Objects ?? {};
-		var data = this.Objects[Format("%i", type)];
+		layer = layer ?? 0;
+		if (!this.Objects) this.Objects = [];
+		this.Objects[layer] = this.Objects[layer] ?? {};
+		var data = this.Objects[layer][Format("%i", type)];
 		if (data)
 		{
 			data.numerator += relative_amount;
 		}
 		else
 		{
-			this.Objects[Format("%i", type)] = {type = type, numerator = relative_amount};
+			this.Objects[layer][Format("%i", type)] = {type = type, numerator = relative_amount};
 		}
 	},
 	
 	Timer = func()
 	{
-		var material = "Earth";
-		this.Objects = this.Objects ?? {};
-		// Determine total amount
-		var denominator = 0;
-		for (var key in GetProperties(this.Objects))
+		if (!this.Objects) this.Objects = [];
+		for (var layer = 0; layer <= GetLength(this.Objects); ++layer)
 		{
-			denominator += Max(0, this.Objects[key].numerator);
+			PlaceLayer(this.Objects[layer]);
 		}
-		// Place everything
-		var total = ConvertInMatAmount(material, this.Level);
-		for (var key in GetProperties(this.Objects))
-		{
-			var data = this.Objects[key];
-			var amount = total * data.numerator / Max(1, denominator);
-			// Insert
-			PlaceObjects(data.type, amount, material);
-		}
-	
+		
 		return FX_Execute_Kill;
+	},
+	
+	PlaceLayer = func (proplist objects)
+	{
+		if (objects)
+		{
+			var material = "Earth";
+			// Determine total amount
+			var denominator = 0;
+			for (var key in GetProperties(objects))
+			{
+				denominator += Max(0, objects[key].numerator);
+			}
+			// Place everything
+			var total = ConvertInMatAmount(material, this.Level);
+			for (var key in GetProperties(objects))
+			{
+				var data = objects[key];
+				var amount = total * data.numerator / Max(1, denominator);
+				// Insert
+				PlaceObjects(data.type, amount, material);
+			}
+		}
 	},
 };
 
