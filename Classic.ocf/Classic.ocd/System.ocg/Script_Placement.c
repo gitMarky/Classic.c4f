@@ -90,10 +90,29 @@ global func PlaceByCriteria(int amount)
 static const PLACE_Layer_Earth = 0;	
 static const PLACE_Layer_Nest = 1;	
 
-global func PlaceInEarth(int relative_amount)
+global func PlaceInEarth(int amount, int in_relation_to, int level, int divisor)
 {
 	AssertDefinitionContext();
-	PlaceControl()->AddType(this, relative_amount);
+	PlaceInMaterialByLevel("Earth", amount, in_relation_to, level, divisor);
+}
+
+
+global func PlaceInMaterialByLevel(string material, int amount, int in_relation_to, int level, int divisor)
+{
+	level = level ?? 100;
+	PlaceInMaterial(material, amount, in_relation_to, ConvertInMatAmount(material, level), divisor);
+}
+
+
+global func PlaceInMaterial(string material, int amount, int in_relation_to, int factor, int divisor)
+{
+	AssertDefinitionContext();
+	in_relation_to = Max(1, in_relation_to);
+	factor = factor ?? 1;
+	divisor = Max(1, divisor);
+	var total = (factor * amount / in_relation_to) / divisor;
+	Log("Will place %d; from: %d/%d, to_place = %d, divisor = %d", total, amount, in_relation_to, factor, divisor);
+	PlaceObjects(this, total, material);
 }
 
 

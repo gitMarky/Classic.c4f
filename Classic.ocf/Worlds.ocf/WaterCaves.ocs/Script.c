@@ -47,27 +47,34 @@ private func Init_Vegetation()
 
 private func Init_Material()
 {
-	Bone->PlaceInEarth(1);
-	Rock->PlaceInEarth(4);
-	Flint->PlaceInEarth(8);
-	Gold->PlaceInEarth(1);
-	Loam->PlaceInEarth(10);
+	var level = 30;
+	var relative = 24;
+	Bone->PlaceInEarth(1, relative, level);
+	Rock->PlaceInEarth(4, relative, level);
+	Flint->PlaceInEarth(8, relative, level);
+	Gold->PlaceInEarth(1, relative, level);
+	Loam->PlaceInEarth(10, relative, level);
 }
 
 private func Init_Animals()
 {
+	// Animals
 	Wipf->Place(AdjustToMapSize(3));
 	ClassicFish->Place(AdjustToMapSize(30));
 	Shark->Place(AdjustToMapSize(2));
-	FireMonsterEgg->PlaceInEarth(AdjustToMapSize(4));
-	MonsterEgg->PlaceInEarth(AdjustToMapSize(5));
-	ZapNest->PlaceInEarth(AdjustToMapSize(2));
 	Bat->Place(AdjustToMapSize(5));
+	
+	// Nests
+	var level = 30;
+	var relative = 11;
+	FireMonsterEgg->PlaceInEarth(4, relative, level, 10);
+	MonsterEgg->PlaceInEarth(5, relative, level, 10);
+	ZapNest->PlaceInEarth(2, relative, level, 10);
 }
 
 private func Player_StartingMaterial(int player)
 {
-	SetWealth(player, 30);
+	SetWealth(player, 60);
 	ClassicHutStone->PlaceHomebase(player);
 }
 

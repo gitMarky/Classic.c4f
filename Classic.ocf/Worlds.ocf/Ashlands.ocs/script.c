@@ -53,17 +53,21 @@ private func Init_Animals()
 	ClassicFish->Place(AdjustToMapSize(7));
 	Bird->Place(AdjustToMapSize(5));
 
-	MonsterEgg->PlaceInEarth(AdjustToMapSize(1));
-	FireMonsterEgg->PlaceInEarth(AdjustToMapSize(2));
-	ZapNest->PlaceInEarth(AdjustToMapSize(4));
+	var relative = 7;
+	var level = 48;
+	MonsterEgg->PlaceInEarth(1, relative, level, 10);
+	FireMonsterEgg->PlaceInEarth(2, relative, level, 10);
+	ZapNest->PlaceInEarth(4, relative, level, 10);
 }
 
 private func Init_Material()
 {
-	Rock->PlaceInEarth(AdjustToMapSize(4));
-	Loam->PlaceInEarth(AdjustToMapSize(5));
-	Flint->PlaceInEarth(AdjustToMapSize(3));
-	Gold->PlaceInEarth(AdjustToMapSize(3));
+	var relative = 15;
+	var level = 48;
+	Rock->PlaceInEarth(4, relative, level);
+	Loam->PlaceInEarth(5, relative, level);
+	Flint->PlaceInEarth(3, relative, level);
+	Gold->PlaceInEarth(3, relative, level);
 }
 
 private func Player_InitialKnowledge(int player)

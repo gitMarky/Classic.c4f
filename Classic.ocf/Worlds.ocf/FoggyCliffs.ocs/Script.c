@@ -48,19 +48,25 @@ private func Init_Vegetation()
 
 private func Init_Material()
 {
-	Gold->PlaceInEarth(AdjustToMapSize(3));
-	Loam->PlaceInEarth(AdjustToMapSize(3));
-	Rock->PlaceInEarth(AdjustToMapSize(3));
+	var relative = 3;
+	var level = 36;
+	Gold->PlaceInEarth(1, relative, level);
+	Loam->PlaceInEarth(1, relative, level);
+	Rock->PlaceInEarth(1, relative, level);
 }
 
 private func Init_Animals()
 {
 	ClassicFish->Place(AdjustToMapSize(25));
 	Wipf->Place(AdjustToMapSize(6));
-	MonsterEgg->PlaceInEarth(AdjustToMapSize(1));
-	ZapNest->PlaceInEarth(AdjustToMapSize(3));
 	
-	// Place wipfs in tunnels
+	// Nests
+	var relative = 4;
+	var level = 36;
+	MonsterEgg->PlaceInEarth(1, relative, level, 10);
+	ZapNest->PlaceInEarth(3, relative, level, 10);
+	
+	// Move wipfs to tunnels
 	for (var wipf in FindObjects(Find_ID(Wipf)))
 	{
 		if (wipf->GetMaterial() != Material("Tunnel"))

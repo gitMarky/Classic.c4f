@@ -23,6 +23,22 @@ global func ConvertInMatAmount(string material, int level)
 {
 	material = material ?? "Earth";
 	level = BoundBy(level ?? 100, 1, 100);
-	var total = GetMaterialCount(Material(material)) / 2500;
+	var total = GetMaterialCount(Material(material)) / 600;
+	return total * level / 100;
+}
+
+
+
+/**
+ Conversion method for placing objects in materials, as in old Clonk Rage
+ scenarios.
+ 
+ @par material This material will be converted to an amount. Defaults to "Earth".
+ @par level This level will be used. Defaults to 100.
+ */
+global func ConvertInMapAmount(int level)
+{
+	level = BoundBy(level ?? 100, 1, 100);
+	var total = (LandscapeWidth()/10) * (LandscapeHeight()/10) / 50; // map area / 5000
 	return total * level / 100;
 }

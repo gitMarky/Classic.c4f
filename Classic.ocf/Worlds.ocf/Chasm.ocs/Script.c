@@ -51,18 +51,23 @@ private func Init_Animals()
 {
 	Bird->Place(AdjustToMapSize(3));
 	Bat->Place(AdjustToMapSize(5));
-	MonsterEgg->PlaceInEarth(AdjustToMapSize(2));
-	FireMonsterEgg->PlaceInEarth(AdjustToMapSize(4));
-	ZapNest->PlaceInEarth(AdjustToMapSize(1));
+
+	var relative = 7;
+	var level = 28;
+	MonsterEgg->PlaceInEarth(2, relative, level, 10);
+	FireMonsterEgg->PlaceInEarth(4, relative, level, 10);
+	ZapNest->PlaceInEarth(1, relative, level, 10);
 }
 
 private func Init_Material()
 {
-	// Some objects in the earth.	
-	Bone->PlaceInEarth(AdjustToMapSize(2));
-	Flint->PlaceInEarth(AdjustToMapSize(7));
-	Gold->PlaceInEarth(AdjustToMapSize(4));
-	Loam->PlaceInEarth(AdjustToMapSize(5));
+	// Some objects in the earth.
+	var relative = 7;
+	var level = 28;
+	Bone->PlaceInEarth(2, relative, level);
+	Flint->PlaceInEarth(7, relative, level);
+	Gold->PlaceInEarth(4, relative, level);
+	Loam->PlaceInEarth(5, relative, level);
 	
 	// Some volcano remains
 	Skull->PlaceOnSurface(AdjustToMapSize(10));

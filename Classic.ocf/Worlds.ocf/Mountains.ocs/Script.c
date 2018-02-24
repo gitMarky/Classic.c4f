@@ -39,10 +39,13 @@ private func Init_Vegetation()
 private func Init_Material()
 {
 	Rock->PlaceOnSurface(AdjustToMapSize(5));
-	Rock->PlaceInEarth(5);
-	Flint->PlaceInEarth(10);
-	Loam->PlaceInEarth(2);
-	Gold->PlaceInEarth(1);
+
+	var relative = 18;
+	var level = 20;
+	Rock->PlaceInEarth(5, relative, level);
+	Flint->PlaceInEarth(10, relative, level);
+	Loam->PlaceInEarth(2, relative, level);
+	Gold->PlaceInEarth(1, relative, level);
 }
 
 

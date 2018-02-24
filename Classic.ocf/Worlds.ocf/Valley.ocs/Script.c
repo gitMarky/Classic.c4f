@@ -79,10 +79,12 @@ private func Init_Animals()
 
 private func Init_Material()
 {
-	Rock->PlaceInEarth(AdjustToMapSize(1));
-	Gold->PlaceInEarth(AdjustToMapSize(1));
-	Flint->PlaceInEarth(AdjustToMapSize(1));
-	Loam->PlaceInEarth(AdjustToMapSize(1));
+	var level = 50;
+	var relative = 4;
+	Rock->PlaceInEarth(1, relative, level);
+	Gold->PlaceInEarth(1, relative, level);
+	Flint->PlaceInEarth(1, relative, level);
+	Loam->PlaceInEarth(1, relative, level);
 }
 
 private func Player_StartingMaterial(int player)

@@ -37,17 +37,22 @@ private func Init_Vegetation()
 
 private func Init_Material()
 {
-	Flint->PlaceInEarth(AdjustToMapSize(1));
-	Gold->PlaceInEarth(AdjustToMapSize(1));
-	Loam->PlaceInEarth(AdjustToMapSize(1));
-	Rock->PlaceInEarth(AdjustToMapSize(1));
+	PlaceControl()->SetLevel(65);
+	var relative = 4;
+	var size = ConvertInMapAmount(65);
+	var earth = "Earth";
+	Flint->PlaceInMaterial(earth, 1, relative, size);
+	Gold->PlaceInMaterial(earth, 1, relative, size);
+	Loam->PlaceInMaterial(earth, 1, relative, size);
+	Rock->PlaceInMaterial(earth, 1, relative, size);
 }
 
 private func Init_Animals()
 {
 	Bird->Place(AdjustToMapSize(3));
-	MonsterEgg->PlaceInEarth(AdjustToMapSize(7));
-	ZapNest->PlaceInEarth(AdjustToMapSize(4));
+	var size = ConvertInMapAmount(60);
+	MonsterEgg->PlaceInMaterial("Earth", 7, 11, size, 10);
+	ZapNest->PlaceInMaterial("Earth", 4, 11, size, 10);
 }
 
 private func Player_StartingMaterial(int player)
