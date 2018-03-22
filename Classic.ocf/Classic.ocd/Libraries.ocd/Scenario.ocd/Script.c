@@ -17,6 +17,7 @@ public func InitializePlayer(int player)
 	Player_InitialKnowledge(player);
 	Player_StartingMaterial(player);
 	Player_StartingEquipment(player);
+	GivePlayerHomebaseMaterial(player);
 }
 
 /* -- Default functions -- */
