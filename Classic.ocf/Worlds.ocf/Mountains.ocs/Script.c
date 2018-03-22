@@ -74,53 +74,5 @@ private func Player_InitialKnowledge(int player)
 	GivePlayerSpecificKnowledge(player, [WoodenBridge]);
 	GivePlayerSpecificKnowledge(player, vehicleKnowledge);
 
-	var myHomeBaseMaterial =
-	[
-		[Conkit, 5],
-//		[Linekit, 8],
-		[Pipe, 4],
-		[Loam, 10],
-		[Wood, 5],
-		[Metal, 5],
-//		[Concrete, 10],
-		[Flint, 10],
-//		[SuperFlint=2],
-		[TFlint, 10],
-//		[SuperTFlint=5],
-		[ClassicDynamiteBox, 2],
-		[ClassicFlag, 3],
-		[ClassicClonk, 2],
-		[ClassicLorry, 1],
-		[ClassicCatapult, 1]
-	];
-
-	var myHomeBaseProduction = 
-	[
-		[Conkit, 2],
-//		[Linekit, 8],
-		[Pipe, 4],
-		[Loam, 20],
-		[Wood, 5],
-		[Metal, 10],
-//		[Concrete, 10],
-		[Flint, 10],
-//		[SuperFlint, 3],
-		[TFlint, 15],
-//		[SuperTFlint, 6],
-//		[TeraFlint, 1],
-		[ClassicDynamiteBox, 2],
-		[ClassicClonk, 2],
-		[ClassicLorry, 1]
-	];
-
-	for (var material in myHomeBaseMaterial)
-	{
-		DoBaseMaterial(player, material[0], material[1]);
-	}
-	for (var material in myHomeBaseProduction)
-	{
-		DoBaseProduction(player, material[0], material[1]);
-	}
-
 	return true;
 }

@@ -118,39 +118,6 @@ private func Player_StartingMaterial(int player)
 private func Player_InitialKnowledge(int player)
 {
 	var needs_power = !FindObject(Find_ID(Rule_NoPowerNeed));
-
-	
-	var myHomeBaseMaterial =
-	[
-		[Conkit, 5],
-		[Pipe, 4],
-		[Loam, 5],
-		[Wood, 5],
-		[Metal, 5], 
-		[Flint, 5], 
-		[TFlint, 5], 
-		[Barrel, 5], 
-		[ClassicFlag, 3], 
-		[ClassicClonk, 3], 
-		[ClassicLorry, 2], 
-		[Bread, 5]
-	];
-
-	var myHomeBaseProduction = 
-	[
-		[Conkit, 5], 
-		[Pipe, 2],
-		[Loam, 3], 
-		[Wood, 5], 
-		[Metal, 3], 
-		[Flint, 5], 
-		[TFlint, 5], 
-		[Barrel, 5], 
-		[ClassicFlag, 3], 
-		[ClassicClonk, 2], 
-		[ClassicLorry, 1], 
-		[Bread, 5]
-	];
 	
 	var myKnowledge = 
 	[
@@ -170,13 +137,5 @@ private func Player_InitialKnowledge(int player)
 	GivePlayerSpecificKnowledge(player, myKnowledge);
 	GivePlayerSpecificKnowledge(player, [WoodenBridge]);
 
-	for (var material in myHomeBaseMaterial)
-	{
-		DoBaseMaterial(player, material[0], material[1]);
-	}
-	for (var material in myHomeBaseProduction)
-	{
-		DoBaseProduction(player, material[0], material[1]);
-	}
 	return true;
 }

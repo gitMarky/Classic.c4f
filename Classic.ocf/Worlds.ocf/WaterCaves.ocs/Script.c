@@ -88,44 +88,6 @@ private func Player_InitialKnowledge(int player) // TODO
 	if (needs_power) GivePlayerPowerKnowledge(player);
 	GivePlayerMiningKnowledge(player);
 	GivePlayerChemicalKnowledge(player);
-	var myHomeBaseMaterial =
-	[
-		[Conkit, 5],
-		[Pipe, 4],
-		[Loam, 10],
-		[Wood, 5],
-		[Metal, 5],
-		[Flint, 10],
-		[TFlint, 10],
-		[ClassicDynamiteBox, 2],
-		[ClassicFlag, 3],
-		[ClassicClonk, 2],
-		[ClassicLorry, 1],
-		[ClassicCatapult, 1]
-	];
-
-	var myHomeBaseProduction = 
-	[
-		[Conkit, 2],
-		[Pipe, 4],
-		[Loam, 20],
-		[Wood, 5],
-		[Metal, 10],
-		[Flint, 10],
-		[TFlint, 15],
-		[ClassicDynamiteBox, 2],
-		[ClassicClonk, 2],
-		[ClassicLorry, 1]
-	];
-
-	for (var material in myHomeBaseMaterial)
-	{
-		DoBaseMaterial(player, material[0], material[1]);
-	}
-	for (var material in myHomeBaseProduction)
-	{
-		DoBaseProduction(player, material[0], material[1]);
-	}
 
 	return true;
 }
