@@ -42,12 +42,9 @@ global func GivePlayerHomebaseMaterial(int player)
 	var tool_list =
 	{
 		Conkit = 3,
-		Flint = 3,
+		Flint = 5,
+		ClassicFlag = 3,
 	};
-	
-	// --- Determine production
-	var material_production = 1;
-	var tool_production = 0;
 	
 	// --- Get at least the material to create these
 	var essential_constructions = [Sawmill, ClassicFoundry, ClassicWindmill];
@@ -67,22 +64,6 @@ global func GivePlayerHomebaseMaterial(int player)
 	// Default tools
 	var essential_tools = [Shovel, Axe, Conkit];
 	
-	// Pumps need pipe kits
-	if (GetPlrKnowledge(player, Pump) || GetPlrKnowledge(player, ClassicPump))
-	{
-		PushBack(essential_tools, Pipe);
-	}
-	
-	// Explosives?
-	if (GetPlrKnowledge(player, ClassicChemicalFactory))
-	{
-		// Add sulphur if you cannot dig it
-		if (!GetMaterialCount(Material("Sulphur")))
-		{
-			material_list["Sulphur"] = Max(material_list["Sulphur"], 5);
-		}
-	}
-	
 	// Fill the list
 	for (var tool in essential_tools)
 	{
@@ -101,9 +82,22 @@ global func GivePlayerHomebaseMaterial(int player)
 		}
 	}
 	
-	// --- Add materials with production, tools can be bought once
+	// --- Add materials with production
+	var material_production = 1;
+	var tool_production = 0;
 	ConfigurePlayerHomebaseMaterial(player, material_list, material_production);
 	ConfigurePlayerHomebaseMaterial(player, tool_list, tool_production);
+
+	// --- Configure crew production
+	ConfigurePlayerHomebaseMaterial(player, { ClassicClonk = 3 }, 1);
+	
+	// --- Everything else that can be produced is determined by the individual knowledge
+	var index = 0;
+	var categories = C4D_Structure | C4D_Vehicle | C4D_Object;
+	for (var knowledge = GetPlrKnowledge(player, nil, index, categories); !!knowledge; knowledge = GetPlrKnowledge(player, nil, ++index, categories))
+	{
+		knowledge->~UpdatePlayerHomebaseMaterial(player);
+	}
 }
 
 
@@ -120,6 +114,10 @@ global func  ConfigurePlayerHomebaseMaterial(int player, proplist materials, int
 			var amount = Max(0, materials[material_name] - ObjectCount(Find_ID(material), Find_Owner(player)));
 			SetBaseMaterialAtLeast(player, material, amount);
 			SetBaseProductionAtLeast(player, material, production);
+		}
+		else
+		{
+			FatalError(Format("Definition not found: %s", material_name));
 		}
 	}
 }

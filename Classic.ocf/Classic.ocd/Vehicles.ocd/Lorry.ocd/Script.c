@@ -12,6 +12,13 @@ public func IsVehicle() { return true;}
 public func IsContainer() { return true;}
 public func IsToolProduct() { return true;}
 
+/*-- Knowledge --*/
+
+private func UpdatePlayerHomebaseMaterial(int player)
+{
+	// The player may buy a lorry, if he could also produce one
+	ConfigurePlayerHomebaseMaterial(player, {ClassicLorry = 1}, 0);
+}
 
 /*-- Movement --*/
 
