@@ -97,6 +97,8 @@ private func SoundCloseDoor()
 
 /* Properties */
 
+public func IsHammerBuildable() { return true; }
+
 local Name = "$Name$";
 local Description ="$Description$";
 local BlastIncinerate = 100;

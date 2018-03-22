@@ -16,6 +16,7 @@ protected func Definition(def)
 	}
 }
 
+public func IsHammerBuildable() { return true; }
 func NoConstructionFlip(){ return true; } // not supported
 
 func Initialize()
