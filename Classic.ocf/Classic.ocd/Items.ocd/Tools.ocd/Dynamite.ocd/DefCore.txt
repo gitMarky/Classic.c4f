@@ -1,6 +1,6 @@
 [DefCore]
 id=ClassicDynamite
-Version=7,0
+Version=8,0
 Category=C4D_Object
 Width=3
 Height=12
