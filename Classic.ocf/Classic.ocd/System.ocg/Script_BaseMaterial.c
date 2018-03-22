@@ -37,10 +37,23 @@ global func SetBaseProductionAtLeast(int player, id material, int amount)
  */
 global func GivePlayerHomebaseMaterial(int player)
 {
-	// Get at least the material to create these
-	var essential_knowledge = [Sawmill, ClassicFoundry, ClassicWindmill];
+	// --- Initialize the lists
 	var material_list = {};
-	for (var knowledge in essential_knowledge)
+	var tool_list =
+	{
+		Conkit = 3,
+		Flint = 3,
+	};
+	
+	// --- Determine production
+	var material_production = 1;
+	var tool_production = 0;
+	
+	// --- Get at least the material to create these
+	var essential_constructions = [Sawmill, ClassicFoundry, ClassicWindmill];
+	
+	// Fill the list
+	for (var knowledge in essential_constructions)
 	{
 		var index = 0;
 		for (var component = knowledge->GetComponent(nil, index); !!component; component = knowledge->GetComponent(nil, ++index))
@@ -49,18 +62,64 @@ global func GivePlayerHomebaseMaterial(int player)
 		}
 	}
 	
+	// --- Tools can be bought if you do not have them
+	
+	// Default tools
+	var essential_tools = [Shovel, Axe, Conkit];
+	
+	// Pumps need pipe kits
+	if (GetPlrKnowledge(player, Pump) || GetPlrKnowledge(player, ClassicPump))
+	{
+		PushBack(essential_tools, Pipe);
+	}
+	
+	// Explosives?
+	if (GetPlrKnowledge(player, ClassicChemicalFactory))
+	{
+		// Add sulphur if you cannot dig it
+		if (!GetMaterialCount(Material("Sulphur")))
+		{
+			material_list["Sulphur"] = Max(material_list["Sulphur"], 5);
+		}
+	}
+	
+	// Fill the list
+	for (var tool in essential_tools)
+	{
+		// Already has such a tool? If not, make one buyable
+		var tool_name = Format("%i", tool);
+		var has_tool = !!FindObject(Find_ID(tool), Find_Owner(player));
+		if (!has_tool)
+		{
+			tool_list[tool_name] = Max(tool_list[tool_name], 1);
+		}
+		
+		// Tools get auto-produced if you do not have the knowledge
+		if (!GetPlrKnowledge(player, tool) || !GetPlrKnowledge(player, ClassicWorkshop))
+		{
+			material_list[tool_name] = Max(material_list[tool_name], 1);
+		}
+	}
+	
+	// --- Add materials with production, tools can be bought once
+	ConfigurePlayerHomebaseMaterial(player, material_list, material_production);
+	ConfigurePlayerHomebaseMaterial(player, tool_list, tool_production);
+}
+
+
+global func  ConfigurePlayerHomebaseMaterial(int player, proplist materials, int production)
+{
 	// Update the home base material
-	var index = 0;
-	for (var material_name in GetProperties(material_list))
+	for (var material_name in GetProperties(materials))
 	{
 		var material = GetDefinition(material_name);
 		if (material)
 		{
 			// Set home base material: At least the minimum required amount,
 			// but deduct the materials that the player already has
-			var amount = Max(0, material_list[material_name] - ObjectCount(Find_ID(material), Find_Owner(player)));
+			var amount = Max(0, materials[material_name] - ObjectCount(Find_ID(material), Find_Owner(player)));
 			SetBaseMaterialAtLeast(player, material, amount);
-			SetBaseProductionAtLeast(player, material, 1);
+			SetBaseProductionAtLeast(player, material, production);
 		}
 	}
 }
