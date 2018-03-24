@@ -1,33 +1,74 @@
-# Scenario parameters: difficulty
-Difficulty=Difficulty
-DescDifficulty=Sets this round's difficulty.
+################################################################
+#
+# Generic parameters
+#
+################################################################
 
-DiffEasy=Easy
-DescDiffEasy=Initial wealth, 50 Clunkers||Disasters:|- Lightning, 5%|- Earthquake, 2%|- Rockfall, 2%
+### Scenario parameters: difficulty
 
-DiffNormal=Normal
-DescDiffNormal=Initial wealth, 25 Clunkers||Disasters:|- Lightning, 10%|- Earthquake, 4%|- Rockfall, 4%
+DifficultyName=Difficulty
+DifficultyDesc=Sets the difficulty for this round.
 
-DiffHard=Hard
-DescDiffHard=Initial wealth, 0 Clunkers||Disasters:|- Lightning, 15%|- Earthquake, 6%|- Rockfall, 6%
+DiffEasyName=Easy
+DiffNormalName=Normal
+DiffHardName=Hard
 
-# Scenario parameters: goal
-Goal=Goal
-DescGoal=Sets this round's goal.
+### Scenario parameters: map size
 
-GoalCrown=Find the Crown
-DescGoalCrown=Legend says that ages ago the great King Wacker hid his crown somewhere in this valley, so that nobody but him could have it. Nowadays you cannot become a king with this crown anymore, but you still can make a fortune of it.||Find the crown on one of the sky islands and sell it.
+MapSizeName=Map size
+MapSizeDesc=Sets the round map size for this round.
 
-GoalConstruction=Settlement
-DescGoalConstruction=The two sides of this deep cut valley just wait to be settled.||Found a settlement that consists of the following structures:
+MapSmallName=Small
+MapSmallDesc=The map will be small.
 
-# Scenario parameters: Power need
-PowerNeed=Power need
-DescPowerNeed=Defines whether buildings require sufficient power to work.
+MapAverageName=Average
+MapAverageDesc=The map will be average.
 
-PowerNeedYes=On
-DescPowerNeedYes=Buildings do require power.
+MapLargeName=Large
+MapLargeDesc=The map will be large.
 
-PowerNeedNo=Off
-DescPowerNeedNo=Buildings do not require power.
+### Scenario parameters: Power need
+
+PowerNeedName=Power need
+PowerNeedDesc=Defines whether buildings require power supply in order to work.
+
+PowerNeedYesName=On
+PowerNeedYesDesc=Buildings do require power supply.
+
+PowerNeedNoName=Off
+PowerNeedNoDesc=Buildings do not require power supply.
+
+### Scenario parameters: goal
+
+ScenarioGoalName=Goal
+ScenarioGoalDesc=Sets the goal for this round.
+
+GoalName=Goals:
+
+GoalMineGoldName=Mine gold
+GoalMineOreName=Mine ore
+GoalMonsterHuntName=Monster hunt
+GoalRescueWipfsName=Rescue wipfs
+GoalWealthName=Gain wealth
+GoalConstructionName=Construction
+
+################################################################
+#
+# Scenario parameters
+#
+################################################################
+
+DiffEasyDesc=Disasters:|- Currently not displayed.
+DiffNormalDesc=Disasters:|- Currently not displayed.
+DiffHardDesc=Disasters:|- Currently not displayed.
+
+GoalMineGoldDesc=|- Currently not displayed.
+GoalMineOreDesc=|- Currently not displayed.
+GoalMonsterHuntDesc=|- Currently not displayed.
+GoalRescueWipfsDesc=|- Currently not displayed.
+GoalWealthDesc=|- Currently not displayed.
+GoalConstructionName=|- Currently not displayed.
+
+GoalSearchCrownName=Find the Crown
+GoalSearchCrownDesc=|- Currently not displayed.
 

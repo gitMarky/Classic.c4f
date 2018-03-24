@@ -1,36 +1,71 @@
-# Scenario parameters: difficulty
-Difficulty=Difficulty
-DescDifficulty=Sets this round's difficulty.
+################################################################
+#
+# Generic parameters
+#
+################################################################
 
-DiffEasy=Easy
-DescDiffEasy=Goals:|- Mine gold, 80%|- Wealth, 150 Clunkers||Disasters:|- Lightning, 10%|- Earthquake, 5%|- Meteor, 5% 
+### Scenario parameters: difficulty
 
-DiffNormal=Normal
-DescDiffNormal=Goals:|- Mine gold, 90%|- Wealth, 200 Clunkers||Disasters:|- Lightning, 15%|- Earthquake, 10%|- Meteor, 8%|- Volcano, 8%
+DifficultyName=Difficulty
+DifficultyDesc=Sets the difficulty for this round.
 
-DiffHard=Hard
-DescDiffHard=Goals:|- Mine gold, 100%|- Wealth, 250 Clunkers||Disasters:|- Lightning, 20%|- Earthquake, 15%|- Meteor, 11%|- Volcano, 11%
+DiffEasyName=Easy
+DiffNormalName=Normal
+DiffHardName=Hard
 
-# Scenario parameters: map size
-MapSize=Map size
-DescMapSize=Sets this round's map size.
+### Scenario parameters: map size
 
-MapSmall=Small
-DescMapSmall=This round's map will be small.
+MapSizeName=Map size
+MapSizeDesc=Sets the round map size for this round.
 
-MapAverage=Average
-DescMapAverage=This round's map will be average.
+MapSmallName=Small
+MapSmallDesc=The map will be small.
 
-MapLarge=Large
-DescMapLarge=This round's map will be large.
+MapAverageName=Average
+MapAverageDesc=The map will be average.
 
-# Scenario parameters: Power need
-PowerNeed=Power need
-DescPowerNeed=Defines whether buildings require sufficient power to work.
+MapLargeName=Large
+MapLargeDesc=The map will be large.
 
-PowerNeedYes=On
-DescPowerNeedYes=Buildings do require power.
+### Scenario parameters: Power need
 
-PowerNeedNo=Off
-DescPowerNeedNo=Buildings do not require power.
+PowerNeedName=Power need
+PowerNeedDesc=Defines whether buildings require power supply in order to work.
+
+PowerNeedYesName=On
+PowerNeedYesDesc=Buildings do require power supply.
+
+PowerNeedNoName=Off
+PowerNeedNoDesc=Buildings do not require power supply.
+
+### Scenario parameters: goal
+
+ScenarioGoalName=Goal
+ScenarioGoalDesc=Sets the goal for this round.
+
+GoalName=Goals:
+
+GoalMineGoldName=Mine gold
+GoalMineOreName=Mine ore
+GoalMonsterHuntName=Monster hunt
+GoalRescueWipfsName=Rescue wipfs
+GoalWealthName=Gain wealth
+GoalConstructionName=Construction
+
+################################################################
+#
+# Scenario parameters
+#
+################################################################
+
+DiffEasyDesc=Disasters:|- Currently not displayed.
+DiffNormalDesc=Disasters:|- Currently not displayed.
+DiffHardDesc=Disasters:|- Currently not displayed.
+
+GoalMineGoldDesc=|- Currently not displayed.
+GoalMineOreDesc=|- Currently not displayed.
+GoalMonsterHuntDesc=|- Currently not displayed.
+GoalRescueWipfsDesc=|- Currently not displayed.
+GoalWealthDesc=|- Currently not displayed.
+GoalConstructionName=|- Currently not displayed.
 

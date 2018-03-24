@@ -1,6 +1,12 @@
+################################################################
+#
+# Generic parameters
+#
+################################################################
+
 [ParameterDef]
-Name=$Difficulty$
-Description=$DescDifficulty$
+Name=$DifficultyName$
+Description=$DifficultyDesc$
 ID=Difficulty
 Default=2
 
@@ -8,57 +14,78 @@ Default=2
 	[Options]
 		
 		[Option]
-		Name=$DiffEasy$
-		Description=$DescDiffEasy$
+		Name=$DiffEasyName$
+		Description=$DiffEasyDesc$
 		Value=1
 		
 		[Option]
-		Name=$DiffNormal$
-		Description=$DescDiffNormal$
+		Name=$DiffNormalName$
+		Description=$DiffNormalDesc$
 		Value=2
 		
 		[Option]
-		Name=$DiffHard$
-		Description=$DescDiffHard$
+		Name=$DiffHardName$
+		Description=$DiffHardDesc$
 		Value=3
 		
 [ParameterDef]
-Name=$MapSize$
-Description=$DescMapSize$
+Name=$MapSizeName$
+Description=$MapSizeDesc$
 ID=MapSize
 Default=2
 
 	[Options]
 
 #		[Option]
-#		Name=$MapSmall$
-#		Description=$DescMapSmall$
+#		Name=$MapSmallName$
+#		Description=$MapSmallDesc$
 #		Value=1
 
 		[Option]
-		Name=$MapAverage$
-		Description=$DescMapAverage$
+		Name=$MapAverageName$
+		Description=$MapAverageDesc$
 		Value=2
 		
 #		[Option]
-#		Name=$MapLarge$
-#		Description=$DescMapLarge$
+#		Name=$MapLargeName$
+#		Description=$MapLargeDesc$
 #		Value=3
 
 [ParameterDef]
-Name=$PowerNeed$
-Description=$DescPowerNeed$
+Name=$PowerNeedName$
+Description=$PowerNeedDesc$
 ID=PowerNeed
-Default=2
+Default=1
 
 	[Options]
 
 		[Option]
-		Name=$PowerNeedYes$
-		Description=$DescPowerNeedYes$
+		Name=$PowerNeedYesName$
+		Description=$PowerNeedYesDesc$
 		Value=1
 		
 		[Option]
-		Name=$PowerNeedNo$
-		Description=$DescPowerNeedNo$
+		Name=$PowerNeedNoName$
+		Description=$PowerNeedNoDesc$
 		Value=2
+
+################################################################
+#
+# Scenario parameters
+#
+################################################################
+
+
+[ParameterDef]
+Name=$ScenarioGoalName$
+Description=$ScenarioGoalDesc$
+ID=Goal
+Default=1
+
+	[Options]
+
+		[Option]
+		Name=$GoalMineGoldName$
+		Description=$GoalName$$GoalMineGoldDesc$
+		Value=1
+
