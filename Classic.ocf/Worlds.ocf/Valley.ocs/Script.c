@@ -1,36 +1,19 @@
-/* Valley of Kings */
+#include Library_Scenario
+
+local homebase_locations, area_skylands, area_lake;
 
 
-local homebase_locations;
-
-
-func Initialize()
+private func Initialize()
 {
 	homebase_locations = [{x = RandomX(95, 145), y = 825, used = false}, {x = RandomX(1275, 1335), y = 825, used = false}];
-
-	var area_skylands = Rectangle(0, 0, LandscapeWidth(), 869);
-	var area_lake = Rectangle(150, 870, LandscapeWidth()-300, LandscapeHeight()-870);
-	var area_lake = Rectangle(150, 870, LandscapeWidth()-300, LandscapeHeight()-870);
-
-	InitRules(SCENPAR_PowerNeed);
-	InitGoals();
-	InitEnvironment(SCENPAR_Difficulty);
-	InitVegetation(area_lake, area_skylands);
-	InitMaterial();
-	InitAnimals(SCENPAR_Difficulty, area_lake, area_skylands);
+	area_skylands = Rectangle(0, 0, LandscapeWidth(), 869);
+	area_lake = Rectangle(150, 870, LandscapeWidth()-300, LandscapeHeight()-870);
+	_inherited(...);
 }
 
-func InitRules(need_power)
+private func Init_Goals()
 {
-	var rules = [Rule_TeamAccount, Rule_ZoomLimit, Rule_StartingEquipment];
-	for (var rule in rules) CreateObject(rule);
-
-	if (need_power == 2) CreateObject(Rule_NoPowerNeed);
-}
-
-func InitGoals()
-{
-	if (SCENPAR_Goal == 1) // find the crown
+	if (SCENPAR_Goal == 1) // Find the crown
 	{
 		var chest_a = CreateObject(Chest, 380, 200);
 		var chest_b = CreateObject(Chest, 1000, 210);
@@ -46,7 +29,7 @@ func InitGoals()
 		
 		CreateObject(Goal_GetCrown);
 	}
-	else if (SCENPAR_Goal == 2) // settlement
+	else if (SCENPAR_Goal == 2) // Settlement
 	{
 		var goal = CreateObject(Goal_Construction);
 		goal->AddConstruction(ClassicHutStone, 5);
@@ -58,31 +41,29 @@ func InitGoals()
 	}
 }
 
-func InitEnvironment(int difficulty)
+private func Init_Environment()
 {
-	var time = CreateObject(Time);
-	time->SetCycleSpeed(20);
-
-	SetTime(ToSeconds(17));
+	AddAmbience_Time(17);
 
 	Cloud->Place(15);
-	Cloud->SetLightning(5 * difficulty);
-	Earthquake->SetChance(2 * difficulty);
-	Rockfall->SetChance(2 * difficulty);
+	Cloud->SetLightning(5 * SCENPAR_Difficulty);
+	
+	Earthquake->SetChance(2 * SCENPAR_Difficulty);
+	Rockfall->SetChance(2 * SCENPAR_Difficulty);
 	Rockfall->SetArea(Rectangle(50, 0, LandscapeWidth()-100, 50));
 }
 
-func InitVegetation(proplist area_lake, proplist area_skylands)
+private func Init_Vegetation()
 {
 	PlaceGrass(85);
+
+	Tree1->Place(2, area_skylands);
+	Tree2->Place(4, area_skylands);
+	Tree3->Place(5, area_skylands);
 	
-	AutoPlaceVegetation(Tree1, 10, PLACEMENT_Amount_Relative, area_skylands);
-	AutoPlaceVegetation(Tree2, 20, PLACEMENT_Amount_Relative, area_skylands);
-	AutoPlaceVegetation(Tree3, 15, PLACEMENT_Amount_Relative, area_skylands);
-	
-	AutoPlaceVegetation(Tree1, 30, PLACEMENT_Amount_Relative, area_lake);
-	AutoPlaceVegetation(Tree2, 45, PLACEMENT_Amount_Relative, area_lake);
-	AutoPlaceVegetation(Tree3, 45, PLACEMENT_Amount_Relative, area_lake);
+	Tree1->Place(6, area_lake);
+	Tree2->Place(9, area_lake);
+	Tree3->Place(9, area_lake);
 
 	Seaweed->Place(25, area_lake);
 	Coral->Place(5, area_lake);
@@ -90,59 +71,53 @@ func InitVegetation(proplist area_lake, proplist area_skylands)
 	Flower->Place(20);
 }
 
-func InitAnimals(int difficulty, proplist area_lake, proplist area_skylands)
+private func Init_Animals()
 {
-	PlaceAnimals(ClassicFish, 15, PLACEMENT_Liquid, Material("Water"), area_lake);
-	PlaceAnimals(Bird, 5, PLACEMENT_Air, nil, area_skylands);
+	ClassicFish->Place(AdjustToMapSize(15), area_lake);
+	Bird->Place(AdjustToMapSize(5), area_skylands);
 }
 
-func InitMaterial()
+private func Init_Material()
 {
-	// Some objects in the earth.	
-	PlaceObjects(Rock, ConvertInEarthAmount(1),"Earth");
-	PlaceObjects(Gold, ConvertInEarthAmount(1), "Earth");
-	PlaceObjects(Flint, ConvertInEarthAmount(1), "Earth");
-	PlaceObjects(Loam, ConvertInEarthAmount(1), "Earth");
+	var level = 50;
+	var relative = 4;
+	Rock->PlaceInEarth(1, relative, level);
+	Gold->PlaceInEarth(1, relative, level);
+	Flint->PlaceInEarth(1, relative, level);
+	Loam->PlaceInEarth(1, relative, level);
 }
 
-
-func InitializePlayer(int player)
+private func Player_StartingMaterial(int player)
 {
-	var needs_power = !FindObject(Find_ID(Rule_NoPowerNeed));
-
 	SetWealth(player, 50 - (SCENPAR_Difficulty - 1) * 25);
 	
-	var myHomeBaseMaterial =
-	[
-		[Conkit, 5],
-		[Pipe, 4],
-		[Loam, 5],
-		[Wood, 5],
-		[Metal, 5], 
-		[Flint, 5], 
-		[TFlint, 5], 
-		[Barrel, 5], 
-		[ClassicFlag, 3], 
-		[ClassicClonk, 3], 
-		[ClassicLorry, 2], 
-		[Bread, 5]
-	];
+	// Homebase location
+	var i = Random(2);
+	
+	var location = nil;
+	for (var i = 0; (!location || location.used == true); ++i)
+	{
+		location = homebase_locations[i % 2];
+	}
+	location.used = true;
+	
+	// Create homebase with flag
+	var homeBase = CreateObject(ClassicHutStone, location.x, location.y, player);
+	if (homeBase)
+	{
+		homeBase->SetOwner(player);
+		homeBase->CreateContents(ClassicFlag);
+		
+		for (var i = 0; i < GetCrewCount(player); ++i)
+		{
+			GetCrew(player, i)->SetPosition(homeBase->GetX() + RandomX(-10, 10), homeBase->GetDefBottom() - 10);
+		}
+	}
+}
 
-	var myHomeBaseProduction = 
-	[
-		[Conkit, 5], 
-		[Pipe, 2],
-		[Loam, 3], 
-		[Wood, 5], 
-		[Metal, 3], 
-		[Flint, 5], 
-		[TFlint, 5], 
-		[Barrel, 5], 
-		[ClassicFlag, 3], 
-		[ClassicClonk, 2], 
-		[ClassicLorry, 1], 
-		[Bread, 5]
-	];
+private func Player_InitialKnowledge(int player)
+{
+	var needs_power = !FindObject(Find_ID(Rule_NoPowerNeed));
 	
 	var myKnowledge = 
 	[
@@ -162,35 +137,5 @@ func InitializePlayer(int player)
 	GivePlayerSpecificKnowledge(player, myKnowledge);
 	GivePlayerSpecificKnowledge(player, [WoodenBridge]);
 
-	for (var material in myHomeBaseMaterial)
-	{
-		DoBaseMaterial(player, material[0], material[1]);
-	}
-	for (var material in myHomeBaseProduction)
-	{
-		DoBaseProduction(player, material[0], material[1]);
-	}
-
-	var i = Random(2);
-	
-	var location = nil;
-	for (var i = 0; (!location || location.used == true); ++i)
-	{
-		location = homebase_locations[i % 2];
-	}
-	location.used = true;
-
-	var homeBase = CreateObject(ClassicHutStone, location.x, location.y, player);
-
-	if (homeBase)
-	{
-		homeBase->SetOwner(player);
-		homeBase->CreateContents(ClassicFlag);
-		
-		for (var i = 0; i < GetCrewCount(player); ++i)
-		{
-			GetCrew(player, i)->SetPosition(homeBase->GetX() + RandomX(-10, 10), homeBase->GetDefBottom() - 10);
-		}
-	}
 	return true;
 }

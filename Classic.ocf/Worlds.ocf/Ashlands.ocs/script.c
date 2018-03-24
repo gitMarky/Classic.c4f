@@ -1,106 +1,79 @@
-/* Ash lands */
+#include Library_Scenario
 
-func Initialize()
+private func Init_Goals()
 {
-	InitRules(SCENPAR_PowerNeed);
-	InitGoals(SCENPAR_Difficulty);
-	InitEnvironment(SCENPAR_Difficulty);
-	InitVegetation();
-	InitAnimals(SCENPAR_MapSize);
-	InitMaterial(SCENPAR_MapSize);
+	AddGoal_Wealth();
+	AddGoal_Resource(Gold);
+	//AddGoal_Resource(Oil);
 }
 
-func InitRules(need_power)
+private func Init_Environment()
 {
-	var rules = [Rule_TeamAccount, Rule_ZoomLimit, Rule_StartingEquipment];
-	for (var rule in rules) CreateObject(rule);
-	
-	if (need_power == 2) CreateObject(Rule_NoPowerNeed);
-}
-
-func InitGoals(int difficulty)
-{
-	// Show wealth in HUD.
-	GUI_Controller->ShowWealth();
-	
-	// Goal: Resource extraction, set to oil extraction.
-	//var goal2 = CreateObject(Goal_ResourceExtraction);
-	//goal2->SetResource("Oil");
-	
-	// gain some money
-	var goal = CreateObject(Goal_Wealth);
-	goal->SetWealthGoal(100 + 50 * difficulty);
-
-	// Goal: Resource extraction, set to gold mining.
-	var goal3 = CreateObject(Goal_ResourceExtraction);
-	goal3->SetResource("Gold", Min(100, 70 + 10 * difficulty));
-
-}
-
-func InitEnvironment(int difficulty)
-{
-	var time = CreateObject(Time);
-	time.daycolour_global = [158, 65, 47];
-	time->SetCycleSpeed(20);
-
-	SetTime(ToSeconds(10));
+	// Starting time & special sky color
+	AddAmbience_Time(10).daycolour_global = [158, 65, 47];
 
 	// Some dark clouds which rain few ashes.
 	Cloud->Place(15);
-	Cloud->SetPrecipitation("Ashes", 5 * difficulty);
+	Cloud->SetPrecipitation("Ashes", 5 * SCENPAR_Difficulty);
 	Cloud->SetCloudRGB(60, 35, 25);
-	Cloud->SetLightning(5 + 5 * difficulty); // default: 15%
+	Cloud->SetLightning(5 + 5 * SCENPAR_Difficulty);
 
-	// Some natural disasters, earthquakes, volcanos, meteorites.
-	Earthquake->SetChance(5 * difficulty); // default: 10%
-	Meteor->SetChance(2 + 3 * difficulty); // default: 8%
-	if (difficulty >= 2) Volcano->SetChance(2 + 3 * difficulty);	// default: 8%
+	// Some natural disasters
+	Disaster(Earthquake, 2, 3);
+	Disaster(Meteor, 2, 1);
+	Disaster(Volcano, 2, 1, 2);
+	
+	Stalactite->Place(AdjustToMapSize(10));
 }
 
-func InitVegetation()
+private func Init_Vegetation()
 {
-	var burned_trees_1 = AutoPlaceVegetation(Tree1, 32);
-	var burned_trees_2 = AutoPlaceVegetation(Tree2, 32);
-	var burned_trees_3 = AutoPlaceVegetation(Tree3, 32);
+	CallForEach(Tree1->Place(10), "SetBurned");
+	CallForEach(Tree2->Place(10), "SetBurned");
+	CallForEach(Tree3->Place(10), "SetBurned");
 	
-	for (var tree in burned_trees_1)
-		tree->SetBurned();
-	for (var tree in burned_trees_2)
-		tree->SetBurned();
-	for (var tree in burned_trees_3)
-		tree->SetBurned();
-	
-	AutoPlaceVegetation(Tree2, 6);
-	
-	PlaceGrass(15);
+	Tree2->Place(6);
+
+	PlaceGrass(55);
 	
 	for (var grass in FindObjects(Find_ID(Grass)))
 	{
 		grass->SetClrModulation(RGB(225+Random(30), Random(30), Random(30)));
 	}
+	
+	Skull->PlaceOnSurface(AdjustToMapSize(5));
+	Bone->PlaceOnSurface(AdjustToMapSize(15));
+	Coal->PlaceOnSurface(AdjustToMapSize(7));
+	
+	LargeCaveMushroom->Place(7);
 }
 
-func InitAnimals(int map_size)
+private func Init_Animals()
 {
-	PlaceAnimals(ClassicFish, 7, PLACEMENT_Liquid, Material("Water"));
-	PlaceAnimals(Bird, 5, PLACEMENT_Air);
+	ClassicFish->Place(AdjustToMapSize(7));
+	Bird->Place(AdjustToMapSize(5));
+
+	var relative = 7;
+	var level = 48;
+	MonsterEgg->PlaceInEarth(1, relative, level, 10);
+	FireMonsterEgg->PlaceInEarth(2, relative, level, 10);
+	ZapNest->PlaceInEarth(4, relative, level, 10);
 }
 
-func InitMaterial(map_size)
+private func Init_Material()
 {
-	// Some objects in the earth.	
-	PlaceObjects(Rock, ConvertInEarthAmount(4),"Earth");
-	PlaceObjects(Loam, ConvertInEarthAmount(5), "Earth");
-	PlaceObjects(Flint, ConvertInEarthAmount(3), "Earth");
-	PlaceObjects(Gold, ConvertInEarthAmount(3), "Earth");
+	var relative = 15;
+	var level = 48;
+	Rock->PlaceInEarth(4, relative, level);
+	Loam->PlaceInEarth(5, relative, level);
+	Flint->PlaceInEarth(3, relative, level);
+	Gold->PlaceInEarth(3, relative, level);
 }
 
-func InitializePlayer(int player)
+private func Player_InitialKnowledge(int player)
 {
 	var needs_power = !FindObject(Find_ID(Rule_NoPowerNeed));
 
-	SetWealth(player, 100);
-	
 	var itemKnowledge =
 	[
 		FireBomb,
@@ -109,7 +82,7 @@ func InitializePlayer(int player)
 //		Dynamo,
 //		Tower
 		];
-	
+
 	GivePlayerBasicKnowledge(player);
 	GivePlayerSpecificKnowledge(player, itemKnowledge);
 	GivePlayerSpecificKnowledge(player, [ClassicHutWooden, ClassicHutStone, Sawmill, ClassicFoundry]);
@@ -117,103 +90,16 @@ func InitializePlayer(int player)
 	GivePlayerMiningKnowledge(player);
 	GivePlayerPumpingKnowledge(player);	
 	GivePlayerChemicalKnowledge(player);
-	
-	var myHomeBaseMaterial =
-	[
-		[Conkit, 3],
-//		[Linekit, 6],
-		[Pipe, 3],
-		[Loam, 20],
-		[Wood, 5],
-		[Metal, 5],
-//		[Concrete, 20],
-		[Flint, 6],
-		[TFlint, 7],
-//		[SuperTFlint, 3],
-		[ClassicDynamiteBox, 1],
-		[FireBomb, 2],
-		[GunPowder, 6],
-		[MetalBarrel, 8],
-		[ClassicFlag, 1],
-		[ClassicClonk, 5],
-		[ClassicLorry, 1],
-		[ClassicCatapult, 1]
-//		[Sailboat, 1]
-	];
-	var myHomeBaseProduction = 
-	[
-		[Conkit, 3],
-//		[Linekit, 6],
-		[Pipe, 3],
-		[Loam, 12],
-		[Wood, 18],
-		[Metal, 5],
-//		[Concrete, 8],
-		[Flint, 6],
-		[TFlint, 7],
-//		[SuperTFlint, 5],
-		[ClassicDynamiteBox, 3],
-//		[TeraFlint, 1],
-		[FireBomb, 2],
-		[GunPowder, 10],
-		[MetalBarrel, 3],
-//		[BombArrowPack, 2],
-		[ClassicFlag, 3],
-		[ClassicClonk, 5]
-	];
-	
-	for (var material in myHomeBaseMaterial)
-	{
-		DoBaseMaterial(player, material[0], material[1]);
-	}
-	for (var material in myHomeBaseProduction)
-	{
-		DoBaseProduction(player, material[0], material[1]);
-	}
-
-	CreateHomeBase(player);
-
-	return true;
 }
 
-func CreateHomeBase(int player)
+private func Player_StartingMaterial(int player)
 {
-	var found_position = false;
-	var x, y;
+	SetWealth(player, 100);
 	
-	var homeBaseType = ClassicHutWooden;
-
-	while (!found_position)
-	{
-		x = 50 + Random(LandscapeWidth() - 100);
-		// avoid lake?
-	  	while (Inside(x, LandscapeWidth() / 2 - 150, LandscapeWidth() / 2 + 150)) 
-	    	x = 50 + Random(LandscapeWidth() - 100);
-		y = 0;
-		while (!GBackSolid(x, y) && y < LandscapeHeight()) ++y;
-		
-		if (!FindObject(Find_ID(homeBaseType), Find_Distance(50, x, y)))
-		{
-			found_position = true;
-		}
-	}
-
-	var homeBase = CreateObjectAbove(homeBaseType, x, y, player);
-	
-	for (var i = 0; GetCrew(player, i); ++i)
-    {
-		GetCrew(player, i)->SetPosition(x + RandomX(-8, 8), y - 10);
-    }
+	var loc_lake = Loc_InRect(LandscapeWidth() / 2 - 150, 0, 300, LandscapeHeight());
+	var homeBase = ClassicHutWooden->PlaceHomebase(player, {location = Loc_And(Loc_Sky(), Loc_Not(loc_lake))});
 
 	homeBase->CreateContents(Wood, 3);
 	homeBase->CreateContents(Rock, 5);
 	homeBase->CreateContents(Conkit);
-
-	var flag = homeBase->CreateObject(ClassicFlag);
-	flag->SetOwner(player);
-	homeBase->Collect(flag, true); // won't add the flag correctly without the callbacks
-	homeBase->DigFreeRect(homeBase->GetX() + homeBaseType->GetDefOffset(0), 
-	                      homeBase->GetY() + homeBaseType->GetDefOffset(1),
-						  homeBaseType->GetDefWidth(),
-						  homeBaseType->GetDefHeight());
 }

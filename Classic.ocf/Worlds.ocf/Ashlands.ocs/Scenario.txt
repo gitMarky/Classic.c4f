@@ -1,12 +1,13 @@
 [Head]
 Icon=27
 Title=Ashlands
-Version=7,0
+Version=8,0
 MaxPlayer=12
 Difficulty=45
 
 [Definitions]
 Definition1=Objects.ocd
+Definition2=Decoration.ocd
 
 [Game]
 

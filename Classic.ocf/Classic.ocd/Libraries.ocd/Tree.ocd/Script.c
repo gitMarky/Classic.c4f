@@ -46,6 +46,87 @@ public func GetVegetationRotation() { return [-30, 30]; }
  */
 public func GetVegetationConRange() { return [25, 150]; }
 
+
+/**
+ Placement function for trees.
+ 
+ @par settings has the following settings:
+               - under_sky => if true the tree does need sunlight; default: true
+ */
+public func Place(int amount, proplist area, proplist settings)
+{
+	if (!settings) settings = {};
+	settings.under_sky = settings.under_sky ?? true;
+
+	var trees = _inherited(amount, area, settings);
+	
+	var retries = 4;
+	
+	PlaceAssertSettings(trees, settings);
+	for (var current = GetLength(trees); current <= amount && retries >= 0; retries --)
+	{
+		var remaining = amount - current;
+		var next = _inherited(remaining, area, settings);
+		PlaceAssertSettings(next, settings);
+		trees = Concatenate(trees, next);
+		current = GetLength(trees);
+	}
+	
+	PlaceRandomize(trees);
+	return trees;
+}
+
+
+private func PlaceAssertSettings(array trees, proplist settings)	
+{
+	if (trees)
+	{
+		for (var plant in trees)
+		{ 
+			if (settings.under_sky && !LocFunc_HasSunLight(plant->GetX(), plant->GetY()))
+			{
+				plant->RemoveObject();
+			}
+		}
+		RemoveHoles(trees);
+	}
+}
+
+	
+public func PlaceRandomize(array trees)
+{	
+	var root_depth = this->~GetVegetationRootDepth() ?? 5;
+	var con_range = this->~GetVegetationConRange() ?? [100, 100];
+	var rot_range = this->~GetVegetationRotation() ?? [0, 0];
+	var y_direction = 1;
+	
+	for (var plant in trees)
+	{
+		plant->SetCon(RandomX(con_range[0], con_range[1]));
+		
+		if (Random(2)) // do not always autorotate
+		{
+			
+			var bot_dy = (plant->GetCon() * this->GetDefHeight()) / 200;
+			
+			var lefty = plant->GetYBorder(Max(0, plant->GetX()-2), plant->GetY() + bot_dy, -2 * y_direction, 30);
+			var righty = plant->GetYBorder(Min(LandscapeWidth(), plant->GetX()+2), plant->GetY() + bot_dy, -2 * y_direction, 30);
+			if (lefty != -1 && righty != -1)
+			{
+				plant->RelSetR
+				(
+					BoundBy((Angle(-2, lefty, 2, righty) - 90) / 4, rot_range[0], rot_range[1]),
+					0,
+					bot_dy - root_depth
+				);
+			}
+		}
+
+	}
+	
+	return trees;
+}
+
 /* Initialisierung */
 
 protected func Construction()
@@ -106,18 +187,39 @@ public func ContextChop(pClonk)
   return true;
 }
 
-protected func Damage()
+protected func Damage(int change, int cause)
 {
     // Damaged dead trees should rot...
     if (this->IsDeadTree()
     && !GetEffect("IntTreeDecay", this)
     && GetCon() < 90
     && this.Touchable != 0)
+    {
         AddEffect("IntTreeDecay", this, 1, 51, this);
+    }
 
-    if (!Random(3)) CastLeafParticles();
+	if (cause == FX_Call_DmgFire)
+	{
+		if (OnFire() >= 70)
+		{
+			SetGraphics("Burned");
+			
+			if (Random(5))
+			{
+				SetAction("Chopped");
+			}
+			else
+			{
+				ChopDown();
+			}
+		}
+	}
+	else
+	{
+    	if (!Random(3)) CastLeafParticles();
+    }
 
-  	_inherited(...);
+  	_inherited(change, cause, ...);
 }
 
 protected func Hit3(int x, int y)
@@ -139,13 +241,14 @@ public func CastLeafParticles()
 
 		for (var i=0; i<amount; i++)
 		{
-			var x = GetDefOffset(0) + Random(GetID()->GetDefWidth()-20) +10;
-			var y = GetDefOffset(1) + Random(GetID()->GetDefHeight()-GetDefFireTop()-20) +10;
+			var x = RandomX(GetLeft() + 10, GetRight() - 10);
+			var y = RandomX(GetTop() + 10, GetBottom() - 10 - this.FireTop);
 
 			CreateParticle("Leaves", x, y, 0, 1, RandomX(150, 200), particles, 1);
 		}
 	}
 }
+
 
 protected func ChopDown()
 {
@@ -155,12 +258,6 @@ protected func ChopDown()
 	_inherited(...);
 }
 
-protected func Incineration()
-{
-	SetGraphics("Burned");
-	SetAction("Chopped");
-	_inherited(...);
-}
 
 func FxTreeFallTimer(object target, proplist fx, int time)
 {

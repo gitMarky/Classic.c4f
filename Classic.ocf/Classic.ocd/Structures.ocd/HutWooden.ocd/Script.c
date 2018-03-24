@@ -17,6 +17,8 @@ local Components = {Wood = 4, Rock = 1};
 
 func IsContainer(){ return true; }
 
+public func IsHammerBuildable() { return true; }
+
 func NoConstructionFlip(){ return true; } // not supported
 
 local ActMap = {

@@ -22,6 +22,13 @@ public func GetUseIcon()
 	return Icon_Construction;
 }
 
+func CanBuild(id construction_plan)
+{
+	if (!construction_plan) return false;
+	if (construction_plan->~IsHammerBuildable()) return true;
+	return false;
+}
+
 
 local Collectible = true;
 local Name = "$Name$";

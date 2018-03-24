@@ -4,29 +4,93 @@
  * Author: Marky, original found in Clonk Rage
  */
 
-local pTree;
+local tree;
 
 public func IsNest(){ return true;}
 
-protected func Initialize()
+/* -- Engine callbacks -- */
+
+public func Initialize()
 {
 	SetAction("Be");
-	AddEffect("IntCheckTree", this, 1, 10, this);
+	CreateEffect(CheckTree, 1, 10);
 }
 
-private func FxIntCheckTreeTimer()
+
+local CheckTree = new Effect
 {
-	  // Everything ok
-	  if (pTree && !(pTree->OnFire()) && pTree->IsStanding()) return;
+	Timer = func()
+	{
+		if (Target.tree && (Target.tree->OnFire() || !Target.tree->IsStanding()))
+		{
+			Target->DestroyNest();
+			return FX_Execute_Kill;
+		}
+	},
+};
 
-	  DestroyNest();
-	  return -1;
-}
 
-protected func Incineration()
+public func Incineration()
 {
 	DestroyNest();
 }
+
+
+private func Destruction()
+{
+	DropContents();
+}
+
+
+
+public func Collection2(object pObj)
+{
+	UpdateGraphics(pObj);
+}
+
+
+public func Ejection(object pObj)
+{
+	UpdateGraphics(pObj);
+}
+
+
+public func Hit()
+{
+	if (IsDecaying())
+	{
+		BurstNest();
+	}
+	else
+	{
+		DestroyNest();
+	}
+}
+
+
+// Burst on damage > 10, or immediately if already decaying
+// Remove object after con < 30 from fire damage.
+public func Damage(int change, int type)
+{
+	if (type == FX_Call_DmgFire)
+	{
+		if (GetCon() < 30)
+		{
+			CastPXS("Ashes", 20, 15);
+			RemoveObject();
+		}
+	}
+	else if (change > 5 || IsDecaying())
+	{
+		BurstNest();
+	}
+	else if (GetDamage() > 10)
+	{
+		DestroyNest();
+	}
+}
+
+/* -- Internals -- */
 
 private func DestroyNest()
 {
@@ -35,15 +99,16 @@ private func DestroyNest()
 	  DropContents();
 }
 
-public func Collection2(object pObj)
+
+// Create straw particles and remove object when burst.
+private func BurstNest()
 {
-	UpdateGraphics(pObj);
+	var radius = GetCon() * GetDefWidth() / 200;
+	CreateParticle("Straw", 0, 0, PV_Random(-radius, radius), PV_Random(-radius, radius), PV_Random(30, 120), {Prototype = Particles_Straw(), R = 255, G = 206, B = 110}, GetCon());
+	return RemoveObject();
 }
 
-public func Ejection(object pObj)
-{
-	UpdateGraphics(pObj);
-}
+
 
 public func UpdateGraphics(object pObj)
 {
@@ -88,14 +153,9 @@ public func UpdateGraphics(object pObj)
 	SetGraphics(nil, GetID(), layer+1, GFXOV_MODE_ExtraGraphics);
 }
 
-private func Hit()
-{
-	if (GetAction() != "Decay") DestroyNest();
-}
 
 private func Remove()
 {
-	DropContents();
 	RemoveObject();
 }
 
@@ -107,6 +167,11 @@ private func DropContents()
 		if (savedInfo.object->Contained() != this) continue;
 		savedInfo.object->Exit(savedInfo.posX, savedInfo.posY);
 	}
+}
+
+private func IsDecaying()
+{
+	return GetAction() == "Decay";
 }
 
 local ActMap = {

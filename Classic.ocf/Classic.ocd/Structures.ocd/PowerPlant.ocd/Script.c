@@ -252,6 +252,8 @@ func OnPipeConnect(object pipe, string specific_pipe_state)
 //
 // properties
 
+public func IsHammerBuildable() { return true; }
+
 local Name = "$Name$";
 local Description = "$Description$";
 local BlastIncinerate = 130;

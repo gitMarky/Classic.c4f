@@ -23,6 +23,17 @@ func Definition(def)
 
 func NoConstructionFlip(){ return true; } // not supported
 
+/*-- Knowledge --*/
+
+private func UpdatePlayerHomebaseMaterial(int player)
+{
+	// Add sulphur if it cannot be dug out
+	if (!GetMaterialCount(Material("Sulphur")))
+	{
+		ConfigurePlayerHomebaseMaterial(player, {Sulphur = 5}, 1);
+	}
+}
+
 /*-- Production --*/
 
 public func IsProduct(id product_id)
@@ -85,6 +96,8 @@ private func SoundCloseDoor()
 }
 
 /* Properties */
+
+public func IsHammerBuildable() { return true; }
 
 local Name = "$Name$";
 local Description ="$Description$";

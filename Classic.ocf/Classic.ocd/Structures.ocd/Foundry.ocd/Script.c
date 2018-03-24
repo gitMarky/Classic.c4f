@@ -117,6 +117,8 @@ public func OnProductEjection(object product)
 //
 // properties
 
+public func IsHammerBuildable() { return true; }
+
 local Name = "$Name$";
 local Description = "$Description$";
 local BlastIncinerate = 100;

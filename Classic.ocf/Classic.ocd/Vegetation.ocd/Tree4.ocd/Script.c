@@ -2,6 +2,7 @@
 
 #include Library_ChoppableTree
 
+local FireTop = 5;
 local Components = {Wood = 3};
 
 private func RootDepth() { return 0;} // This is how far it is rooted in the earth

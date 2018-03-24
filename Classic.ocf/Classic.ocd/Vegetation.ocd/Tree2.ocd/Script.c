@@ -2,6 +2,7 @@
 
 #include Library_ChoppableTree
 
+local FireTop = 20;
 local Components = {Wood = 5};
 
 local ActMap = {

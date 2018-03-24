@@ -126,3 +126,39 @@ protected func OnStructureDestroyed()
 	
 	_inherited(...);
 }
+
+/* --- Placement --- */
+
+public func PlaceHomebase(int player, proplist settings, proplist area)
+{
+	// Defaults, these are hard-coded here.
+	settings = settings ?? {};
+	settings.max_tries = 1000;
+	settings.completion = 100;
+	settings.owner = player;
+
+	var bases = this->Place(1, area, settings);
+	if (GetLength(bases) == 1)
+	{
+		// Create a flag
+		var homebase = bases[0];
+		homebase->SetOwner(player);
+		homebase->CreateContents(ClassicFlag);
+		
+		// Place everything in the home base
+		for (var item in FindObjects(Find_Owner(player), 
+		                             Find_NoContainer(),
+		                             Find_Or(Find_OCF(OCF_CrewMember), Find_OCF(OCF_Collectible), Find_OCF(OCF_Grab))))
+		{
+			item->Enter(homebase);
+		}
+		
+		// Let the first crew exit
+		GetHiRank(player)->SetCommand("Exit");
+		return homebase;
+	}
+	else
+	{
+		// TODO: Give the conkit and construction material to the crew?
+	}
+}

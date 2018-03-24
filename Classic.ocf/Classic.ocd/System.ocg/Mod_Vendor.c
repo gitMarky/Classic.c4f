@@ -5,15 +5,24 @@ private func EjectAllContents()
 	// Called when buying stuff, should do nothing, so that contents stay in the vendor
 }
 
+
 // ----- Selling
 
 public func AllowSellMenuEntries(){ return true;}
 
-func GetSellableContents(int wealth_player)
+
+private func GetSellableContents(int wealth_player, object container)
 {
+	// Defaults
 	var inventory = [];
+	container = container ?? this;
+	if (!container)
+	{
+		return inventory;
+	}
+	// Get the contents
 	var obj, i = 0;
-	while (obj = Contents(i++))
+	while (obj = container->Contents(i++))
 	{
 		if (obj->~QueryOnSell(wealth_player)) continue;
 		
@@ -23,7 +32,7 @@ func GetSellableContents(int wealth_player)
 
 		if (!sellable) continue;
 
-		// check if already exists (and then stack!)
+		// Check if already exists (and then stack!)
 		var found = false;
 
 		// How many objects are this object?!
@@ -67,14 +76,15 @@ func GetSellableContents(int wealth_player)
 	return inventory;
 }
 
-func CanStackSellableContents(object first, object second)
+
+private func CanStackSellableContents(object first, object second)
 {
 	return first->CanConcatPictureWith(second) // need the same picture
 	   && (this->GetSellValue(first) == this->GetSellValue(second)); // and the same value
 }
 
 
-public func GetInteractionMenus(object clonk)
+private func GetInteractionMenus(object clonk)
 {
 	var menus = _inherited(clonk, ...) ?? [];
 
@@ -114,41 +124,83 @@ public func GetInteractionMenus(object clonk)
 
 public func GetSellMenuEntries(object clonk)
 {	
-	// distinguish owners here
+	// Distinguish owners here
 	var wealth_player = clonk->GetController();
 
 	var menu_entries = [];
-	var i = 0, item, amount;
+	var index = 0;
 	
-	for (item in this->GetSellableContents(wealth_player))
+	// Sellable items in the structure
+	for (var item in this->GetSellableContents(wealth_player))
 	{
-		var instance = item.objects[0];
-		amount = GetLength(item.objects);
-		var value = this->GetSellValue(instance);
-		var entry = GetBuyMenuEntry(i, instance, amount, value);
-		PushBack(menu_entries, {symbol = instance, extra_data = nil, custom = entry});
+		AddSellMenuEntry(menu_entries, item, index);
+		++index;
+	}
+	
+	// Sellable items in the clonk
+	for (var item in this->GetSellableContents(wealth_player, clonk))
+	{
+		AddSellMenuEntry(menu_entries, item, index, clonk);
+		++index;
+	}
+	
+	// Sellable items in the a vehicle?
+	if (clonk && clonk->GetProcedure() == "PUSH")
+	{
+		var vehicle = clonk->GetActionTarget();
+		if (vehicle)
+		{
+			for (var item in this->GetSellableContents(wealth_player, vehicle))
+			{
+				AddSellMenuEntry(menu_entries, item, index, vehicle);
+				++index;
+			}
+		}
 	}
 
 	return menu_entries;
 }
 
-public func OnSellMenuSelection(object item, extra_data, object clonk)
+
+private func AddSellMenuEntry(array menu_entries, proplist item, int index, symbol_overlay)
 {
-	// distinguish owners here
+		var instance = item.objects[0];
+		var amount = GetLength(item.objects);
+		var value = this->GetSellValue(instance);
+		var entry = GetBuyMenuEntry(index, instance, amount, value);
+		
+		if (symbol_overlay)
+		{
+			entry.image.overlay_top =
+			{
+				Left = ToPercentString(400),
+				Bottom = ToPercentString(600),
+				Symbol = symbol_overlay,
+			};
+		}
+		
+		PushBack(menu_entries, {symbol = instance, extra_data = nil, custom = entry});
+}
+
+
+private func OnSellMenuSelection(object item, extra_data, object clonk)
+{
+	// Distinguish owners here
 	var wealth_player = clonk->GetController();
-	// Buy
+	// Sell
 	DoSell(item, wealth_player);
 	UpdateInteractionMenus([this.GetBuyMenuEntries, this.GetSellMenuEntries]);
 }
 
-public func Collection2(object item)
+
+private func Collection2(object item)
 {
 	UpdateInteractionMenus(this.GetSellMenuEntries);
 	_inherited(item);
 }
 
 
-public func Ejection(object item)
+private func Ejection(object item)
 {
 	UpdateInteractionMenus(this.GetSellMenuEntries);
 	_inherited(item);

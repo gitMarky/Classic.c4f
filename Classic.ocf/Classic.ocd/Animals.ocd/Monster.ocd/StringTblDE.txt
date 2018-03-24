@@ -1,0 +1,2 @@
+Name=Monster
+Description=Friedliebende grüne Zeitgenossen.

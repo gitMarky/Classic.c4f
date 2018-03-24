@@ -1,6 +1,6 @@
 [DefCore]
 id=Tree4
-Version=7,0
+Version=8,0
 Category=C4D_StaticBack
 Width=40
 Height=56
@@ -16,5 +16,3 @@ Rotate=1
 Float=1
 StretchGrowth=1
 IncompleteActivity=1
-FireTop=5
-

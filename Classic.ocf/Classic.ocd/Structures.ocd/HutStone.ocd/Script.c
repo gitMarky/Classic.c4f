@@ -6,6 +6,8 @@
 
 #include ClassicHutWooden
 
+local Name = "$Name$";
+local Description = "$Description$";
 local BlastIncinerate = 75;
 local ContainBlast = true;
 local HitPoints = 75;

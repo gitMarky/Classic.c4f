@@ -1,12 +1,13 @@
 [Head]
 Icon=15
 Title=Valley
-Version=6,0
+Version=8,0
 Difficulty=5
 MaxPlayer=2
 
 [Definitions]
 Definition1=Objects.ocd
+Definition2=Decoration.ocd
 
 [Player1]
 Crew=ClassicClonk=1
@@ -32,7 +33,6 @@ Random=20,20,0,100
 Liquid=Water-water
 LiquidLevel=20,30,0,100
 MapPlayerExtend=1
-Layers=Rock=7;Rock-rock_cracked=7;Gold=8;Granite=4;Water-water=5;Earth-earth=50;Earth-earth_rough=50;Ore-ore=3;Coal-coal=4;Firestone-firestone=5
 SkyScrollMode=2
 
 [Weather]
