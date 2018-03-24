@@ -93,7 +93,8 @@ public func IsFulfilled()
 		var animal = list_animals[i];
 		var remaining = ObjectCount(Find_ID(animal), Find_OCF(OCF_Alive));
 
-		if (list_death_count[i] >= list_death_allowed[i])
+		// Allowed deaths are exceeded?
+		if (list_death_count[i] > list_death_allowed[i])
 		{
 			EliminateAllPlayers();
 			return false;
