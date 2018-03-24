@@ -45,6 +45,7 @@ ScenarioGoalDesc=Setzt das Spielziel für diese Runde.
 
 GoalName=Ziele:
 
+GoalMineCrystalName=Kristallabbau
 GoalMineGoldName=Goldabbau
 GoalMineOreName=Erzabbau
 GoalMonsterHuntName=Monsterjagd
@@ -62,10 +63,10 @@ DiffEasyDesc=Katastrophen:|- Wird aktuell nicht angezeigt.
 DiffNormalDesc=Katastrophen:|- Wird aktuell nicht angezeigt.
 DiffHardDesc=Katastrophen:|- Wird aktuell nicht angezeigt.
 
+GoalMineCrystalDesc=|- Wird aktuell nicht angezeigt
 GoalMineGoldDesc=|- Wird aktuell nicht angezeigt
 GoalMineOreDesc=|- Wird aktuell nicht angezeigt
 GoalMonsterHuntDesc=|- Wird aktuell nicht angezeigt
 GoalRescueWipfsDesc=|- Wird aktuell nicht angezeigt
 GoalWealthDesc=|- Wird aktuell nicht angezeigt
 GoalConstructionName=|- Wird aktuell nicht angezeigt
-

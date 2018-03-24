@@ -2,7 +2,18 @@
 
 private func Init_Goals()
 {
-	AddGoal_Wealth(1000); // TODO: Replace with value gain goal
+	if (SCENPAR_Goal == 1)
+	{
+		AddGoal_Resource(Crystal);
+	}
+	else if (SCENPAR_Goal == 2)
+	{
+		AddGoal_Resource(Gold);
+	}
+	else
+	{
+		AddGoal_Wealth(800 + 200 * SCENPAR_Difficulty); // TODO: Replace with value gain goal
+	}
 }
 
 func Init_Environment()

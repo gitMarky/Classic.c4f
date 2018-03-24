@@ -1,5 +1,11 @@
 #include Library_Scenario
 
+
+private func Init_Goals()
+{
+	AddGoal_AnimalRescue(Wipf);
+}
+
 private func Init_Environment()
 {
 	//SetGamma(RGB(15, 15, 15), RGBa(118, 118, 118), RGBa(215, 215, 215), 2);

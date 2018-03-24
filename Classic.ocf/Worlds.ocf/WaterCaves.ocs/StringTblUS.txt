@@ -45,6 +45,7 @@ ScenarioGoalDesc=Sets the goal for this round.
 
 GoalName=Goals:
 
+GoalMineCrystalName=Mine crystal
 GoalMineGoldName=Mine gold
 GoalMineOreName=Mine ore
 GoalMonsterHuntName=Monster hunt
@@ -62,10 +63,10 @@ DiffEasyDesc=Disasters:|- Currently not displayed.
 DiffNormalDesc=Disasters:|- Currently not displayed.
 DiffHardDesc=Disasters:|- Currently not displayed.
 
+GoalMineCrystalDesc=|- Currently not displayed.
 GoalMineGoldDesc=|- Currently not displayed.
 GoalMineOreDesc=|- Currently not displayed.
 GoalMonsterHuntDesc=|- Currently not displayed.
 GoalRescueWipfsDesc=|- Currently not displayed.
 GoalWealthDesc=|- Currently not displayed.
 GoalConstructionName=|- Currently not displayed.
-

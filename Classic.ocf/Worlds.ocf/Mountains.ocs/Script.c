@@ -3,7 +3,7 @@
 
 private func Init_Goals()
 {
-	AddGoal_Resource(Ore, 70 + 10 * SCENPAR_Difficulty);
+	AddGoal_Resource(Ore);
 }
 
 func Init_Environment()

@@ -1,5 +1,9 @@
 #include Library_Scenario
 
+private func Init_Goals()
+{
+	AddGoal_Wealth();
+}
 
 private func Init_Environment()
 {

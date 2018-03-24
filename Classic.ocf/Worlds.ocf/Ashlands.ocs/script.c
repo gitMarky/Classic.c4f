@@ -2,9 +2,9 @@
 
 private func Init_Goals()
 {
-	AddGoal_Wealth(100 + 50 * SCENPAR_Difficulty);
-	AddGoal_Resource(Gold, 70 + 10 * SCENPAR_Difficulty);
-	//AddGoal_Resource(Oil, 70 + 10 * SCENPAR_Difficulty);
+	AddGoal_Wealth();
+	AddGoal_Resource(Gold);
+	//AddGoal_Resource(Oil);
 }
 
 private func Init_Environment()

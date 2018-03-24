@@ -3,7 +3,7 @@
 
 private func Init_Goals()
 {
-	AddGoal_Wealth(100 + 50 * SCENPAR_Difficulty);
+	AddGoal_Wealth();
 	AddGoal_Resource(Gold, 30 + 20 * SCENPAR_Difficulty);
 }
 

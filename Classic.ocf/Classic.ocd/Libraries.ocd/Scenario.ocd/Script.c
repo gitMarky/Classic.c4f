@@ -59,15 +59,24 @@ private func Player_StartingEquipmentForCrewMember(int player, object crew, int 
 
 /* -- Goals -- */
 
+private func AddGoal_AnimalRescue(id type, int allowed_deaths, int min_amount, bool placed_by_scenario)
+{
+	min_amount = min_amount ?? (4 + SCENPAR_Difficulty);
+	allowed_deaths = allowed_deaths ?? Max(0, (25 - 10 * SCENPAR_Difficulty) * min_amount / 100);
+	CreateObject(Goal_CollectAnimals)->SetAnimal(type, allowed_deaths, min_amount, placed_by_scenario);
+}
+
 private func AddGoal_Wealth(int to_collect)
 {
 	GUI_Controller->ShowWealth();
-	CreateObject(Goal_Wealth)->SetWealthGoal(to_collect);
+	var default = 100 + 100 * SCENPAR_Difficulty;
+	CreateObject(Goal_Wealth)->SetWealthGoal(to_collect ?? default);
 }
 
 private func AddGoal_Resource(id type, int percentage)
 {
-	CreateObject(Goal_ResourceExtraction)->SetResource(Format("%i", type), Min(100, percentage));
+	var default = 70 + 10 * SCENPAR_Difficulty;
+	CreateObject(Goal_ResourceExtraction)->SetResource(Format("%i", type), Min(100, percentage ?? default));
 }
 
 /* -- Ambience -- */

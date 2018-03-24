@@ -85,7 +85,7 @@ Default=1
 	[Options]
 
 		[Option]
-		Name=$GoalMineGoldName$
-		Description=$GoalName$$GoalMineGoldDesc$
+		Name=$GoalRescueWipfsName$
+		Description=$GoalName$$GoalRescueWipfsDesc$
 		Value=1
 

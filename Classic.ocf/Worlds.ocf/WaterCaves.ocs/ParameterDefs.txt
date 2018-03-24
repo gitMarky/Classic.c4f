@@ -85,7 +85,11 @@ Default=1
 	[Options]
 
 		[Option]
-		Name=$GoalMineGoldName$
-		Description=$GoalName$$GoalMineGoldDesc$
+		Name=$GoalMineCrystalName$
+		Description=$GoalName$$GoalMineCrystalDesc$
 		Value=1
 
+		[Option]
+		Name=$GoalMineGoldName$
+		Description=$GoalName$$GoalMineGoldDesc$
+		Value=2

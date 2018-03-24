@@ -5,7 +5,7 @@ static const SCENARIO_LandscapeWidth_OnePlayer = 640;
 
 private func Init_Goals()
 {
-	AddGoal_Resource(Gold, 70 + 10 * SCENPAR_Difficulty);
+	AddGoal_Resource(Gold);
 }
 
 private func Init_Environment()
