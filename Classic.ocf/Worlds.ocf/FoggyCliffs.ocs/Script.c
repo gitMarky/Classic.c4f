@@ -63,8 +63,12 @@ private func Init_Material()
 
 private func Init_Animals()
 {
+	var desired_wipfs = AdjustToMapSize(6) - ObjectCount(Find_ID(Wipf));
+	if (desired_wipfs > 0)
+	{
+		Wipf->Place(desired_wipfs);
+	}
 	ClassicFish->Place(AdjustToMapSize(25));
-	Wipf->Place(AdjustToMapSize(6));
 	
 	// Nests
 	var relative = 4;
@@ -92,6 +96,20 @@ private func Player_StartingMaterial(int player)
 	ClassicHutWooden->PlaceHomebase(player);
 }
 
+private func Player_InitialKnowledge(int player)
+{
+	var needs_power = !FindObject(Find_ID(Rule_NoPowerNeed));
+	
+	GivePlayerBasicKnowledge(player);
+	GivePlayerSpecificKnowledge(player, [ClassicHutWooden, ClassicHutStone]);
+	if (needs_power) GivePlayerPowerKnowledge(player);
+	GivePlayerCraftingKnowledge(player);
+	GivePlayerMiningKnowledge(player);
+	GivePlayerPumpingKnowledge(player);	
+	GivePlayerChemicalKnowledge(player);
+
+	return true;
+}
 
 private func SeaSounds(int amount)
 {

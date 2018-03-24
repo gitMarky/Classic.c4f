@@ -67,7 +67,7 @@ GoalMineOreDesc=|- Currently not displayed.
 GoalMonsterHuntDesc=|- Currently not displayed.
 GoalRescueWipfsDesc=|- Currently not displayed.
 GoalWealthDesc=|- Currently not displayed.
-GoalConstructionName=|- Currently not displayed.
+GoalConstructionDesc=|- Currently not displayed.
 
 GoalSearchCrownName=Find the Crown
 GoalSearchCrownDesc=|- Currently not displayed.

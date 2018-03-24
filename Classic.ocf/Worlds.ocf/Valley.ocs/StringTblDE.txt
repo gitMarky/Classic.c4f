@@ -67,7 +67,7 @@ GoalMineOreDesc=|- Wird aktuell nicht angezeigt
 GoalMonsterHuntDesc=|- Wird aktuell nicht angezeigt
 GoalRescueWipfsDesc=|- Wird aktuell nicht angezeigt
 GoalWealthDesc=|- Wird aktuell nicht angezeigt
-GoalConstructionName=|- Wird aktuell nicht angezeigt
+GoalConstructionDesc=|- Wird aktuell nicht angezeigt
 
 GoalSearchCrownName=Kronensuche
 GoalSearchCrownDesc=|- Wird aktuell nicht angezeigt

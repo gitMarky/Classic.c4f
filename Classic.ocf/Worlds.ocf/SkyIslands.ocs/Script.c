@@ -62,3 +62,19 @@ private func Player_StartingMaterial(int player)
 	SetWealth(player, 70);
 	ClassicHutWooden->PlaceHomebase(player);
 }
+
+
+private func Player_InitialKnowledge(int player)
+{
+	var needs_power = !FindObject(Find_ID(Rule_NoPowerNeed));
+	
+	GivePlayerBasicKnowledge(player);
+	GivePlayerSpecificKnowledge(player, [ClassicHutWooden, ClassicHutStone]);
+	if (needs_power) GivePlayerPowerKnowledge(player);
+	GivePlayerCraftingKnowledge(player);
+	GivePlayerMiningKnowledge(player);
+	GivePlayerPumpingKnowledge(player);	
+	GivePlayerChemicalKnowledge(player);
+
+	return true;
+}
