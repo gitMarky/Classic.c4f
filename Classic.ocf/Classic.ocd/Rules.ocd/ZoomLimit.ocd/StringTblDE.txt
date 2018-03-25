@@ -1,2 +1,0 @@
-Name=Zoom-Begrenzung
-Description=Begrenzt den Zoom-Faktor auf vom Szenario vorgegebene Werte.

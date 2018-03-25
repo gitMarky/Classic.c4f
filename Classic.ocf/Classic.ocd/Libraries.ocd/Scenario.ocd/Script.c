@@ -25,7 +25,6 @@ public func InitializePlayer(int player)
 private func Init_Rules()
 {
 	CreateObject(Rule_TeamAccount);
-	CreateObject(Rule_ZoomLimit);
 	
 	if (SCENPAR_PowerNeed == 2) CreateObject(Rule_NoPowerNeed);
 }
