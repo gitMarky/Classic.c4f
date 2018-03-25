@@ -83,7 +83,7 @@ private func Smoking()
 }
 
 
-/* Door control */
+/* Sounds */
 
 private func SoundOpenDoor()
 {
@@ -93,6 +93,11 @@ private func SoundOpenDoor()
 private func SoundCloseDoor()
 {
 	Sound("Structures::SteelGate2");
+}
+
+private func Collection(object obj, bool put)
+{
+	Sound("Hits::Clonk");
 }
 
 /* Properties */
