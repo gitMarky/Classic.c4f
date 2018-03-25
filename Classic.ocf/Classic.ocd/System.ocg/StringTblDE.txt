@@ -9,9 +9,9 @@ MsgSell=Verkaufen
 
 TxtMissingMaterial=Fehlendes Material
 
-
-
-
+DeadDescMasculinum=Toter
+DeadDescFemininum=Tote
+DeadDescNeutrum=Totes
 
 
 # Just copied from the original, this should catch a lot of warnings

@@ -9,8 +9,9 @@ MsgSell=Sell
 
 TxtMissingMaterial=Missing Material
 
-
-
+DeadDescMasculinum=Dead
+DeadDescFemininum=Dead
+DeadDescNeutrum=Dead
 
 
 # Just copied from the original, this should catch a lot of warnings

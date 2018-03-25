@@ -75,6 +75,7 @@ private func Death()
 	PlaySoundDeath();
 	SetDir(DIR_Left);
 	SetAction(Format("Dead%d", RandomX(1, 2)));
+	SetName(Format("$DeadDesc$ %s", GetName()));
 }
 
 /* -- Activity -- */
