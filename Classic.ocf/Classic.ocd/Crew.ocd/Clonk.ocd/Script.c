@@ -57,14 +57,8 @@ func SetSkin(int new_skin)
 
 
 local ActMap = {
-Jump = {
-	Accel = 4,
-},
-WallJump = {
-	Accel = 6,
-},
 Dive = {
-	Accel = 2,
+	Accel = 8,
 },
 Dig = {
 		Accel = 50,
