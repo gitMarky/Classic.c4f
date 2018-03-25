@@ -26,7 +26,7 @@ global func GivePlayerBasicKnowledge(int player)
 	// Basic tools for mining and tree chopping
 	var knowledge =
 	[
-		Shovel, Axe, Pickaxe, Barrel, Torch, Flint
+		Shovel, Axe, Pickaxe, Barrel, Torch, Flint, Loam
 	];
 	GivePlayerSpecificKnowledge(player, knowledge);
 }

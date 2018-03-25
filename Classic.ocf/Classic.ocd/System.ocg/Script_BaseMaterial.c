@@ -43,6 +43,7 @@ global func GivePlayerHomebaseMaterial(int player)
 	{
 		Conkit = 3,
 		Flint = 5,
+		Loam = 5,
 		ClassicFlag = 3,
 	};
 	
