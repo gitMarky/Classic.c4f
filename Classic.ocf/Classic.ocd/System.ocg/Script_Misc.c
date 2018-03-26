@@ -23,3 +23,18 @@ global func RandomRange(int initial, int range)
 {
 	return RandomX(initial - range, initial + range);
 }
+
+
+/**
+ Create contents if necessary.
+ */
+global func EnsureHasContents(id type, int amount)
+{
+	AssertObjectContext();
+	amount = amount ?? 1;
+	amount = Max(0, amount - ContentsCount(type));
+	if (amount > 0)
+	{
+		CreateContents(type, amount);
+	}
+}

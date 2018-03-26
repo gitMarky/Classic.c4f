@@ -1,2 +1,0 @@
-Name=Startausrüstung
-Description=Rekrutierte Clonks kriegen eine Ausrüstung mitgegeben.

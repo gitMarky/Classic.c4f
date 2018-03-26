@@ -1,2 +1,0 @@
-Name=Starting equipment
-Description=Recruited clonks start with predefined equipment.

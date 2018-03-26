@@ -52,8 +52,7 @@ private func Player_StartingEquipment(int player)
 
 private func Player_StartingEquipmentForCrewMember(int player, object crew, int crew_index)
 {
-	crew->CreateContents(Shovel);
-	crew->CreateContents(Axe);
+	// Fill with your own equipment
 }
 
 /* -- Goals -- */
