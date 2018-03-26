@@ -79,8 +79,7 @@ private func GetSellableContents(int wealth_player, object container)
 
 private func CanStackSellableContents(object first, object second)
 {
-	return first->CanConcatPictureWith(second) // need the same picture
-	   && (this->GetSellValue(first) == this->GetSellValue(second)); // and the same value
+	return this->GetSellValue(first) == this->GetSellValue(second); // and the same value
 }
 
 
