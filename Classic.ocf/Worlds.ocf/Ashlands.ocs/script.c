@@ -17,6 +17,7 @@ private func Init_Environment()
 	Cloud->SetPrecipitation("Ashes", 5 * SCENPAR_Difficulty);
 	Cloud->SetCloudRGB(60, 35, 25);
 	Cloud->SetLightning(5 + 5 * SCENPAR_Difficulty);
+	Cloud->SetInsertPxs(true);
 
 	// Some natural disasters
 	Disaster(Earthquake, 2, 3);
