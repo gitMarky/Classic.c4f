@@ -151,6 +151,9 @@ local ActMap = {
 func Definition(def) {
 	SetProperty("PictureTransformation", Trans_Mul(Trans_Rotate(-20, 1, 0), Trans_Rotate(-20, 0, 1, 0)));
 }
+
+public func IsHammerBuildable() { return true; }
+
 local Name = "$Name$";
 local Description = "$Description$";
 local BlastIncinerate = 100;
