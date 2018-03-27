@@ -26,14 +26,14 @@ global func GivePlayerBasicKnowledge(int player)
 	// Basic tools for mining and tree chopping
 	var knowledge =
 	[
-		Shovel, Axe, Pickaxe, Barrel, Torch, Flint, Loam
+		Shovel, Axe, Pickaxe, Barrel, Torch, Flint, Loam, ClassicFlag
 	];
 	GivePlayerSpecificKnowledge(player, knowledge);
 }
 
 global func GivePlayerCraftingKnowledge(int player)
 {
-	GivePlayerSpecificKnowledge(player, [Sawmill, ClassicFoundry, ClassicWorkshop]);
+	GivePlayerSpecificKnowledge(player, [Sawmill, ClassicFoundry, ClassicWorkshop, WoodenBridge]);
 }
 
 global func GivePlayerPowerKnowledge(int player)
@@ -53,5 +53,10 @@ global func GivePlayerPumpingKnowledge(int player)
 
 global func GivePlayerMiningKnowledge(int player)
 {
-	GivePlayerSpecificKnowledge(player, [ClassicElevator, ClassicLorry, ClassicDynamiteBox]);
+	GivePlayerSpecificKnowledge(player, [ClassicElevator, ClassicLorry, ClassicDynamiteBox, WoodenBridge]);
+}
+
+global func GivePlayerTransportationKnowledge(int player)
+{
+	GivePlayerSpecificKnowledge(player, [ClassicLorry, Blimp, WoodenBridge]);
 }
