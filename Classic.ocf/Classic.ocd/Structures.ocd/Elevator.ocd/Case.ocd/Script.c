@@ -9,11 +9,6 @@ func Initialize()
 	_inherited(...);
 
 	AddEffect("CheckAutoMoveTo", this, 1, 30, this);
-	//AddEffect("ElevatorUpperLimitCheck", this, 1, 1, this);
-	//AddEffect("FetchVehicles", this, 1, 1, this);
-	
-	//case_speed = ElevatorCase_move_speed / 2;
-	//case_speed_automatic = ElevatorCase_move_speed;
 	
 	partner_was_synced = false;
 
@@ -37,15 +32,16 @@ func Drilling()
 	{
 		rect.x = Min(rect.x, partner->GetX() + bounds_l);
 		rect.y = Min(rect.y, partner->GetY() + bounds_u);
-		rect.w = Max(rect.w, partner->GetX() + bounds_r);
-		rect.h = Max(rect.h, partner->GetY() + bounds_d);
+		rect.wdt = Max(rect.wdt, partner->GetX() + bounds_r);
+		rect.hgt = Max(rect.hgt, partner->GetY() + bounds_d);
 	}
-	DigFreeRect(rect.x, rect.y, rect.w - rect.x, rect.h - rect.y);
+	DigFreeRect(rect.x, rect.y, rect.wdt - rect.x, rect.hgt - rect.y);
 
 	// has to remove dug out earth!!!!!
 	var chunks = FindObjects(Find_Func("IsRemoveableMaterialChunk"), Find_InRect(bounds_l, bounds_u, bounds_r-bounds_l, bounds_d-bounds_u));
 	for (var obj in chunks) obj->RemoveObject();
 }
+
 
 local Plane = 250;
 
