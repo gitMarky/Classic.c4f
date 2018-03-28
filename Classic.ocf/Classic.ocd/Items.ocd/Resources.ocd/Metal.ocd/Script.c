@@ -26,4 +26,4 @@ local Description = "$Description$";
 local Collectible = true;
 local Rebuy = true;
 local Plane = 470;
-local Components = {Ore = 1};
+local Components = {Ore = 1, /* Fix contents of wallkit */ Metal = 0};
