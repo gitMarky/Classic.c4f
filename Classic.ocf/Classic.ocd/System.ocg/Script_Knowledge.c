@@ -60,3 +60,8 @@ global func GivePlayerTransportationKnowledge(int player)
 {
 	GivePlayerSpecificKnowledge(player, [ClassicLorry, Blimp, WoodenBridge]);
 }
+
+global func GivePlayerUndergroundKnowledge(int player)
+{
+	GivePlayerSpecificKnowledge(player, [Torch, WoodenBridge]);
+}

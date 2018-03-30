@@ -99,6 +99,7 @@ private func Player_InitialKnowledge(int player) // TODO
 	if (needs_power) GivePlayerPowerKnowledge(player);
 	GivePlayerMiningKnowledge(player);
 	GivePlayerChemicalKnowledge(player);
+	GivePlayerUndergroundKnowledge(player);
 
 	return true;
 }

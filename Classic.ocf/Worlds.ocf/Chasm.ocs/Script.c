@@ -113,6 +113,7 @@ private func Player_InitialKnowledge(int player)
 	GivePlayerMiningKnowledge(player);
 	GivePlayerPumpingKnowledge(player);	
 	GivePlayerChemicalKnowledge(player);
+	GivePlayerUndergroundKnowledge(player);
 
 	return true;
 }
