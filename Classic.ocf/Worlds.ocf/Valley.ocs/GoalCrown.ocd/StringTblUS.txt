@@ -1,3 +1,0 @@
-Name=Find the Crown
-MsgGoalFulfilled=%s sold King Wacker's crown.
-MsgGoalUnFulfilled=King Wacker's crowns has not been sold yet.

@@ -1,3 +1,0 @@
-Name=Kronensuche
-MsgGoalFulfilled=%s hat König Wackers Krone verkauft.
-MsgGoalUnFulfilled=König Wackers Krone wurde noch nicht verkauft.
