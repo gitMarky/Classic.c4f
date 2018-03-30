@@ -78,6 +78,15 @@ private func FxIntBaseCheckTimer(object target, proplist effect, int time)
 	}
 }
 
+/*-- Saving --*/
+
+public func SaveScenarioObject(proplist props)
+{
+	if (!inherited(props, ...)) return false;
+	if (GetActionTarget() && GetAction() == "FlyBase") props->AddCall("Home base", this, "SetBase", GetActionTarget());
+	return true;
+}
+
 
 local ActMap = {
 FlyBase = {

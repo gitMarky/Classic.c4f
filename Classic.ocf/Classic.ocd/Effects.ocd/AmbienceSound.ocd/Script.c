@@ -188,3 +188,28 @@ public func Wait(int frames)
 	}
 	return this;
 }
+
+
+/*-- Saving --*/
+
+public func SaveScenarioObject(proplist props)
+{
+	if (!inherited(props, ...)) return false;
+	var fx = GetEffect("FxAmbience", this);
+	if (fx)
+	{
+		var idName = Format("%i", GetID());
+		if (fx.SoundName) props->AddCall(idName, this, "SetSound", fx.SoundName);
+		if (fx.SoundOptions) props->AddCall(idName, this, "SetOptions", fx.SoundOptions);
+		if (fx.Interval) props->AddCall(idName, this, "SetInterval", fx.Interval);
+		if (fx.Chance) props->AddCall(idName, this, "SetChance", fx.Chance);
+		if (fx.Condition) props->AddCall(idName, this, "SetCondition", fx.Condition);
+		if (fx.Wait) props->AddCall(idName, this, "Wait", fx.Wait);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
