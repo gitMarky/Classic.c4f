@@ -3,16 +3,30 @@
 // Author: Randrian
 
 // Determines it the Building is acutally a base
-local fIsBase;
-local iEnergy;
+local library_homebase;
+
+public func Construction()
+{
+	if (!library_homebase)
+	{
+		library_homebase = 
+		{
+			is_base = false,
+			healing_capacity = 0,
+		};
+	}
+	return _inherited(...);
+}
 
 // ---------------- Settings for base funcionallity --------------------
 // --- these functions can be overloaded for vendors or special bases ---
 
 // Determines if the base can heal allied clonks
 public func CanHeal() { return true; }
-// The amount of energy the base can store, if none the base can't heal
-public func GetHeal() { return 100; }
+// The amount of energy the base can store, if none the base can't heal; precision = 1
+public func GetHeal() { return 100000; }
+// The amount of energy that is healed per frame; precision = 1 
+public func GetHealRate() { return 200;}
 // The money one filling of the bases energy storage costs
 public func GetHealCost() { return 5;}
 
@@ -29,64 +43,91 @@ public func CanBlockEnemies() { return true; }
 public func IsBaseBuilding() { return true; }
 
 // This Building is a base at the moment
-public func IsBase() { return fIsBase; }
+public func IsBase() { return library_homebase.is_base; }
 
 // Makes this building a base or removes the base functionallity
-public func MakeBase(bool fRemoveBase)
+public func MakeBase(bool enable, int healing_capacity)
 {
-	if (fRemoveBase)
+	library_homebase.is_base = enable ?? true;
+	library_homebase.healing_capacity = Max(0, healing_capacity);
+	if (library_homebase.is_base)
 	{
-		fIsBase = 0;
-		RemoveEffect("IntBase", this);
+		CreateEffect(FxHomeBase, 1, 10);
 	}
 	else
 	{
-		fIsBase = 1;
-		AddEffect("IntBase", this, 1, 10, this);
-		//if (!FindObject(Find_ID(BaseMaterial), Find_Owner(GetOwner())))
-		//	CreateObjectAbove(BaseMaterial, AbsX(10), AbsY(10), GetOwner());
+		RemoveEffect("FxHomeBase", this);
 	}
+}
+
+// ---------- Saving -----------
+
+public func SaveScenarioObject(proplist props)
+{
+	if (!inherited(props, ...)) return false;
+	props->AddCall("HomeBase", this, "MakeBase", library_homebase.is_base, library_homebase.healing_capacity);
+	return true;
 }
 
 // ---------- Healing, Extinguishing and Autosell -----------
 
-func FxIntBaseTimer(pThis, effect, iTime)
+local FxHomeBase = new Effect
 {
-	var pObj;
-	// Can this base heal? Then look for clonks that need some
-	if (CanHeal() && GetHeal())
-		for (pObj in FindObjects(Find_Container(this), Find_OCF(OCF_CrewMember), Find_Allied(GetOwner())))
-		{
-			if (pObj->GetEnergy() < pObj->GetMaxEnergy() && !GetEffect("IntBaseHeal", pObj))
-				AddEffect("IntBaseHeal", pObj, 1, 1, this);
-		}
-	// Can this base extinguish? Then look for something on fire
-	if (CanExtinguish())
-		for (pObj in FindObjects(Find_Container(this), Find_OCF(OCF_OnFire), Find_Allied(GetOwner())))
-			pObj->Extinguish();
-}
+	Timer = func ()
+	{
+		// Can this base heal? Then look for clonks that need some
+		var crew;
+		if (Target->CanHeal() && Target->GetHeal())
+			for (crew in FindObjects(Find_Container(Target), Find_OCF(OCF_CrewMember), Find_Allied(Target->GetOwner())))
+			{
+				if (crew->GetEnergy() < crew->GetMaxEnergy() && !GetEffect("FxHomeBaseHeal", crew))
+					crew->CreateEffect(Target.FxHomeBaseHeal, 1, 1, Target);
+			}
+		// Can this base extinguish? Then look for something on fire
+		var burning;
+		if (Target->CanExtinguish())
+			for (burning in FindObjects(Find_Container(Target), Find_OCF(OCF_OnFire), Find_Allied(Target->GetOwner())))
+				burning->Extinguish();
+	},
+};
 
-func FxIntBaseHealTimer(pClonk, effect)
+local FxHomeBaseHeal = new Effect
 {
-	// The clonk has left the base? Stop!
-	if (pClonk->Contained() != this) return -1;
-	// Full energy? Stop too.
-	if (pClonk->GetEnergy() >= pClonk->GetMaxEnergy()) return -1;
+	Base = nil,
 
-	// No energy left? Buy some
-	if (!iEnergy)
+	Start = func(int temporary, object base)
 	{
-		if (GetWealth(GetOwner()) >= GetHealCost())
+		if (!temporary)
 		{
-			DoWealth(GetOwner(), -GetHealCost());
-			Sound("UI::UnCash?", {player =  pClonk->GetOwner()});
-			iEnergy = GetHeal()*5;
+			Base = base;
 		}
-	}
-	// Some energy in the storage? heal clonk
-	if (iEnergy)
+	},
+
+	Timer = func()
 	{
-		pClonk->DoEnergy(200, 1, FX_Call_EngBaseRefresh, GetOwner()+1);
-		iEnergy--;
-	}
-}
+		// The clonk has left the base? Stop!
+		if (Target->Contained() != Base) return FX_Execute_Kill;
+		// Full energy? Stop too.
+		if (Target->GetEnergy() >= Target->GetMaxEnergy()) return FX_Execute_Kill;
+		var owner = Base->GetOwner();
+		var rate = Base->GetHealRate();
+	
+		// No energy left? Buy some
+		if (Base.library_homebase.healing_capacity < rate)
+		{
+			var cost = Base->GetHealCost();
+			if (GetWealth(owner) >= cost)
+			{
+				DoWealth(owner, -cost);
+				Base->Sound("UI::UnCash?", {player = owner});
+				Base.library_homebase.healing_capacity += Base->GetHeal();
+			}
+		}
+		// Some energy in the storage? heal clonk
+		if (Base.library_homebase.healing_capacity >= rate)
+		{
+			Target->DoEnergy(rate, 1, FX_Call_EngBaseRefresh, owner + 1);
+			Base.library_homebase.healing_capacity -= rate;
+		}
+	},
+};

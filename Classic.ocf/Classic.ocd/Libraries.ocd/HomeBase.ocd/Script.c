@@ -14,7 +14,7 @@ private func Collection2(object item)
 		if (!IsBase() && item->GetOwner() != NO_OWNER)
 		{
 			item->~SetBase(this);
-			MakeBase(false); // this actually makes it a base...
+			MakeBase(true);
 		}
 		ScheduleCall(this, this.UpdateInteractionMenus, 2);
 	}
@@ -25,7 +25,7 @@ private func Collection2(object item)
 private func OnFlagLost()
 {
 	UpdateInteractionMenus();
-	MakeBase(true);
+	MakeBase(false);
 }
 
 /* --- Buy materials at base --- */
